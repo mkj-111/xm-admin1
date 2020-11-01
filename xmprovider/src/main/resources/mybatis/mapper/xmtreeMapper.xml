@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jk.mapper.xmtreeMapper" >
+  <resultMap id="BaseResultMap" type="com.jk.entity.xmtree" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="text" property="text" jdbcType="VARCHAR" />
+    <result column="herf" property="herf" jdbcType="VARCHAR" />
+    <result column="pid" property="pid" jdbcType="INTEGER" />
+  </resultMap>
+  <select id="findtree" resultMap="BaseResultMap">
+      select * from xm_tree where pid=#{pid}
+  </select>
+
+</mapper>

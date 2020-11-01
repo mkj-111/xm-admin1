@@ -21,6 +21,11 @@
 
 	<dependencies>
 		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<optional>true</optional>
+		</dependency>
+		<dependency>
 			<groupId>com.jk</groupId>
 			<artifactId>cummon</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
@@ -67,7 +72,20 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
+
 		</plugins>
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+			</resource>
+			<resource>
+				<directory>src/main/java</directory>
+				<filtering>false</filtering>
+				<includes>
+					<include>**/mapping/*.xml</include>
+				</includes>
+			</resource>
+		</resources>
 	</build>
 
 </project>
