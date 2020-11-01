@@ -1,0 +1,26 @@
+server:
+  port: 8761
+eureka:
+  instance:
+    hostname: localhost
+  client:
+    fetch-registry: false
+    register-with-eureka: false
+    service-url:
+      defaultZone: http://${eureka.instence.hostname}:${server.port}
+  server:
+    enable-self-preservation: false
+spring:
+  zipkin:
+    base-url: http://localhost:9411
+    sender:
+      type: rabbit
+  sleuth:
+    sampler:
+      probability: 1
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+

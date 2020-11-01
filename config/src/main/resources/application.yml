@@ -1,0 +1,22 @@
+server:
+  port: 8768
+
+spring:
+  application:
+    name: config
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/mkj-111/mkj-config.git
+          search-paths: /
+          username:
+          password:
+          skip-ssl-validation: true
+      label: master
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+
