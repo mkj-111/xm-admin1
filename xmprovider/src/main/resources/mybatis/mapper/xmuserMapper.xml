@@ -10,7 +10,7 @@
     <result column="phone" property="phone" jdbcType="VARCHAR" />
     <result column="user_status" property="userStatus" jdbcType="VARCHAR" />
   </resultMap>
-  <select id="findUserByName" resultMap="BaseResultMap" parameterType="string">
+  <select id="findUserByName" resultMap="BaseResultMap">
       select * from xm_user  where user_account=#{userAccount}
   </select>
 
