@@ -22,5 +22,14 @@ public class jumpcontroller {
     public String index(){
         return "index";
     }
+    //跳转树页面index
+    @RequestMapping("index1")
+    public String index1(){
+        return "index1";
+    }
 
+    @RequestMapping("main")
+    public String main(){
+        return "main_page";
+    }
 }
