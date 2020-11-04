@@ -11,20 +11,19 @@ import java.util.List;
 
 /**
  * @author 毛康健
- * @description 类型自联查
+ * @description
  * @create 2020/11/3
  */
 @RestController
+@RequestMapping("type")
 public class TypetreeController {
-
 
     @Autowired
     private TypetreeService typetreeService;
 
     //查询分类导航
     @RequestMapping("findtype")
-    public List<TypetreeBean>findtype(@RequestParam Integer pid){
+    public List<TypetreeBean> findtype(@RequestParam Integer pid){
         return typetreeService.findtype(pid);
     }
-
 }
