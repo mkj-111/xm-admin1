@@ -30,7 +30,6 @@
 		<script type="text/javascript" src="/mi/js/jquery-1.4.2.min.js"></script>
 		<script type="text/javascript">
 			$(function(){
-
 				//导航栏
 				$(".top-navigation>ul>li>ul").hide();
 				$(".top-navigation>ul>li").hover(function(){
@@ -340,14 +339,51 @@
 			<div class="centre3">
 		 		<div id="big_banner_wrap">
 					<ul id="banner_menu_wrap">
-						<li >
+						<li class="active"img>
 							<a>手机&nbsp;电话卡</a>
 							<a class="banner_menu_i">&gt;</a>
 							<div class="banner_menu_content" style="width: 900px; top: -20px;">
 								<ul class="banner_menu_content_ul">
 									<li>
-										<a><img src="/mi/img/left-side/cellphone/sj (1).jpg"></a><a>大米NOTE</a>
-									</li>
+										<a><img src="/mi/img/left-side/cellphone/sj (1).jpg"></a><a>大米NOTE</a></li>
+									<li>
+										<a><img src="/mi/img/left-side/cellphone/sj (1).png"></a><a>大米手机4</a></li>
+									<li>
+										<a><img src="/mi/img/left-side/cellphone/sj (2).png"></a><a>红米手机2</a></li>
+									<li>
+										<a><img src="/mi/img/left-side/cellphone/sj (4).png"></a><a>红米手机2A</a></li>
+									<li>
+										<a><img src="/mi/img/left-side/cellphone/sj (5).png"></a><a>红米NOTE2</a></li>
+									<li>
+										<a><img src="/mi/img/left-side/cellphone/sj (6).png"></a><a>红米NOTE&nbsp;4G双卡</a></li>
+								</ul>
+								<ul class="banner_menu_content_ul">
+									<li>
+										<a><img src="/mi/img/left-side/cellphone/sj (7).png"></a><a>大米平板</a></li>
+									<li>
+										<a><img src="/mi/img/left-side/cellphone/sj (8).png"></a><a>电信版</a></li>
+									<li>
+										<a><img src="/mi/img/left-side/cellphone/sj (9).png"></a><a>合约机</a></li>
+									<li>
+										<a><img src="/mi/img/left-side/cellphone/sj (10).png"></a><a>中信特权</a></li>
+									<li>
+										<a><img src="/mi/img/left-side/cellphone/sj (11).png"></a><a>对比手机</a></li>
+									<li>
+										<a><img src="/mi/img/left-side/cellphone/sj (12).png"></a><a>对比手机</a></li>
+								</ul>
+								<ul class="banner_menu_content_ul">
+									<li>
+										<a><img src="/mi/img/left-side/cellphone/sj (2).png"></a><a>大米平板</a></li>
+									<li>
+										<a><img src="/mi/img/left-side/cellphone/sj (3).png"></a><a>电信版</a></li>
+									<li>
+										<a><img src="/mi/img/left-side/cellphone/sj (10).png"></a><a>合约机</a></li>
+									<li>
+										<a><img src="/mi/img/left-side/cellphone/sj (12).png"></a><a>中信特权</a></li>
+									<li>
+										<a><img src="/mi/img/left-side/cellphone/sj (4).png"></a><a>对比手机</a></li>
+									<li>
+										<a><img src="/mi/img/left-side/cellphone/sj (5).png"></a><a>对比手机</a></li>
 								</ul>
 							</div>
 						</li>
@@ -612,7 +648,7 @@
 								<span id="con3_1sp1">14:00</span>场
 							</div>
 							<div id="content3_1_buttom_left_log">
-								<img src="/mi/img/tubiaoimg/闪电 (1).png" />
+								<img src="img/tubiaoimg/闪电 (1).png" />
 							</div>
 							<div id="content3_1_buttom_left_jishi">
 								<div>
@@ -972,7 +1008,7 @@
 		        </div>
 		        <!--第十四行-->
 		        <div class="centre">
-		        	<a href="#"><img  src="/mi/img/tubiaoimg/横条4.jpg" alt="" class="advertising-img" ></a>
+		        	<a href="#"><img  src="img/tubiaoimg/横条4.jpg" alt="" class="advertising-img" ></a>
 		        </div>
 		        <!--第十五行-->
 		        <div class="title1">
@@ -1046,7 +1082,7 @@
 		            </div>
 		        </div>
 		        <!--第十六行-->
-		        <div class="centre" >
+		        <div class="centre">
 		        	<a href="#"><img  src="/mi/img/tubiaoimg/横条5.jpg" alt="" class="advertising-img" ></a>
 		        </div>
 		        <!--第十七行-->
@@ -1100,7 +1136,7 @@
 		        </div>
 		        <!--第十八-->
 		        <div class="centre">
-		        	<a href="#"><img  src="/mi/img/tubiaoimg/横条6.jpg" alt="" class="advertising-img" ></a>
+		        	<a href="#"><img  src="img/tubiaoimg/横条6.jpg" alt="" class="advertising-img" ></a>
 		        </div>
 		        <!--第十九-->
 				<!--第二十-->
@@ -1115,7 +1151,7 @@
 									<span id="sp1_1" style="color: black;">查看全部</span>
 								</div>
 								<div id="dv2">
-									<img src="/mi/img/shoujiimg/向右圆箭头 右箭头 向右 面性 (2).png" id="imm"/>
+									<img src="img/shoujiimg/向右圆箭头 右箭头 向右 面性 (2).png" id="imm"/>
 								</div>
 							</a>
 						</div>
@@ -1275,73 +1311,8 @@
 		    </div>
 		</div>
 	</body>
-<script type="text/javascript">
-      $(function(){
-         type()
-	  })
+<script>
 
-	function type(){
-      	var str="";
-		var pid=0;
-		var name="";
-           $.ajax({
-			   url:"/type/findtype",
-			   type:"post",
-			   data:{pid:0},
-			   success:function (data) {
-				   for (var i = 0; i < data.length; i++) {
-					   pid = data[i].id;
-					   name = data[i].text;
-					   console.log(name)
-					   str+='<li>';
-					   str+='<a>'+name+'</a>';
-					   str+='<a class="banner_menu_i">&gt;</a>';
-					   str+='<div class="banner_menu_content" id='+data[i].id+' style="width: 900px; top: -20px;">';
-
-					   str+='</div>';
-					   str+='</li>';
-					   $("#banner_menu_wrap").html(str);
-					   type1(pid);
-				   }
-			   }
-		   })
-	}
-	  function type1(pid){
-		  var str="";
-		  $.ajax({
-			  url:"/type/findtype",
-			  type:"post",
-			  data:{pid:pid},
-			  success:function (data){
-				  for (var i=0;i<data.length;i++){
-				  	if(i<4){
-						str+='<ul class="banner_menu_content_ul" >';
-						str+='<li>';
-						str+='<a><img src="/mi/img/left-side/cellphone/sj (1).jpg"></a><a>'+data[i].text+'</a></li>';
-						str+='</ul>';
-					}
-					 else if(i>4&&i<9){
-						  str+='<ul class="banner_menu_content_ul" >';
-						  str+='<li>';
-						  str+='<a><img src="/mi/img/left-side/cellphone/sj (1).jpg"></a><a>'+data[i].text+'</a></li>';
-						  str+='</ul>';
-					  }else if(i>9&&i<13){
-						  str+='<ul class="banner_menu_content_ul" >';
-						  str+='<li>';
-						  str+='<a><img src="/mi/img/left-side/cellphone/sj (1).jpg"></a><a>'+data[i].text+'</a></li>';
-						  str+='</ul>';
-					  }else if(i>13){
-						  str+='<ul class="banner_menu_content_ul" >';
-						  str+='<li>';
-						  str+='<a><img src="/mi/img/left-side/cellphone/sj (1).jpg"></a><a>'+data[i].text+'</a></li>';
-						  str+='</ul>';
-					  }
-
-				  }
-                  $('#'+pid+'').html(str);
-			  }
-		  })
-	  }
-
+	function
 </script>
 </html>
