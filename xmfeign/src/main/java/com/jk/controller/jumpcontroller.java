@@ -13,9 +13,9 @@ public class jumpcontroller {
         return "mi";
     }
     //跳转首页页面
-    @RequestMapping("/xm")
+    @RequestMapping("guan")
     public String guan(){
-        return "main_page";
+        return "guan";
     }
     //跳转树页面index
     @RequestMapping("index")
@@ -28,21 +28,13 @@ public class jumpcontroller {
         return "index1";
     }
 
-
-    //跳转订单页面
-    @RequestMapping("/goodsPhone")
-    public String goodsPhone(){
-        return "admin/goods_phones";
-    }
-
-
-
     @RequestMapping("main")
     public String main(){
         return "main_page";
     }
-    @RequestMapping("test")
-    public String test(){
-        return "test";
+
+    @RequestMapping("toskill")
+    public String toskill(){
+        return "skill";
     }
 }
