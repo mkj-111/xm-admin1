@@ -1,15 +1,15 @@
 //
 function fun1(){
-	document.getElementById("imgs").src="/mi/img/tubiaoimg/right2.png";
+	document.getElementById("imgs").src="img/tubiaoimg/right2.png";	
 }
 function fun1_1(){
-	document.getElementById("imgs").src="/mi/img/tubiaoimg/right1.png";
+	document.getElementById("imgs").src="img/tubiaoimg/right1.png";	
 }
 function fun2(){
-	document.getElementById("imgs2").src="/mi/img/tubiaoimg/left2.png";
+	document.getElementById("imgs2").src="img/tubiaoimg/left2.png";	
 }
 function fun2_1(){
-	document.getElementById("imgs2").src="/mi/img/tubiaoimg/left1.png";
+	document.getElementById("imgs2").src="img/tubiaoimg/left1.png";	
 }
 
 
