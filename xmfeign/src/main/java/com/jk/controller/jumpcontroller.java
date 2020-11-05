@@ -32,4 +32,8 @@ public class jumpcontroller {
     public String main(){
         return "main_page";
     }
+    @RequestMapping("test")
+    public String test(){
+        return "test";
+    }
 }
