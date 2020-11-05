@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jk.mapper.LxTopMapper" >
+  <select id="queryTopList" resultType="com.jk.entity.GoodsBeab">
+        SELECT * FROM
+    (select * from
+    (SELECT a.id as id,a.goods_name as goodsname,b.color_name as colorname,c.version_name as versionname,c.goods_price as goodsprice,a.goods_img as goodsimg,a.goods_type_id as goodstypeid from xm_goods a left join xm_color b on a.goods_color_id = b.color_id
+    LEFT JOIN xm_versions c on b.color_id = c.color_id ORDER BY c.goods_price) aa
+    GROUP BY aa.goodsname)bb
+    <include refid="aaa"></include>
+  </select>
+  <sql id="aaa">
+    <where>
+      <if test="goodsBeab.goodsname != null and goodsBeab.goodsname != '' ">
+            and bb.goodsname like '%${goodsBeab.goodsname}%'
+      </if>
+      <if test="goodsBeab.goodstypeid != 0 and goodsBeab.goodstypeid != null ">
+            and bb.goodstypeid = #{goodsBeab.goodstypeid}
+      </if>
+    </where>
+  </sql>
+</mapper>

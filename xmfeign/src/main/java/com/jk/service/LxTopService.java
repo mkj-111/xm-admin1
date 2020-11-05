@@ -1,16 +1,15 @@
 package com.jk.service;
 
-
-import com.jk.entity.Goods;
+import com.jk.entity.GoodsBeab;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
-@FeignClient("xmprovider")
-public interface GoodsService {
+@FeignClient(value = "xmprovider")
+public interface LxTopService {
 
-    @RequestMapping("/findGoods")
-    public List<Goods> findGoods(@RequestParam Integer typeId);
+    @RequestMapping("queryTopList")
+    public List<GoodsBeab> queryTopList(@RequestParam String topName,@RequestParam Integer type);
 }
