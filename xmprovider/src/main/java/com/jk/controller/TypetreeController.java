@@ -4,6 +4,7 @@ import com.jk.entity.TypetreeBean;
 import com.jk.service.TypetreeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -22,7 +23,7 @@ public class TypetreeController {
 
     //查询分类导航
     @RequestMapping("findtype")
-    public List<TypetreeBean>findtype(Integer pid){
+    public List<TypetreeBean>findtype(@RequestParam Integer pid){
         return typetreeService.findtype(pid);
     }
 

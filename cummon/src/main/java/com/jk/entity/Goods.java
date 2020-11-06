@@ -1,5 +1,7 @@
 package com.jk.entity;
 
+import java.util.Date;
+
 public class Goods {
     private Integer id;
 
@@ -15,13 +17,24 @@ public class Goods {
 
     private String goodsColorId;
 
-    private String goodsVersionsId;
-
     private String goodsImgAll;
 
     private String goodsInfo;
 
-    private Integer goodsPriceId;
+    private Integer goodsNum;
+
+    private Date goodsDate;
+
+    //价格
+    private Long goodsPrice;
+
+    public Long getGoodsPrice() {
+        return goodsPrice;
+    }
+
+    public void setGoodsPrice(Long goodsPrice) {
+        this.goodsPrice = goodsPrice;
+    }
 
     public Integer getId() {
         return id;
@@ -79,14 +92,6 @@ public class Goods {
         this.goodsColorId = goodsColorId == null ? null : goodsColorId.trim();
     }
 
-    public String getGoodsVersionsId() {
-        return goodsVersionsId;
-    }
-
-    public void setGoodsVersionsId(String goodsVersionsId) {
-        this.goodsVersionsId = goodsVersionsId == null ? null : goodsVersionsId.trim();
-    }
-
     public String getGoodsImgAll() {
         return goodsImgAll;
     }
@@ -103,11 +108,19 @@ public class Goods {
         this.goodsInfo = goodsInfo == null ? null : goodsInfo.trim();
     }
 
-    public Integer getGoodsPriceId() {
-        return goodsPriceId;
+    public Integer getGoodsNum() {
+        return goodsNum;
     }
 
-    public void setGoodsPriceId(Integer goodsPriceId) {
-        this.goodsPriceId = goodsPriceId;
+    public void setGoodsNum(Integer goodsNum) {
+        this.goodsNum = goodsNum;
+    }
+
+    public Date getGoodsDate() {
+        return goodsDate;
+    }
+
+    public void setGoodsDate(Date goodsDate) {
+        this.goodsDate = goodsDate;
     }
 }

@@ -3,9 +3,9 @@ package com.jk.service.Impl;
 import com.jk.entity.TypetreeBean;
 import com.jk.mapper.TypetreeBeanMapper;
 import com.jk.service.TypetreeService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 /**
@@ -16,9 +16,8 @@ import java.util.List;
 @Service
 public class TypetreeServiceImpl implements TypetreeService {
 
-    @Autowired
+    @Resource
     private TypetreeBeanMapper typetreeBeanMapper;
-
 
     @Override
     public List<TypetreeBean> findtype(Integer pid) {

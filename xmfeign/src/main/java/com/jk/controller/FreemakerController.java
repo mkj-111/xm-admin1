@@ -1,17 +1,13 @@
 package com.jk.controller;
 
 import com.jk.entity.Goods;
-import com.jk.service.GoodsService;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
-import org.springframework.data.mongodb.core.query.Criteria;
-import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.annotation.Resource;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
@@ -31,7 +27,7 @@ public class FreemakerController {
         Configuration configuration = new Configuration();
         //加载绝对路径的模板  加载的是一个文件夹
         try {
-                configuration.setDirectoryForTemplateLoading(new File("G:\\IdeaProjects\\shixun-two\\xm-admin1\\xmfeign\\src\\main\\resources\\templates"));
+                configuration.setDirectoryForTemplateLoading(new File("D:\\workspace\\ideawork1\\sm-admin\\xmfeign\\src\\main\\resources\\templates"));
         } catch (IOException e) {
             e.printStackTrace();
         }
