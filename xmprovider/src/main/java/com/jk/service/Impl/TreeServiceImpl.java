@@ -24,17 +24,18 @@ public class TreeServiceImpl implements TreeService {
 
     private List<xmtree> findnode(int pid) {
         List<xmtree> list=xmtreeMapper.findtree(pid);
-        for (xmtree tree:list
+       /* for (xmtree tree:list
         ) {
             Integer id = tree.getId();
             List<xmtree> list1 = findnode(id);
             if(list1==null || list1.isEmpty()){
                 tree.setSelectable(true);
             }else{
-                tree.setSelectable(false);
+                tree.setSelectdsvsdvdsf
+            ectable(false);
                 tree.setNodes(list1);
             }
-        }
+        }*/
         return list;
     }
 }

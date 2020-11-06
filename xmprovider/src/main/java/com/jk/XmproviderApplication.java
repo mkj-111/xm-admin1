@@ -7,7 +7,6 @@ import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 
 @SpringBootApplication
 @EnableEurekaClient
-@MapperScan(basePackages = "com.jk.mapper")
 public class XmproviderApplication {
 
 	public static void main(String[] args) {

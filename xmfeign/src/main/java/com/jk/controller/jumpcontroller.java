@@ -35,8 +35,6 @@ public class jumpcontroller {
         return "admin/goods_phones";
     }
 
-
-
     @RequestMapping("main")
     public String main(){
         return "main_page";
