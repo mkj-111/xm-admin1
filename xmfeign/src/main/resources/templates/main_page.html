@@ -1,5 +1,23 @@
 <!DOCTYPE html>
-<html lang="en" >
+<html lang="en">
+<style type="text/css">
+	.blue {
+		background-color:#0000FF;
+		color:#FFF;
+	}
+	.red {
+		background-color: #fff8f6;
+		color: #ffffff;
+	}
+	.orange{
+		background-color: #e47833;
+		color: #ffffff;
+	}
+	.yellow {
+		background-color: #189395;
+		color: #000000;
+	}
+</style>
 	<head>
 		<meta charset="UTF-8">
 		<title>小米商城首页</title>
@@ -205,12 +223,13 @@
 		                <div class="top-shop">
 		                    <a href="#">购物车(0)</a>
 		                </div>
-		                <div class="laned">
-		                    <a href="#">登陆</a>
+		                <div class="laned" id="loginStatus">
+
+		                    <!--<a href="/jump/mi">登陆</a>
 		                    <span class="spn">|</span>
 		                    <a href="#">注册</a>
 		                    <span class="spn">|</span>
-		                    <a href="#">消息通知</a>
+		                    <a href="#">消息通知</a>-->
 		                </div>
 		            </div>
 		        </div>
@@ -528,22 +547,6 @@
 								</ul>
 							</div>
 						</li>
-						<li>
-							<a>生活&nbsp;箱包</a>
-							<a class="banner_menu_i">&gt;</a>
-							<div class="banner_menu_content" style="width: 300px; top: -398px;">
-								<ul class="banner_menu_content_ul">
-									<li>
-										<a><img src="img/left-side/life/bag.jpg"></a><a>背包</a></li>
-									<li>
-										<a><img src="img/left-side/life/zhoubian.jpg"></a><a>大米鼠标坠</a></li>
-									<li>
-										<a><img src="img/left-side/life/zhoubian.jpg"></a><a>生活周边</a></li>
-									<li>
-										<a><img src="img/left-side/life/wan.jpg"></a><a>玩酷产品</a></li>
-								</ul>
-							</div>
-						</li>-->
 					</ul>
 					<!--左侧end-->
 					<!--中部图片轮播-->
@@ -672,10 +675,6 @@
 			            <div class="main-box">
 			                <ul id="shouji">
 			                    <li class="little-box">
-<<<<<<< HEAD
-			                        <a href="/jump/goodsPhone">
-=======
->>>>>>> 829d308bc695f4e31776e1e1da64ba6f1004a3c7
 			                        <a href="#">
 			                            <div>
 			                                <img src="/mi/img/mobile-phone/sj1.jpg" alt="" class="phone-image">
@@ -685,7 +684,6 @@
 			                            </div>
 			                        </a>
 			                    </li>
-
 			                    <li class="little-box">
 			                        <a href="#">
 			                            <div>
@@ -1259,18 +1257,11 @@
 		    </div>
 		</div>
 	</body>
-<<<<<<< HEAD
-<script>
-      $(function(){
-      	type()
-	  })
-
-</script>
-=======
 	<!--侧栏面板结束-->
 	<script type="text/javascript">
 	$(function() {
-        lun()
+		findLoginStatus();
+        lun();
 		shouji(); //手机
 		jiadianrm(); //家电（热门）
 		dianshiyy(); //家电（电视影音）
@@ -1369,8 +1360,8 @@
 						  str+='<a><img src="/mi/img/left-side/cellphone/sj (1).jpg"></a><a>'+data[i].text+'</a></li>';
 						  str+='</ul>';
 					  }
-					  $('#'+pid+'').html(str);
 				  }
+                  $('#'+pid+'').html(str);
 
 			  }
 		  })
@@ -1594,6 +1585,51 @@
 		   location.href="/jump/tophone?id="+id;
 	   }
 
+		function findLoginStatus() {
+			$.ajax({
+				url:'/user/findLoginStatus',
+				success: function (data) {
+					if(data==null || data==""){
+						var sss = "";
+						sss+='<a href="/jump/mi">登陆</a>';
+						sss+='<span class="spn">|</span>';
+						sss+='<a href="#">注册</a>';
+						sss+='<span class="spn">|</span>';
+						sss+='<a href="#">消息通知</a>';
+						$("#loginStatus").html(sss);
+					}else{
+						var sssr = "";
+						var nam = data.userName;
+						sssr+='<select class="yellow" id="sele" style="height: 25px" onchange="abc11()">';
+						sssr+='<option value="0">'+nam+'</option>';
+						sssr+='<option value="1">个人中心</option>';
+						sssr+='<option value="2">评价晒单</option>';
+						sssr+='<option value="6">消息通知</option>';
+						sssr+='<option value="3">我的喜欢</option>';
+						sssr+='<option value="4">小米账户</option>';
+						sssr+='<option value="5">退出登录</option>';
+						sssr+='</select>';
+						$("#loginStatus").html(sssr);
+					}
+				}
+			})
+		}
+function abc11() {
+	var sel = $("#sele").val();
+	if(sel==1){
+		location.href="/jump/center";
+	}else if(sel==2){
+		location.href="/jump/ping";
+	}else if(sel==3){
+		location.href="/jump/like";
+	}else if(sel==4){
+		location.href="/jump/mi";
+	}else if(sel==5){
+		location.href="/user/zhuxiao";
+		alert("退出成功")
+	}else if(sel==6){
+		location.href="/jump/personal";
+	}
+}
 	</script>
->>>>>>> 829d308bc695f4e31776e1e1da64ba6f1004a3c7
 </html>

@@ -10,7 +10,7 @@ import javax.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("jump")
-public class jumpcontroller {
+public class JumpController {
 
     @Autowired
     private GoodsService goodsService;
@@ -131,4 +131,10 @@ public class jumpcontroller {
         return "yyb/topUp";
     }
     /*于英彬(个人中心)毕*/
+
+    //修改用户信息页面
+    @RequestMapping("toUpdateUser")
+    public  String toUpdateUser(){
+        return "yyb/updateUser";
+    }
 }
