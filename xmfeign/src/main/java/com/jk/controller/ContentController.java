@@ -16,7 +16,6 @@ public class ContentController {
     @Resource
     private ContentService contentService;
 
-
     @RequestMapping("findAllByCategoryId")
     @ResponseBody
     public List<xmcontent> findAllByCategoryId(Long categoryId) {

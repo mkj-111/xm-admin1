@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("jump")
-public class jumpcontroller {
+public class JumpController {
 
     //跳转登录页面
     @RequestMapping("mi")

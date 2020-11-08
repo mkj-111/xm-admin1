@@ -18,4 +18,19 @@ public class HigCharts {
 
         return  "admin/highcharts";
     }
+
+    @RequestMapping("/search_success")
+    public  String search_success(){
+
+        return  "admin/search_success";
+    }
+
+
+    @RequestMapping("/search_add")
+    public  String search_add(){
+
+        return  "admin/search_add";
+    }
+
+
 }
