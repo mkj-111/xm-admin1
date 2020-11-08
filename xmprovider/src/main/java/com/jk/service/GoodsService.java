@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface GoodsService {
     List<Goods> findGoods(Integer typeId);
+
+    Goods findgoodbyid(int id);
 }

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jk.mapper.ColorBeanMapper" >
+  <resultMap id="BaseResultMap" type="com.jk.entity.ColorBean" >
+    <id column="color_id" property="colorId" jdbcType="INTEGER" />
+    <result column="color_name" property="colorName" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <select id="findcolor" resultMap="BaseResultMap">
+    SELECT b.* from xm_goods a LEFT JOIN xm_color b on a.goods_color_id = b.color_id
+    where a.goods_name = #{goodsname}
+  </select>
+
+
+  <sql id="Base_Column_List" >
+    color_id, color_name
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from xm_color
+    where color_id = #{colorId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from xm_color
+    where color_id = #{colorId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.jk.entity.ColorBean" >
+    insert into xm_color (color_id, color_name)
+    values (#{colorId,jdbcType=INTEGER}, #{colorName,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.jk.entity.ColorBean" >
+    insert into xm_color
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="colorId != null" >
+        color_id,
+      </if>
+      <if test="colorName != null" >
+        color_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="colorId != null" >
+        #{colorId,jdbcType=INTEGER},
+      </if>
+      <if test="colorName != null" >
+        #{colorName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jk.entity.ColorBean" >
+    update xm_color
+    <set >
+      <if test="colorName != null" >
+        color_name = #{colorName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where color_id = #{colorId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jk.entity.ColorBean" >
+    update xm_color
+    set color_name = #{colorName,jdbcType=VARCHAR}
+    where color_id = #{colorId,jdbcType=INTEGER}
+  </update>
+</mapper>

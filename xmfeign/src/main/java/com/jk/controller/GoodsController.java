@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 /**
@@ -25,4 +26,11 @@ public class GoodsController {
     public List<Goods> findGoods(Integer typeId) {
         return goodsService.findGoods(typeId);
     }
+
+    @RequestMapping("findgoodsbyid")
+    public Goods findgoodsbyid(HttpSession session){
+        Goods goods = (Goods)session.getAttribute("goods");
+        return goods;
+    }
+
 }

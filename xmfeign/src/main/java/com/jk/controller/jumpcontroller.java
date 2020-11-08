@@ -1,11 +1,28 @@
 package com.jk.controller;
 
+import com.jk.entity.Goods;
+import com.jk.service.GoodsService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import javax.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("jump")
 public class jumpcontroller {
+
+    @Autowired
+    private GoodsService goodsService;
+
+
+    @RequestMapping("tophone")
+    public String tophone(int id, HttpSession session){
+        Goods goods = goodsService.findgoodbyid(id);
+        session.setAttribute("goods",goods);
+        return "phone/25";
+    }
+
 
     //跳转登录页面
     @RequestMapping("mi")
@@ -58,6 +75,10 @@ public class jumpcontroller {
     @RequestMapping("shuttle")
     public String shuttle(){
         return "yyb/shuttle";
+    }
+    @RequestMapping("toskill")
+    public String toskill(){
+        return "skill";
     }
     //跳转现金账户页面current
     @RequestMapping("current")
