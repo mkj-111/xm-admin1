@@ -25,4 +25,9 @@ public class GoodsServiceImpl implements GoodsService {
     public List<Goods> findGoods(Integer typeId) {
         return goodsMapper.findGoods(typeId);
     }
+
+    @Override
+    public Goods findgoodbyid(int id) {
+        return goodsMapper.findgoodbyid(id);
+    }
 }
