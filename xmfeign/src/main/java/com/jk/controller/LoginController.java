@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
@@ -29,28 +30,30 @@ public class LoginController {
 	
 
 	@RequestMapping("sendCode")
-	public Map<String, Object> sendCode(String phoneNumber){
+	@ResponseBody
+	public Map<String, Object> sendCode(String phone){
 		Map<String, Object> paramMap= new HashMap<>();
-		LoginMessageTest.loginMessage(phoneNumber, paramMap);
+		LoginMessageTest.loginMessage(phone, paramMap);
 		Integer StatusCode = (Integer)paramMap.get("code");
 		if(StatusCode==200){
-		    	redisTemplate.opsForValue().set("sendCode"+phoneNumber, (String)paramMap.get("obj"), 60, TimeUnit.SECONDS);
+		    	redisTemplate.opsForValue().set("sendCode"+phone, (String)paramMap.get("obj"), 60, TimeUnit.SECONDS);
 		    	paramMap.put("msg", "验证码发送成功");
 		    }else{
 		    	paramMap.put("msg", "验证码发送失败 请重试");
-		    	
+
 		    }
 		    return paramMap;
 		}
-	
-	
+
+
 	@RequestMapping("doLogin")
-	public Map<String, Object> doLogin(HttpServletRequest request,String phoneNumber,String code){
-		String vCode = (String) redisTemplate.opsForValue().get("sendCode"+phoneNumber);
+	@ResponseBody
+	public Map<String, Object> doLogin(HttpServletRequest request,String phone,String code){
+		String vCode = (String) redisTemplate.opsForValue().get("sendCode"+phone);
 		Map<String, Object> paramMap = new HashMap<>();
 		if(code.equals(vCode)){
 			paramMap.put("msg", "登录成功");
-			request.getSession().setAttribute("user", phoneNumber);
+			request.getSession().setAttribute("user", phone);
 		}else{
 			paramMap.put("msg", "验证码验证失败");
 		}
