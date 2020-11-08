@@ -546,7 +546,7 @@
 										<a><img src="img/left-side/jotter/baohu.jpg"></a><a>服装</a></li>
 								</ul>
 							</div>
-						</li>
+						</li>-->
 					</ul>
 					<!--左侧end-->
 					<!--中部图片轮播-->
@@ -574,6 +574,7 @@
 						<div id="big_banner_change_next">&gt;</div>
 					</div>
 				</div>
+
 				<!--轮播-->
 				<script type="text/javascript" src="/mi/js/script.js"></script>
 			</div>
@@ -1283,6 +1284,7 @@
 					str2 = str2 + '<img src="' + result[i].contentPic + '" width="1226px" height="460px" />';
 				}
 				$("#big_banner_pic").html(str2);
+				console.log(str2)
 			}
 		})
 	}
@@ -1315,7 +1317,7 @@
 				   for (var i = 0; i < data.length; i++) {
 					   pid = data[i].id;
 					   name = data[i].text;
-					   console.log(name)
+					  // console.log(name)
 					   str+='<li>';
 					   str+='<a>'+name+'</a>';
 					   str+='<a class="banner_menu_i">&gt;</a>';
@@ -1326,7 +1328,7 @@
 					   $("#banner_menu_wrap").html(str);
                    type1(pid);
 				   }
-				   console.log(str);
+				 //  console.log(str);
 			   }
 		   })
 	}
@@ -1553,10 +1555,10 @@
 				var typeId = 4;
 			}else if(number == 6){
 				var topName = "路由器";
-				var typeId = 5;
+				var typeId = 6;
 			}else if(number == 7){
-				var topName = "小爱";
-				var typeId = 5;
+				var topName = "耳机";
+				var typeId = 9;
 			}
 			var str = "";
 			$.ajax({

@@ -1,9 +1,9 @@
 package com.jk.controller;
 
-import com.alibaba.fastjson.JSON;
 import com.jk.entity.GoodsBeab;
-import com.jk.entity.xmuser;
+import com.jk.pojo.RedisConstant;
 import com.jk.service.LxTopService;
+import com.jk.utils.RedisUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Controller;
@@ -27,22 +27,25 @@ public class LxTopController {
     private LxTopService lxTopService;
 
     @Autowired
-    private RedisTemplate<String,String> redisTemplate;
+    private RedisTemplate redisTemplate;
+
+    @Autowired
+    private RedisUtil redisUtil;
 
     @RequestMapping("queryTopList")
     @ResponseBody
     public List<GoodsBeab> queryTopList(String topName, Integer type){
-        String  goodsKey = "goodsKey";
-        if(redisTemplate.hasKey(goodsKey)){
-            String user = redisTemplate.opsForValue().get(goodsKey).toString();
-            List<GoodsBeab> goodsBeabs = JSON.parseArray(user, GoodsBeab.class);
-            return goodsBeabs;
-        }else {
-            List<GoodsBeab> goodsBeabs = lxTopService.queryTopList(topName, type);
-            String s = JSON.toJSONString(goodsBeabs);
-            redisTemplate.opsForValue().set(goodsKey,s);
-            return goodsBeabs;
+
+
+        List<GoodsBeab> goodsBeabs = (List)redisUtil.get(RedisConstant.Goods_Key+"_"+type);
+        if(goodsBeabs == null || goodsBeabs.isEmpty()) {
+            goodsBeabs = lxTopService.queryTopList(topName, type);
+            redisUtil.set(RedisConstant.Goods_Key+"_"+type,goodsBeabs);
+            // 设置key的过期时间
+            //redisUtil.expire(RedisConstant.USER_LIST_KEY + "_" + user, 60);
         }
+
+            return goodsBeabs;
 
     }
     @RequestMapping("queryTopGoodsInfoById")

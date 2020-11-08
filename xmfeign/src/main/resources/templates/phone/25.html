@@ -3319,14 +3319,13 @@
                 for (var i=0;i<data.length;i++){
                     var pid=data[i].colorId;
                     if(i==0){
-                        str+='<li data-v-6009d2b8="" class="active"><a data-v-6009d2b8="" >'+data[i].colorName+'</a></li>'
+                        str+='<li data-v-6009d2b8="" onclick="version('+pid+')" class="active"><a data-v-6009d2b8="" >'+data[i].colorName+'</a></li>'
                     }else{
-                        str+='<li data-v-6009d2b8=""  class=""><a data-v-6009d2b8="" >'+data[i].colorName+'</a></li>';
+                        str+='<li data-v-6009d2b8="" onclick="version('+pid+')"  class=""><a data-v-6009d2b8="" >'+data[i].colorName+'</a></li>';
                     }
                 }
                $("#color").html(str);
                 console.log(pid)
-                version(pid);
             }
         })
     }

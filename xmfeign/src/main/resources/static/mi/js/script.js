@@ -26,7 +26,7 @@ $("#banner_menu_wrap").children().hover(function(){
                 li.className = li.className.replace("hover", "");
             }
         }
-        setPicture();//设置图片
+        //setPicture();//设置图片
     });
     function setZero() {
         for (let [n, li] of lis.entries()) {
@@ -44,7 +44,7 @@ $("#banner_menu_wrap").children().hover(function(){
             index = 0;
         }
         setZero();//设置小圆点
-        setPicture();//设置图片
+        //setPicture();//设置图片
     }, 3000);
 //轮播
 $(function(){
