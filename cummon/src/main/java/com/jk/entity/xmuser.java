@@ -18,6 +18,8 @@ public class xmuser {
 
     private String userStatus;
 
+    private Integer userSex;
+
     public Integer getUserId() {
         return userId;
     }
