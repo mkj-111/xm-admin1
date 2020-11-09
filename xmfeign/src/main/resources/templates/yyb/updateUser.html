@@ -31,8 +31,8 @@
             <div class="n-account-area-box">
                 <div class="n-account-area clearfix">
                     <div class="na-info">
-                        <p class="na-name">浮生缱绻</p>
-                        <p class="na-num">2247120295</p>
+                        <p class="na-name"><span id="na">浮生缱绻</span></p>
+                        <p class="na-num"><span id="ph">2247120295</span></p>
                     </div>
                     <div class="na-img-area fl-l">
                         <div class="na-img-bg-area"><img src="https://cdn.cnbj1.fds.api.mi-img.com/user-avatar/542e8967-91ba-4347-8a4f-889c0c6459a3.jpg"></div>
@@ -50,12 +50,12 @@
                 </ul>
             </div>
             <div class="n-frame">
-                <div class="uinfo c_b">
+                <div class="uinfo c_b" id="divOne" style="display: yes">
                     <div>
                         <div class="main_r">
                             <div class="framedatabox">
                                 <div class="fdata">
-                                    <a class="color4a9 fr" href="" title="编辑" id="editInfo"><i class="iconpencil"></i>编辑</a>
+                                    <a class="color4a9 fr" href="javascript:divOnt()" title="编辑" id="editInfo"><i class="iconpencil"></i>编辑</a>
                                     <h3>基础资料</h3>
                                 </div>
                                 <div class="fdata lblnickname">
@@ -63,6 +63,25 @@
                                 </div>
                                 <div class="fdata lblgender">
                                     <p><span>性别：</span><span class="value" val="m" id="userSex"> 男 </span></p>
+                                </div>
+                                <div class="btn_editinfo"><a id="editInfoWap" class="btnadpt bg_normal" href="">编辑基础资料</a></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="uinfo c_b" id="divTow" style="display: none">
+                    <div>
+                        <div class="main_r">
+                            <div class="framedatabox">
+                                <div class="fdata">
+                                    <a class="color4a9 fr" href="javascript:divtow()" title="保存" id="editInfo"><i class="iconpencil"></i>保存</a>
+                                    <h3>基础资料</h3>
+                                </div>
+                                <div class="fdata lblnickname">
+                                    <p><span>昵称：<input type="tel" id="update1"></span></p>
+                                </div>
+                                <div class="fdata lblgender">
+                                    <p><span>性别：<input type="tel" id="update2"></span></p>
                                 </div>
                                 <div class="btn_editinfo"><a id="editInfoWap" class="btnadpt bg_normal" href="">编辑基础资料</a></div>
                             </div>
@@ -99,14 +118,55 @@ var name = "";
 var id = 0;
 var sex = "";
 var phone="";
+var sex1 = 0;
 function findStatus() {
     $.ajax({
         url: '/user/findLoginStatus',
         success: function (data) {
+            $("#na").html(data.userName);
+            $("#ph").html(data.phone);
             $("#userName").html(data.userName);
-
+            if(data.userSex == 1){
+                $("#userSex").html('男');
+            }else{
+                $("#userSex").html('女');
+            }
+            name = data.userName;
+            id = data.userId;
+            sex1 = data.userSex;
         }
     })
+}
+function divOnt() {
+    document.getElementById("divOne").style.display = "none";
+    document.getElementById("divTow").style.display = "";
+    $("#update1").val(name);
+    if(sex1==1){
+        $("#update2").val('男');
+    }else{
+        $("#update2").val('女');
+    }
+}
+function divtow() {
+    var id2 = id;
+    var updateName = $("#update1").val();
+    var updateSex1 = $("#update2").val();
+    var updateSex = 0;
+    if(updateSex1 == '男'){
+        updateSex = 1;
+    }else if(updateSex1 == '女'){
+        updateSex = 2;
+    }
+    $.ajax({
+        url: '/user/updateUserBean',
+        data:{id:id2,name:updateName,sex:updateSex},
+        success: function () {
+            alert("修改成功");
+            findStatus();
+        }
+    })
+    document.getElementById("divTow").style.display = "none";
+    document.getElementById("divOne").style.display = "";
 }
 </script>
 </html>

@@ -55,4 +55,9 @@ public class UserController {
         session.removeAttribute("user");
         return "main_page";
     }
+    @RequestMapping("updateUserBean")
+    @ResponseBody
+    public void updateUserBean(Integer id,String name,Integer sex){
+        UserService.updateUserBean(id,name,sex);
+    }
 }
