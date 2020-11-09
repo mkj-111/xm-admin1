@@ -20,7 +20,8 @@
     <link rel="icon" href="https://s01.mifile.cn/favicon.ico" type="image/x-icon">
     <meta http-equiv="Cache-Control" content="no-transform ">
     <meta http-equiv="Cache-Control" content="no-siteapp">
-
+    <script type="text/javascript" src="/mi/js/jquery-1.12.4.js" ></script>
+    <script type="text/javascript" src="/mi/js/jquery-1.4.2.min.js"></script>
     <link href="../个人中心_files/portal.0a2fc032.css" rel="preload" as="style">
     <link href="../个人中心_files/chunk-vendors.50ac3731.js" rel="preload" as="script">
     <link href="../个人中心_files/portal.b5d7bf96.js" rel="preload" as="script">
@@ -2231,7 +2232,7 @@
         </div>
         <div class="breadcrumbs">
             <div class="container">
-                <a href="/">首页</a>
+                <a href="/jump/main">首页</a>
                 <span class="sep">/</span>
                 <span>个人中心</span>
             </div>
@@ -2265,100 +2266,20 @@
                                     <li ><a href="../jump/red" >红包</a></li>
                                 </ul>
                             </div>
-                            <div class="menu-box">
-                                <h3 class="title">售后服务</h3>
-                                <ul class="list">
-                                    <li><a href="//service.order.mi.com/record/list?r=" >服务记录</a></li>
-                                    <li><a href="//service.order.mi.com/apply/front?r=" >申请服务</a></li>
-                                    <li><a href="//service.order.mi.com/user/compensate?r=" >领取快递报销</a></li>
-                                </ul>
-                            </div>
-                            <div class="menu-box">
-                                <h3 class="title">账户管理</h3>
-                                <ul class="list">
-                                    <li><a href="//account.xiaomi.com" target="_blank" >个人信息</a></li>
-                                    <li><a href="//account.xiaomi.com/pass/auth/security/home#service=setPassword" target="_blank" >修改密码</a></li>
-
-                                </ul>
-                            </div>
                         </div>
                     </div>
-                    <div class="span16">
-
-                        <div class="mi-uc-box uc-main-box">
-                            <div class="uc-content-box portal-content-box">
-                                <div class="box-bd">
-                                    <div class="loading" v-if="loading">
-                                        <div  class="backgroud0">
-                                            <div class="a0">
-                                                <img src="../imges/portal-icon-4.png" height="100" width="100"/>
-                                            </div>
-                                            <div style="float:left"><br>
-                                                <font size="5px">毛康健</font><br>
-                                                早上好~<br>
-                                                <font color="red">
-                                                    <a>修改个人信息></a>
-                                                </font>
-                                            </div>
-                                        </div>
-                                        <div  class="backgroud0">
-                                            <div class="a0">
-                                                <img src="../imges/portal-icon-4.png" height="100" width="100"/>
-                                            </div>
-                                            <div style="float:left"><br>
-                                                <font size="5px">毛康健</font><br>
-                                                早上好~<br>
-                                                <font color="red">
-                                                    <a>修改个人信息></a>
-                                                </font>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <br>
-                                    <hr/>
-                                    <div class="loading1" v-if="loading">
-                                        <div class="backgroud1">
-                                            <div class="a1">
-                                                <img src="../imges/portal-icon-1.png" height="100" width="100"/>
-                                            </div>
-                                            <div style="float:left"><br><br>
-                                                <font size="4px">待支付的订单:</font><br>
-                                                查看待支付订单<a>></a>
-                                            </div>
-                                        </div>
-                                        <div  class="backgroud2">
-                                            <div class="a2">
-                                                <img src="../imges/portal-icon-2.png" height="100" width="100"/>
-                                            </div>
-                                            <div style="float:left"><br><br>
-                                                <font size="4px">待收货的订单:</font><br>
-                                                查看待收货订单<a>></a>
-                                            </div>
-                                        </div>
-                                        <div  class="backgroud3">
-                                            <div class="a3">
-                                                <img src="../imges/portal-icon-3.png" height="100" width="100"/>
-                                            </div>
-                                            <div style="float:left"><br><br>
-                                                <font size="4px">待评价商品数:</font><br>
-                                                查看待评价商品<a>></a>
-                                            </div>
-                                        </div>
-                                        <div  class="backgroud4">
-                                            <div class="a4">
-                                                <img src="../imges/portal-icon-4.png" height="100" width="100"/>
-                                            </div>
-                                            <div style="float:left"><br><br>
-                                                <font size="4px">喜欢的商品:</font><br>
-                                                查看喜欢的商品<a>></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+<div class="span16">
+<div class="mi-uc-box uc-main-box">
+    <div class="uc-content-box portal-content-box">
+        <div class="box-bd"><div data-v-6cfb7de2="" class="portal-main clearfix">
+            <div data-v-6cfb7de2="" class="user-card"><h2 data-v-6cfb7de2="" class="username"><span id="userName"></span></h2>
+                <p data-v-6cfb7de2="" class="tip">晚上好～</p>
+                <a data-v-6cfb7de2="" href="javascript:toUpdateUser()" class="link">修改个人信息 &gt;</a>
+                <span id="userId" hidden></span>
+                <img data-v-6cfb7de2="" src="https://cdn.cnbj1.fds.api.mi-img.com/user-avatar/1257420d-9dd8-486c-82d3-913c50131736.jpg" width="150" height="150" alt="浮生缱绻" class="avatar"></div><div data-v-6cfb7de2="" class="user-actions"><ul data-v-6cfb7de2="" class="action-list"><li data-v-6cfb7de2="">账户安全：<span data-v-6cfb7de2="" class="level level-2">普通</span></li><li data-v-6cfb7de2="">绑定手机：
+            <span data-v-6cfb7de2=""><span data-v-6cfb7de2="" class="tel"><span id="pawssordSpan"></span></span></span></li><li data-v-6cfb7de2="">绑定邮箱：
+<span data-v-6cfb7de2=""><span data-v-6cfb7de2="" class="tel"></span>未绑定</span></li></ul></div></div> <div data-v-1ace6eb7="" class="portal-sub"><ul data-v-1ace6eb7="" class="info-list clearfix"><li data-v-1ace6eb7=""><h3 data-v-1ace6eb7="">待支付的订单：<span data-v-1ace6eb7="" class="num">0</span></h3><a data-v-1ace6eb7="" href="//www.mi.com/user/orderList#type=7">查看待支付订单<i data-v-1ace6eb7="" class="iconfont"></i></a><img data-v-1ace6eb7="" src="//s01.mifile.cn/i/user/portal-icon-1.png" alt=""></li><li data-v-1ace6eb7=""><h3 data-v-1ace6eb7="">待收货的订单：<span data-v-1ace6eb7="" class="num">0</span></h3><a data-v-1ace6eb7="" href="//www.mi.com/user/orderList#type=8">查看待收货订单<i data-v-1ace6eb7="" class="iconfont"></i></a><img data-v-1ace6eb7="" src="//s01.mifile.cn/i/user/portal-icon-2.png" alt=""></li><li data-v-1ace6eb7=""><h3 data-v-1ace6eb7="">待评价商品数：<span data-v-1ace6eb7="" class="num">0</span></h3><a data-v-1ace6eb7="" href="//www.mi.com/user/comment">查看待评价商品<i data-v-1ace6eb7="" class="iconfont"></i></a><img data-v-1ace6eb7="" src="//s01.mifile.cn/i/user/portal-icon-3.png" alt=""></li><li data-v-1ace6eb7=""><h3 data-v-1ace6eb7="">喜欢的商品：<span data-v-1ace6eb7="" class="num">0</span></h3><a data-v-1ace6eb7="" href="//www.mi.com/user/favorite">查看喜欢的商品<i data-v-1ace6eb7="" class="iconfont"></i></a><img data-v-1ace6eb7="" src="//s01.mifile.cn/i/user/portal-icon-4.png" alt=""></li></ul></div></div></div></div></div>
+            </div>
             </div>
         </div>
         <div ref="J_siteFooter">
@@ -2499,9 +2420,7 @@
             </div>
         </div>
     </div>
-    <script type="text/javascript">
-    </script>
-    <script>
+   <!--<script>
         var $TOOL_BAR_DATA = [{"id":24,"type":"image","button_title":"手机APP","button_img":"https://i8.mifile.cn/b2c-mimall-media/98a23aae70f25798192693f21c4d4039.png","button_hover_img":"https://i8.mifile.cn/b2c-mimall-media/74c4fcb4475af8308e9a670db9c01fdf.png","qrcode_img":"https://i8.mifile.cn/b2c-mimall-media/93650133310ec1c385487417a472a26c.png","qrcode_title":"扫码领取新人百元礼包","jump_url":"","jump_type":1,"weight":40,"start_time":"","end_time":"","is_enabled":"Y","block_id":3343648,"type_name":"图片类型","special_mark":""},
                               {"id":20,"type":"common","button_title":"个人中心","button_img":"https://i8.mifile.cn/b2c-mimall-media/55cad219421bee03a801775e7309b920.png","button_hover_img":"https://i8.mifile.cn/b2c-mimall-media/41f858550f42eb1770b97faf219ae215.png","qrcode_img":"","qrcode_title":"","jump_url":"https://www.mi.com/user/portal","jump_type":1,"weight":30,"start_time":"","end_time":"","is_enabled":"Y","block_id":3213221,"type_name":"通用类型","special_mark":""},
                               {"id":23,"type":"common","button_title":"售后服务","button_img":"https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/12eb0965ab33dc8e05870911b90f3f13.png","button_hover_img":"https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/95fbf0081a06eec7be4d35e277faeca0.png","qrcode_img":"","qrcode_title":"","jump_url":"https://service.order.mi.com/apply/front","jump_type":1,"weight":25,"start_time":"","end_time":"","is_enabled":"Y","block_id":3213225,"type_name":"通用类型","special_mark":""},
@@ -2533,6 +2452,33 @@
             var s = document.getElementsByTagName("script")[0];
             s.parentNode.insertBefore(hm, s);
         })();
-    </script>
+    </script>-->
+
 </body>
+<script type="text/javascript">
+    $(function() {
+        findUserBuId();
+    })
+    function findUserBuId() {
+        $.ajax({
+            url:'/user/findLoginStatus',
+            success: function (data) {
+                var aa = data.userName;
+                if(data!=null || data!=""){
+                    $("#userName").html(data.userName);
+                    $("#pawssordSpan").html(data.phone);
+                    $("#userId").html(data.userId);
+                }
+                if(data.userName == "" || data.userName == null){
+                    location.href="/jump/mi";
+                }
+            }
+        })
+    }
+//修改用户信息
+function toUpdateUser() {
+    //var id = $("#userId").html();
+    location.href="/jump/toUpdateUser";
+}
+</script>
 </html>

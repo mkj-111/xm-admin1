@@ -10,6 +10,10 @@ public class RedisConstant {
     //  redis key定义规则（格式）：使用方法名（业务名）作为redis的key，如果缓存数据的方法带有参数，那么redis的key也要拼接参数
 
     // 定义redis最终常量key
+<<<<<<< HEAD
     public static final String GOODS_LIST_KEY = "goodsList";
+=======
+    public static final String Goods_Key = "goodskey";
+>>>>>>> 848cf4f91001b0d4b8adcbd09ae25b7fe8a81c54
 
 }

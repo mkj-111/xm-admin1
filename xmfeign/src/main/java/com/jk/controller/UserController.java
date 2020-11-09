@@ -42,6 +42,7 @@ public class UserController {
         xmuser userlll = (xmuser) session.getAttribute("user");
         System.out.println(userlll);
         return "成功";
+<<<<<<< HEAD
     }
     @RequestMapping("findLoginStatus")
     @ResponseBody
@@ -49,6 +50,15 @@ public class UserController {
         xmuser user = (xmuser) session.getAttribute("user");
         return user;
     }
+=======
+      }
+      @RequestMapping("findLoginStatus")
+      @ResponseBody
+      public xmuser findLoginStatus(HttpSession session){
+          xmuser user = (xmuser) session.getAttribute("user");
+          return user;
+      }
+>>>>>>> 848cf4f91001b0d4b8adcbd09ae25b7fe8a81c54
 
     @RequestMapping("zhuxiao")
     public String zhuxiao(HttpSession session){
