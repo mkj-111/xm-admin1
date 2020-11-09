@@ -12,11 +12,11 @@ import javax.servlet.http.HttpSession;
 
 @RestController
 public class usercontroller {
-@Resource
+    @Resource
     private UserService UserService;
 
     @RequestMapping("login")
-    public String login(@RequestBody xmuser user){
+    public xmuser login(@RequestBody xmuser user){
         return UserService.login(user);
     }
 }

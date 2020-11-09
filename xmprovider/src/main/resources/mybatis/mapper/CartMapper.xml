@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jk.mapper.CartMapper">
+
+      <select id="findGoods" resultType="com.jk.entity.Goods">
+
+        SELECT DISTINCT
+        xm_goods.id,
+        xm_goods.goods_name,
+        xm_goods.goods_status,
+        xm_goods.goods_caption,
+        xm_goods.goods_type_id,
+        xm_goods.goods_img,
+        xm_goods.goods_color_id,
+        xm_goods.goods_img_all,
+        xm_goods.goods_info,
+        xm_goods.goods_num,
+        xm_goods.goods_date,
+        xm_color.color_name,
+        xm_versions.goods_price,
+        xm_versions.version_name
+        FROM
+        xm_goods ,
+        xm_color ,
+        xm_versions
+        WHERE
+        xm_goods.goods_color_id = xm_color.color_id AND
+        xm_color.color_id = xm_versions.color_id AND
+        xm_goods.goods_name = #{goodsName} AND
+        xm_versions.versions_id = #{versionId}
+
+  </select>
+
+
+  <select id="goodsList2" resultType="com.jk.entity.Goods">
+
+        SELECT DISTINCT
+        xm_goods.id,
+        xm_goods.goods_name,
+        xm_goods.goods_status,
+        xm_goods.goods_caption,
+        xm_goods.goods_type_id,
+        xm_goods.goods_img,
+        xm_goods.goods_color_id,
+        xm_goods.goods_img_all,
+        xm_goods.goods_info,
+        xm_goods.goods_num,
+        xm_goods.goods_date,
+        xm_color.color_name,
+        xm_versions.goods_price,
+        xm_versions.version_name
+        FROM
+        xm_goods ,
+        xm_color ,
+        xm_versions
+        WHERE
+        xm_goods.goods_color_id = xm_color.color_id AND
+        xm_color.color_id = xm_versions.color_id AND
+        xm_goods.goods_name = #{goodsName} AND
+        xm_versions.versions_id = #{versionId}
+
+  </select>
+
+
+
+</mapper>

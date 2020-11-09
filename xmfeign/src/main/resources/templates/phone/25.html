@@ -2808,7 +2808,7 @@
                              </div>
                             <div data-v-70283663="" class="btn-box">
                                 <div data-v-381dda6a="" data-v-70283663="" class="sale-btn">
-                                    <a data-v-381dda6a="" href="javascript:void(0);" class="btn btn-primary">加入购物车</a>
+                                    <a data-v-381dda6a="" href="javascript:cartsuccess()"; class="btn btn-primary">加入购物车</a>
                                 </div>
                                 <!--<div data-v-5d5a0502="" data-v-70283663="" class="favorite-btn"><a data-v-5d5a0502=""
                                                                                                    class="btn-gray btn-like"><i
@@ -3283,7 +3283,7 @@
 
     $(function(){
         goods();
-
+        findlog();
 
     })
     var pid=0;
@@ -3308,6 +3308,7 @@
     }
     //颜色赋值
     function color(goodsname){
+        goodsName=goodsname;
         console.log(goodsname)
         var str="";
         $.ajax({
@@ -3350,8 +3351,11 @@
         })
     }
 
+
+    var versionId="";
     function ban(id){
        var goodsname=$("#sp1").html();
+        versionId=id;
        console.log(goodsname)
         $.ajax({
             url:"/version/findversionsId",
@@ -3362,6 +3366,37 @@
         $("#zong").html('<li data-v-acfb37e4="" >'+goodsname+'+'+data.versionName+'<span data-v-acfb37e4="">'+data.goodsPrice+'</span></li>')
         $("#zong1").html('<font>总计：'+data.goodsPrice+'</font>')
 
+            }
+        })
+    }
+
+
+     var userId="";
+     var goodsName="";
+      function  findlog() {
+
+           $.ajax({
+               url:"../user/findLoginStatus",
+               success:function (data) {
+                   userId=data.userId;
+               }
+
+
+           })
+
+
+      }
+
+    function  cartsuccess() {
+       // alert(versionId);
+       // alert(userId);
+       // alert(goodsName);
+        $.ajax({
+            url: "../search_success",
+            type: 'post',
+            data: {versionId: versionId,userId:userId,goodsName:goodsName},
+            success: function (data) {
+                location.href="../jump/search_success";
             }
         })
     }

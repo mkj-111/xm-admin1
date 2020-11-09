@@ -45,6 +45,11 @@ public class JumpController {
         return "index1";
     }
 
+    @RequestMapping("/search_success")
+     public String search_success(){
+
+        return "admin/search_success";
+    }
 
     //跳转订单页面
     @RequestMapping("/goodsPhone")

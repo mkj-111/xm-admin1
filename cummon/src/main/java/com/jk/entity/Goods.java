@@ -123,4 +123,22 @@ public class Goods {
     public void setGoodsDate(Date goodsDate) {
         this.goodsDate = goodsDate;
     }
+
+    @Override
+    public String toString() {
+        return "Goods{" +
+                "id=" + id +
+                ", goodsName='" + goodsName + '\'' +
+                ", goodsStatus='" + goodsStatus + '\'' +
+                ", goodsCaption='" + goodsCaption + '\'' +
+                ", goodsTypeId=" + goodsTypeId +
+                ", goodsImg='" + goodsImg + '\'' +
+                ", goodsColorId='" + goodsColorId + '\'' +
+                ", goodsImgAll='" + goodsImgAll + '\'' +
+                ", goodsInfo='" + goodsInfo + '\'' +
+                ", goodsNum=" + goodsNum +
+                ", goodsDate=" + goodsDate +
+                ", goodsPrice=" + goodsPrice +
+                '}';
+    }
 }

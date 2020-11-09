@@ -8,5 +8,5 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @FeignClient("xmprovider")
 public interface UserService {
     @RequestMapping("login")
-    public String login(@RequestBody xmuser user);
+    public xmuser login(@RequestBody xmuser user);
 }

@@ -1,0 +1,11 @@
+package com.jk.service;
+
+import com.jk.entity.Goods;
+
+import java.util.List;
+
+public interface CartService {
+    List<Goods> findGoods(Integer versionId,String goodsName);
+
+    Goods goodsList2(Integer versionId, String goodsName);
+}
