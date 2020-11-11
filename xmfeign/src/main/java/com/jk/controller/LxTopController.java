@@ -1,6 +1,7 @@
 package com.jk.controller;
 
 import com.jk.entity.GoodsBeab;
+import com.jk.pojo.RedisConstant;
 import com.jk.service.LxTopService;
 import com.jk.utils.RedisUtil;
 import org.springframework.beans.factory.annotation.Autowired;

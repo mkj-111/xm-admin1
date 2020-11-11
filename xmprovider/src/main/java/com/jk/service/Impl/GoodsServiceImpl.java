@@ -3,6 +3,7 @@ package com.jk.service.Impl;
 import com.jk.entity.Goods;
 import com.jk.mapper.GoodsMapper;
 import com.jk.service.GoodsService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
