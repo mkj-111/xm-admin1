@@ -1,7 +1,10 @@
 package com.jk.service;
 
 
+import com.jk.entity.Goods;
 import com.jk.entity.GoodsBeab;
+import com.jk.entity.HuiFuBean;
+import com.jk.entity.PingLunBean;
 
 import java.util.List;
 
@@ -13,4 +16,14 @@ import java.util.List;
  */
 public interface LxTopService {
     List<GoodsBeab> queryTopList(String topName, Integer type);
+
+    List<PingLunBean> findPingLunId(Integer ids);
+
+    void addPingLun(PingLunBean pingLunBean);
+
+    void updateDianZan(Integer dian,String id);
+
+    void insertHuiFu(HuiFuBean huiFuBean);
+
+    List<HuiFuBean> queryHuiFu(String pid);
 }
