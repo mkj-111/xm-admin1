@@ -2,10 +2,13 @@ package com.jk.mapper;
 
 import com.jk.entity.TypetreeBean;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Select;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Mapper
+@Repository
 public interface TypetreeBeanMapper {
     int deleteByPrimaryKey(Integer id);
 
@@ -20,4 +23,5 @@ public interface TypetreeBeanMapper {
     int updateByPrimaryKey(TypetreeBean record);
 
     List<TypetreeBean> findtype(Integer pid);
+
 }

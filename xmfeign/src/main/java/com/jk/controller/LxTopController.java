@@ -2,8 +2,11 @@ package com.jk.controller;
 
 import com.jk.entity.Goods;
 import com.jk.entity.GoodsBeab;
+<<<<<<< HEAD
 import com.jk.entity.HuiFuBean;
 import com.jk.entity.PingLunBean;
+=======
+>>>>>>> 34f44c2516e6597e387322be1f0791f2002f6cdd
 import com.jk.pojo.RedisConstant;
 import com.jk.service.LxTopService;
 import com.jk.utils.RedisUtil;

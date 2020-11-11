@@ -44,7 +44,17 @@ public class JumpController {
     public String index1(){
         return "index1";
     }
+    //跳转秒杀页面
+    @RequestMapping("miaosha")
+    public String miaosha(){
+        return "miaosha";
+    }
 
+    //跳转抢购页面
+    @RequestMapping("qianggou")
+    public String qianggou(){
+        return "qqww";
+    }
 
     //跳转订单页面
     @RequestMapping("/goodsPhone")
