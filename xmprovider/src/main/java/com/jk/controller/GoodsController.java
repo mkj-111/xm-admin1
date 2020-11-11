@@ -27,5 +27,9 @@ public class GoodsController {
         return goodsService.findGoods(typeId);
     }
 
+    @RequestMapping("/findgoodbyid")
+    public Goods findgoodbyid(@RequestParam int id){
+        return goodsService.findgoodbyid(id);
+    }
 
 }

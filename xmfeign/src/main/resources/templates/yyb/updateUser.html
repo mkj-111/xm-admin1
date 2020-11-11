@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0, maximum-scale=1.0,user-scalable=no">
+    <meta name="format-detection" content="telephone=no" />
+    <title>小米帐号 -个人信息</title>
+    <link type="text/css" rel="stylesheet" href="../css/reset.css">
+    <link type="text/css" rel="stylesheet" href="../css/layout.css">
+    <link type="text/css" rel="stylesheet" href="../css/modacctip.css">
+    <style>
+        html{ overflow-y:scroll;}
+    </style>
+</head>
+<body class="zh_CN">
+<script src="https://account.xiaomi.com/static/res/6941994/passport/scripts/jquery-1.8.3.min.js"></script>
+<script src="https://account.xiaomi.com/static/res/64371/scripts/common/more/placeholder.js"></script>
+<div class="wrapper blockimportant">
+    <div class="wrap">
+        <div class="layout bugfix_ie6 dis_none">
+            <div class="n-logo-area clearfix">
+                <div class="fl-l">
+                    <img src="/static/res/aff1713/account-static/respassport/acc-2014/img/milogo36.png" srcset="/static/res/aff1713/account-static/respassport/acc-2014/img/milogo36.png 1x, /static/res/aff1713/account-static/respassport/acc-2014/img/milogo36@2x.png 2x">
+                    <span class="logo_title">小米帐号</span>
+                </div>
+                <a id="logoutLink" class="fl-r logout" href="/pass/logout?userId=2247120295&amp;callback=https://account.xiaomi.com">
+                    退出
+                </a>
+            </div>
+            <!--头像 名字-->
+            <div class="n-account-area-box">
+                <div class="n-account-area clearfix">
+                    <div class="na-info">
+                        <p class="na-name"><span id="na">浮生缱绻</span></p>
+                        <p class="na-num"><span id="ph">2247120295</span></p>
+                    </div>
+                    <div class="na-img-area fl-l">
+                        <div class="na-img-bg-area"><img src="https://cdn.cnbj1.fds.api.mi-img.com/user-avatar/542e8967-91ba-4347-8a4f-889c0c6459a3.jpg"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="layout">
+            <div class="n-main-nav clearfix">
+                <ul class="c_b">
+                    <li class="current">
+                        <a href="/pass/auth/profile/home?cUserId=6RSHpJ1a8bQesd2EdySB9Wdyvoo&amp;userId=2247120295" title="个人信息" data-action="profile">个人信息</a>
+                        <em class="n-nav-corner"></em>
+                    </li>
+                </ul>
+            </div>
+            <div class="n-frame">
+                <div class="uinfo c_b" id="divOne" style="display: yes">
+                    <div>
+                        <div class="main_r">
+                            <div class="framedatabox">
+                                <div class="fdata">
+                                    <a class="color4a9 fr" href="javascript:divOnt()" title="编辑" id="editInfo"><i class="iconpencil"></i>编辑</a>
+                                    <h3>基础资料</h3>
+                                </div>
+                                <div class="fdata lblnickname">
+                                    <p><span>昵称：</span><span class="value" id="userName"> 浮生缱绻 </span></p>
+                                </div>
+                                <div class="fdata lblgender">
+                                    <p><span>性别：</span><span class="value" val="m" id="userSex"> 男 </span></p>
+                                </div>
+                                <div class="btn_editinfo"><a id="editInfoWap" class="btnadpt bg_normal" href="">编辑基础资料</a></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="uinfo c_b" id="divTow" style="display: none">
+                    <div>
+                        <div class="main_r">
+                            <div class="framedatabox">
+                                <div class="fdata">
+                                    <a class="color4a9 fr" href="javascript:divtow()" title="保存" id="editInfo"><i class="iconpencil"></i>保存</a>
+                                    <h3>基础资料</h3>
+                                </div>
+                                <div class="fdata lblnickname">
+                                    <p><span>昵称：<input type="tel" id="update1"></span></p>
+                                </div>
+                                <div class="fdata lblgender">
+                                    <p><span>性别：<input type="tel" id="update2"></span></p>
+                                </div>
+                                <div class="btn_editinfo"><a id="editInfoWap" class="btnadpt bg_normal" href="">编辑基础资料</a></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="logout_wap log-out">
+            <a class="btnadpt bg_white" href="/pass/logout?userId=2247120295&amp;callback=https://account.xiaomi.com">退出</a>
+        </div>
+    </div>
+</div>
+<script async src="//ssl-cdn.static.browser.mi-img.com/mistat-data/onetrack/onetrack.js"></script>
+<script src="/static/res/public/account-static/scripts/bundle.min.js"></script>
+<script src="https://account.xiaomi.com/static/res/6941994/passport/scripts/jquery-1.8.3.min.js"></script>
+<script src="https://account.xiaomi.com/static/res/bde1db5/passport/scripts/oo/oo-min.js"></script>
+<script src="https://account.xiaomi.com/static/res/836f8ab/scripts/respassport/scripts/oo/com/mi/utils/l11n.js"></script>
+<script src="https://account.xiaomi.com/static/res/d833ee3/passport/scripts/oo/com/mi/utils/cookie.js"></script>
+<script src="https://account.xiaomi.com/static/res/cea14d9/passport/scripts/oo/com/mi/utils/url.js"></script>
+<script src="/static/res/b54c16c/account-static/respassport/scripts/oo/com/mi/passport/portal/common.js"></script>
+<script src="/static/res/9c2da41/account-static/scripts/tool/countryCode.js"></script>
+<script src="/static/res/db2cba0/account-static/respassport/scripts/oo/com/mi/passport/portal/main/2014.js"></script>
+<script src="/static/res/a367f68/account-static/respassport/scripts/placeholder.js">
+</script>
+
+<div id="img_cache" style="visibility:hidden;"></div>
+</body>
+<script type="text/javascript">
+$(function () {
+    findStatus();
+})
+var name = "";
+var id = 0;
+var sex = "";
+var phone="";
+var sex1 = 0;
+function findStatus() {
+    $.ajax({
+        url: '/user/findLoginStatus',
+        success: function (data) {
+            $("#na").html(data.userName);
+            $("#ph").html(data.phone);
+            $("#userName").html(data.userName);
+            if(data.userSex == 1){
+                $("#userSex").html('男');
+            }else{
+                $("#userSex").html('女');
+            }
+            name = data.userName;
+            id = data.userId;
+            sex1 = data.userSex;
+        }
+    })
+}
+function divOnt() {
+    document.getElementById("divOne").style.display = "none";
+    document.getElementById("divTow").style.display = "";
+    $("#update1").val(name);
+    if(sex1==1){
+        $("#update2").val('男');
+    }else{
+        $("#update2").val('女');
+    }
+}
+function divtow() {
+    var id2 = id;
+    var updateName = $("#update1").val();
+    var updateSex1 = $("#update2").val();
+    var updateSex = 0;
+    if(updateSex1 == '男'){
+        updateSex = 1;
+    }else if(updateSex1 == '女'){
+        updateSex = 2;
+    }
+    $.ajax({
+        url: '/user/updateUserBean',
+        data:{id:id2,name:updateName,sex:updateSex},
+        success: function () {
+            alert("修改成功");
+            findStatus();
+        }
+    })
+    document.getElementById("divTow").style.display = "none";
+    document.getElementById("divOne").style.display = "";
+}
+</script>
+</html>

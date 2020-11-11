@@ -25,15 +25,15 @@ public class LoginMessageTest {
     SERVER_URL="https://api.netease.im/sms/sendcode.action";
     //网易云信分配的账号，请替换你在管理后台应用下申请的Appkey
     private static final String
-    APP_KEY="ee2ec276e317ded99ccc2420e648e0f8";
+    APP_KEY="126728b185f1ba75ffc55dcd5b281782";
     //网易云信分配的密钥，请替换你在管理后台应用下申请的appSecret
-    private static final String APP_SECRET="66b9ca8a73e3";
+    private static final String APP_SECRET="17e0f6cb239b";
     //随机数 结合APP_SECRET生成加密内容
     private static final String NONCE="123456";
     //短信模板ID
-    private static final String TEMPLATEID="14893118";
+    private static final String TEMPLATEID="14871235";
     //手机号
-    private static final String MOBILE="17736691475";
+    private static final String MOBILE="17563734957";
     //验证码长度，范围4～10，默认为4
     private static final String CODELEN="6";
     

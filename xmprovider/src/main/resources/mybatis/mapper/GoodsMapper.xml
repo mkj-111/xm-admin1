@@ -171,4 +171,12 @@
 	GROUP BY
 		a.goods_name
   </select>
+
+  <select id="findgoodbyid" resultMap="BaseResultMap">
+    select a.*,c.goods_price as goodsPrice from xm_goods a
+    LEFT JOIN xm_color b
+        on a.goods_color_id = b.color_id
+    LEFT JOIN xm_versions c
+        on b.color_id = c.color_id where a.id = #{id}  GROUP BY a.id
+  </select>
 </mapper>

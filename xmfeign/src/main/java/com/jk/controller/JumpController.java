@@ -1,11 +1,28 @@
 package com.jk.controller;
 
+import com.jk.entity.Goods;
+import com.jk.service.GoodsService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpSession;
+
 @Controller
 @RequestMapping("jump")
-public class jumpcontroller {
+public class JumpController {
+
+    @Autowired
+    private GoodsService goodsService;
+
+
+    @RequestMapping("tophone")
+    public String tophone(int id, HttpSession session){
+        Goods goods = goodsService.findgoodbyid(id);
+        session.setAttribute("goods",goods);
+        return "phone/25";
+    }
+
 
     //跳转登录页面
     @RequestMapping("mi")
@@ -59,6 +76,10 @@ public class jumpcontroller {
     public String shuttle(){
         return "yyb/shuttle";
     }
+    @RequestMapping("toskill")
+    public String toskill(){
+        return "skill";
+    }
     //跳转现金账户页面current
     @RequestMapping("current")
     public String current(){
@@ -110,4 +131,10 @@ public class jumpcontroller {
         return "yyb/topUp";
     }
     /*于英彬(个人中心)毕*/
+
+    //修改用户信息页面
+    @RequestMapping("toUpdateUser")
+    public  String toUpdateUser(){
+        return "yyb/updateUser";
+    }
 }

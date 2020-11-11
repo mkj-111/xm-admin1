@@ -6,5 +6,7 @@ import com.jk.entity.xmuser;
 public interface UserService {
 
 
-    String login(xmuser user);
+    xmuser login(xmuser user);
+
+    void updateUserBean(Integer id, String name, Integer sex);
 }
