@@ -29,11 +29,7 @@ public class RedisConfiguration {
         template.setKeySerializer(new StringRedisSerializer());
         template.setHashKeySerializer(new StringRedisSerializer());
         template.setConnectionFactory(redisConnectionFactory);
-<<<<<<< HEAD
-        ParserConfig.getGlobalInstance().addAccept("com.jk.mkj.entity"); // 指定自己的实体类包
-=======
         ParserConfig.getGlobalInstance().addAccept("com.jk.entity"); // 指定自己的实体类包
->>>>>>> 34f44c2516e6597e387322be1f0791f2002f6cdd
         return template;
     }
 

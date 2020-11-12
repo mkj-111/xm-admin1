@@ -19,4 +19,6 @@ public interface SkillBeanMapper {
     int updateByPrimaryKey(SkillBean record);
 
     List<SkillBean> findskill();
+
+    SkillBean findskillbyid(Integer id);
 }

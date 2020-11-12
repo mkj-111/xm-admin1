@@ -8,7 +8,7 @@
 
   <select id="findcolor" resultMap="BaseResultMap">
     SELECT b.* from xm_goods a LEFT JOIN xm_color b on a.goods_color_id = b.color_id
-    where a.goods_name = #{goodsname}
+    where a.goods_name = #{goodsname} GROUP BY  b.color_name
   </select>
 
 

@@ -76,7 +76,7 @@
                                                                                           class="cart-mini"
                                                                                           stat_exposure="true"><em
                             class="iconfont-cart hide"></em><em class="iconfont-cart-full"></em>购物车<span
-                            class="cart-mini-num J_cartNum">（2）</span></a>
+                            class="cart-mini-num J_cartNum"></span></a>
                         <div id="J_miniCartMenu" class="cart-menu ">
                             <div class="menu-content">
                                 <div class="loading">
@@ -91,7 +91,7 @@
                     </div>
                     <div id="J_siteUserInfo" class="topbar-info"><span class="user">
             <a rel="nofollow" class="user-name" href="https://www.mi.com/user/portal" target="_blank">
-                <span class="name">2472514573</span>
+                <span class="name"></span>
                 <i class="iconfont-arrow-down-mini"></i>
             </a><div id="J_userMenuWrapper" class="user-menu-wrapper">
                 <ul class="user-menu">
@@ -2440,10 +2440,10 @@
     <div>
         <div class="xm-product-box">
             <div class="nav-bar">
-                <div class="container"><h2>小米10至尊纪念版</h2>
+                <div class="container"><h2></h2>
                     <div class="con">
-                        <div class="left"><span class="separator">|</span> <a href="https://www.mi.com/mi10youth"
-                                                                              stat_exposure="true">小米10 青春版</a></div>
+                        <div class="left"><span class="separator"></span> <a href="https://www.mi.com/mi10youth"
+                                                                              stat_exposure="true"></a></div>
                         <div class="right"><a href="https://www.mi.com/mi10ultra" target="" stat_exposure="true">概述</a>
                             <span class="separator">|</span> <a href="https://www.mi.com/mi10ultra/specs" target=""
                                                                 stat_exposure="true">参数</a> <span
@@ -2453,9 +2453,8 @@
                                                                   stat_exposure="true">F码通道</a> <span class="separator">|</span>
                             <a href="javascript:void(0);" class="J_contactBtn" product_id="12609" stat_exposure="true"
                                gid="2203200050">咨询客服</a> <span class="separator">|</span> <a class="J_nav_comment "
-                                                                                             href="https://www.mi.com/comment/12609.html"
-                                                                                             target="_blank"
-                                                                                             stat_exposure="true">用户评价</a>
+                                                                                             href="javascript:pinglun()"
+                                                                                             >用户评价</a>
                             <a class="btn btn-small btn-primary J_nav_buy hide">立即购买</a></div>
                     </div>
                 </div>
@@ -2492,8 +2491,7 @@
                                 <div data-v-7121d496="" class="img-box J_imgList">
                                     <div data-v-7121d496=""
                                          class="swiper-container J_slider_imglist swiper-container-fade swiper-container-initialized swiper-container-horizontal">
-                                        <div data-v-7121d496="" class="swiper-wrapper clearfix"
-                                             style="transition-duration: 0ms;">
+                                        <div data-v-7121d496="" id="img" class="swiper-wrapper clearfix" style="transition-duration: 0ms;">
                                             <div data-v-7121d496=""
                                                  class="swiper-slide swiper-slide-duplicate swiper-slide-prev"
                                                  data-swiper-slide-index="4"
@@ -2533,8 +2531,7 @@
                                                  class="swiper-slide swiper-slide-duplicate swiper-slide-duplicate-active"
                                                  data-swiper-slide-index="0"
                                                  style="width: 560px; opacity: 0; transform: translate3d(-3360px, 0px, 0px); transition-duration: 0ms;">
-                                                <img data-v-7121d496=""
-                                                     src="../小米10至尊纪念版立即购买-小米商城_files/pms_1597145894.51396359.jpg">
+                                                <img data-v-7121d496=""  src="../小米10至尊纪念版立即购买-小米商城_files/pms_1597145894.51396359.jpg">
                                             </div>
                                         </div>
                                         <div data-v-7121d496=""
@@ -3246,7 +3243,7 @@
                                                                   src="../小米10至尊纪念版立即购买-小米商城_files/692a6c3b0a93a24f74a29c0f9d68ec71.png"
                                                                   class="hover"></div>
     <span data-v-087b3ba0="" class="text">
-                购物车<!----></span><!----><span data-v-087b3ba0="" id="J_homeToolBarCartNum" class="cart-num">2</span></a><a
+                购物车<!----></span><!----><span data-v-087b3ba0="" id="J_homeToolBarCartNum" class="cart-num">0</span></a><a
         data-v-087b3ba0="" href="javascript:void(0);" data-log_code="bid=3212729" class="item backtop "
         data-settrack="true"
         onclick="_msq.push([&#39;trackEvent&#39;,&#39;bid=3212729&#39;,&#39;javascript:void(0);&#39;,&#39;0e5519feb6002210-d175296d391221e6&#39;,&#39;&quot;&quot;&#39;]);"
@@ -3292,16 +3289,25 @@
         $(this).addClass("active");
     });
     //手机赋值
+    var iddd = 0;
     function goods(){
+       var str="";
         $.ajax({
             url:"/goods/findgoodsbyid",
             type:'post',
             data:'',
             success:function(data){
                 console.log(data)
+                iddd = data.id;
                 $("#sp2").html('<font>'+data.goodsPrice+'</font>');
                 $("#sp1").html('<font>'+data.goodsName+'</font>');
                 $("#sp3").html('<font>'+data.goodsInfo+'</font>');
+
+
+                str+='<div data-v-7121d496=""class="swiper-slide swiper-slide-duplicate swiper-slide-prev"';
+                str+='  data-swiper-slide-index="4"style="width: 560px; opacity: 1; transform: translate3d(0px, 0px, 0px); transition-duration: 0ms;">';
+                str+='  <img data-v-7121d496=""src='+data.goodsImg+'></div>';
+                $("#img").html(str);
                 color(data.goodsName);
             }
         })
@@ -3365,7 +3371,10 @@
         })
     }
 
-
+    function pinglun() {
+        var id = iddd;
+        location.href="/jump/toPingLun?id="+id;
+    }
 </script>
 <script type="text/javascript" async="" src="../小米10至尊纪念版立即购买-小米商城_files/gettimestamp"></script>
 </body>

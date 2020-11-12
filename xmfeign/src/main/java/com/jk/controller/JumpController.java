@@ -1,11 +1,15 @@
 package com.jk.controller;
 
 import com.jk.entity.Goods;
+import com.jk.entity.SkillBean;
 import com.jk.service.GoodsService;
+import com.jk.service.SkillService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 @Controller
@@ -15,6 +19,8 @@ public class JumpController {
     @Autowired
     private GoodsService goodsService;
 
+    @Resource
+    private SkillService skillService;
 
     @RequestMapping("tophone")
     public String tophone(int id, HttpSession session){
@@ -23,6 +29,20 @@ public class JumpController {
         return "phone/25";
     }
 
+
+    @RequestMapping("toskill")
+    public String toskill(Integer id,HttpSession session){
+        SkillBean skill = skillService.findskillbyid(id);
+        session.setAttribute("skill",skill);
+
+        return "skill";
+    }
+
+    //跳转搜搜页面
+    @RequestMapping("search")
+    public String search(){
+        return "search";
+    }
 
     //跳转登录页面
     @RequestMapping("mi")
@@ -86,10 +106,6 @@ public class JumpController {
     public String shuttle(){
         return "yyb/shuttle";
     }
-    @RequestMapping("toskill")
-    public String toskill(){
-        return "skill";
-    }
     //跳转现金账户页面current
     @RequestMapping("current")
     public String current(){
@@ -147,4 +163,20 @@ public class JumpController {
     public  String toUpdateUser(){
         return "yyb/updateUser";
     }
+
+
+
+    //跳转评论
+    @RequestMapping("toPingLun")
+    public String toPingLun(Integer id, HttpSession session, HttpServletRequest request){
+        request.getSession().setAttribute("ids",id);
+        return "yyb/pinglun";
+    }
+    //搜索传值
+    @RequestMapping("sou")
+    public String sou(String name,HttpSession session){
+        session.setAttribute("name",name);
+        return "search";
+    }
+
 }

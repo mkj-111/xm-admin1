@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 /**
@@ -25,5 +26,18 @@ public class SkillController {
     @RequestMapping("findskill")
     public List<SkillBean> findskill(){
         return skillService.findskill();
+    }
+
+    //通过id查询
+    @RequestMapping("findskillbyid")
+    public SkillBean findskillbyid(Integer id){
+        return skillService.findskillbyid(id);
+    }
+
+    //session获取
+    @RequestMapping("getskill")
+    public SkillBean getskill(HttpSession session){
+        SkillBean skill =(SkillBean) session.getAttribute("skill");
+        return skill;
     }
 }

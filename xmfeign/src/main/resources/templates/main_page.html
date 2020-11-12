@@ -223,7 +223,7 @@
 		                <div class="top-shop">
 		                    <a href="#">购物车(0)</a>
 		                </div>
-		                <div class="laned">
+		                <div class="laned" id="loginStatus">
 		                    <a href="#">登陆</a>
 		                    <span class="spn">|</span>
 		                    <a href="#">注册</a>
@@ -311,7 +311,7 @@
 							</ul>
 						</div>					
 						<div id="top2rightimg">
-							<img src="/mi/img/so.PNG"/>
+							<img src="/mi/img/so.PNG" onclick="sou()" />
 						</div>
 						<!--end搜索-->
 						<!--js-->
@@ -622,7 +622,7 @@
 							<span class="ri1">热门</span>
 						</div>
 						<div id="content3_4_content_top_right_2">
-							<span>健康</span>
+							<span>安防</span>
 						</div>
 						<div id="content3_4_content_top_right_3">
 							<span>出行</span>
@@ -657,7 +657,7 @@
 			                </ul>
 		            	</div>
 		            	<div id="content3_4_content_right2">
-		            		<ul id="zhinengjk">
+		            		<ul id="zhinengaf">
 			                    <li class="little-box"><div class="flag flag-new flag-none"></div><a href="#"> <div><img src="/mi/img/brainpower/zn (1).jpg" alt="" class="phone-image"><p class="share-h3">米家智能门锁 标准锁体 碳素黑</p><p class="p-3">一体化活体指纹识别,多种开锁方式</p> <p class="price">1249元    <span class="original-price">1299元</span></p></div> </a> </li>
 			                    <li class="little-box"><div class="flag flag-new flag-none"></div><a href="#"><div><img src="/mi/img/brainpower/zn (14).jpg" alt="" class="phone-image"><p class="share-h3">米家智能门锁 标准锁体 磨砂金</p> <p class="p-3"> 全新磨砂金配色,精湛工艺升级</p> <p class="price">1299元  <span class="original-price">1499元</span></p></div></a></li>
 			                    <li class="little-box"><a href="#"><div><img src="img/brainpower/zn (4).jpg" alt="" class="phone-image"><p class="share-h3">米家智能门锁 推拉式 通用版</p> <p class="p-3"> 一步推拉,高端智能门锁</p> <p class="price">1649元   <span class="original-price">1699元</span></p> </div></a> </li>
@@ -1047,14 +1047,7 @@
 		    </div>
 		</div>
 	</body>
-<<<<<<< HEAD
-<script>
-      $(function(){
-      	type()
-	  })
 
-</script>
-=======
 	<!--侧栏面板结束-->
 	<script type="text/javascript">
 	$(function() {
@@ -1064,7 +1057,7 @@
 		jiadianrm(); //家电（热门）
 		dianshiyy(); //家电（电视影音）
 		zhinengrm(); //智能（热门）
-		zhinengaf(); //智能（健康）
+		zhinengaf(); //智能（安防）
 		zhinengcx(); //智能（出行）
 		type();
 		skill();
@@ -1094,7 +1087,7 @@
 			  data:'',
 			  success:function (data) {
 				  for (var i = 0; i < data.length; i++) {
-					  str+='<li class="li+'+i+'"><a href="#"><img src='+data[i].smallPic+'/><br/><span style="color: black;">'+data[i].title+'</span><br/><span style="color: gray; font-size: 14px;">'+data[i].introduction+'</span><br/><span style="color: orangered;">'+data[i].price+'元</span><span style="text-decoration: line-through; color: gray;">'+data[i].costPrice+'</span></a></li>';
+					  str+='<li class="li+'+i+'"><a href="/jump/miaosha"><img src='+data[i].smallPic+'/><br/><span style="color: black;">'+data[i].title+'</span><br/><span style="color: gray; font-size: 14px;">'+data[i].introduction+'</span><br/><span style="color: orangered;">'+data[i].price+'元</span><span style="text-decoration: line-through; color: gray;">'+data[i].costPrice+'</span></a></li>';
 					  $("#search").html(str);
 				  }
 			  }
@@ -1114,7 +1107,7 @@
 				   for (var i = 0; i < data.length; i++) {
 					   pid = data[i].id;
 					   name = data[i].text;
-					   console.log(name)
+					   //console.log(name)
 					   str+='<li>';
 					   str+='<a>'+name+'</a>';
 					   str+='<a class="banner_menu_i">&gt;</a>';
@@ -1165,173 +1158,173 @@
 		  })
 	  }
 
-		//智能（出行）
-		function zhinengcx(){
-			$.ajax({
-				url:'/goods/findGoods',
-				type:'post',
-				data:{typeId:5},
-				success:function(result){
-					var str = "";
+	//智能（出行）
+	function zhinengcx(){
+		$.ajax({
+			url:'/goods/findGoods',
+			type:'post',
+			data:{typeId:6},
+			success:function(result){
+				var str = "";
 
-					for (var i = 0; i < 8 ; i++) {
-						str = str + '<li class="little-box">';
-						str = str + '<div class="flag flag-new flag-none">';
-						str = str + '</div>';
-						str = str + '<a href="#">';
-						str = str + '<div>';
-						str = str + '<img src="/mi/img/brainpower/zn (18).jpg" alt="" class="phone-image">';
-						str = str + '<p class="share-h3">'+result[i].goodsName+'</p>';
-						str = str + '<p class="p-3">'+result[i].goodsCaption+'</p>';
-						str = str + '<p class="price">'+ result[i].goodsPrice +'元</p>';
-						str = str + '</div>';
-						str = str + '</a>';
-						str = str + '</li>';
+				for (var i = 0; i < 8 ; i++) {
+					str = str + '<li class="little-box">';
+					str = str + '<div class="flag flag-new flag-none">';
+					str = str + '</div>';
+					str = str + '<a href=javascript:phone('+result[i].id+')>';
+					str = str + '<div>';
+					str = str + '<img src="'+result[i].goodsImg+'" alt="" class="phone-image">';
+					str = str + '<p class="share-h3">'+result[i].goodsName+'</p>';
+					str = str + '<p class="p-3">'+result[i].goodsCaption+'</p>';
+					str = str + '<p class="price">'+ result[i].goodsPrice +'元</p>';
+					str = str + '</div>';
+					str = str + '</a>';
+					str = str + '</li>';
 
-					}
-					$("#zhinengcx").html(str);
 				}
-			})
-		}
+				$("#zhinengcx").html(str);
+			}
+		})
+	}
 
-		//智能（健康）
-		function zhinengaf(){
-			$.ajax({
-				url:'/goods/findGoods',
-				type:'post',
-				data:{typeId:8},
-				success:function(result){
-					var str = "";
+	//智能（安防）
+	function zhinengaf(){
+		$.ajax({
+			url:'/goods/findGoods',
+			type:'post',
+			data:{typeId:5},
+			success:function(result){
+				var str = "";
 
-					for (var i = 0; i < 8 ; i++) {
-						str = str + '<li class="little-box">';
-						str = str + '<div class="flag flag-new flag-none">';
-						str = str + '</div>';
-						str = str + '<a href="#">';
-						str = str + '<div>';
-						str = str + '<img src="/mi/img/brainpower/zn (1).jpg" alt="" class="phone-image">';
-						str = str + '<p class="share-h3">'+result[i].goodsName+'</p>';
-						str = str + '<p class="p-3">'+result[i].goodsCaption+'</p>';
-						str = str + '<p class="price">'+ result[i].goodsPrice +'元</p>';
-						str = str + '</div>';
-						str = str + '</a>';
-						str = str + '</li>';
+				for (var i = 0; i < 8 ; i++) {
+					str = str + '<li class="little-box">';
+					str = str + '<div class="flag flag-new flag-none">';
+					str = str + '</div>';
+					str = str + '<a href=javascript:phone('+result[i].id+')>';
+					str = str + '<div>';
+					str = str + '<img src="'+result[i].goodsImg+'" alt="" class="phone-image">';
+					str = str + '<p class="share-h3">'+result[i].goodsName+'</p>';
+					str = str + '<p class="p-3">'+result[i].goodsCaption+'</p>';
+					str = str + '<p class="price">'+ result[i].goodsPrice +'元</p>';
+					str = str + '</div>';
+					str = str + '</a>';
+					str = str + '</li>';
 
-					}
-					$("#zhinengjk").html(str);
 				}
-			})
-		}
+				$("#zhinengaf").html(str);
+			}
+		})
+	}
 
-		//智能（热门）
-		function zhinengrm(){
-			$.ajax({
-				url:'/goods/findGoods',
-				type:'post',
-				data:{typeId:6},
-				success:function(result){
-					var str = "";
+	//智能（热门）
+	function zhinengrm(){
+		$.ajax({
+			url:'/goods/findGoods',
+			type:'post',
+			data:{typeId:4},
+			success:function(result){
+				var str = "";
 
-					for (var i = 0; i < 8 ; i++) {
-						str = str + '<li class="little-box">';
-						str = str + '<div class="flag flag-new flag-none">';
-						str = str + '</div>';
-						str = str + '<a href="#">';
-						str = str + '<div>';
-						str = str + '<img src="/mi/img/brainpower/zn (7).jpg" alt="" class="phone-image">';
-						str = str + '<p class="share-h3">'+result[i].goodsName+'</p>';
-						str = str + '<p class="p-3">'+result[i].goodsCaption+'</p>';
-						str = str + '<p class="price">'+ result[i].goodsPrice +'元</p>';
-						str = str + '</div>';
-						str = str + '</a>';
-						str = str + '</li>';
+				for (var i = 0; i < 8 ; i++) {
+					str = str + '<li class="little-box">';
+					str = str + '<div class="flag flag-new flag-none">';
+					str = str + '</div>';
+					str = str + '<a href=javascript:phone('+result[i].id+')>';
+					str = str + '<div>';
+					str = str + '<img src="'+result[i].goodsImg+'" alt="" class="phone-image">';
+					str = str + '<p class="share-h3">'+result[i].goodsName+'</p>';
+					str = str + '<p class="p-3">'+result[i].goodsCaption+'</p>';
+					str = str + '<p class="price">'+ result[i].goodsPrice +'元</p>';
+					str = str + '</div>';
+					str = str + '</a>';
+					str = str + '</li>';
 
-					}
-					$("#zhinengrm").html(str);
 				}
-			})
-		}
+				$("#zhinengrm").html(str);
+			}
+		})
+	}
 
-		//家电（电视影音）
-		function dianshiyy(){
-			$.ajax({
-				url:'/goods/findGoods',
-				type:'post',
-				data:{typeId:2},
-				success:function(result){
-					var str = "";
+	//家电（电视影音）
+	function dianshiyy(){
+		$.ajax({
+			url:'/goods/findGoods',
+			type:'post',
+			data:{typeId:3},
+			success:function(result){
+				var str = "";
 
-					for (var i = 0; i < 8 ; i++) {
-						str = str + '<li class="little-box">';
-						str = str + '<div class="flag flag-new flag-none">';
-						str = str + '</div>';
-						str = str + '<a href="#">';
-						str = str + '<div>';
-						str = str + '<img src="/mi/img/home-appliances/jd (5).jpg" alt="" class="phone-image">';
-						str = str + '<p class="share-h3">'+result[i].goodsName+'</p>';
-						str = str + '<p class="p-3">'+result[i].goodsCaption+'</p>';
-						str = str + '<p class="price">'+ result[i].goodsPrice +'元</span></p>';
-						str = str + '</div>';
-						str = str + '</a>';
-						str = str + '</li>';
+				for (var i = 0; i < 8 ; i++) {
+					str = str + '<li class="little-box">';
+					str = str + '<div class="flag flag-new flag-none">';
+					str = str + '</div>';
+					str = str + '<a href=javascript:phone('+result[i].id+')>';
+					str = str + '<div>';
+					str = str + '<img src="'+result[i].goodsImg+'" alt="" class="phone-image">';
+					str = str + '<p class="share-h3">'+result[i].goodsName+'</p>';
+					str = str + '<p class="p-3">'+result[i].goodsCaption+'</p>';
+					str = str + '<p class="price">'+ result[i].goodsPrice +'元</span></p>';
+					str = str + '</div>';
+					str = str + '</a>';
+					str = str + '</li>';
 
-					}
-					$("#dianshiyy").html(str);
 				}
-			})
-		}
+				$("#dianshiyy").html(str);
+			}
+		})
+	}
 
-		//家电（热门）
-		function jiadianrm(){
-			$.ajax({
-				url:'/goods/findGoods',
-				type:'post',
-				data:{typeId:4},
-				success:function(result){
-					var str = "";
-					for (var i = 0; i < 8 ; i++) {
-						str = str + '<li class="little-box">';
-						str = str + '<div class="flag flag-new flag-none">';
-						str = str + '</div>';
-						str = str + '<a href="#">';
-						str = str + '<div>';
-						str = str + '<img src="/mi/img/home-appliances/jd (9).jpg" alt="" class="phone-image">';
-						str = str + '<p class="share-h3">'+result[i].goodsName+'</p>';
-						str = str + '<p class="p-3">'+result[i].goodsCaption+'</p>';
-						str = str + '<p class="price">'+ result[i].goodsPrice +'元</p>';
-						str = str + '</div>';
-						str = str + '</a>';
-						str = str + '</li>';
+	//家电（热门）
+	function jiadianrm(){
+		$.ajax({
+			url:'/goods/findGoods',
+			type:'post',
+			data:{typeId:2},
+			success:function(result){
+				var str = "";
+				for (var i = 0; i < 8 ; i++) {
+					str = str + '<li class="little-box">';
+					str = str + '<div class="flag flag-new flag-none">';
+					str = str + '</div>';
+					str = str + '<a href=javascript:phone('+result[i].id+')>';
+					str = str + '<div>';
+					str = str + '<img src="'+result[i].goodsImg+'" alt="" class="phone-image">';
+					str = str + '<p class="share-h3">'+result[i].goodsName+'</p>';
+					str = str + '<p class="p-3">'+result[i].goodsCaption+'</p>';
+					str = str + '<p class="price">'+ result[i].goodsPrice +'元</p>';
+					str = str + '</div>';
+					str = str + '</a>';
+					str = str + '</li>';
 
-					}
-					$("#jiadianrm").html(str);
 				}
-			})
-		}
-		//手机
-		function shouji(){
-			$.ajax({
-				url:'/goods/findGoods',
-				type:'post',
-				data:{typeId:1},
-				success:function(result){
-					var str = "";
-					for (var i = 0; i < 8 ; i++) {
-						str = str + '<li class="little-box">';
-						str = str + '<a href=javascript:phone('+result[i].id+')>';
-						str = str + '<div>';
-						str = str + '<img src="/mi/img/mobile-phone/sj1.jpg" alt="" class="phone-image">';
-						str = str + '<p class="share-h3">'+result[i].goodsName+'</p>';
-						str = str + '<p class="p-3">'+result[i].goodsCaption+'</p>';
-						str = str + '<p class="price">'+result[i].goodsPrice+'元</p>';
-						str = str + "</div>";
-						str = str + "</a>";
-						str = str + "</li>";
-					}
-					$("#shouji").html(str);
+				$("#jiadianrm").html(str);
+			}
+		})
+	}
+	//手机
+	function shouji(){
+		$.ajax({
+			url:'/goods/findGoods',
+			type:'post',
+			data:{typeId:1},
+			success:function(result){
+				var str = "";
+				for (var i = 0; i < 8 ; i++) {
+					str = str + '<li class="little-box">';
+					str = str + '<a href=javascript:phone('+result[i].id+')>';
+					str = str + '<div>';
+					str = str + '<img src="'+result[i].goodsImg+'" alt="" class="phone-image">';
+					str = str + '<p class="share-h3">'+result[i].goodsName+'</p>';
+					str = str + '<p class="p-3">'+result[i].goodsCaption+'</p>';
+					str = str + '<p class="price">'+result[i].goodsPrice+'元</p>';
+					str = str + "</div>";
+					str = str + "</a>";
+					str = str + "</li>";
 				}
-			})
-		}
+				$("#shouji").html(str);
+			}
+		})
+	}
 		//顶部导航
 		function topAll(number) {
 			if(number == 1){
@@ -1361,8 +1354,9 @@
 				url: '/top/queryTopList',
 				data: {topName:topName,type:typeId},
 				success: function (data) {
+					console.log(data)
 					for (var i = 0; i < 6; i++) {
-						str+='<li><a href="javascript:aaaa('+data[i].id+')"><img src="'+data[i].goodsimg+'"><br/>'+data[i].goodsname+'<h5>'+data[i].goodsprice+'元起</h5></a></li>';
+						str+='<li><a href="javascript:aaaa('+data[i].id+')"><img src="'+data[i].goodsimg+'"  width="50%" height="50%"><br/>'+data[i].goodsname+'<h5>'+data[i].goodsprice+'元起</h5></a></li>';
 						$('#top2').html(str);
 						$('#top1').html(str);
 						$('#top3').html(str);
@@ -1429,5 +1423,12 @@ function abc11() {
 		location.href="/jump/personal";
 	}
 }
+
+    //搜索传值
+    function sou(){
+		var name=$("#shuru").val();
+
+		location.href="/jump/sou?name="+name;
+	}
 	</script>
 </html>

@@ -1,12 +1,8 @@
 package com.jk.controller;
 
-import com.jk.entity.Goods;
 import com.jk.entity.GoodsBeab;
-<<<<<<< HEAD
 import com.jk.entity.HuiFuBean;
 import com.jk.entity.PingLunBean;
-=======
->>>>>>> 34f44c2516e6597e387322be1f0791f2002f6cdd
 import com.jk.pojo.RedisConstant;
 import com.jk.service.LxTopService;
 import com.jk.utils.RedisUtil;
@@ -44,10 +40,10 @@ public class LxTopController {
     public List<GoodsBeab> queryTopList(String topName, Integer type){
 
 
-        List<GoodsBeab> goodsBeabs = (List)redisUtil.get(RedisConstant.Goods_Key+"_"+type);
+        List<GoodsBeab> goodsBeabs = (List)redisUtil.get(RedisConstant.Tuijian_Key+"_"+type);
         if(goodsBeabs == null || goodsBeabs.isEmpty()) {
             goodsBeabs = lxTopService.queryTopList(topName, type);
-            redisUtil.set(RedisConstant.Goods_Key+"_"+type,goodsBeabs);
+            redisUtil.set(RedisConstant.Tuijian_Key+"_"+type,goodsBeabs);
             // 设置key的过期时间
             //redisUtil.expire(RedisConstant.USER_LIST_KEY + "_" + user, 60);
         }
