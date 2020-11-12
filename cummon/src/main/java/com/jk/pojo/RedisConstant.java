@@ -14,4 +14,8 @@ public class RedisConstant {
     public static final String Goods_Key = "goodskey";
     public static final String Goods_Order__Key = "goodsorderkey";
 
+    public static final String Lunbo_Key = "lunbokey";
+
+    public static final String Tuijian_Key = "tuijiankey";
+
 }

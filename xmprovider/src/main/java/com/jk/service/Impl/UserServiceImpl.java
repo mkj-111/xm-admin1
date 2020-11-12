@@ -22,4 +22,9 @@ public class UserServiceImpl implements UserService {
 
         return user1;
     }
+
+    @Override
+    public void updateUserBean(Integer id, String name, Integer sex) {
+        UserMapper.updateUserBean(id,name,sex);
+    }
 }

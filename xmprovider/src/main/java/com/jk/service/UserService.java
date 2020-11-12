@@ -7,4 +7,6 @@ public interface UserService {
 
 
     xmuser login(xmuser user);
+
+    void updateUserBean(Integer id, String name, Integer sex);
 }

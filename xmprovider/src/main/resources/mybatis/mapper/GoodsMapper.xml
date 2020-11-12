@@ -162,6 +162,7 @@
         where id = #{id,jdbcType=INTEGER}
     </update>
 
+<<<<<<< HEAD
     <select id="findGoods" resultMap="BaseResultMap">
         select a.*,c.goods_price as goodsPrice from xm_goods a
         LEFT JOIN xm_color b
@@ -171,6 +172,17 @@
         GROUP BY
         a.goods_name
     </select>
+=======
+  <select id="findGoods" resultType="com.jk.entity.Goods">
+    select a.*,c.goods_price as goodsPrice from xm_goods a
+    LEFT JOIN xm_color b
+        on a.goods_color_id = b.color_id
+    LEFT JOIN xm_versions c
+        on b.color_id = c.color_id where a.goods_remen = #{typeId}
+	GROUP BY
+		a.goods_name
+  </select>
+>>>>>>> 00b6fd6394c81560332f51f334c6a3cb9ea1c7ad
 
     <select id="findgoodbyid" resultMap="BaseResultMap">
         select a.*,c.goods_price as goodsPrice from xm_goods a

@@ -30,8 +30,15 @@ public class RedisConfiguration {
         template.setKeySerializer(new StringRedisSerializer());
         template.setHashKeySerializer(new StringRedisSerializer());
         template.setConnectionFactory(redisConnectionFactory);
+<<<<<<< HEAD
         ParserConfig.getGlobalInstance().addAccept("com.jk.entity"); // 指定自己的实体类包
+=======
+<<<<<<< HEAD
+>>>>>>> 00b6fd6394c81560332f51f334c6a3cb9ea1c7ad
         ParserConfig.getGlobalInstance().addAccept("com.jk.mkj.entity"); // 指定自己的实体类包
+=======
+        ParserConfig.getGlobalInstance().addAccept("com.jk.entity"); // 指定自己的实体类包
+>>>>>>> 34f44c2516e6597e387322be1f0791f2002f6cdd
         return template;
     }
 
