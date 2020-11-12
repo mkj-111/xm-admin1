@@ -10,8 +10,10 @@
 'use strict';
 import H from '../parts/Globals.js';
 import U from '../parts/Utilities.js';
+
 var pick = U.pick;
-var defaultPlotOptions = H.defaultPlotOptions, merge = H.merge, noop = H.noop, seriesType = H.seriesType, seriesTypes = H.seriesTypes;
+var defaultPlotOptions = H.defaultPlotOptions, merge = H.merge, noop = H.noop, seriesType = H.seriesType,
+    seriesTypes = H.seriesTypes;
 var colProto = seriesTypes.column.prototype;
 /**
  * The column range is a cartesian series type with higher and lower
@@ -67,7 +69,10 @@ seriesType('columnrange', 'arearange', merge(defaultPlotOptions.column, defaultP
      * @private
      */
     translate: function () {
-        var series = this, yAxis = series.yAxis, xAxis = series.xAxis, startAngleRad = xAxis.startAngleRad, start, chart = series.chart, isRadial = series.xAxis.isRadial, safeDistance = Math.max(chart.chartWidth, chart.chartHeight) + 999, plotHigh;
+        var series = this, yAxis = series.yAxis, xAxis = series.xAxis, startAngleRad = xAxis.startAngleRad, start,
+            chart = series.chart, isRadial = series.xAxis.isRadial,
+            safeDistance = Math.max(chart.chartWidth, chart.chartHeight) + 999, plotHigh;
+
         // eslint-disable-next-line valid-jsdoc
         /**
          * Don't draw too far outside plot area (#6835)
@@ -76,10 +81,12 @@ seriesType('columnrange', 'arearange', merge(defaultPlotOptions.column, defaultP
         function safeBounds(pixelPos) {
             return Math.min(Math.max(-safeDistance, pixelPos), safeDistance);
         }
+
         colProto.translate.apply(series);
         // Set plotLow and plotHigh
         series.points.forEach(function (point) {
-            var shapeArgs = point.shapeArgs, minPointLength = series.options.minPointLength, heightDifference, height, y;
+            var shapeArgs = point.shapeArgs, minPointLength = series.options.minPointLength, heightDifference, height,
+                y;
             point.plotHigh = plotHigh = safeBounds(yAxis.translate(point.high, 0, 1, 0, 1));
             point.plotLow = safeBounds(point.plotY);
             // adjust shape
@@ -91,8 +98,7 @@ seriesType('columnrange', 'arearange', merge(defaultPlotOptions.column, defaultP
                 height += heightDifference;
                 y -= heightDifference / 2;
                 // Adjust for negative ranges or reversed Y axis (#1457)
-            }
-            else if (height < 0) {
+            } else if (height < 0) {
                 height *= -1;
                 y -= height;
             }
@@ -102,23 +108,22 @@ seriesType('columnrange', 'arearange', merge(defaultPlotOptions.column, defaultP
                 point.shapeArgs = {
                     d: series.polarArc(y + height, y, start, start + point.pointWidth)
                 };
-            }
-            else {
+            } else {
                 shapeArgs.height = height;
                 shapeArgs.y = y;
                 point.tooltipPos = chart.inverted ?
                     [
                         yAxis.len + yAxis.pos - chart.plotLeft - y -
-                            height / 2,
+                        height / 2,
                         xAxis.len + xAxis.pos - chart.plotTop -
-                            shapeArgs.x - shapeArgs.width / 2,
+                        shapeArgs.x - shapeArgs.width / 2,
                         height
                     ] : [
-                    xAxis.left - chart.plotLeft + shapeArgs.x +
+                        xAxis.left - chart.plotLeft + shapeArgs.x +
                         shapeArgs.width / 2,
-                    yAxis.pos - chart.plotTop + y + height / 2,
-                    height
-                ]; // don't inherit from column tooltip position - #3372
+                        yAxis.pos - chart.plotTop + y + height / 2,
+                        height
+                    ]; // don't inherit from column tooltip position - #3372
             }
         });
     },

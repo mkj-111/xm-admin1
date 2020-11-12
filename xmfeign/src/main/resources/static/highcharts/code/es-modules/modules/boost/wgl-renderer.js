@@ -14,9 +14,12 @@ import H from '../../parts/Globals.js';
 import GLShader from './wgl-shader.js';
 import GLVertexBuffer from './wgl-vbuffer.js';
 import U from '../../parts/Utilities.js';
+
 var isNumber = U.isNumber, objEach = U.objectEach;
 import '../../parts/Color.js';
+
 var win = H.win, doc = win.document, merge = H.merge, some = H.some, Color = H.Color, pick = H.pick;
+
 /* eslint-disable valid-jsdoc */
 /**
  * Main renderer. Used to render series.
@@ -35,55 +38,56 @@ var win = H.win, doc = win.document, merge = H.merge, some = H.some, Color = H.C
  */
 function GLRenderer(postRenderCallback) {
     //  // Shader
-    var shader = false, 
-    // Vertex buffers - keyed on shader attribute name
-    vbuffer = false, 
-    // Opengl context
-    gl = false, 
-    // Width of our viewport in pixels
-    width = 0, 
-    // Height of our viewport in pixels
-    height = 0, 
-    // The data to render - array of coordinates
-    data = false, 
-    // The marker data
-    markerData = false, 
-    // Exports
-    exports = {}, 
-    // Is it inited?
-    isInited = false, 
-    // The series stack
-    series = [], 
-    // Texture handles
-    textureHandles = {}, 
-    // Things to draw as "rectangles" (i.e lines)
-    asBar = {
-        'column': true,
-        'columnrange': true,
-        'bar': true,
-        'area': true,
-        'arearange': true
-    }, asCircle = {
-        'scatter': true,
-        'bubble': true
-    }, 
-    // Render settings
-    settings = {
-        pointSize: 1,
-        lineWidth: 1,
-        fillColor: '#AA00AA',
-        useAlpha: true,
-        usePreallocated: false,
-        useGPUTranslations: false,
-        debug: {
-            timeRendering: false,
-            timeSeriesProcessing: false,
-            timeSetup: false,
-            timeBufferCopy: false,
-            timeKDTree: false,
-            showSkipSummary: false
-        }
-    };
+    var shader = false,
+        // Vertex buffers - keyed on shader attribute name
+        vbuffer = false,
+        // Opengl context
+        gl = false,
+        // Width of our viewport in pixels
+        width = 0,
+        // Height of our viewport in pixels
+        height = 0,
+        // The data to render - array of coordinates
+        data = false,
+        // The marker data
+        markerData = false,
+        // Exports
+        exports = {},
+        // Is it inited?
+        isInited = false,
+        // The series stack
+        series = [],
+        // Texture handles
+        textureHandles = {},
+        // Things to draw as "rectangles" (i.e lines)
+        asBar = {
+            'column': true,
+            'columnrange': true,
+            'bar': true,
+            'area': true,
+            'arearange': true
+        }, asCircle = {
+            'scatter': true,
+            'bubble': true
+        },
+        // Render settings
+        settings = {
+            pointSize: 1,
+            lineWidth: 1,
+            fillColor: '#AA00AA',
+            useAlpha: true,
+            usePreallocated: false,
+            useGPUTranslations: false,
+            debug: {
+                timeRendering: false,
+                timeSeriesProcessing: false,
+                timeSetup: false,
+                timeBufferCopy: false,
+                timeKDTree: false,
+                showSkipSummary: false
+            }
+        };
+
     // /////////////////////////////////////////////////////////////////////////
     /**
      * @private
@@ -91,6 +95,7 @@ function GLRenderer(postRenderCallback) {
     function setOptions(options) {
         merge(true, settings, options);
     }
+
     /**
      * @private
      */
@@ -105,17 +110,16 @@ function GLRenderer(postRenderCallback) {
                 .length;
             if (series.type === 'treemap') {
                 s *= 12;
-            }
-            else if (series.type === 'heatmap') {
+            } else if (series.type === 'heatmap') {
                 s *= 6;
-            }
-            else if (asBar[series.type]) {
+            } else if (asBar[series.type]) {
                 s *= 2;
             }
             return s;
         }
         return 0;
     }
+
     /**
      * Allocate a float buffer to fit all series
      * @private
@@ -132,6 +136,7 @@ function GLRenderer(postRenderCallback) {
         });
         vbuffer.allocate(s);
     }
+
     /**
      * @private
      */
@@ -145,6 +150,7 @@ function GLRenderer(postRenderCallback) {
         }
         vbuffer.allocate(s);
     }
+
     /**
      * Returns an orthographic perspective matrix
      * @private
@@ -160,6 +166,7 @@ function GLRenderer(postRenderCallback) {
             -1, 1, -(far + near) / (far - near), 1
         ];
     }
+
     /**
      * Clear the depth and color buffer
      * @private
@@ -167,6 +174,7 @@ function GLRenderer(postRenderCallback) {
     function clear() {
         gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
     }
+
     /**
      * Get the WebGL context
      * @private
@@ -175,6 +183,7 @@ function GLRenderer(postRenderCallback) {
     function getGL() {
         return gl;
     }
+
     /**
      * Push data for a single series
      * This calculates additional vertices and transforms the data to be
@@ -183,30 +192,39 @@ function GLRenderer(postRenderCallback) {
      */
     function pushSeriesData(series, inst) {
         var isRange = (series.pointArrayMap &&
-            series.pointArrayMap.join(',') === 'low,high'), chart = series.chart, options = series.options, isStacked = !!options.stacking, rawData = options.data, xExtremes = series.xAxis.getExtremes(), xMin = xExtremes.min, xMax = xExtremes.max, yExtremes = series.yAxis.getExtremes(), yMin = yExtremes.min, yMax = yExtremes.max, xData = series.xData || options.xData || series.processedXData, yData = series.yData || options.yData || series.processedYData, zData = (series.zData || options.zData ||
-            series.processedZData), yAxis = series.yAxis, xAxis = series.xAxis, 
-        // plotHeight = series.chart.plotHeight,
-        plotWidth = series.chart.plotWidth, useRaw = !xData || xData.length === 0, 
-        // threshold = options.threshold,
-        // yBottom = chart.yAxis[0].getThreshold(threshold),
-        // hasThreshold = isNumber(threshold),
-        // colorByPoint = series.options.colorByPoint,
-        // This is required for color by point, so make sure this is
-        // uncommented if enabling that
-        // colorIndex = 0,
-        // Required for color axis support
-        // caxis,
-        connectNulls = options.connectNulls, 
-        // For some reason eslint/TypeScript don't pick up that this is
-        // actually used: --- bre1470: it is never read, just set
-        // maxVal: (number|undefined), // eslint-disable-line no-unused-vars
-        points = series.points || false, lastX = false, lastY = false, minVal, color, scolor, sdata = isStacked ? series.data : (xData || rawData), closestLeft = { x: Number.MAX_VALUE, y: 0 }, closestRight = { x: -Number.MAX_VALUE, y: 0 }, 
-        //
-        skipped = 0, hadPoints = false, 
-        //
-        cullXThreshold = 1, cullYThreshold = 1, 
-        // The following are used in the builder while loop
-        x, y, d, z, i = -1, px = false, nx = false, low, chartDestroyed = typeof chart.index === 'undefined', nextInside = false, prevInside = false, pcolor = false, drawAsBar = asBar[series.type], isXInside = false, isYInside = true, firstPoint = true, zones = options.zones || false, zoneDefColor = false, threshold = options.threshold, gapSize = false;
+            series.pointArrayMap.join(',') === 'low,high'), chart = series.chart, options = series.options,
+            isStacked = !!options.stacking, rawData = options.data, xExtremes = series.xAxis.getExtremes(),
+            xMin = xExtremes.min, xMax = xExtremes.max, yExtremes = series.yAxis.getExtremes(), yMin = yExtremes.min,
+            yMax = yExtremes.max, xData = series.xData || options.xData || series.processedXData,
+            yData = series.yData || options.yData || series.processedYData, zData = (series.zData || options.zData ||
+            series.processedZData), yAxis = series.yAxis, xAxis = series.xAxis,
+            // plotHeight = series.chart.plotHeight,
+            plotWidth = series.chart.plotWidth, useRaw = !xData || xData.length === 0,
+            // threshold = options.threshold,
+            // yBottom = chart.yAxis[0].getThreshold(threshold),
+            // hasThreshold = isNumber(threshold),
+            // colorByPoint = series.options.colorByPoint,
+            // This is required for color by point, so make sure this is
+            // uncommented if enabling that
+            // colorIndex = 0,
+            // Required for color axis support
+            // caxis,
+            connectNulls = options.connectNulls,
+            // For some reason eslint/TypeScript don't pick up that this is
+            // actually used: --- bre1470: it is never read, just set
+            // maxVal: (number|undefined), // eslint-disable-line no-unused-vars
+            points = series.points || false, lastX = false, lastY = false, minVal, color, scolor,
+            sdata = isStacked ? series.data : (xData || rawData), closestLeft = {x: Number.MAX_VALUE, y: 0},
+            closestRight = {x: -Number.MAX_VALUE, y: 0},
+            //
+            skipped = 0, hadPoints = false,
+            //
+            cullXThreshold = 1, cullYThreshold = 1,
+            // The following are used in the builder while loop
+            x, y, d, z, i = -1, px = false, nx = false, low, chartDestroyed = typeof chart.index === 'undefined',
+            nextInside = false, prevInside = false, pcolor = false, drawAsBar = asBar[series.type], isXInside = false,
+            isYInside = true, firstPoint = true, zones = options.zones || false, zoneDefColor = false,
+            threshold = options.threshold, gapSize = false;
         if (options.boostData && options.boostData.length > 0) {
             return;
         }
@@ -233,6 +251,7 @@ function GLRenderer(postRenderCallback) {
             plotWidth = series.chart.plotHeight;
         }
         series.closestPointRangePx = Number.MAX_VALUE;
+
         /**
          * Push color to color buffer - need to do this per vertex.
          * @private
@@ -245,6 +264,7 @@ function GLRenderer(postRenderCallback) {
                 inst.colorData.push(color[3]);
             }
         }
+
         /**
          * Push a vertice to the data buffer.
          * @private
@@ -253,14 +273,14 @@ function GLRenderer(postRenderCallback) {
             pushColor(color);
             if (settings.usePreallocated) {
                 vbuffer.push(x, y, checkTreshold ? 1 : 0, pointSize || 1);
-            }
-            else {
+            } else {
                 data.push(x);
                 data.push(y);
                 data.push(checkTreshold ? 1 : 0);
                 data.push(pointSize || 1);
             }
         }
+
         /**
          * @private
          */
@@ -269,6 +289,7 @@ function GLRenderer(postRenderCallback) {
                 inst.segments[inst.segments.length - 1].to = data.length;
             }
         }
+
         /**
          * Create a new segment for the current set.
          * @private
@@ -287,6 +308,7 @@ function GLRenderer(postRenderCallback) {
                 from: data.length
             });
         }
+
         /**
          * Push a rectangle to the data buffer.
          * @private
@@ -305,6 +327,7 @@ function GLRenderer(postRenderCallback) {
             pushColor(color);
             vertice(x + w, y);
         }
+
         // Create the first segment
         beginSegment();
         // Special case for point shapes
@@ -427,8 +450,7 @@ function GLRenderer(postRenderCallback) {
                         inst.zMin = d[2];
                     }
                 }
-            }
-            else {
+            } else {
                 x = d;
                 y = yData[i];
                 if (sdata[i + 1]) {
@@ -463,8 +485,7 @@ function GLRenderer(postRenderCallback) {
                 }
                 low = y[0];
                 y = y[1];
-            }
-            else if (isStacked) {
+            } else if (isStacked) {
                 x = d.x;
                 y = d.stackY;
                 low = y - d.y;
@@ -507,7 +528,7 @@ function GLRenderer(postRenderCallback) {
             if (zones) {
                 pcolor = zoneDefColor.rgba;
                 some(zones, function (// eslint-disable-line no-loop-func
-                zone, i) {
+                    zone, i) {
                     var last = zones[i - 1];
                     if (typeof zone.value !== 'undefined' && y <= zone.value) {
                         if (!last || y >= last.value) {
@@ -550,14 +571,13 @@ function GLRenderer(postRenderCallback) {
                 if (low === false || typeof low === 'undefined') {
                     if (y < 0) {
                         minVal = y;
-                    }
-                    else {
+                    } else {
                         minVal = 0;
                     }
                 }
                 if (!isRange && !isStacked) {
                     minVal = Math.max(threshold === null ? yMin : threshold, // #5268
-                    yMin); // #8731
+                        yMin); // #8731
                 }
                 if (!settings.useGPUTranslations) {
                     minVal = yAxis.toPixels(minVal, true);
@@ -618,6 +638,7 @@ function GLRenderer(postRenderCallback) {
         if (settings.debug.showSkipSummary) {
             console.log('skipped points:', skipped); // eslint-disable-line no-console
         }
+
         /**
          * @private
          */
@@ -635,6 +656,7 @@ function GLRenderer(postRenderCallback) {
             }
             vertice(point.x, point.y, 0, 2);
         }
+
         if (!hadPoints &&
             connectNulls !== false &&
             series.drawMode === 'line_strip') {
@@ -648,6 +670,7 @@ function GLRenderer(postRenderCallback) {
         }
         closeSegment();
     }
+
     /**
      * Push a series to the renderer
      * If we render the series immediatly, we don't have to loop later
@@ -699,6 +722,7 @@ function GLRenderer(postRenderCallback) {
             console.timeEnd('building ' + s.type + ' series'); // eslint-disable-line no-console
         }
     }
+
     /**
      * Flush the renderer.
      * This removes pushed series and vertices.
@@ -713,6 +737,7 @@ function GLRenderer(postRenderCallback) {
             vbuffer.destroy();
         }
     }
+
     /**
      * Pass x-axis to shader
      * @private
@@ -732,6 +757,7 @@ function GLRenderer(postRenderCallback) {
         shader.setUniform('xAxisIsLog', axis.isLog);
         shader.setUniform('xAxisReversed', (!!axis.reversed));
     }
+
     /**
      * Pass y-axis to shader
      * @private
@@ -751,6 +777,7 @@ function GLRenderer(postRenderCallback) {
         shader.setUniform('yAxisIsLog', axis.isLog);
         shader.setUniform('yAxisReversed', (!!axis.reversed));
     }
+
     /**
      * Set the translation threshold
      * @private
@@ -761,6 +788,7 @@ function GLRenderer(postRenderCallback) {
         shader.setUniform('hasThreshold', has);
         shader.setUniform('translatedThreshold', translation);
     }
+
     /**
      * Render the data
      * This renders all pushed series.
@@ -773,8 +801,7 @@ function GLRenderer(postRenderCallback) {
             }
             width = chart.chartWidth || 800;
             height = chart.chartHeight || 400;
-        }
-        else {
+        } else {
             return false;
         }
         if (!gl || !width || !height || !shader) {
@@ -796,12 +823,15 @@ function GLRenderer(postRenderCallback) {
         shader.setInverted(chart.inverted);
         // Render the series
         series.forEach(function (s, si) {
-            var options = s.series.options, shapeOptions = options.marker, sindex, lineWidth = (typeof options.lineWidth !== 'undefined' ?
-                options.lineWidth :
-                1), threshold = options.threshold, hasThreshold = isNumber(threshold), yBottom = s.series.yAxis.getThreshold(threshold), translatedThreshold = yBottom, cbuffer, showMarkers = pick(options.marker ? options.marker.enabled : null, s.series.xAxis.isRadial ? true : null, s.series.closestPointRangePx >
-                2 * ((options.marker ?
-                    options.marker.radius :
-                    10) || 10)), fillColor, shapeTexture = textureHandles[(shapeOptions && shapeOptions.symbol) ||
+            var options = s.series.options, shapeOptions = options.marker, sindex,
+                lineWidth = (typeof options.lineWidth !== 'undefined' ?
+                    options.lineWidth :
+                    1), threshold = options.threshold, hasThreshold = isNumber(threshold),
+                yBottom = s.series.yAxis.getThreshold(threshold), translatedThreshold = yBottom, cbuffer,
+                showMarkers = pick(options.marker ? options.marker.enabled : null, s.series.xAxis.isRadial ? true : null, s.series.closestPointRangePx >
+                    2 * ((options.marker ?
+                        options.marker.radius :
+                        10) || 10)), fillColor, shapeTexture = textureHandles[(shapeOptions && shapeOptions.symbol) ||
                 s.series.symbol] || textureHandles.circle, color;
             if (s.segments.length === 0 ||
                 (s.segmentslength &&
@@ -815,11 +845,10 @@ function GLRenderer(postRenderCallback) {
             if (chart.styledMode) {
                 fillColor = (s.series.markerGroup &&
                     s.series.markerGroup.getStyle('fill'));
-            }
-            else {
+            } else {
                 fillColor =
                     (s.series.pointAttribs && s.series.pointAttribs().fill) ||
-                        s.series.color;
+                    s.series.color;
                 if (options.colorByPoint) {
                     fillColor = s.series.chart.options.colors[si];
                 }
@@ -841,16 +870,13 @@ function GLRenderer(postRenderCallback) {
             if (options.boostBlending === 'add') {
                 gl.blendFunc(gl.SRC_ALPHA, gl.ONE);
                 gl.blendEquation(gl.FUNC_ADD);
-            }
-            else if (options.boostBlending === 'mult' ||
+            } else if (options.boostBlending === 'mult' ||
                 options.boostBlending === 'multiply') {
                 gl.blendFunc(gl.DST_COLOR, gl.ZERO);
-            }
-            else if (options.boostBlending === 'darken') {
+            } else if (options.boostBlending === 'darken') {
                 gl.blendFunc(gl.ONE, gl.ONE);
                 gl.blendEquation(gl.FUNC_MIN);
-            }
-            else {
+            } else {
                 // gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
                 // gl.blendEquation(gl.FUNC_ADD);
                 gl.blendFuncSeparate(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA, gl.ONE, gl.ONE_MINUS_SRC_ALPHA);
@@ -871,8 +897,7 @@ function GLRenderer(postRenderCallback) {
             if (s.drawMode === 'points') {
                 if (options.marker && options.marker.radius) {
                     shader.setPointSize(options.marker.radius * 2.0);
-                }
-                else {
+                } else {
                     shader.setPointSize(1);
                 }
             }
@@ -895,8 +920,7 @@ function GLRenderer(postRenderCallback) {
             if (s.hasMarkers && showMarkers) {
                 if (options.marker && options.marker.radius) {
                     shader.setPointSize(options.marker.radius * 2.0);
-                }
-                else {
+                } else {
                     shader.setPointSize(10);
                 }
                 shader.setDrawAsCircle(true);
@@ -915,6 +939,7 @@ function GLRenderer(postRenderCallback) {
         }
         flush();
     }
+
     /**
      * Render the data when ready
      * @private
@@ -926,13 +951,13 @@ function GLRenderer(postRenderCallback) {
         }
         if (isInited) {
             render(chart);
-        }
-        else {
+        } else {
             setTimeout(function () {
                 renderWhenReady(chart);
             }, 1);
         }
     }
+
     /**
      * Set the viewport size in pixels
      * Creates an orthographic perspective matrix and applies it.
@@ -950,6 +975,7 @@ function GLRenderer(postRenderCallback) {
         shader.bind();
         shader.setPMatrix(orthoMatrix(width, height));
     }
+
     /**
      * Init OpenGL
      * @private
@@ -971,7 +997,7 @@ function GLRenderer(postRenderCallback) {
         }
         for (; i < contexts.length; i++) {
             gl = canvas.getContext(contexts[i], {
-            //    premultipliedAlpha: false
+                //    premultipliedAlpha: false
             });
             if (gl) {
                 break;
@@ -981,8 +1007,7 @@ function GLRenderer(postRenderCallback) {
             if (!noFlush) {
                 flush();
             }
-        }
-        else {
+        } else {
             return false;
         }
         gl.enable(gl.BLEND);
@@ -1028,11 +1053,11 @@ function GLRenderer(postRenderCallback) {
                 // gl.generateMipmap(gl.TEXTURE_2D);
                 gl.bindTexture(gl.TEXTURE_2D, null);
                 props.isReady = true;
-            }
-            catch (e) {
+            } catch (e) {
                 // silent error
             }
         }
+
         // Circle shape
         createTexture('circle', function (ctx) {
             ctx.beginPath();
@@ -1078,6 +1103,7 @@ function GLRenderer(postRenderCallback) {
         }
         return true;
     }
+
     /**
      * Check if we have a valid OGL context
      * @private
@@ -1086,6 +1112,7 @@ function GLRenderer(postRenderCallback) {
     function valid() {
         return gl !== false;
     }
+
     /**
      * Check if the renderer has been initialized
      * @private
@@ -1094,6 +1121,7 @@ function GLRenderer(postRenderCallback) {
     function inited() {
         return isInited;
     }
+
     /**
      * @private
      */
@@ -1111,6 +1139,7 @@ function GLRenderer(postRenderCallback) {
             gl.canvas.height = 1;
         }
     }
+
     // /////////////////////////////////////////////////////////////////////////
     exports = {
         allocateBufferForSingleSeries: allocateBufferForSingleSeries,
@@ -1134,4 +1163,5 @@ function GLRenderer(postRenderCallback) {
     };
     return exports;
 }
+
 export default GLRenderer;

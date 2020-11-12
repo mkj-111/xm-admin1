@@ -9,20 +9,23 @@
     <link rel="stylesheet"
           href="../js/bootstrap/css/bootstrap.css" th:src="@{/js/bootstrap/css/bootstrap.css}"/>
     <script type="text/javascript"
-            src="../js/bootstrap/js/bootstrap-treeview.min.js" th:src="@{/js/bootstrap/js/bootstrap-treeview.min.js}"></script>
+            src="../js/bootstrap/js/bootstrap-treeview.min.js"
+            th:src="@{/js/bootstrap/js/bootstrap-treeview.min.js}"></script>
     <link rel="stylesheet"
-          href="../js/bootstrap/css/bootstrap-treeview.min.css" th:src="@{/js/bootstrap/css/bootstrap-treeview.min.css}"/>
+          href="../js/bootstrap/css/bootstrap-treeview.min.css"
+          th:src="@{/js/bootstrap/css/bootstrap-treeview.min.css}"/>
     <script type="text/javascript"
-            src="../js/bootstrap/js/bootstrap.addtabs.min.js" th:src="@{/js/bootstrap/js/bootstrap.addtabs.min.js}"></script>
+            src="../js/bootstrap/js/bootstrap.addtabs.min.js"
+            th:src="@{/js/bootstrap/js/bootstrap.addtabs.min.js}"></script>
     <link rel="stylesheet"
-          href="../js/bootstrap/css/bootstrap.addtabs.css" th:src="@{/js/bootstrap/css/bootstrap.addtabs.css}" />
+          href="../js/bootstrap/css/bootstrap.addtabs.css" th:src="@{/js/bootstrap/css/bootstrap.addtabs.css}"/>
 </head>
 <body style=" background: url(http://global.bing.com/az/hprichbg/rb/RavenWolf_EN-US4433795745_1920x1080.jpg) no-repeat center center fixed; background-size: 100%;">
 
 <nav class="navbar navbar-default navbar-fixed-top ">
     <div class="container">
         <div class="navbar-header">
-            <h1 ><a class="navbar-brand" href="#">橘子橘子大橘子</a></h1>
+            <h1><a class="navbar-brand" href="#">橘子橘子大橘子</a></h1>
         </div>
     </div>
 </nav>
@@ -50,23 +53,24 @@
 </div>
 
 <script type="text/javascript">
-    $(function (){
+    $(function () {
         initTree();
     })
-    function initTree(){
+
+    function initTree() {
         $.ajax({
-            type:'get',
-            url:'/tree/findtree',
-            dataType:'json',
-            success:function(data){
+            type: 'get',
+            url: '/tree/findtree',
+            dataType: 'json',
+            success: function (data) {
                 $('#myTree').treeview({
-                    data:data,
-                    onNodeSelected:function(event, node) {
+                    data: data,
+                    onNodeSelected: function (event, node) {
                         $.addtabs({iframeHeight: 550});
                         $.addtabs.add({
-                            id:node.id,
-                            title:node.text,
-                            url:node.href
+                            id: node.id,
+                            title: node.text,
+                            url: node.href
                         });
                     }
                 })

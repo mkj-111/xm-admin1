@@ -12,6 +12,7 @@
 
 import H from '../../parts/Globals.js';
 import U from '../../parts/Utilities.js';
+
 var pick = U.pick;
 
 var error = H.error;
@@ -30,7 +31,7 @@ function traverseSetOption(root, optionAsArray, val) {
     var opt = root,
         prop,
         i = 0;
-    for (;i < optionAsArray.length - 1; ++i) {
+    for (; i < optionAsArray.length - 1; ++i) {
         prop = optionAsArray[i];
         opt = opt[prop] = pick(opt[prop], {});
     }

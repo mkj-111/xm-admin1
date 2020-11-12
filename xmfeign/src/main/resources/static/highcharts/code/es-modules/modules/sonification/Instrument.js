@@ -112,6 +112,7 @@
 
 import H from '../../parts/Globals.js';
 import U from '../../parts/Utilities.js';
+
 var pick = U.pick;
 
 // Default options for Instrument constructor
@@ -144,6 +145,7 @@ var defaultOptions = {
 function Instrument(options) {
     this.init(options);
 }
+
 Instrument.prototype.init = function (options) {
     if (!this.initAudioContext()) {
         H.error(29);
@@ -191,7 +193,7 @@ Instrument.prototype.init = function (options) {
  *         A new Instrument instance with the same options.
  */
 Instrument.prototype.copy = function (options) {
-    return new Instrument(H.merge(this.options, { id: null }, options));
+    return new Instrument(H.merge(this.options, {id: null}, options));
 };
 
 
@@ -316,7 +318,7 @@ Instrument.prototype.getValidFrequency = function (frequency, min, max) {
         validFrequencies.reduce(function (acc, cur) {
             // Find the closest allowed value
             return Math.abs(cur - frequency) < Math.abs(acc - frequency) &&
-                cur < maximum && cur > minimum ?
+            cur < maximum && cur > minimum ?
                 cur : acc;
         }, Infinity);
 };
@@ -472,7 +474,8 @@ Instrument.prototype.play = function (options) {
             // chaos. We pass in 'cancelled' to indicate that this note did not
             // finish, but still stopped.
             instrument._play = instrument.play;
-            instrument.play = function () { };
+            instrument.play = function () {
+            };
             instrument.stopCallback('cancelled');
             instrument.play = instrument._play;
         }
@@ -548,7 +551,8 @@ Instrument.prototype.stop = function (immediately, onStopped, callbackData) {
             // this function to fail if so.
             try {
                 instr.oscillator.stop();
-            } catch (e) {}
+            } catch (e) {
+            }
             instr.oscillator.disconnect(instr.gainNode);
             // We need a new oscillator in order to restart it
             instr.initOscillator(instr.options.oscillator);

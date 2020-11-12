@@ -12,6 +12,7 @@
 
 import H from '../../../parts/Globals.js';
 import U from '../../../parts/Utilities.js';
+
 var extend = U.extend;
 
 import AccessibilityComponent from '../AccessibilityComponent.js';
@@ -54,7 +55,8 @@ H.Axis.prototype.panStep = function (direction, granularity) {
  * @class
  * @name Highcharts.ZoomComponent
  */
-var ZoomComponent = function () {};
+var ZoomComponent = function () {
+};
 ZoomComponent.prototype = new AccessibilityComponent();
 extend(ZoomComponent.prototype, /** @lends Highcharts.ZoomComponent */ {
 
@@ -91,7 +93,7 @@ extend(ZoomComponent.prototype, /** @lends Highcharts.ZoomComponent */ {
                     'aria-label',
                     chart.langFormat(
                         'accessibility.mapZoom' + (i ? 'Out' : 'In'),
-                        { chart: chart }
+                        {chart: chart}
                     )
                 );
             });
@@ -136,7 +138,7 @@ extend(ZoomComponent.prototype, /** @lends Highcharts.ZoomComponent */ {
                 chart.resetZoomButton, 'resetZoomProxyButton',
                 'resetZoomProxyGroup', chart.langFormat(
                     'accessibility.resetZoomButton',
-                    { chart: chart }
+                    {chart: chart}
                 )
             );
         }
@@ -175,7 +177,7 @@ extend(ZoomComponent.prototype, /** @lends Highcharts.ZoomComponent */ {
                     chart[
                         keyCode === keys.up || keyCode === keys.down ?
                             'yAxis' : 'xAxis'
-                    ][0].panStep(
+                        ][0].panStep(
                         keyCode === keys.left || keyCode === keys.up ? -1 : 1
                     );
                     return this.response.success;
@@ -190,7 +192,7 @@ extend(ZoomComponent.prototype, /** @lends Highcharts.ZoomComponent */ {
                     // Deselect old
                     chart.mapNavButtons[
                         component.focusedMapNavButtonIx
-                    ].setState(0);
+                        ].setState(0);
 
                     // Trying to go somewhere we can't?
                     if (
@@ -206,7 +208,7 @@ extend(ZoomComponent.prototype, /** @lends Highcharts.ZoomComponent */ {
                     component.focusedMapNavButtonIx += e.shiftKey ? -1 : 1;
                     button = chart.mapNavButtons[
                         component.focusedMapNavButtonIx
-                    ];
+                        ];
                     chart.setFocusToElement(button.box, button.element);
                     button.setState(2);
 
@@ -220,7 +222,7 @@ extend(ZoomComponent.prototype, /** @lends Highcharts.ZoomComponent */ {
                     component.fakeClickEvent(
                         chart.mapNavButtons[
                             component.focusedMapNavButtonIx
-                        ].element
+                            ].element
                     );
                     return this.response.success;
                 }]
@@ -273,7 +275,7 @@ extend(ZoomComponent.prototype, /** @lends Highcharts.ZoomComponent */ {
                         keyCode === this.tab && e.shiftKey ||
                         keyCode === keys.left || keyCode === keys.up ?
                             'prev' : 'next'
-                    ];
+                        ];
                 }],
 
                 // Select to click

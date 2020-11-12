@@ -14,32 +14,35 @@ import H from '../parts/Globals.js';
  *
  * @interface Highcharts.MapCoordinateObject
  */ /**
-* X coordinate on the map.
-* @name Highcharts.MapCoordinateObject#x
-* @type {number}
-*/ /**
-* Y coordinate on the map.
-* @name Highcharts.MapCoordinateObject#y
-* @type {number|null}
-*/
+ * X coordinate on the map.
+ * @name Highcharts.MapCoordinateObject#x
+ * @type {number}
+ */ /**
+ * Y coordinate on the map.
+ * @name Highcharts.MapCoordinateObject#y
+ * @type {number|null}
+ */
 /**
  * A latitude/longitude object.
  *
  * @interface Highcharts.MapLatLonObject
  */ /**
-* The latitude.
-* @name Highcharts.MapLatLonObject#lat
-* @type {number}
-*/ /**
-* The longitude.
-* @name Highcharts.MapLatLonObject#lon
-* @type {number}
-*/
+ * The latitude.
+ * @name Highcharts.MapLatLonObject#lat
+ * @type {number}
+ */ /**
+ * The longitude.
+ * @name Highcharts.MapLatLonObject#lon
+ * @type {number}
+ */
 import U from '../parts/Utilities.js';
+
 var extend = U.extend;
 import '../parts/Options.js';
 import '../parts/Chart.js';
+
 var Chart = H.Chart, format = H.format, merge = H.merge, win = H.win, wrap = H.wrap;
+
 /* eslint-disable no-invalid-this, valid-jsdoc */
 /**
  * Test for point in polygon. Polygon defined as array of [x,y] points.
@@ -60,6 +63,7 @@ function pointInPolygon(point, polygon) {
     }
     return c;
 }
+
 /**
  * Highmaps only. Get point from latitude and longitude using specified
  * transform definition.
@@ -132,22 +136,22 @@ Chart.prototype.transformToLatLon = function (point, transform) {
         return;
     }
     var normalized = {
-        x: ((point.x -
-            (transform.jsonmarginX || 0)) / (transform.jsonres || 1) -
-            (transform.xpan || 0)) / (transform.scale || 1) +
-            (transform.xoffset || 0),
-        y: ((-point.y - (transform.jsonmarginY || 0)) / (transform.jsonres || 1) +
-            (transform.ypan || 0)) / (transform.scale || 1) +
-            (transform.yoffset || 0)
-    }, cosAngle = transform.cosAngle ||
+            x: ((point.x -
+                (transform.jsonmarginX || 0)) / (transform.jsonres || 1) -
+                (transform.xpan || 0)) / (transform.scale || 1) +
+                (transform.xoffset || 0),
+            y: ((-point.y - (transform.jsonmarginY || 0)) / (transform.jsonres || 1) +
+                (transform.ypan || 0)) / (transform.scale || 1) +
+                (transform.yoffset || 0)
+        }, cosAngle = transform.cosAngle ||
         (transform.rotation && Math.cos(transform.rotation)), sinAngle = transform.sinAngle ||
-        (transform.rotation && Math.sin(transform.rotation)), 
-    // Note: Inverted sinAngle to reverse rotation direction
-    projected = win.proj4(transform.crs, 'WGS84', transform.rotation ? {
-        x: normalized.x * cosAngle + normalized.y * -sinAngle,
-        y: normalized.x * sinAngle + normalized.y * cosAngle
-    } : normalized);
-    return { lat: projected.y, lon: projected.x };
+        (transform.rotation && Math.sin(transform.rotation)),
+        // Note: Inverted sinAngle to reverse rotation direction
+        projected = win.proj4(transform.crs, 'WGS84', transform.rotation ? {
+            x: normalized.x * cosAngle + normalized.y * -sinAngle,
+            y: normalized.x * sinAngle + normalized.y * cosAngle
+        } : normalized);
+    return {lat: projected.y, lon: projected.x};
 };
 /**
  * Highmaps only. Calculate latitude/longitude values for a point. Returns an
@@ -176,7 +180,7 @@ Chart.prototype.fromPointToLatLon = function (point) {
     for (transform in transforms) {
         if (Object.hasOwnProperty.call(transforms, transform) &&
             transforms[transform].hitZone &&
-            pointInPolygon({ x: point.x, y: -point.y }, transforms[transform].hitZone.coordinates[0])) {
+            pointInPolygon({x: point.x, y: -point.y}, transforms[transform].hitZone.coordinates[0])) {
             return this.transformToLatLon(point, transforms[transform]);
         }
     }
@@ -213,7 +217,7 @@ Chart.prototype.fromLatLonToPoint = function (latLon) {
         if (Object.hasOwnProperty.call(transforms, transform) &&
             transforms[transform].hitZone) {
             coords = this.transformFromLatLon(latLon, transforms[transform]);
-            if (pointInPolygon({ x: coords.x, y: -coords.y }, transforms[transform].hitZone.coordinates[0])) {
+            if (pointInPolygon({x: coords.x, y: -coords.y}, transforms[transform].hitZone.coordinates[0])) {
                 return coords;
             }
         }
@@ -264,35 +268,32 @@ H.geojson = function (geojson, hType, series) {
     };
     hType = hType || 'map';
     geojson.features.forEach(function (feature) {
-        var geometry = feature.geometry, type = geometry.type, coordinates = geometry.coordinates, properties = feature.properties, point;
+        var geometry = feature.geometry, type = geometry.type, coordinates = geometry.coordinates,
+            properties = feature.properties, point;
         path = [];
         if (hType === 'map' || hType === 'mapbubble') {
             if (type === 'Polygon') {
                 coordinates.forEach(polygonToPath);
                 path.push('Z');
-            }
-            else if (type === 'MultiPolygon') {
+            } else if (type === 'MultiPolygon') {
                 coordinates.forEach(function (items) {
                     items.forEach(polygonToPath);
                 });
                 path.push('Z');
             }
             if (path.length) {
-                point = { path: path };
+                point = {path: path};
             }
-        }
-        else if (hType === 'mapline') {
+        } else if (hType === 'mapline') {
             if (type === 'LineString') {
                 polygonToPath(coordinates);
-            }
-            else if (type === 'MultiLineString') {
+            } else if (type === 'MultiLineString') {
                 coordinates.forEach(polygonToPath);
             }
             if (path.length) {
-                point = { path: path };
+                point = {path: path};
             }
-        }
-        else if (hType === 'mappoint') {
+        } else if (hType === 'mappoint') {
             if (type === 'Point') {
                 point = {
                     x: coordinates[0],
@@ -318,8 +319,8 @@ H.geojson = function (geojson, hType, series) {
     // Create a credits text that includes map source, to be picked up in
     // Chart.addCredits
     if (series && geojson.copyrightShort) {
-        series.chart.mapCredits = format(series.chart.options.credits.mapText, { geojson: geojson });
-        series.chart.mapCreditsFull = format(series.chart.options.credits.mapTextFull, { geojson: geojson });
+        series.chart.mapCredits = format(series.chart.options.credits.mapText, {geojson: geojson});
+        series.chart.mapCreditsFull = format(series.chart.options.credits.mapTextFull, {geojson: geojson});
     }
     return mapData;
 };

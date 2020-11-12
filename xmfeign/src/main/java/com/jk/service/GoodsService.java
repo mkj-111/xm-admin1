@@ -13,6 +13,7 @@ public interface GoodsService {
 
     @RequestMapping("/findGoods")
     public List<Goods> findGoods(@RequestParam Integer typeId);
+
     @RequestMapping("/findgoodbyid")
     public Goods findgoodbyid(@RequestParam int id);
 }

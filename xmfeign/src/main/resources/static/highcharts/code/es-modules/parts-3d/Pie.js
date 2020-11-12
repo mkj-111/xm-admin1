@@ -12,6 +12,7 @@
 'use strict';
 import H from '../parts/Globals.js';
 import U from '../parts/Utilities.js';
+
 var pick = U.pick;
 var deg2rad = H.deg2rad, seriesTypes = H.seriesTypes, svg = H.svg, wrap = H.wrap;
 /**
@@ -31,9 +32,11 @@ wrap(seriesTypes.pie.prototype, 'translate', function (proceed) {
     if (!this.chart.is3d()) {
         return;
     }
-    var series = this, seriesOptions = series.options, depth = seriesOptions.depth || 0, options3d = series.chart.options.chart.options3d, alpha = options3d.alpha, beta = options3d.beta, z = seriesOptions.stacking ?
-        (seriesOptions.stack || 0) * depth :
-        series._i * depth;
+    var series = this, seriesOptions = series.options, depth = seriesOptions.depth || 0,
+        options3d = series.chart.options.chart.options3d, alpha = options3d.alpha, beta = options3d.beta,
+        z = seriesOptions.stacking ?
+            (seriesOptions.stack || 0) * depth :
+            series._i * depth;
     z += depth / 2;
     if (seriesOptions.grouping !== false) {
         z = 0;
@@ -73,9 +76,12 @@ wrap(seriesTypes.pie.prototype, 'drawDataLabels', function (proceed) {
     if (this.chart.is3d()) {
         var series = this, chart = series.chart, options3d = chart.options.chart.options3d;
         series.data.forEach(function (point) {
-            var shapeArgs = point.shapeArgs, r = shapeArgs.r, 
-            // #3240 issue with datalabels for 0 and null values
-            a1 = (shapeArgs.alpha || options3d.alpha) * deg2rad, b1 = (shapeArgs.beta || options3d.beta) * deg2rad, a2 = (shapeArgs.start + shapeArgs.end) / 2, labelPosition = point.labelPosition, connectorPosition = labelPosition.connectorPosition, yOffset = (-r * (1 - Math.cos(a1)) * Math.sin(a2)), xOffset = r * (Math.cos(b1) - 1) * Math.cos(a2);
+            var shapeArgs = point.shapeArgs, r = shapeArgs.r,
+                // #3240 issue with datalabels for 0 and null values
+                a1 = (shapeArgs.alpha || options3d.alpha) * deg2rad, b1 = (shapeArgs.beta || options3d.beta) * deg2rad,
+                a2 = (shapeArgs.start + shapeArgs.end) / 2, labelPosition = point.labelPosition,
+                connectorPosition = labelPosition.connectorPosition, yOffset = (-r * (1 - Math.cos(a1)) * Math.sin(a2)),
+                xOffset = r * (Math.cos(b1) - 1) * Math.cos(a2);
             // Apply perspective on label positions
             [
                 labelPosition.natural,
@@ -99,9 +105,9 @@ wrap(seriesTypes.pie.prototype, 'addPoint', function (proceed) {
 wrap(seriesTypes.pie.prototype, 'animate', function (proceed) {
     if (!this.chart.is3d()) {
         proceed.apply(this, [].slice.call(arguments, 1));
-    }
-    else {
-        var args = arguments, init = args[1], animation = this.options.animation, attribs, center = this.center, group = this.group, markerGroup = this.markerGroup;
+    } else {
+        var args = arguments, init = args[1], animation = this.options.animation, attribs, center = this.center,
+            group = this.group, markerGroup = this.markerGroup;
         if (svg) { // VML is too slow anyway
             if (animation === true) {
                 animation = {};
@@ -123,8 +129,7 @@ wrap(seriesTypes.pie.prototype, 'animate', function (proceed) {
                     markerGroup.attr(attribs);
                 }
                 // Run the animation
-            }
-            else {
+            } else {
                 attribs = {
                     translateX: group.oldtranslateX,
                     translateY: group.oldtranslateY,

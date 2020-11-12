@@ -13,7 +13,9 @@
 import H from '../../parts/Globals.js';
 import '../../parts/Series.js';
 import GLRenderer from './wgl-renderer.js';
+
 var win = H.win, doc = win.document, mainCanvas = doc.createElement('canvas');
+
 /**
  * Create a canvas + context and attach it to the target
  *
@@ -30,11 +32,12 @@ var win = H.win, doc = win.document, mainCanvas = doc.createElement('canvas');
  * the canvas renderer
  */
 function createAndAttachRenderer(chart, series) {
-    var width = chart.chartWidth, height = chart.chartHeight, target = chart, targetGroup = chart.seriesGroup || series.group, alpha = 1, foSupported = doc.implementation.hasFeature('www.http://w3.org/TR/SVG11/feature#Extensibility', '1.1');
+    var width = chart.chartWidth, height = chart.chartHeight, target = chart,
+        targetGroup = chart.seriesGroup || series.group, alpha = 1,
+        foSupported = doc.implementation.hasFeature('www.http://w3.org/TR/SVG11/feature#Extensibility', '1.1');
     if (chart.isChartSeriesBoosting()) {
         target = chart;
-    }
-    else {
+    } else {
         target = series;
     }
     // Support for foreignObject is flimsy as best.
@@ -52,7 +55,7 @@ function createAndAttachRenderer(chart, series) {
                 .addClass('highcharts-boost-canvas')
                 .add(targetGroup);
             target.boostClear = function () {
-                target.renderTarget.attr({ href: '' });
+                target.renderTarget.attr({href: ''});
             };
             target.boostCopy = function () {
                 target.boostResizeTarget();
@@ -60,8 +63,7 @@ function createAndAttachRenderer(chart, series) {
                     href: target.canvas.toDataURL('image/png')
                 });
             };
-        }
-        else {
+        } else {
             target.renderTargetFo = chart.renderer
                 .createElement('foreignObject')
                 .add(targetGroup);
@@ -89,16 +91,16 @@ function createAndAttachRenderer(chart, series) {
             height = chart.chartHeight;
             (target.renderTargetFo || target.renderTarget)
                 .attr({
-                x: 0,
-                y: 0,
-                width: width,
-                height: height
-            })
+                    x: 0,
+                    y: 0,
+                    width: width,
+                    height: height
+                })
                 .css({
-                pointerEvents: 'none',
-                mixedBlendMode: 'normal',
-                opacity: alpha
-            });
+                    pointerEvents: 'none',
+                    mixedBlendMode: 'normal',
+                    opacity: alpha
+                });
             if (target instanceof H.Chart) {
                 target.markerGroup.translate(chart.plotLeft, chart.plotTop);
             }
@@ -141,4 +143,5 @@ function createAndAttachRenderer(chart, series) {
     target.ogl.setSize(width, height);
     return target.ogl;
 }
+
 export default createAndAttachRenderer;

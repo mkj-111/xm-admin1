@@ -10,11 +10,13 @@
 'use strict';
 import H from '../parts/Globals.js';
 import U from '../parts/Utilities.js';
+
 var isNumber = U.isNumber, pick = U.pick, pInt = U.pInt;
 import '../parts/Options.js';
 import '../parts/Point.js';
 import '../parts/Series.js';
 import '../parts/Interaction.js';
+
 var merge = H.merge, noop = H.noop, Series = H.Series, seriesType = H.seriesType, TrackerMixin = H.TrackerMixin;
 /**
  * Gauges are circular plots displaying one or more values with a dial pointing
@@ -303,16 +305,18 @@ seriesType('gauge', 'line', {
         var series = this, yAxis = series.yAxis, options = series.options, center = yAxis.center;
         series.generatePoints();
         series.points.forEach(function (point) {
-            var dialOptions = merge(options.dial, point.dial), radius = ((pInt(pick(dialOptions.radius, '80%')) * center[2]) /
-                200), baseLength = ((pInt(pick(dialOptions.baseLength, '70%')) * radius) /
+            var dialOptions = merge(options.dial, point.dial),
+                radius = ((pInt(pick(dialOptions.radius, '80%')) * center[2]) /
+                    200), baseLength = ((pInt(pick(dialOptions.baseLength, '70%')) * radius) /
                 100), rearLength = ((pInt(pick(dialOptions.rearLength, '10%')) * radius) /
-                100), baseWidth = dialOptions.baseWidth || 3, topWidth = dialOptions.topWidth || 1, overshoot = options.overshoot, rotation = yAxis.startAngleRad + yAxis.translate(point.y, null, null, null, true);
+                100), baseWidth = dialOptions.baseWidth || 3, topWidth = dialOptions.topWidth || 1,
+                overshoot = options.overshoot,
+                rotation = yAxis.startAngleRad + yAxis.translate(point.y, null, null, null, true);
             // Handle the wrap and overshoot options
             if (isNumber(overshoot)) {
                 overshoot = overshoot / 180 * Math.PI;
                 rotation = Math.max(yAxis.startAngleRad - overshoot, Math.min(yAxis.endAngleRad + overshoot, rotation));
-            }
-            else if (options.wrap === false) {
+            } else if (options.wrap === false) {
                 rotation = Math.max(yAxis.startAngleRad, Math.min(yAxis.endAngleRad, rotation));
             }
             rotation = rotation * 180 / Math.PI;
@@ -343,21 +347,22 @@ seriesType('gauge', 'line', {
      * @private
      */
     drawPoints: function () {
-        var series = this, chart = series.chart, center = series.yAxis.center, pivot = series.pivot, options = series.options, pivotOptions = options.pivot, renderer = chart.renderer;
+        var series = this, chart = series.chart, center = series.yAxis.center, pivot = series.pivot,
+            options = series.options, pivotOptions = options.pivot, renderer = chart.renderer;
         series.points.forEach(function (point) {
-            var graphic = point.graphic, shapeArgs = point.shapeArgs, d = shapeArgs.d, dialOptions = merge(options.dial, point.dial); // #1233
+            var graphic = point.graphic, shapeArgs = point.shapeArgs, d = shapeArgs.d,
+                dialOptions = merge(options.dial, point.dial); // #1233
             if (graphic) {
                 graphic.animate(shapeArgs);
                 shapeArgs.d = d; // animate alters it
-            }
-            else {
+            } else {
                 point.graphic =
                     renderer[point.shapeType](shapeArgs)
                         .attr({
-                        // required by VML when animation is false
-                        rotation: shapeArgs.rotation,
-                        zIndex: 1
-                    })
+                            // required by VML when animation is false
+                            rotation: shapeArgs.rotation,
+                            zIndex: 1
+                        })
                         .addClass('highcharts-dial')
                         .add(series.group);
             }
@@ -377,13 +382,12 @@ seriesType('gauge', 'line', {
                 translateX: center[0],
                 translateY: center[1]
             });
-        }
-        else {
+        } else {
             series.pivot =
                 renderer.circle(0, 0, pick(pivotOptions.radius, 5))
                     .attr({
-                    zIndex: 2
-                })
+                        zIndex: 2
+                    })
                     .addClass('highcharts-pivot')
                     .translate(center[0], center[1])
                     .add(series.group);

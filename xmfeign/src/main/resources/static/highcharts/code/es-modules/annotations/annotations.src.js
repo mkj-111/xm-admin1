@@ -11,6 +11,7 @@
 import H from '../parts/Globals.js';
 
 import U from '../parts/Utilities.js';
+
 var defined = U.defined,
     destroyObjectProperties = U.destroyObjectProperties,
     erase = U.erase,
@@ -810,15 +811,15 @@ merge(
                     function (axes, labelOrShape) {
                         return [
                             xAxes[
-                                labelOrShape &&
-                                labelOrShape.point &&
-                                labelOrShape.point.xAxis
-                            ] || axes[0],
+                            labelOrShape &&
+                            labelOrShape.point &&
+                            labelOrShape.point.xAxis
+                                ] || axes[0],
                             yAxes[
-                                labelOrShape &&
-                                labelOrShape.point &&
-                                labelOrShape.point.yAxis
-                            ] || axes[1]
+                            labelOrShape &&
+                            labelOrShape.point &&
+                            labelOrShape.point.yAxis
+                                ] || axes[1]
                         ];
                     },
                     []
@@ -1042,11 +1043,11 @@ merge(
          */
         initShape: function (shapeOptions, index) {
             var options = merge(
-                    this.options.shapeOptions,
-                    {
-                        controlPointOptions: this.options.controlPointOptions
-                    },
-                    shapeOptions
+                this.options.shapeOptions,
+                {
+                    controlPointOptions: this.options.controlPointOptions
+                },
+                shapeOptions
                 ),
                 shape = new Annotation.shapesMap[options.type](
                     this,
@@ -1068,11 +1069,11 @@ merge(
          **/
         initLabel: function (labelOptions, index) {
             var options = merge(
-                    this.options.labelOptions,
-                    {
-                        controlPointOptions: this.options.controlPointOptions
-                    },
-                    labelOptions
+                this.options.labelOptions,
+                {
+                    controlPointOptions: this.options.controlPointOptions
+                },
+                labelOptions
                 ),
                 label = new ControllableLabel(
                     this,
@@ -1291,7 +1292,7 @@ chartProto.callbacks.push(function (chart) {
 
     chart.controlPointsGroup = chart.renderer
         .g('control-points')
-        .attr({ zIndex: 99 })
+        .attr({zIndex: 99})
         .clip(chart.plotBoxClip)
         .add();
 

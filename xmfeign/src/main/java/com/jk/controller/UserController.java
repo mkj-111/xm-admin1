@@ -25,43 +25,34 @@ public class UserController {
     private UserService UserService;
 
     @Autowired
-    private RedisTemplate<String,String> redisTemplate;
+    private RedisTemplate<String, String> redisTemplate;
 
     @RequestMapping("login")
     @ResponseBody
-    public String login(xmuser user, HttpServletRequest request, HttpServletResponse response, HttpSession session){
+    public String login(xmuser user, HttpServletRequest request, HttpServletResponse response, HttpSession session) {
         xmuser userl = UserService.login(user);
 
-        if(userl==null){
+        if (userl == null) {
             return "账号不存在";
         }
-        if(!userl.getUserPassword().equals(user.getUserPassword())){
+        if (!userl.getUserPassword().equals(user.getUserPassword())) {
             return "密码错误";
         }
-        request.getSession().setAttribute("user",userl);
+        request.getSession().setAttribute("user", userl);
         xmuser userlll = (xmuser) session.getAttribute("user");
         System.out.println(userlll);
         return "成功";
-<<<<<<< HEAD
     }
+
     @RequestMapping("findLoginStatus")
     @ResponseBody
-    public xmuser findLoginStatus(HttpSession session){
+    public xmuser findLoginStatus(HttpSession session) {
         xmuser user = (xmuser) session.getAttribute("user");
         return user;
     }
-=======
-      }
-      @RequestMapping("findLoginStatus")
-      @ResponseBody
-      public xmuser findLoginStatus(HttpSession session){
-          xmuser user = (xmuser) session.getAttribute("user");
-          return user;
-      }
->>>>>>> 848cf4f91001b0d4b8adcbd09ae25b7fe8a81c54
 
     @RequestMapping("zhuxiao")
-    public String zhuxiao(HttpSession session){
+    public String zhuxiao(HttpSession session) {
         session.removeAttribute("user");
         return "main_page";
     }

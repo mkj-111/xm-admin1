@@ -12,6 +12,7 @@
 
 import H from '../../parts/Globals.js';
 import U from '../../parts/Utilities.js';
+
 var pick = U.pick;
 
 /**
@@ -82,6 +83,7 @@ var pick = U.pick;
 function Earcon(options) {
     this.init(options || {});
 }
+
 Earcon.prototype.init = function (options) {
     this.options = options;
     if (!this.options.id) {
@@ -115,7 +117,7 @@ Earcon.prototype.sonify = function (options) {
     // Go through the instruments and play them
     playOptions.instruments.forEach(function (opts) {
         var instrument = typeof opts.instrument === 'string' ?
-                H.sonification.instruments[opts.instrument] : opts.instrument,
+            H.sonification.instruments[opts.instrument] : opts.instrument,
             instrumentOpts = H.merge(opts.playOptions),
             instrOnEnd,
             instrumentCopy,

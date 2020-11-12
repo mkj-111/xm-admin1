@@ -10,9 +10,12 @@
 'use strict';
 import H from '../parts/Globals.js';
 import U from '../parts/Utilities.js';
+
 var extend = U.extend, objectEach = U.objectEach, pick = U.pick;
 import '../parts/Chart.js';
+
 var addEvent = H.addEvent, Chart = H.Chart, doc = H.doc, merge = H.merge;
+
 /* eslint-disable no-invalid-this, valid-jsdoc */
 /**
  * @private
@@ -28,6 +31,7 @@ function stopEvent(e) {
         e.cancelBubble = true;
     }
 }
+
 /**
  * The MapNavigation handles buttons for navigation in addition to mousewheel
  * and doubleclick handlers for chart zooming.
@@ -42,6 +46,7 @@ function stopEvent(e) {
 function MapNavigation(chart) {
     this.init(chart);
 }
+
 /**
  * Initialize function.
  *
@@ -68,10 +73,11 @@ MapNavigation.prototype.init = function (chart) {
  * @return {void}
  */
 MapNavigation.prototype.update = function (options) {
-    var chart = this.chart, o = chart.options.mapNavigation, buttonOptions, attr, states, hoverStates, selectStates, outerHandler = function (e) {
-        this.handler.call(chart, e);
-        stopEvent(e); // Stop default click event (#4444)
-    }, mapNavButtons = chart.mapNavButtons;
+    var chart = this.chart, o = chart.options.mapNavigation, buttonOptions, attr, states, hoverStates, selectStates,
+        outerHandler = function (e) {
+            this.handler.call(chart, e);
+            stopEvent(e); // Stop default click event (#4444)
+        }, mapNavButtons = chart.mapNavButtons;
     // Merge in new options in case of update, and register back to chart
     // options.
     if (options) {
@@ -97,16 +103,16 @@ MapNavigation.prototype.update = function (options) {
             button = chart.renderer
                 .button(buttonOptions.text, 0, 0, outerHandler, attr, hoverStates, selectStates, 0, n === 'zoomIn' ? 'topbutton' : 'bottombutton')
                 .addClass('highcharts-map-navigation highcharts-' + {
-                zoomIn: 'zoom-in',
-                zoomOut: 'zoom-out'
-            }[n])
+                    zoomIn: 'zoom-in',
+                    zoomOut: 'zoom-out'
+                }[n])
                 .attr({
-                width: buttonOptions.width,
-                height: buttonOptions.height,
-                title: chart.options.lang[n],
-                padding: buttonOptions.padding,
-                zIndex: 5
-            })
+                    width: buttonOptions.width,
+                    height: buttonOptions.height,
+                    title: chart.options.lang[n],
+                    padding: buttonOptions.padding,
+                    zIndex: 5
+                })
                 .add();
             button.handler = buttonOptions.onclick;
             button.align(extend(buttonOptions, {
@@ -139,8 +145,7 @@ MapNavigation.prototype.updateEvents = function (options) {
         this.unbindDblClick = this.unbindDblClick || addEvent(chart.container, 'dblclick', function (e) {
             chart.pointer.onContainerDblClick(e);
         });
-    }
-    else if (this.unbindDblClick) {
+    } else if (this.unbindDblClick) {
         // Unbind and set unbinder to undefined
         this.unbindDblClick = this.unbindDblClick();
     }
@@ -153,8 +158,7 @@ MapNavigation.prototype.updateEvents = function (options) {
             stopEvent(e);
             return false;
         });
-    }
-    else if (this.unbindMouseWheel) {
+    } else if (this.unbindMouseWheel) {
         // Unbind and set unbinder to undefined
         this.unbindMouseWheel = this.unbindMouseWheel();
     }
@@ -186,8 +190,7 @@ extend(Chart.prototype, /** @lends Chart.prototype */ {
                 if (inner[size] > outer[size]) {
                     inner[size] = outer[size];
                     inner[pos] = outer[pos];
-                }
-                else { // align right
+                } else { // align right
                     inner[pos] = outer[pos] +
                         outer[size] - inner[size];
                 }
@@ -230,19 +233,24 @@ extend(Chart.prototype, /** @lends Chart.prototype */ {
      * @return {void}
      */
     mapZoom: function (howMuch, centerXArg, centerYArg, mouseX, mouseY) {
-        var chart = this, xAxis = chart.xAxis[0], xRange = xAxis.max - xAxis.min, centerX = pick(centerXArg, xAxis.min + xRange / 2), newXRange = xRange * howMuch, yAxis = chart.yAxis[0], yRange = yAxis.max - yAxis.min, centerY = pick(centerYArg, yAxis.min + yRange / 2), newYRange = yRange * howMuch, fixToX = mouseX ? ((mouseX - xAxis.pos) / xAxis.len) : 0.5, fixToY = mouseY ? ((mouseY - yAxis.pos) / yAxis.len) : 0.5, newXMin = centerX - newXRange * fixToX, newYMin = centerY - newYRange * fixToY, newExt = chart.fitToBox({
-            x: newXMin,
-            y: newYMin,
-            width: newXRange,
-            height: newYRange
-        }, {
-            x: xAxis.dataMin,
-            y: yAxis.dataMin,
-            width: xAxis.dataMax - xAxis.dataMin,
-            height: yAxis.dataMax - yAxis.dataMin
-        }), zoomOut = (newExt.x <= xAxis.dataMin &&
+        var chart = this, xAxis = chart.xAxis[0], xRange = xAxis.max - xAxis.min,
+            centerX = pick(centerXArg, xAxis.min + xRange / 2), newXRange = xRange * howMuch, yAxis = chart.yAxis[0],
+            yRange = yAxis.max - yAxis.min, centerY = pick(centerYArg, yAxis.min + yRange / 2),
+            newYRange = yRange * howMuch, fixToX = mouseX ? ((mouseX - xAxis.pos) / xAxis.len) : 0.5,
+            fixToY = mouseY ? ((mouseY - yAxis.pos) / yAxis.len) : 0.5, newXMin = centerX - newXRange * fixToX,
+            newYMin = centerY - newYRange * fixToY, newExt = chart.fitToBox({
+                x: newXMin,
+                y: newYMin,
+                width: newXRange,
+                height: newYRange
+            }, {
+                x: xAxis.dataMin,
+                y: yAxis.dataMin,
+                width: xAxis.dataMax - xAxis.dataMin,
+                height: yAxis.dataMax - yAxis.dataMin
+            }), zoomOut = (newExt.x <= xAxis.dataMin &&
             newExt.width >=
-                xAxis.dataMax - xAxis.dataMin &&
+            xAxis.dataMax - xAxis.dataMin &&
             newExt.y <= yAxis.dataMin &&
             newExt.height >= yAxis.dataMax - yAxis.dataMin);
         // When mousewheel zooming, fix the point under the mouse
@@ -257,8 +265,7 @@ extend(Chart.prototype, /** @lends Chart.prototype */ {
             xAxis.setExtremes(newExt.x, newExt.x + newExt.width, false);
             yAxis.setExtremes(newExt.y, newExt.y + newExt.height, false);
             // Reset zoom
-        }
-        else {
+        } else {
             xAxis.setExtremes(undefined, undefined, false);
             yAxis.setExtremes(undefined, undefined, false);
         }

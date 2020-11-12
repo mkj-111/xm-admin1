@@ -10,6 +10,7 @@
 'use strict';
 import H from '../parts/Globals.js';
 import U from '../parts/Utilities.js';
+
 var defined = U.defined;
 var each = H.each, merge = H.merge, error = H.error, SMA = H.seriesTypes.sma;
 /**
@@ -119,13 +120,15 @@ var multipleLinesMixin = {
      * @return {void}
      */
     drawGraph: function () {
-        var indicator = this, pointValKey = indicator.pointValKey, linesApiNames = indicator.linesApiNames, mainLinePoints = indicator.points, pointsLength = mainLinePoints.length, mainLineOptions = indicator.options, mainLinePath = indicator.graph, gappedExtend = {
-            options: {
-                gapSize: mainLineOptions.gapSize
-            }
-        }, 
-        // additional lines point place holders:
-        secondaryLines = [], secondaryLinesNames = indicator.getTranslatedLinesNames(pointValKey), point;
+        var indicator = this, pointValKey = indicator.pointValKey, linesApiNames = indicator.linesApiNames,
+            mainLinePoints = indicator.points, pointsLength = mainLinePoints.length,
+            mainLineOptions = indicator.options, mainLinePath = indicator.graph, gappedExtend = {
+                options: {
+                    gapSize: mainLineOptions.gapSize
+                }
+            },
+            // additional lines point place holders:
+            secondaryLines = [], secondaryLinesNames = indicator.getTranslatedLinesNames(pointValKey), point;
         // Generate points for additional lines:
         each(secondaryLinesNames, function (plotLine, index) {
             // create additional lines point place holders
@@ -147,8 +150,7 @@ var multipleLinesMixin = {
                 indicator.points = secondaryLines[i];
                 if (mainLineOptions[lineName]) {
                     indicator.options = merge(mainLineOptions[lineName].styles, gappedExtend);
-                }
-                else {
+                } else {
                     error('Error: "There is no ' + lineName +
                         ' in DOCS options declared. Check if linesApiNames' +
                         ' are consistent with your DOCS line names."' +
@@ -158,8 +160,7 @@ var multipleLinesMixin = {
                 SMA.prototype.drawGraph.call(indicator);
                 // Now save lines:
                 indicator['graph' + lineName] = indicator.graph;
-            }
-            else {
+            } else {
                 error('Error: "' + lineName + ' doesn\'t have equivalent ' +
                     'in pointArrayMap. To many elements in linesApiNames ' +
                     'relative to pointArrayMap."');

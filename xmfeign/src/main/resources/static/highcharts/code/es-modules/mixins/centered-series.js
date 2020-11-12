@@ -13,13 +13,14 @@ import H from '../parts/Globals.js';
  * @private
  * @interface Highcharts.RadianAngles
  */ /**
-* @name Highcharts.RadianAngles#end
-* @type {number}
-*/ /**
-* @name Highcharts.RadianAngles#start
-* @type {number}
-*/
+ * @name Highcharts.RadianAngles#end
+ * @type {number}
+ */ /**
+ * @name Highcharts.RadianAngles#start
+ * @type {number}
+ */
 import U from '../parts/Utilities.js';
+
 var isNumber = U.isNumber, pick = U.pick;
 var deg2rad = H.deg2rad, relativeLength = H.relativeLength;
 /* eslint-disable valid-jsdoc */
@@ -38,12 +39,14 @@ H.CenteredSeriesMixin = {
      * @return {Array<number>}
      */
     getCenter: function () {
-        var options = this.options, chart = this.chart, slicingRoom = 2 * (options.slicedOffset || 0), handleSlicingRoom, plotWidth = chart.plotWidth - 2 * slicingRoom, plotHeight = chart.plotHeight - 2 * slicingRoom, centerOption = options.center, positions = [
-            pick(centerOption[0], '50%'),
-            pick(centerOption[1], '50%'),
-            options.size || '100%',
-            options.innerSize || 0
-        ], smallestSize = Math.min(plotWidth, plotHeight), i, value;
+        var options = this.options, chart = this.chart, slicingRoom = 2 * (options.slicedOffset || 0),
+            handleSlicingRoom, plotWidth = chart.plotWidth - 2 * slicingRoom,
+            plotHeight = chart.plotHeight - 2 * slicingRoom, centerOption = options.center, positions = [
+                pick(centerOption[0], '50%'),
+                pick(centerOption[1], '50%'),
+                options.size || '100%',
+                options.innerSize || 0
+            ], smallestSize = Math.min(plotWidth, plotHeight), i, value;
         for (i = 0; i < 4; ++i) {
             value = positions[i];
             handleSlicingRoom = i < 2 || (i === 2 && /%$/.test(value));
@@ -77,12 +80,12 @@ H.CenteredSeriesMixin = {
      */
     getStartAndEndRadians: function (start, end) {
         var startAngle = isNumber(start) ? start : 0, // must be a number
-        endAngle = ((isNumber(end) && // must be a number
-            end > startAngle && // must be larger than the start angle
-            // difference must be less than 360 degrees
-            (end - startAngle) < 360) ?
-            end :
-            startAngle + 360), correction = -90;
+            endAngle = ((isNumber(end) && // must be a number
+                end > startAngle && // must be larger than the start angle
+                // difference must be less than 360 degrees
+                (end - startAngle) < 360) ?
+                end :
+                startAngle + 360), correction = -90;
         return {
             start: deg2rad * (startAngle + correction),
             end: deg2rad * (endAngle + correction)

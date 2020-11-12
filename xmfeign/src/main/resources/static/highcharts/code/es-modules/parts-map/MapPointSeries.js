@@ -13,6 +13,7 @@ import '../parts/Utilities.js';
 import '../parts/Options.js';
 import '../parts/Point.js';
 import '../parts/ScatterSeries.js';
+
 var merge = H.merge, Point = H.Point, seriesType = H.seriesType;
 /**
  * @private
@@ -21,53 +22,53 @@ var merge = H.merge, Point = H.Point, seriesType = H.seriesType;
  *
  * @augments Highcharts.Series
  */
-seriesType('mappoint', 'scatter', 
-/**
- * A mappoint series is a special form of scatter series where the points
- * can be laid out in map coordinates on top of a map.
- *
- * @sample maps/demo/mapline-mappoint/
- *         Map-line and map-point series.
- *
- * @extends      plotOptions.scatter
- * @product      highmaps
- * @optionparent plotOptions.mappoint
- */
-{
-    dataLabels: {
-        /** @ignore-option */
-        crop: false,
-        /** @ignore-option */
-        defer: false,
-        /** @ignore-option */
-        enabled: true,
-        // eslint-disable-next-line valid-jsdoc
-        /** @ignore-option */
-        formatter: function () {
-            return this.point.name;
-        },
-        /** @ignore-option */
-        overflow: false,
-        /** @ignore-option */
-        style: {
-            color: '#000000'
+seriesType('mappoint', 'scatter',
+    /**
+     * A mappoint series is a special form of scatter series where the points
+     * can be laid out in map coordinates on top of a map.
+     *
+     * @sample maps/demo/mapline-mappoint/
+     *         Map-line and map-point series.
+     *
+     * @extends      plotOptions.scatter
+     * @product      highmaps
+     * @optionparent plotOptions.mappoint
+     */
+    {
+        dataLabels: {
+            /** @ignore-option */
+            crop: false,
+            /** @ignore-option */
+            defer: false,
+            /** @ignore-option */
+            enabled: true,
+            // eslint-disable-next-line valid-jsdoc
+            /** @ignore-option */
+            formatter: function () {
+                return this.point.name;
+            },
+            /** @ignore-option */
+            overflow: false,
+            /** @ignore-option */
+            style: {
+                color: '#000000'
+            }
         }
-    }
-    // Prototype members
-}, {
-    type: 'mappoint',
-    forceDL: true
-    // Point class
-}, {
-    applyOptions: function (options, x) {
-        var mergedOptions = (options.lat !== undefined &&
+        // Prototype members
+    }, {
+        type: 'mappoint',
+        forceDL: true
+        // Point class
+    }, {
+        applyOptions: function (options, x) {
+            var mergedOptions = (options.lat !== undefined &&
             options.lon !== undefined ?
-            merge(options, this.series.chart.fromLatLonToPoint(options)) :
-            options);
-        return Point.prototype
-            .applyOptions.call(this, mergedOptions, x);
-    }
-});
+                merge(options, this.series.chart.fromLatLonToPoint(options)) :
+                options);
+            return Point.prototype
+                .applyOptions.call(this, mergedOptions, x);
+        }
+    });
 /**
  * A `mappoint` series. If the [type](#series.mappoint.type) option
  * is not specified, it is inherited from [chart.type](#chart.type).

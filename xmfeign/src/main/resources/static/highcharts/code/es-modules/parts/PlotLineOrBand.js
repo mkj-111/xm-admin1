@@ -31,7 +31,10 @@ import Axis from './Axis.js';
  * @typedef {Highcharts.XAxisPlotLinesLabelOptions|Highcharts.YAxisPlotLinesLabelOptions|Highcharts.ZAxisPlotLinesLabelOptions} Highcharts.AxisPlotLinesLabelOptions
  */
 import U from './Utilities.js';
-var arrayMax = U.arrayMax, arrayMin = U.arrayMin, defined = U.defined, destroyObjectProperties = U.destroyObjectProperties, erase = U.erase, extend = U.extend, objectEach = U.objectEach, pick = U.pick;
+
+var arrayMax = U.arrayMax, arrayMin = U.arrayMin, defined = U.defined,
+    destroyObjectProperties = U.destroyObjectProperties, erase = U.erase, extend = U.extend, objectEach = U.objectEach,
+    pick = U.pick;
 var merge = H.merge;
 /* eslint-disable no-invalid-this, valid-jsdoc */
 /**
@@ -62,10 +65,14 @@ H.PlotLineOrBand.prototype = {
      */
     render: function () {
         H.fireEvent(this, 'render');
-        var plotLine = this, axis = plotLine.axis, horiz = axis.horiz, options = plotLine.options, optionsLabel = options.label, label = plotLine.label, to = options.to, from = options.from, value = options.value, isBand = defined(from) && defined(to), isLine = defined(value), svgElem = plotLine.svgElem, isNew = !svgElem, path = [], color = options.color, zIndex = pick(options.zIndex, 0), events = options.events, attribs = {
-            'class': 'highcharts-plot-' + (isBand ? 'band ' : 'line ') +
-                (options.className || '')
-        }, groupAttribs = {}, renderer = axis.chart.renderer, groupName = isBand ? 'bands' : 'lines', group;
+        var plotLine = this, axis = plotLine.axis, horiz = axis.horiz, options = plotLine.options,
+            optionsLabel = options.label, label = plotLine.label, to = options.to, from = options.from,
+            value = options.value, isBand = defined(from) && defined(to), isLine = defined(value),
+            svgElem = plotLine.svgElem, isNew = !svgElem, path = [], color = options.color,
+            zIndex = pick(options.zIndex, 0), events = options.events, attribs = {
+                'class': 'highcharts-plot-' + (isBand ? 'band ' : 'line ') +
+                    (options.className || '')
+            }, groupAttribs = {}, renderer = axis.chart.renderer, groupName = isBand ? 'bands' : 'lines', group;
         // logarithmic conversion
         if (axis.isLog) {
             from = axis.log2lin(from);
@@ -81,8 +88,7 @@ H.PlotLineOrBand.prototype = {
                     attribs.dashstyle =
                         options.dashStyle;
                 }
-            }
-            else if (isBand) { // plot band
+            } else if (isBand) { // plot band
                 attribs.fill = color || '#e6ebf5';
                 if (options.borderWidth) {
                     attribs.stroke = options.borderColor;
@@ -119,16 +125,14 @@ H.PlotLineOrBand.prototype = {
                 lineWidth: svgElem.strokeWidth(),
                 acrossPanes: options.acrossPanes
             });
-        }
-        else if (isBand) { // plot band
+        } else if (isBand) { // plot band
             path = axis.getPlotBandPath(from, to, options);
-        }
-        else {
+        } else {
             return;
         }
         // common for lines and bands
         if ((isNew || !svgElem.d) && path && path.length) {
-            svgElem.attr({ d: path });
+            svgElem.attr({d: path});
             // events
             if (events) {
                 objectEach(events, function (event, eventType) {
@@ -137,13 +141,11 @@ H.PlotLineOrBand.prototype = {
                     });
                 });
             }
-        }
-        else if (svgElem) {
+        } else if (svgElem) {
             if (path) {
                 svgElem.show(true);
-                svgElem.animate({ d: path });
-            }
-            else if (svgElem.d) {
+                svgElem.animate({d: path});
+            } else if (svgElem.d) {
                 svgElem.hide();
                 if (label) {
                     plotLine.label = label = label.destroy();
@@ -167,8 +169,7 @@ H.PlotLineOrBand.prototype = {
                 rotation: horiz && !isBand && 90
             }, optionsLabel);
             this.renderLabel(optionsLabel, path, isBand, zIndex);
-        }
-        else if (label) { // move out of sight
+        } else if (label) { // move out of sight
             label.hide();
         }
         // chainable
@@ -186,7 +187,8 @@ H.PlotLineOrBand.prototype = {
      * @return {void}
      */
     renderLabel: function (optionsLabel, path, isBand, zIndex) {
-        var plotLine = this, label = plotLine.label, renderer = plotLine.axis.chart.renderer, attribs, xBounds, yBounds, x, y, labelText;
+        var plotLine = this, label = plotLine.label, renderer = plotLine.axis.chart.renderer, attribs, xBounds, yBounds,
+            x, y, labelText;
         // add the SVG element
         if (!label) {
             attribs = {
@@ -853,16 +855,16 @@ extend(Axis.prototype, /** @lends Highcharts.Axis.prototype */ {
      */
     getPlotBandPath: function (from, to) {
         var toPath = this.getPlotLinePath({
-            value: to,
-            force: true,
-            acrossPanes: this.options.acrossPanes
-        }), path = this.getPlotLinePath({
-            value: from,
-            force: true,
-            acrossPanes: this.options.acrossPanes
-        }), result = [], i, 
-        // #4964 check if chart is inverted or plotband is on yAxis
-        horiz = this.horiz, plus = 1, isFlat, outside = (from < this.min && to < this.min) ||
+                value: to,
+                force: true,
+                acrossPanes: this.options.acrossPanes
+            }), path = this.getPlotLinePath({
+                value: from,
+                force: true,
+                acrossPanes: this.options.acrossPanes
+            }), result = [], i,
+            // #4964 check if chart is inverted or plotband is on yAxis
+            horiz = this.horiz, plus = 1, isFlat, outside = (from < this.min && to < this.min) ||
             (from > this.max && to > this.max);
         if (path && toPath) {
             // Flat paths don't need labels (#3836)
@@ -876,16 +878,14 @@ extend(Axis.prototype, /** @lends Highcharts.Axis.prototype */ {
                 if (horiz && toPath[i + 1] === path[i + 1]) {
                     toPath[i + 1] += plus;
                     toPath[i + 4] += plus;
-                }
-                else if (!horiz && toPath[i + 2] === path[i + 2]) {
+                } else if (!horiz && toPath[i + 2] === path[i + 2]) {
                     toPath[i + 2] += plus;
                     toPath[i + 5] += plus;
                 }
                 result.push('M', path[i + 1], path[i + 2], 'L', path[i + 4], path[i + 5], toPath[i + 4], toPath[i + 5], toPath[i + 1], toPath[i + 2], 'z');
                 result.isFlat = isFlat;
             }
-        }
-        else { // outside the axis area
+        } else { // outside the axis area
             path = null;
         }
         return result;
@@ -964,7 +964,8 @@ extend(Axis.prototype, /** @lends Highcharts.Axis.prototype */ {
      * @return {void}
      */
     removePlotBandOrLine: function (id) {
-        var plotLinesAndBands = this.plotLinesAndBands, options = this.options, userOptions = this.userOptions, i = plotLinesAndBands.length;
+        var plotLinesAndBands = this.plotLinesAndBands, options = this.options, userOptions = this.userOptions,
+            i = plotLinesAndBands.length;
         while (i--) {
             if (plotLinesAndBands[i].id === id) {
                 plotLinesAndBands[i].destroy();

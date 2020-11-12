@@ -11,6 +11,7 @@
 
 import H from '../../parts/Globals.js';
 import U from '../../parts/Utilities.js';
+
 var pick = U.pick;
 
 
@@ -86,17 +87,17 @@ function formatExtendedStatement(statement, ctx) {
             num = Number(ctx[pluralArguments[0]]);
 
         switch (num) {
-        case 0:
-            result = pick(pluralArguments[4], pluralArguments[1]);
-            break;
-        case 1:
-            result = pick(pluralArguments[2], pluralArguments[1]);
-            break;
-        case 2:
-            result = pick(pluralArguments[3], pluralArguments[1]);
-            break;
-        default:
-            result = pluralArguments[1];
+            case 0:
+                result = pick(pluralArguments[4], pluralArguments[1]);
+                break;
+            case 1:
+                result = pick(pluralArguments[2], pluralArguments[1]);
+                break;
+            case 2:
+                result = pick(pluralArguments[3], pluralArguments[1]);
+                break;
+            default:
+                result = pluralArguments[1];
         }
         return result ? stringTrim(result) : '';
     }
@@ -394,26 +395,26 @@ H.setOptions({
              */
             seriesTypeDescriptions: {
                 boxplot: 'Box plot charts are typically used to display ' +
-                'groups of statistical data. Each data point in the ' +
-                'chart can have up to 5 values: minimum, lower quartile, ' +
-                'median, upper quartile, and maximum.',
+                    'groups of statistical data. Each data point in the ' +
+                    'chart can have up to 5 values: minimum, lower quartile, ' +
+                    'median, upper quartile, and maximum.',
                 arearange: 'Arearange charts are line charts displaying a ' +
-                'range between a lower and higher value for each point.',
+                    'range between a lower and higher value for each point.',
                 areasplinerange: 'These charts are line charts displaying a ' +
-                'range between a lower and higher value for each point.',
+                    'range between a lower and higher value for each point.',
                 bubble: 'Bubble charts are scatter charts where each data ' +
-                'point also has a size value.',
+                    'point also has a size value.',
                 columnrange: 'Columnrange charts are column charts ' +
-                'displaying a range between a lower and higher value for ' +
-                'each point.',
+                    'displaying a range between a lower and higher value for ' +
+                    'each point.',
                 errorbar: 'Errorbar series are used to display the ' +
-                'variability of the data.',
+                    'variability of the data.',
                 funnel: 'Funnel charts are used to display reduction of data ' +
-                'in stages.',
+                    'in stages.',
                 pyramid: 'Pyramid charts consist of a single pyramid with ' +
-                'item heights corresponding to each point value.',
+                    'item heights corresponding to each point value.',
                 waterfall: 'A waterfall chart is a column chart where each ' +
-                'column contributes towards a total end value.'
+                    'column contributes towards a total end value.'
             },
 
             /**
@@ -460,7 +461,7 @@ H.setOptions({
              * @since 6.0.6
              */
             axis: {
-            /* eslint-disable max-len */
+                /* eslint-disable max-len */
                 xAxisDescriptionSingular: 'The chart has 1 X axis displaying {names[0]}. {ranges[0]}',
                 xAxisDescriptionPlural: 'The chart has {numAxes} X axes displaying {#each(names, -1) }and {names[-1]}.',
                 yAxisDescriptionSingular: 'The chart has 1 Y axis displaying {names[0]}. {ranges[0]}',

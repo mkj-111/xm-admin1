@@ -35,7 +35,7 @@ new function (settings) {
                     target.push(tokens.length == 0 ? value : set(null, tokens.slice(0), value));
                 } else if (is(target, Object)) {
                     var i = 0;
-                    while (target[i++] != null);
+                    while (target[i++] != null) ;
                     target[--i] = tokens.length == 0 ? value : set(target[i], tokens.slice(0), value);
                 } else {
                     target = [];
@@ -169,6 +169,7 @@ new function (settings) {
                             else
                                 o[key] = value;
                         }
+
                         jQuery.each(orig, function (key, value) {
                             if (!is(value)) return true;
                             add(obj, key, build(value));
@@ -176,6 +177,7 @@ new function (settings) {
                     }
                     return obj;
                 }
+
                 this.keys = build(this.keys);
                 return this;
             },
@@ -221,4 +223,4 @@ new function (settings) {
 
         return new queryObject(location.search, location.hash);
     };
-} (jQuery.query || {}); // Pass in jQuery.query as settings object
+}(jQuery.query || {}); // Pass in jQuery.query as settings object

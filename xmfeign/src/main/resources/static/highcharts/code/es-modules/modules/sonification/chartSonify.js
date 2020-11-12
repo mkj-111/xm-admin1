@@ -98,6 +98,7 @@
 import H from '../../parts/Globals.js';
 
 import U from '../../parts/Utilities.js';
+
 var isArray = U.isArray,
     pick = U.pick,
     splat = U.splat;
@@ -162,7 +163,7 @@ function getExtremesForInstrumentProps(chart, instruments, dataExtremes) {
             function (instrumentParameter) {
                 var value = instrumentDefinition.instrumentMapping[
                     instrumentParameter
-                ];
+                    ];
 
                 if (typeof value === 'string' && !newExtremes[value]) {
                     // This instrument parameter is mapped to a data prop.
@@ -232,7 +233,7 @@ function makeInstrumentCopies(instruments) {
                 H.sonification.instruments[instrument] :
                 instrument).copy();
 
-        return H.merge(instrumentDef, { instrument: copy });
+        return H.merge(instrumentDef, {instrument: copy});
     });
 }
 
@@ -250,14 +251,14 @@ function buildTimelinePathFromSeries(series, options) {
     // options.timeExtremes is internal and used so that the calculations from
     // chart.sonify can be reused.
     var timeExtremes = options.timeExtremes || getTimeExtremes(
-            series, options.pointPlayTime, options.dataExtremes
+        series, options.pointPlayTime, options.dataExtremes
         ),
         // Get time offset for a point, relative to duration
         pointToTime = function (point) {
             return utilities.virtualAxisTranslate(
                 getPointTimeValue(point, options.pointPlayTime),
                 timeExtremes,
-                { min: 0, max: options.duration }
+                {min: 0, max: options.duration}
             );
         },
         // Compute any data extremes that aren't defined yet
@@ -325,7 +326,7 @@ function buildTimelinePathFromSeries(series, options) {
         },
         onEventEnd: function (eventData) {
             var eventObject = eventData.event && eventData.event.options &&
-                    eventData.event.options.eventObject;
+                eventData.event.options.eventObject;
 
             if (eventObject instanceof H.Point && options.onPointEnd) {
                 options.onPointEnd(eventData.event, eventObject);
@@ -473,7 +474,7 @@ function buildPathOrder(orderOptions, chart, seriesOptionsCallback) {
                         };
                     }
 
-                // Is it an earcon? If so, just create the path.
+                    // Is it an earcon? If so, just create the path.
                 } else if (item instanceof H.sonification.Earcon) {
                     // Path with a single event
                     itemObject = new H.sonification.TimelinePath({
@@ -622,7 +623,7 @@ function getSimulPathDurationTotal(order) {
         return durationTotal + splat(orderDef).reduce(
             function (maxPathDuration, item) {
                 var timeExtremes = item.series && item.seriesOptions &&
-                        item.seriesOptions.timeExtremes;
+                    item.seriesOptions.timeExtremes;
 
                 return timeExtremes ?
                     Math.max(
@@ -652,8 +653,8 @@ function getSeriesDurationMs(
     // A series spanning the whole chart would get the full duration.
     return utilities.virtualAxisTranslate(
         seriesValueDuration,
-        { min: 0, max: totalValueDuration },
-        { min: 0, max: totalDurationMs }
+        {min: 0, max: totalValueDuration},
+        {min: 0, max: totalDurationMs}
     );
 }
 
@@ -672,7 +673,7 @@ function buildPathsFromOrder(order, duration) {
     // Find time used for waits (custom or after series), and subtract it from
     // available duration.
     var totalAvailableDurationMs = Math.max(
-            duration - getWaitTime(order), 0
+        duration - getWaitTime(order), 0
         ),
         // Add up simultaneous path durations to find total value span duration
         // of everything
@@ -690,10 +691,10 @@ function buildPathsFromOrder(order, duration) {
                     // We need to set the duration of the series
                     item.seriesOptions.duration =
                         item.seriesOptions.duration || getSeriesDurationMs(
-                            item.seriesOptions.timeExtremes.max -
-                            item.seriesOptions.timeExtremes.min,
-                            totalUsedDuration,
-                            totalAvailableDurationMs
+                        item.seriesOptions.timeExtremes.max -
+                        item.seriesOptions.timeExtremes.min,
+                        totalUsedDuration,
+                        totalAvailableDurationMs
                         );
 
                     // Add the path

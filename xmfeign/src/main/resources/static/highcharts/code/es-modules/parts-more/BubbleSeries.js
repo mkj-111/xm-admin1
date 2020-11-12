@@ -13,14 +13,18 @@ import H from '../parts/Globals.js';
  * @typedef {"area"|"width"} Highcharts.BubbleSizeByValue
  */
 import U from '../parts/Utilities.js';
-var arrayMax = U.arrayMax, arrayMin = U.arrayMin, extend = U.extend, isNumber = U.isNumber, pick = U.pick, pInt = U.pInt;
+
+var arrayMax = U.arrayMax, arrayMin = U.arrayMin, extend = U.extend, isNumber = U.isNumber, pick = U.pick,
+    pInt = U.pInt;
 import '../parts/Axis.js';
 import '../parts/Color.js';
 import '../parts/Point.js';
 import '../parts/Series.js';
 import '../parts/ScatterSeries.js';
 import './BubbleLegend.js';
-var Axis = H.Axis, color = H.color, noop = H.noop, Point = H.Point, Series = H.Series, seriesType = H.seriesType, seriesTypes = H.seriesTypes;
+
+var Axis = H.Axis, color = H.color, noop = H.noop, Point = H.Point, Series = H.Series, seriesType = H.seriesType,
+    seriesTypes = H.seriesTypes;
 /**
  * A bubble series is a three dimensional series type where each point renders
  * an X, Y and Z value. Each points is drawn as a bubble where the position
@@ -268,7 +272,8 @@ seriesType('bubble', 'scatter', {
      * @private
      */
     pointAttribs: function (point, state) {
-        var markerOptions = this.options.marker, fillOpacity = markerOptions.fillOpacity, attr = Series.prototype.pointAttribs.call(this, point, state);
+        var markerOptions = this.options.marker, fillOpacity = markerOptions.fillOpacity,
+            attr = Series.prototype.pointAttribs.call(this, point, state);
         if (fillOpacity !== 1) {
             attr.fill = color(attr.fill)
                 .setOpacity(fillOpacity)
@@ -283,7 +288,8 @@ seriesType('bubble', 'scatter', {
      * @private
      */
     getRadii: function (zMin, zMax, series) {
-        var len, i, zData = this.zData, yData = this.yData, minSize = series.minPxSize, maxSize = series.maxPxSize, radii = [], value;
+        var len, i, zData = this.zData, yData = this.yData, minSize = series.minPxSize, maxSize = series.maxPxSize,
+            radii = [], value;
         // Set the shape type and arguments to be picked up in drawPoints
         for (i = 0, len = zData.length; i < len; i++) {
             value = zData[i];
@@ -297,7 +303,8 @@ seriesType('bubble', 'scatter', {
      * @private
      */
     getRadius: function (zMin, zMax, minSize, maxSize, value, yValue) {
-        var options = this.options, sizeByArea = options.sizeBy !== 'width', zThreshold = options.zThreshold, zRange = zMax - zMin, pos = 0.5;
+        var options = this.options, sizeByArea = options.sizeBy !== 'width', zThreshold = options.zThreshold,
+            zRange = zMax - zMin, pos = 0.5;
         // #8608 - bubble should be visible when z is undefined
         if (yValue === null || value === null) {
             return null;
@@ -392,8 +399,7 @@ seriesType('bubble', 'scatter', {
                     width: 2 * radius,
                     height: 2 * radius
                 };
-            }
-            else { // below zThreshold
+            } else { // below zThreshold
                 // #1691
                 point.shapeArgs = point.plotY = point.dlBox = undefined;
             }
@@ -408,16 +414,19 @@ seriesType('bubble', 'scatter', {
      * @private
      */
     haloPath: function (size) {
-        return Point.prototype.haloPath.call(this, 
-        // #6067
-        size === 0 ? 0 : (this.marker ? this.marker.radius || 0 : 0) + size);
+        return Point.prototype.haloPath.call(this,
+            // #6067
+            size === 0 ? 0 : (this.marker ? this.marker.radius || 0 : 0) + size);
     },
     ttBelow: false
 });
 // Add logic to pad each axis with the amount of pixels necessary to avoid the
 // bubbles to overflow.
 Axis.prototype.beforePadding = function () {
-    var axis = this, axisLength = this.len, chart = this.chart, pxMin = 0, pxMax = axisLength, isXAxis = this.isXAxis, dataKey = isXAxis ? 'xData' : 'yData', min = this.min, extremes = {}, smallestSize = Math.min(chart.plotWidth, chart.plotHeight), zMin = Number.MAX_VALUE, zMax = -Number.MAX_VALUE, range = this.max - min, transA = axisLength / range, activeSeries = [];
+    var axis = this, axisLength = this.len, chart = this.chart, pxMin = 0, pxMax = axisLength, isXAxis = this.isXAxis,
+        dataKey = isXAxis ? 'xData' : 'yData', min = this.min, extremes = {},
+        smallestSize = Math.min(chart.plotWidth, chart.plotHeight), zMin = Number.MAX_VALUE, zMax = -Number.MAX_VALUE,
+        range = this.max - min, transA = axisLength / range, activeSeries = [];
     // Handle padding on the second pass, or on redraw
     this.series.forEach(function (series) {
         var seriesOptions = series.options, zData;

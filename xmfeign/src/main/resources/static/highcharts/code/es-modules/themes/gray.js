@@ -11,12 +11,13 @@
  * */
 'use strict';
 import Highcharts from '../parts/Globals.js';
+
 Highcharts.theme = {
     colors: ['#DDDF0D', '#7798BF', '#55BF3B', '#DF5353', '#aaeeee',
         '#ff0066', '#eeaaee', '#55BF3B', '#DF5353', '#7798BF', '#aaeeee'],
     chart: {
         backgroundColor: {
-            linearGradient: { x1: 0, y1: 0, x2: 0, y2: 1 },
+            linearGradient: {x1: 0, y1: 0, x2: 0, y2: 1},
             stops: [
                 [0, 'rgb(96, 96, 96)'],
                 [1, 'rgb(16, 16, 16)']
@@ -105,7 +106,7 @@ Highcharts.theme = {
     },
     tooltip: {
         backgroundColor: {
-            linearGradient: { x1: 0, y1: 0, x2: 0, y2: 1 },
+            linearGradient: {x1: 0, y1: 0, x2: 0, y2: 1},
             stops: [
                 [0, 'rgba(96, 96, 96, .8)'],
                 [1, 'rgba(16, 16, 16, .8)']
@@ -155,7 +156,7 @@ Highcharts.theme = {
             symbolStroke: '#DDDDDD',
             theme: {
                 fill: {
-                    linearGradient: { x1: 0, y1: 0, x2: 0, y2: 1 },
+                    linearGradient: {x1: 0, y1: 0, x2: 0, y2: 1},
                     stops: [
                         [0.4, '#606060'],
                         [0.6, '#333333']
@@ -169,7 +170,7 @@ Highcharts.theme = {
     rangeSelector: {
         buttonTheme: {
             fill: {
-                linearGradient: { x1: 0, y1: 0, x2: 0, y2: 1 },
+                linearGradient: {x1: 0, y1: 0, x2: 0, y2: 1},
                 stops: [
                     [0.4, '#888'],
                     [0.6, '#555']
@@ -183,7 +184,7 @@ Highcharts.theme = {
             states: {
                 hover: {
                     fill: {
-                        linearGradient: { x1: 0, y1: 0, x2: 0, y2: 1 },
+                        linearGradient: {x1: 0, y1: 0, x2: 0, y2: 1},
                         stops: [
                             [0.4, '#BBB'],
                             [0.6, '#888']
@@ -196,7 +197,7 @@ Highcharts.theme = {
                 },
                 select: {
                     fill: {
-                        linearGradient: { x1: 0, y1: 0, x2: 0, y2: 1 },
+                        linearGradient: {x1: 0, y1: 0, x2: 0, y2: 1},
                         stops: [
                             [0.1, '#000'],
                             [0.3, '#333']
@@ -231,7 +232,7 @@ Highcharts.theme = {
     },
     scrollbar: {
         barBackgroundColor: {
-            linearGradient: { x1: 0, y1: 0, x2: 0, y2: 1 },
+            linearGradient: {x1: 0, y1: 0, x2: 0, y2: 1},
             stops: [
                 [0.4, '#888'],
                 [0.6, '#555']
@@ -240,7 +241,7 @@ Highcharts.theme = {
         barBorderColor: '#CCC',
         buttonArrowColor: '#CCC',
         buttonBackgroundColor: {
-            linearGradient: { x1: 0, y1: 0, x2: 0, y2: 1 },
+            linearGradient: {x1: 0, y1: 0, x2: 0, y2: 1},
             stops: [
                 [0.4, '#888'],
                 [0.6, '#555']
@@ -249,7 +250,7 @@ Highcharts.theme = {
         buttonBorderColor: '#CCC',
         rifleColor: '#FFF',
         trackBackgroundColor: {
-            linearGradient: { x1: 0, y1: 0, x2: 0, y2: 1 },
+            linearGradient: {x1: 0, y1: 0, x2: 0, y2: 1},
             stops: [
                 [0, '#000'],
                 [1, '#333']

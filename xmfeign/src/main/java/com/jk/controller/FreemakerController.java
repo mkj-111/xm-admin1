@@ -26,13 +26,13 @@ public class FreemakerController {
 
     @RequestMapping("creatGoodsHtmlById")
     @ResponseBody
-    public void creatMovieHtmlById(HttpServletRequest request, int movieId){
+    public void creatMovieHtmlById(HttpServletRequest request, int movieId) {
         //获取servlet上下文环境对象
         ServletContext servletContext = request.getServletContext();
         Configuration configuration = new Configuration();
         //加载绝对路径的模板  加载的是一个文件夹
         try {
-                configuration.setDirectoryForTemplateLoading(new File("D:\\workspace\\ideawork1\\sm-admin\\xmfeign\\src\\main\\resources\\templates"));
+            configuration.setDirectoryForTemplateLoading(new File("D:\\workspace\\ideawork1\\sm-admin\\xmfeign\\src\\main\\resources\\templates"));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -41,27 +41,27 @@ public class FreemakerController {
         //在加载的模板文件夹中获取到对应的模板文件
         try {
             Template template = configuration.getTemplate("guan.flt");
-             Goods goods=goodsService.findgoodbyid(movieId);
+            Goods goods = goodsService.findgoodbyid(movieId);
 
             String id = goods.getId().toString();
-            String fileName = id+".html";
-            fileOutputStream = new FileOutputStream("D:\\"+fileName);
-            outputStreamWriter = new OutputStreamWriter(fileOutputStream,"UTF-8");
+            String fileName = id + ".html";
+            fileOutputStream = new FileOutputStream("D:\\" + fileName);
+            outputStreamWriter = new OutputStreamWriter(fileOutputStream, "UTF-8");
             //把模板和数据合成一个新的文件并输出到fileWriter目录当中
-            template.process(goods,outputStreamWriter);
+            template.process(goods, outputStreamWriter);
         } catch (IOException e) {
             e.printStackTrace();
         } catch (TemplateException e) {
             e.printStackTrace();
         } finally {
-            if(fileOutputStream != null){
+            if (fileOutputStream != null) {
                 try {
                     fileOutputStream.close();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
             }
-            if(outputStreamWriter != null){
+            if (outputStreamWriter != null) {
                 try {
                     outputStreamWriter.close();
                 } catch (IOException e) {

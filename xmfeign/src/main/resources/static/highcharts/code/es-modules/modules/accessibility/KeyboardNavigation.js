@@ -35,6 +35,7 @@ var merge = H.merge,
 function KeyboardNavigation(chart, components, order) {
     this.init(chart, components, order);
 }
+
 KeyboardNavigation.prototype = {
 
     /**
@@ -258,7 +259,7 @@ KeyboardNavigation.prototype = {
             exitAnchor = this.exitAnchor = doc.createElement('h6'),
             keyboardNavigation = this,
             exitAnchorLabel = chart.langFormat(
-                'accessibility.svgContainerEnd', { chart: chart }
+                'accessibility.svgContainerEnd', {chart: chart}
             );
 
         exitAnchor.innerHTML = exitAnchorLabel;
@@ -317,7 +318,7 @@ KeyboardNavigation.prototype = {
                             keyboardNavigation.modules.length - 1;
                         curModule = keyboardNavigation.modules[
                             keyboardNavigation.currentModuleIx
-                        ];
+                            ];
 
                         // Validate the module
                         if (

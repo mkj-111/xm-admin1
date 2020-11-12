@@ -11,6 +11,7 @@
 'use strict';
 import Highcharts from '../../parts/Globals.js';
 import U from '../../parts/Utilities.js';
+
 var extend = U.extend,
     pick = U.pick;
 
@@ -25,29 +26,34 @@ var functionsToOverrideByDerivedClasses = {
     /**
      * Called on component initialization.
      */
-    init: function () {},
+    init: function () {
+    },
 
     /**
      * Get keyboard navigation handler for this component.
      * @return {Highcharts.KeyboardNavigationHandler}
      */
-    getKeyboardNavigation: function () {},
+    getKeyboardNavigation: function () {
+    },
 
     /**
      * Called on updates to the chart, including options changes.
      * Note that this is also called on first render of chart.
      */
-    onChartUpdate: function () {},
+    onChartUpdate: function () {
+    },
 
     /**
      * Called on every chart render.
      */
-    onChartRender: function () {},
+    onChartRender: function () {
+    },
 
     /**
      * Called when accessibility is disabled or chart is destroyed.
      */
-    destroy: function () {}
+    destroy: function () {
+    }
 };
 
 
@@ -67,7 +73,9 @@ var functionsToOverrideByDerivedClasses = {
  * @class
  * @name Highcharts.AccessibilityComponent
  */
-function AccessibilityComponent() {}
+function AccessibilityComponent() {
+}
+
 /**
  * @lends Highcharts.AccessibilityComponent
  */
@@ -269,7 +277,7 @@ AccessibilityComponent.prototype = {
                 height: rectEl.bottom - rectEl.top
             };
         }
-        return { x: 0, y: 0, width: 1, height: 1 };
+        return {x: 0, y: 0, width: 1, height: 1};
     },
 
 

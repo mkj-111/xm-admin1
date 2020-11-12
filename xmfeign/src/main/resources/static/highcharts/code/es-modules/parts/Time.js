@@ -10,22 +10,24 @@
 'use strict';
 import Highcharts from './Globals.js';
 import U from './Utilities.js';
-var defined = U.defined, extend = U.extend, isObject = U.isObject, objectEach = U.objectEach, pick = U.pick, splat = U.splat;
+
+var defined = U.defined, extend = U.extend, isObject = U.isObject, objectEach = U.objectEach, pick = U.pick,
+    splat = U.splat;
 /**
  * Normalized interval.
  *
  * @interface Highcharts.TimeNormalizedObject
  */ /**
-* The count.
-*
-* @name Highcharts.TimeNormalizedObject#count
-* @type {number}
-*/ /**
-* The interval in axis values (ms).
-*
-* @name Highcharts.TimeNormalizedObject#unitRange
-* @type {number}
-*/
+ * The count.
+ *
+ * @name Highcharts.TimeNormalizedObject#count
+ * @type {number}
+ */ /**
+ * The interval in axis values (ms).
+ *
+ * @name Highcharts.TimeNormalizedObject#unitRange
+ * @type {number}
+ */
 /**
  * Function of an additional date format specifier.
  *
@@ -43,20 +45,21 @@ var defined = U.defined, extend = U.extend, isObject = U.isObject, objectEach = 
  * @interface Highcharts.TimeTicksInfoObject
  * @augments Highcharts.TimeNormalizedObject
  */ /**
-* @name Highcharts.TimeTicksInfoObject#higherRanks
-* @type {Array<string>}
-*/ /**
-* @name Highcharts.TimeTicksInfoObject#totalRange
-* @type {number}
-*/
+ * @name Highcharts.TimeTicksInfoObject#higherRanks
+ * @type {Array<string>}
+ */ /**
+ * @name Highcharts.TimeTicksInfoObject#totalRange
+ * @type {number}
+ */
 /**
  * Time ticks.
  *
  * @interface Highcharts.AxisTickPositionsArray
- */ /**
-* @name Highcharts.AxisTickPositionsArray#info
-* @type {Highcharts.TimeTicksInfoObject}
-*/
+ */
+/**
+ * @name Highcharts.AxisTickPositionsArray#info
+ * @type {Highcharts.TimeTicksInfoObject}
+ */
 var H = Highcharts, merge = H.merge, timeUnits = H.timeUnits, win = H.win;
 /* eslint-disable no-invalid-this, valid-jsdoc */
 /**
@@ -292,8 +295,7 @@ Highcharts.Time.prototype = {
                     date['set' + unit](value);
                     // Higher order time units need to take the time zone into
                     // account
-                }
-                else {
+                } else {
                     // Adjust by timezone
                     offset = time.getTimezoneOffset(date);
                     ms = date.getTime() - offset;
@@ -305,8 +307,7 @@ Highcharts.Time.prototype = {
                 }
             };
             // UTC time with no timezone handling
-        }
-        else if (useUTC) {
+        } else if (useUTC) {
             this.get = function (unit, date) {
                 return date['getUTC' + unit]();
             };
@@ -314,8 +315,7 @@ Highcharts.Time.prototype = {
                 return date['setUTC' + unit](value);
             };
             // Local time
-        }
-        else {
+        } else {
             this.get = function (unit, date) {
                 return date['get' + unit]();
             };
@@ -365,13 +365,11 @@ Highcharts.Time.prototype = {
                 // When the clock is set back, the same time is repeated twice, i.e.
                 // 02:30 am is repeated since the clock is set back from 3 am to
                 // 2 am. We need to make the same time as local Date does.
-            }
-            else if (offset - 36e5 === this.getTimezoneOffset(d - 36e5) &&
+            } else if (offset - 36e5 === this.getTimezoneOffset(d - 36e5) &&
                 !H.isSafari) {
                 d -= 36e5;
             }
-        }
-        else {
+        } else {
             d = new this.Date(year, month, pick(date, 1), pick(hours, 0), pick(minutes, 0), pick(seconds, 0)).getTime();
         }
         return d;
@@ -401,8 +399,7 @@ Highcharts.Time.prototype = {
                 // getTimezoneOffset-function stays undefined because it depends
                 // on Moment.js
                 H.error(25);
-            }
-            else {
+            } else {
                 return function (timestamp) {
                     return -moment.tz(timestamp, options.timezone).utcOffset() * 60000;
                 };
@@ -446,60 +443,62 @@ Highcharts.Time.prototype = {
             return H.defaultOptions.lang.invalidDate || '';
         }
         format = pick(format, '%Y-%m-%d %H:%M:%S');
-        var time = this, date = new this.Date(timestamp), 
-        // get the basic time values
-        hours = this.get('Hours', date), day = this.get('Day', date), dayOfMonth = this.get('Date', date), month = this.get('Month', date), fullYear = this.get('FullYear', date), lang = H.defaultOptions.lang, langWeekdays = lang.weekdays, shortWeekdays = lang.shortWeekdays, pad = H.pad, 
-        // List all format keys. Custom formats can be added from the
-        // outside.
-        replacements = extend({
-            // Day
-            // Short weekday, like 'Mon'
-            a: shortWeekdays ?
-                shortWeekdays[day] :
-                langWeekdays[day].substr(0, 3),
-            // Long weekday, like 'Monday'
-            A: langWeekdays[day],
-            // Two digit day of the month, 01 to 31
-            d: pad(dayOfMonth),
-            // Day of the month, 1 through 31
-            e: pad(dayOfMonth, 2, ' '),
-            w: day,
-            // Week (none implemented)
-            // 'W': weekNumber(),
-            // Month
-            // Short month, like 'Jan'
-            b: lang.shortMonths[month],
-            // Long month, like 'January'
-            B: lang.months[month],
-            // Two digit month number, 01 through 12
-            m: pad(month + 1),
-            // Month number, 1 through 12 (#8150)
-            o: month + 1,
-            // Year
-            // Two digits year, like 09 for 2009
-            y: fullYear.toString().substr(2, 2),
-            // Four digits year, like 2009
-            Y: fullYear,
-            // Time
-            // Two digits hours in 24h format, 00 through 23
-            H: pad(hours),
-            // Hours in 24h format, 0 through 23
-            k: hours,
-            // Two digits hours in 12h format, 00 through 11
-            I: pad((hours % 12) || 12),
-            // Hours in 12h format, 1 through 12
-            l: (hours % 12) || 12,
-            // Two digits minutes, 00 through 59
-            M: pad(time.get('Minutes', date)),
-            // Upper case AM or PM
-            p: hours < 12 ? 'AM' : 'PM',
-            // Lower case AM or PM
-            P: hours < 12 ? 'am' : 'pm',
-            // Two digits seconds, 00 through  59
-            S: pad(date.getSeconds()),
-            // Milliseconds (naming from Ruby)
-            L: pad(Math.floor(timestamp % 1000), 3)
-        }, H.dateFormats);
+        var time = this, date = new this.Date(timestamp),
+            // get the basic time values
+            hours = this.get('Hours', date), day = this.get('Day', date), dayOfMonth = this.get('Date', date),
+            month = this.get('Month', date), fullYear = this.get('FullYear', date), lang = H.defaultOptions.lang,
+            langWeekdays = lang.weekdays, shortWeekdays = lang.shortWeekdays, pad = H.pad,
+            // List all format keys. Custom formats can be added from the
+            // outside.
+            replacements = extend({
+                // Day
+                // Short weekday, like 'Mon'
+                a: shortWeekdays ?
+                    shortWeekdays[day] :
+                    langWeekdays[day].substr(0, 3),
+                // Long weekday, like 'Monday'
+                A: langWeekdays[day],
+                // Two digit day of the month, 01 to 31
+                d: pad(dayOfMonth),
+                // Day of the month, 1 through 31
+                e: pad(dayOfMonth, 2, ' '),
+                w: day,
+                // Week (none implemented)
+                // 'W': weekNumber(),
+                // Month
+                // Short month, like 'Jan'
+                b: lang.shortMonths[month],
+                // Long month, like 'January'
+                B: lang.months[month],
+                // Two digit month number, 01 through 12
+                m: pad(month + 1),
+                // Month number, 1 through 12 (#8150)
+                o: month + 1,
+                // Year
+                // Two digits year, like 09 for 2009
+                y: fullYear.toString().substr(2, 2),
+                // Four digits year, like 2009
+                Y: fullYear,
+                // Time
+                // Two digits hours in 24h format, 00 through 23
+                H: pad(hours),
+                // Hours in 24h format, 0 through 23
+                k: hours,
+                // Two digits hours in 12h format, 00 through 11
+                I: pad((hours % 12) || 12),
+                // Hours in 12h format, 1 through 12
+                l: (hours % 12) || 12,
+                // Two digits minutes, 00 through 59
+                M: pad(time.get('Minutes', date)),
+                // Upper case AM or PM
+                p: hours < 12 ? 'AM' : 'PM',
+                // Lower case AM or PM
+                P: hours < 12 ? 'am' : 'pm',
+                // Two digits seconds, 00 through  59
+                S: pad(date.getSeconds()),
+                // Milliseconds (naming from Ruby)
+                L: pad(Math.floor(timestamp % 1000), 3)
+            }, H.dateFormats);
         // Do the replaces
         objectEach(replacements, function (val, key) {
             // Regex would do it in one line, but this is faster
@@ -553,8 +552,9 @@ Highcharts.Time.prototype = {
      */
     getTimeTicks: function (normalizedInterval, min, max, startOfWeek) {
         var time = this, Date = time.Date, tickPositions = [], i, higherRanks = {}, minYear, // used in months and years as a basis for Date.UTC()
-        // When crossing DST, use the max. Resolves #6278.
-        minDate = new Date(min), interval = normalizedInterval.unitRange, count = normalizedInterval.count || 1, variableDayLength, minDay;
+            // When crossing DST, use the max. Resolves #6278.
+            minDate = new Date(min), interval = normalizedInterval.unitRange, count = normalizedInterval.count || 1,
+            variableDayLength, minDay;
         startOfWeek = pick(startOfWeek, 1);
         if (defined(min)) { // #1300
             time.set('Milliseconds', minDate, interval >= timeUnits.second ?
@@ -601,7 +601,8 @@ Highcharts.Time.prototype = {
             }
             // Get basics for variable time spans
             minYear = time.get('FullYear', minDate);
-            var minMonth = time.get('Month', minDate), minDateDate = time.get('Date', minDate), minHours = time.get('Hours', minDate);
+            var minMonth = time.get('Month', minDate), minDateDate = time.get('Date', minDate),
+                minHours = time.get('Hours', minDate);
             // Redefine min to the floored/rounded minimum time (#7432)
             min = minDate.getTime();
             // Handle local timezone offset
@@ -612,12 +613,12 @@ Highcharts.Time.prototype = {
                 // each tick instead of just adding hours. This comes at a cost,
                 // so first we find out if it is needed (#4951).
                 variableDayLength = (
-                // Long range, assume we're crossing over.
-                max - min > 4 * timeUnits.month ||
+                    // Long range, assume we're crossing over.
+                    max - min > 4 * timeUnits.month ||
                     // Short range, check if min and max are in different time
                     // zones.
                     time.getTimezoneOffset(min) !==
-                        time.getTimezoneOffset(max));
+                    time.getTimezoneOffset(max));
             }
             // Iterate and add tick positions at appropriate values
             var t = minDate.getTime();
@@ -628,26 +629,22 @@ Highcharts.Time.prototype = {
                 if (interval === timeUnits.year) {
                     t = time.makeTime(minYear + i * count, 0);
                     // if the interval is months, use Date.UTC to increase months
-                }
-                else if (interval === timeUnits.month) {
+                } else if (interval === timeUnits.month) {
                     t = time.makeTime(minYear, minMonth + i * count);
                     // if we're using global time, the interval is not fixed as it
                     // jumps one hour at the DST crossover
-                }
-                else if (variableDayLength &&
+                } else if (variableDayLength &&
                     (interval === timeUnits.day || interval === timeUnits.week)) {
                     t = time.makeTime(minYear, minMonth, minDateDate +
                         i * count * (interval === timeUnits.day ? 1 : 7));
-                }
-                else if (variableDayLength &&
+                } else if (variableDayLength &&
                     interval === timeUnits.hour &&
                     count > 1) {
                     // make sure higher ranks are preserved across DST (#6797,
                     // #7621)
                     t = time.makeTime(minYear, minMonth, minDateDate, minHours + i * count);
                     // else, the interval is fixed and we use simple addition
-                }
-                else {
+                } else {
                     t += interval * count;
                 }
                 i++;
@@ -660,9 +657,9 @@ Highcharts.Time.prototype = {
             if (interval <= timeUnits.hour && tickPositions.length < 10000) {
                 tickPositions.forEach(function (t) {
                     if (
-                    // Speed optimization, no need to run dateFormat unless
-                    // we're on a full or half hour
-                    t % 1800000 === 0 &&
+                        // Speed optimization, no need to run dateFormat unless
+                        // we're on a full or half hour
+                        t % 1800000 === 0 &&
                         // Check for local or global midnight
                         time.dateFormat('%H%M%S%L', t) === '000000000') {
                         higherRanks[t] = 'day';

@@ -17,6 +17,7 @@ public class xmtree {
     private Boolean selectable;
 
     private List<xmtree> nodes;
+
     public Integer getId() {
         return id;
     }

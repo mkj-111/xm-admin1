@@ -10,9 +10,12 @@
 'use strict';
 import H from './Globals.js';
 import U from './Utilities.js';
+
 var attr = U.attr, defined = U.defined, extend = U.extend, pick = U.pick, pInt = U.pInt;
 import './SvgRenderer.js';
-var createElement = H.createElement, css = H.css, isFirefox = H.isFirefox, isMS = H.isMS, isWebKit = H.isWebKit, SVGElement = H.SVGElement, SVGRenderer = H.SVGRenderer, win = H.win;
+
+var createElement = H.createElement, css = H.css, isFirefox = H.isFirefox, isMS = H.isMS, isWebKit = H.isWebKit,
+    SVGElement = H.SVGElement, SVGRenderer = H.SVGRenderer, win = H.win;
 /* eslint-disable valid-jsdoc */
 // Extend SvgElement for useHTML option.
 extend(SVGElement.prototype, /** @lends SVGElement.prototype */ {
@@ -28,12 +31,12 @@ extend(SVGElement.prototype, /** @lends SVGElement.prototype */ {
      * @return {Highcharts.SVGElement}
      */
     htmlCss: function (styles) {
-        var wrapper = this, element = wrapper.element, 
-        // When setting or unsetting the width style, we need to update
-        // transform (#8809)
-        isSettingWidth = (element.tagName === 'SPAN' &&
-            styles &&
-            'width' in styles), textWidth = pick(isSettingWidth && styles.width, undefined), doTransform;
+        var wrapper = this, element = wrapper.element,
+            // When setting or unsetting the width style, we need to update
+            // transform (#8809)
+            isSettingWidth = (element.tagName === 'SPAN' &&
+                styles &&
+                'width' in styles), textWidth = pick(isSettingWidth && styles.width, undefined), doTransform;
         if (isSettingWidth) {
             delete styles.width;
             wrapper.textWidth = textWidth;
@@ -87,9 +90,12 @@ extend(SVGElement.prototype, /** @lends SVGElement.prototype */ {
             this.alignOnAdd = true;
             return;
         }
-        var wrapper = this, renderer = wrapper.renderer, elem = wrapper.element, translateX = wrapper.translateX || 0, translateY = wrapper.translateY || 0, x = wrapper.x || 0, y = wrapper.y || 0, align = wrapper.textAlign || 'left', alignCorrection = {
-            left: 0, center: 0.5, right: 1
-        }[align], styles = wrapper.styles, whiteSpace = styles && styles.whiteSpace;
+        var wrapper = this, renderer = wrapper.renderer, elem = wrapper.element, translateX = wrapper.translateX || 0,
+            translateY = wrapper.translateY || 0, x = wrapper.x || 0, y = wrapper.y || 0,
+            align = wrapper.textAlign || 'left', alignCorrection = {
+                left: 0, center: 0.5, right: 1
+            }[align], styles = wrapper.styles, whiteSpace = styles && styles.whiteSpace;
+
         /**
          * @private
          * @return {number}
@@ -103,6 +109,7 @@ extend(SVGElement.prototype, /** @lends SVGElement.prototype */ {
             });
             return elem.offsetWidth;
         }
+
         // apply translate
         css(elem, {
             marginLeft: translateX,
@@ -123,13 +130,14 @@ extend(SVGElement.prototype, /** @lends SVGElement.prototype */ {
             });
         }
         if (elem.tagName === 'SPAN') {
-            var rotation = wrapper.rotation, baseline, textWidth = wrapper.textWidth && pInt(wrapper.textWidth), currentTextTransform = [
-                rotation,
-                align,
-                elem.innerHTML,
-                wrapper.textWidth,
-                wrapper.textAlign
-            ].join(',');
+            var rotation = wrapper.rotation, baseline, textWidth = wrapper.textWidth && pInt(wrapper.textWidth),
+                currentTextTransform = [
+                    rotation,
+                    align,
+                    elem.innerHTML,
+                    wrapper.textWidth,
+                    wrapper.textAlign
+                ].join(',');
             // Update textWidth. Use the memoized textPxLength if possible, to
             // avoid the getTextPxLength function using elem.offsetWidth.
             // Calling offsetWidth affects rendering time as it forces layout
@@ -137,10 +145,10 @@ extend(SVGElement.prototype, /** @lends SVGElement.prototype */ {
             if (textWidth !== wrapper.oldTextWidth &&
                 ((textWidth > wrapper.oldTextWidth) ||
                     (wrapper.textPxLength || getTextPxLength()) > textWidth) && (
-            // Only set the width if the text is able to word-wrap, or
-            // text-overflow is ellipsis (#9537)
-            /[ \-]/.test(elem.textContent || elem.innerText) ||
-                elem.style.textOverflow === 'ellipsis')) { // #983, #1254
+                    // Only set the width if the text is able to word-wrap, or
+                    // text-overflow is ellipsis (#9537)
+                    /[ \-]/.test(elem.textContent || elem.innerText) ||
+                    elem.style.textOverflow === 'ellipsis')) { // #983, #1254
                 css(elem, {
                     width: textWidth + 'px',
                     display: 'block',
@@ -148,8 +156,7 @@ extend(SVGElement.prototype, /** @lends SVGElement.prototype */ {
                 });
                 wrapper.oldTextWidth = textWidth;
                 wrapper.hasBoxWidthChanged = true; // #8159
-            }
-            else {
+            } else {
                 wrapper.hasBoxWidthChanged = false; // #8159
             }
             // Do the calculations and DOM access only if properties changed
@@ -163,10 +170,10 @@ extend(SVGElement.prototype, /** @lends SVGElement.prototype */ {
                     wrapper.setSpanRotation(rotation, alignCorrection, baseline);
                 }
                 wrapper.getSpanCorrection(
-                // Avoid elem.offsetWidth if we can, it affects rendering
-                // time heavily (#7656)
-                ((!defined(rotation) && wrapper.textPxLength) || // #7920
-                    elem.offsetWidth), baseline, alignCorrection, rotation, align);
+                    // Avoid elem.offsetWidth if we can, it affects rendering
+                    // time heavily (#7656)
+                    ((!defined(rotation) && wrapper.textPxLength) || // #7920
+                        elem.offsetWidth), baseline, alignCorrection, rotation, align);
             }
             // apply position with correction
             css(elem, {
@@ -251,23 +258,24 @@ extend(SVGRenderer.prototype, /** @lends SVGRenderer.prototype */ {
      * @return {Highcharts.HTMLDOMElement}
      */
     html: function (str, x, y) {
-        var wrapper = this.createElement('span'), element = wrapper.element, renderer = wrapper.renderer, isSVG = renderer.isSVG, addSetters = function (gWrapper, style) {
-            // These properties are set as attributes on the SVG group, and
-            // as identical CSS properties on the div. (#3542)
-            ['opacity', 'visibility'].forEach(function (prop) {
-                gWrapper[prop + 'Setter'] = function (value, key, elem) {
-                    var styleObject = gWrapper.div ?
-                        gWrapper.div.style :
-                        style;
-                    SVGElement.prototype[prop + 'Setter']
-                        .call(this, value, key, elem);
-                    if (styleObject) {
-                        styleObject[key] = value;
-                    }
-                };
-            });
-            gWrapper.addedSetters = true;
-        };
+        var wrapper = this.createElement('span'), element = wrapper.element, renderer = wrapper.renderer,
+            isSVG = renderer.isSVG, addSetters = function (gWrapper, style) {
+                // These properties are set as attributes on the SVG group, and
+                // as identical CSS properties on the div. (#3542)
+                ['opacity', 'visibility'].forEach(function (prop) {
+                    gWrapper[prop + 'Setter'] = function (value, key, elem) {
+                        var styleObject = gWrapper.div ?
+                            gWrapper.div.style :
+                            style;
+                        SVGElement.prototype[prop + 'Setter']
+                            .call(this, value, key, elem);
+                        if (styleObject) {
+                            styleObject[key] = value;
+                        }
+                    };
+                });
+                gWrapper.addedSetters = true;
+            };
         // Text setter
         wrapper.textSetter = function (value) {
             if (value !== element.innerHTML) {
@@ -307,13 +315,13 @@ extend(SVGRenderer.prototype, /** @lends SVGRenderer.prototype */ {
         // Set the default attributes
         wrapper
             .attr({
-            text: str,
-            x: Math.round(x),
-            y: Math.round(y)
-        })
+                text: str,
+                x: Math.round(x),
+                y: Math.round(y)
+            })
             .css({
-            position: 'absolute'
-        });
+                position: 'absolute'
+            });
         if (!renderer.styledMode) {
             wrapper.css({
                 fontFamily: this.style.fontFamily,
@@ -345,6 +353,7 @@ extend(SVGRenderer.prototype, /** @lends SVGRenderer.prototype */ {
                         // is translated
                         parents.reverse().forEach(function (parentGroup) {
                             var htmlGroupStyle, cls = attr(parentGroup.element, 'class');
+
                             /**
                              * Common translate setter for X and Y on the HTML
                              * group. Reverted the fix for #6957 du to
@@ -359,17 +368,17 @@ extend(SVGRenderer.prototype, /** @lends SVGRenderer.prototype */ {
                                 parentGroup[key] = value;
                                 if (key === 'translateX') {
                                     htmlGroupStyle.left = value + 'px';
-                                }
-                                else {
+                                } else {
                                     htmlGroupStyle.top = value + 'px';
                                 }
                                 parentGroup.doTransform = true;
                             }
+
                             // Create a HTML div and append it to the parent div
                             // to emulate the SVG group structure
                             htmlGroup =
                                 parentGroup.div =
-                                    parentGroup.div || createElement('div', cls ? { className: cls } : undefined, {
+                                    parentGroup.div || createElement('div', cls ? {className: cls} : undefined, {
                                         position: 'absolute',
                                         left: (parentGroup.translateX || 0) + 'px',
                                         top: (parentGroup.translateY || 0) + 'px',
@@ -394,7 +403,7 @@ extend(SVGRenderer.prototype, /** @lends SVGRenderer.prototype */ {
                                 }(htmlGroup)),
                                 on: function () {
                                     if (parents[0].div) { // #6418
-                                        wrapper.on.apply({ element: parents[0].div }, arguments);
+                                        wrapper.on.apply({element: parents[0].div}, arguments);
                                     }
                                     return parentGroup;
                                 },
@@ -406,8 +415,7 @@ extend(SVGRenderer.prototype, /** @lends SVGRenderer.prototype */ {
                             }
                         });
                     }
-                }
-                else {
+                } else {
                     htmlGroup = container;
                 }
                 htmlGroup.appendChild(element);

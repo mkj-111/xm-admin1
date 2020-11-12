@@ -15,7 +15,7 @@ public class TreeController {
     private TreeService treeService;
 
     @RequestMapping("findtree")
-    public List<xmtree> findtree(){
+    public List<xmtree> findtree() {
         return treeService.findtree();
     }
 }

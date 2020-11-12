@@ -11,9 +11,12 @@
 import H from './Globals.js';
 /* globals MSPointerEvent, PointerEvent */
 import U from './Utilities.js';
+
 var extend = U.extend, objectEach = U.objectEach;
 import './Pointer.js';
-var addEvent = H.addEvent, charts = H.charts, css = H.css, doc = H.doc, hasTouch = H.hasTouch, noop = H.noop, Pointer = H.Pointer, removeEvent = H.removeEvent, win = H.win, wrap = H.wrap;
+
+var addEvent = H.addEvent, charts = H.charts, css = H.css, doc = H.doc, hasTouch = H.hasTouch, noop = H.noop,
+    Pointer = H.Pointer, removeEvent = H.removeEvent, win = H.win, wrap = H.wrap;
 if (!hasTouch && (win.PointerEvent || win.MSPointerEvent)) {
     // The touches object keeps track of the points being touched at all times
     var touches = {}, hasPointerEvent = !!win.PointerEvent, getWebkitTouches = function () {
@@ -73,7 +76,7 @@ if (!hasTouch && (win.PointerEvent || win.MSPointerEvent)) {
          */
         onContainerPointerMove: function (e) {
             translateMSPointer(e, 'onContainerTouchMove', 'touchmove', function (e) {
-                touches[e.pointerId] = ({ pageX: e.pageX, pageY: e.pageY });
+                touches[e.pointerId] = ({pageX: e.pageX, pageY: e.pageY});
                 if (!touches[e.pointerId].target) {
                     touches[e.pointerId].target = e.currentTarget;
                 }

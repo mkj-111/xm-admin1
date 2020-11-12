@@ -186,7 +186,7 @@ H.extendAnnotation(
                     return {
                         x: x - this.graphic.width / 2,
                         y: getSecondCoordinate(startXY, endXY, x) -
-                        this.graphic.height / 2
+                            this.graphic.height / 2
                     };
                 },
                 events: {

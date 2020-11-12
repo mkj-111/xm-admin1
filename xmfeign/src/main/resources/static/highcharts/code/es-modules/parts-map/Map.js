@@ -10,11 +10,14 @@
 'use strict';
 import H from '../parts/Globals.js';
 import U from '../parts/Utilities.js';
+
 var extend = U.extend, pick = U.pick;
 import '../parts/Options.js';
 import '../parts/Chart.js';
 import '../parts/SvgRenderer.js';
-var Chart = H.Chart, defaultOptions = H.defaultOptions, merge = H.merge, Renderer = H.Renderer, SVGRenderer = H.SVGRenderer, VMLRenderer = H.VMLRenderer;
+
+var Chart = H.Chart, defaultOptions = H.defaultOptions, merge = H.merge, Renderer = H.Renderer,
+    SVGRenderer = H.SVGRenderer, VMLRenderer = H.VMLRenderer;
 // Add language
 extend(defaultOptions.lang, {
     zoomIn: 'Zoom in',
@@ -284,6 +287,7 @@ H.splitPath = function (path) {
  * @type {Highcharts.Dictionary<*>}
  */
 H.maps = {};
+
 /**
  * Create symbols for the zoom buttons
  * @private
@@ -318,6 +322,7 @@ function selectiveRoundedRect(x, y, w, h, rTopLeft, rTopRight, rBottomRight, rBo
         'Z'
     ];
 }
+
 SVGRenderer.prototype.symbols.topbutton = function (x, y, w, h, attr) {
     return selectiveRoundedRect(x - 1, y - 1, w, h, attr.r, attr.r, 0, 0);
 };
@@ -335,7 +340,7 @@ if (Renderer === VMLRenderer) {
 }
 /**
  * The factory function for creating new map charts. Creates a new {@link
- * Highcharts.Chart|Chart} object with different default options than the basic
+    * Highcharts.Chart|Chart} object with different default options than the basic
  * Chart.
  *
  * @requires modules/map
@@ -364,13 +369,14 @@ if (Renderer === VMLRenderer) {
  *         The chart object.
  */
 H.Map = H.mapChart = function (a, b, c) {
-    var hasRenderToArg = typeof a === 'string' || a.nodeName, options = arguments[hasRenderToArg ? 1 : 0], userOptions = options, hiddenAxis = {
-        endOnTick: false,
-        visible: false,
-        minPadding: 0,
-        maxPadding: 0,
-        startOnTick: false
-    }, seriesOptions, defaultCreditsOptions = H.getOptions().credits;
+    var hasRenderToArg = typeof a === 'string' || a.nodeName, options = arguments[hasRenderToArg ? 1 : 0],
+        userOptions = options, hiddenAxis = {
+            endOnTick: false,
+            visible: false,
+            minPadding: 0,
+            maxPadding: 0,
+            startOnTick: false
+        }, seriesOptions, defaultCreditsOptions = H.getOptions().credits;
     /* For visual testing
     hiddenAxis.gridLineWidth = 1;
     hiddenAxis.gridZIndex = 10;
@@ -380,27 +386,27 @@ H.Map = H.mapChart = function (a, b, c) {
     seriesOptions = options.series;
     options.series = null;
     options = merge({
-        chart: {
-            panning: 'xy',
-            type: 'map'
-        },
-        credits: {
-            mapText: pick(defaultCreditsOptions.mapText, ' \u00a9 <a href="{geojson.copyrightUrl}">' +
-                '{geojson.copyrightShort}</a>'),
-            mapTextFull: pick(defaultCreditsOptions.mapTextFull, '{geojson.copyright}')
-        },
-        tooltip: {
-            followTouchMove: false
-        },
-        xAxis: hiddenAxis,
-        yAxis: merge(hiddenAxis, { reversed: true })
-    }, options, // user's options
-    {
-        chart: {
-            inverted: false,
-            alignTicks: false
-        }
-    });
+            chart: {
+                panning: 'xy',
+                type: 'map'
+            },
+            credits: {
+                mapText: pick(defaultCreditsOptions.mapText, ' \u00a9 <a href="{geojson.copyrightUrl}">' +
+                    '{geojson.copyrightShort}</a>'),
+                mapTextFull: pick(defaultCreditsOptions.mapTextFull, '{geojson.copyright}')
+            },
+            tooltip: {
+                followTouchMove: false
+            },
+            xAxis: hiddenAxis,
+            yAxis: merge(hiddenAxis, {reversed: true})
+        }, options, // user's options
+        {
+            chart: {
+                inverted: false,
+                alignTicks: false
+            }
+        });
     options.series = userOptions.series = seriesOptions;
     return hasRenderToArg ?
         new Chart(a, options, c) :

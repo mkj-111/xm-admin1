@@ -21,12 +21,10 @@ if (!hasWebGLSupport()) {
     if (typeof H.initCanvasBoost !== 'undefined') {
         // Fallback to canvas boost
         H.initCanvasBoost();
-    }
-    else {
+    } else {
         H.error(26);
     }
-}
-else {
+} else {
     // WebGL support is alright, and we're good to go.
     init();
 }

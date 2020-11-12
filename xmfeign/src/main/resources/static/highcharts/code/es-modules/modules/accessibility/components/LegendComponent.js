@@ -12,6 +12,7 @@
 
 import H from '../../../parts/Globals.js';
 import U from '../../../parts/Utilities.js';
+
 var extend = U.extend;
 
 import AccessibilityComponent from '../AccessibilityComponent.js';
@@ -77,7 +78,8 @@ H.addEvent(H.Legend, 'afterColorizeItem', function (e) {
  * @class
  * @name Highcharts.LegendComponent
  */
-var LegendComponent = function () {};
+var LegendComponent = function () {
+};
 LegendComponent.prototype = new AccessibilityComponent();
 extend(LegendComponent.prototype, /** @lends Highcharts.LegendComponent */ {
 
@@ -198,7 +200,7 @@ extend(LegendComponent.prototype, /** @lends Highcharts.LegendComponent */ {
                 ], function () {
                     var legendItem = chart.legend.allItems[
                         component.highlightedLegendItemIx
-                    ];
+                        ];
                     if (legendItem && legendItem.a11yProxyElement) {
                         H.fireEvent(legendItem.a11yProxyElement, 'click');
                     }

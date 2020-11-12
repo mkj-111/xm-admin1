@@ -12,15 +12,13 @@ import java.util.List;
 public class CartServiceImpl implements CartService {
     @Autowired
     private CartMapper cartMapper;
-    @Override
-    public List<Goods> findGoods(Integer versionId,String goodsName) {
-
-
-        return cartMapper.findGoods(versionId,goodsName);
-    }
 
     @Override
-    public Goods goodsList2(Integer versionId, String goodsName) {
-        return cartMapper.goodsList2(versionId,goodsName);
+    public List<Goods> findGoods(Integer versionId, String goodsName) {
+
+
+        return cartMapper.findGoods(versionId, goodsName);
     }
+
+
 }

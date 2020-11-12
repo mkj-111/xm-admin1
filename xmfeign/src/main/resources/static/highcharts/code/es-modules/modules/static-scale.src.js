@@ -10,6 +10,7 @@
 'use strict';
 import H from '../parts/Globals.js';
 import U from '../parts/Utilities.js';
+
 var defined = U.defined, isNumber = U.isNumber, pick = U.pick;
 var Chart = H.Chart;
 /* eslint-disable no-invalid-this */

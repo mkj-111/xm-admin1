@@ -13,6 +13,7 @@ public class RedisConfiguration {
     /**
      * 自定义RedisTemplate的bean，不使用默认的RedisTemplate
      * redisTemplate 默认序列化使用的jdkSerializeable, 存储二进制字节码, 所以自定义序列化类
+     *
      * @param redisConnectionFactory
      * @return
      */
@@ -29,11 +30,8 @@ public class RedisConfiguration {
         template.setKeySerializer(new StringRedisSerializer());
         template.setHashKeySerializer(new StringRedisSerializer());
         template.setConnectionFactory(redisConnectionFactory);
-<<<<<<< HEAD
         ParserConfig.getGlobalInstance().addAccept("com.jk.entity"); // 指定自己的实体类包
-=======
         ParserConfig.getGlobalInstance().addAccept("com.jk.mkj.entity"); // 指定自己的实体类包
->>>>>>> 848cf4f91001b0d4b8adcbd09ae25b7fe8a81c54
         return template;
     }
 

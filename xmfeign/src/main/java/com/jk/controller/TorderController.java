@@ -16,25 +16,26 @@ import java.util.Map;
 @RequestMapping("/order")
 public class TorderController {
 
-  @Autowired
-  private TorderService torderService;
+    @Autowired
+    private TorderService torderService;
+
     ////highcharts
     @RequestMapping("/highcharts")
     @ResponseBody
-    public Map<String,Object> highcharts(){
-        List<TorderVo> list=torderService.highcharts();
-        Map<String,Object> map=new HashMap<>();
-        List<Integer> cou=new ArrayList<>();
-        List<Integer> sum=new ArrayList<>();
-        List<String> dat=new ArrayList<>();
-        for (TorderVo torderVo:list) {
+    public Map<String, Object> highcharts() {
+        List<TorderVo> list = torderService.highcharts();
+        Map<String, Object> map = new HashMap<>();
+        List<Integer> cou = new ArrayList<>();
+        List<Integer> sum = new ArrayList<>();
+        List<String> dat = new ArrayList<>();
+        for (TorderVo torderVo : list) {
             cou.add(torderVo.getCounts());
             sum.add(torderVo.getSums());
             dat.add(torderVo.getDates());
         }
-        map.put("sum",sum);
-        map.put("cou",cou);
-        map.put("dat",dat);
+        map.put("sum", sum);
+        map.put("cou", cou);
+        map.put("dat", dat);
         return map;
     }
 }

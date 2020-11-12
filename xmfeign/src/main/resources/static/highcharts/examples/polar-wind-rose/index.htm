@@ -1,20 +1,20 @@
 <!DOCTYPE HTML>
 <html>
-	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<title>Highcharts Example</title>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Highcharts Example</title>
 
-		<style type="text/css">
-#container {
-    min-width: 36px;
-    max-width: 600px;
-    height: 400px;
-    margin: 0 auto;
-}
-		</style>
-	</head>
-	<body>
+    <style type="text/css">
+        #container {
+            min-width: 36px;
+            max-width: 600px;
+            height: 400px;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
 <script src="../../code/highcharts.js"></script>
 <script src="../../code/highcharts-more.js"></script>
 <script src="../../code/modules/data.js"></script>
@@ -50,7 +50,7 @@
             <td class="data">0.00</td>
             <td class="data">0.00</td>
             <td class="data">3.75</td>
-        </tr>        
+        </tr>
         <tr nowrap bgcolor="#DDDDDD">
             <td class="dir">NNE</td>
             <td class="data">0.62</td>
@@ -204,7 +204,7 @@
             <td class="data">0.69</td>
             <td class="data">0.03</td>
             <td class="data">9.28</td>
-        </tr>        
+        </tr>
         <tr nowrap bgcolor="#DDDDDD">
             <td class="dir">NNW</td>
             <td class="data">1.51</td>
@@ -231,74 +231,72 @@
 </div>
 
 
+<script type="text/javascript">
+    // Parse the data from an inline table using the Highcharts Data plugin
+    Highcharts.chart('container', {
+        data: {
+            table: 'freq',
+            startRow: 1,
+            endRow: 17,
+            endColumn: 7
+        },
 
+        chart: {
+            polar: true,
+            type: 'column'
+        },
 
-		<script type="text/javascript">
-// Parse the data from an inline table using the Highcharts Data plugin
-Highcharts.chart('container', {
-    data: {
-        table: 'freq',
-        startRow: 1,
-        endRow: 17,
-        endColumn: 7
-    },
-
-    chart: {
-        polar: true,
-        type: 'column'
-    },
-
-    title: {
-        text: 'Wind rose for South Shore Met Station, Oregon'
-    },
-
-    subtitle: {
-        text: 'Source: or.water.usgs.gov'
-    },
-
-    pane: {
-        size: '85%'
-    },
-
-    legend: {
-        align: 'right',
-        verticalAlign: 'top',
-        y: 100,
-        layout: 'vertical'
-    },
-
-    xAxis: {
-        tickmarkPlacement: 'on'
-    },
-
-    yAxis: {
-        min: 0,
-        endOnTick: false,
-        showLastLabel: true,
         title: {
-            text: 'Frequency (%)'
+            text: 'Wind rose for South Shore Met Station, Oregon'
         },
-        labels: {
-            formatter: function () {
-                return this.value + '%';
+
+        subtitle: {
+            text: 'Source: or.water.usgs.gov'
+        },
+
+        pane: {
+            size: '85%'
+        },
+
+        legend: {
+            align: 'right',
+            verticalAlign: 'top',
+            y: 100,
+            layout: 'vertical'
+        },
+
+        xAxis: {
+            tickmarkPlacement: 'on'
+        },
+
+        yAxis: {
+            min: 0,
+            endOnTick: false,
+            showLastLabel: true,
+            title: {
+                text: 'Frequency (%)'
+            },
+            labels: {
+                formatter: function () {
+                    return this.value + '%';
+                }
+            },
+            reversedStacks: false
+        },
+
+        tooltip: {
+            valueSuffix: '%'
+        },
+
+        plotOptions: {
+            series: {
+                stacking: 'normal',
+                shadow: false,
+                groupPadding: 0,
+                pointPlacement: 'on'
             }
-        },
-        reversedStacks: false
-    },
-
-    tooltip: {
-        valueSuffix: '%'
-    },
-
-    plotOptions: {
-        series: {
-            stacking: 'normal',
-            shadow: false,
-            groupPadding: 0,
-            pointPlacement: 'on'
         }
-    }
-});
-		</script>
-	</body>
+    });
+</script>
+</body>
 </html>

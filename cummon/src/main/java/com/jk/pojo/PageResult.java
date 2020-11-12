@@ -3,7 +3,7 @@ package com.jk.pojo;
 import java.io.Serializable;
 import java.util.List;
 
-public class PageResult implements Serializable{
+public class PageResult implements Serializable {
 
     private Long total;
     private List rows;
@@ -17,7 +17,8 @@ public class PageResult implements Serializable{
 
     public PageResult() {
     }
-                        //总条数  //每页展示数据 集合 //当前页    //每页展示数据条数       //总页码
+
+    //总条数  //每页展示数据 集合 //当前页    //每页展示数据条数       //总页码
     public PageResult(Long total, List rows, Integer page, Integer pageSize, Long totalPage) {
         this.total = total;
         this.rows = rows;

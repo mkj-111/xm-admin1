@@ -10,6 +10,7 @@
 'use strict';
 import H from './Globals.js';
 import U from './Utilities.js';
+
 var extend = U.extend, pick = U.pick;
 var charts = H.charts, noop = H.noop, Pointer = H.Pointer;
 /* eslint-disable no-invalid-this, valid-jsdoc */
@@ -69,16 +70,22 @@ extend(Pointer.prototype, /** @lends Pointer.prototype */ {
      * @return {void}
      */
     pinchTranslateDirection: function (horiz, pinchDown, touches, transform, selectionMarker, clip, lastValidTouch, forcedScale) {
-        var chart = this.chart, xy = horiz ? 'x' : 'y', XY = horiz ? 'X' : 'Y', sChartXY = 'chart' + XY, wh = horiz ? 'width' : 'height', plotLeftTop = chart['plot' + (horiz ? 'Left' : 'Top')], selectionWH, selectionXY, clipXY, scale = forcedScale || 1, inverted = chart.inverted, bounds = chart.bounds[horiz ? 'h' : 'v'], singleTouch = pinchDown.length === 1, touch0Start = pinchDown[0][sChartXY], touch0Now = touches[0][sChartXY], touch1Start = !singleTouch && pinchDown[1][sChartXY], touch1Now = !singleTouch && touches[1][sChartXY], outOfBounds, transformScale, scaleKey, setScale = function () {
-            // Don't zoom if fingers are too close on this axis
-            if (!singleTouch && Math.abs(touch0Start - touch1Start) > 20) {
-                scale = forcedScale ||
-                    Math.abs(touch0Now - touch1Now) /
+        var chart = this.chart, xy = horiz ? 'x' : 'y', XY = horiz ? 'X' : 'Y', sChartXY = 'chart' + XY,
+            wh = horiz ? 'width' : 'height', plotLeftTop = chart['plot' + (horiz ? 'Left' : 'Top')], selectionWH,
+            selectionXY, clipXY, scale = forcedScale || 1, inverted = chart.inverted,
+            bounds = chart.bounds[horiz ? 'h' : 'v'], singleTouch = pinchDown.length === 1,
+            touch0Start = pinchDown[0][sChartXY], touch0Now = touches[0][sChartXY],
+            touch1Start = !singleTouch && pinchDown[1][sChartXY], touch1Now = !singleTouch && touches[1][sChartXY],
+            outOfBounds, transformScale, scaleKey, setScale = function () {
+                // Don't zoom if fingers are too close on this axis
+                if (!singleTouch && Math.abs(touch0Start - touch1Start) > 20) {
+                    scale = forcedScale ||
+                        Math.abs(touch0Now - touch1Now) /
                         Math.abs(touch0Start - touch1Start);
-            }
-            clipXY = ((plotLeftTop - touch0Now) / scale) + touch0Start;
-            selectionWH = chart['plot' + (horiz ? 'Width' : 'Height')] / scale;
-        };
+                }
+                clipXY = ((plotLeftTop - touch0Now) / scale) + touch0Start;
+                selectionWH = chart['plot' + (horiz ? 'Width' : 'Height')] / scale;
+            };
         // Set the scale, first pass
         setScale();
         // The clip position (x or y) is altered if out of bounds, the selection
@@ -88,8 +95,7 @@ extend(Pointer.prototype, /** @lends Pointer.prototype */ {
         if (selectionXY < bounds.min) {
             selectionXY = bounds.min;
             outOfBounds = true;
-        }
-        else if (selectionXY + selectionWH > bounds.max) {
+        } else if (selectionXY + selectionWH > bounds.max) {
             selectionXY = bounds.max - selectionWH;
             outOfBounds = true;
         }
@@ -106,8 +112,7 @@ extend(Pointer.prototype, /** @lends Pointer.prototype */ {
             // Set the scale, second pass to adapt to the modified touchNow
             // positions
             setScale();
-        }
-        else {
+        } else {
             lastValidTouch[xy] = [touch0Now, touch1Now];
         }
         // Set geometry for clipping, selection and transformation
@@ -134,9 +139,12 @@ extend(Pointer.prototype, /** @lends Pointer.prototype */ {
      * @return {void}
      */
     pinch: function (e) {
-        var self = this, chart = self.chart, pinchDown = self.pinchDown, touches = e.touches, touchesLength = touches.length, lastValidTouch = self.lastValidTouch, hasZoom = self.hasZoom, selectionMarker = self.selectionMarker, transform = {}, fireClickEvent = touchesLength === 1 && ((self.inClass(e.target, 'highcharts-tracker') &&
-            chart.runTrackerClick) ||
-            self.runChartClick), clip = {};
+        var self = this, chart = self.chart, pinchDown = self.pinchDown, touches = e.touches,
+            touchesLength = touches.length, lastValidTouch = self.lastValidTouch, hasZoom = self.hasZoom,
+            selectionMarker = self.selectionMarker, transform = {},
+            fireClickEvent = touchesLength === 1 && ((self.inClass(e.target, 'highcharts-tracker') &&
+                chart.runTrackerClick) ||
+                self.runChartClick), clip = {};
         // Don't initiate panning until the user has pinched. This prevents us
         // from blocking page scrolling as users scroll down a long page
         // (#4210).
@@ -155,16 +163,19 @@ extend(Pointer.prototype, /** @lends Pointer.prototype */ {
         // Register the touch start position
         if (e.type === 'touchstart') {
             [].forEach.call(touches, function (e, i) {
-                pinchDown[i] = { chartX: e.chartX, chartY: e.chartY };
+                pinchDown[i] = {chartX: e.chartX, chartY: e.chartY};
             });
             lastValidTouch.x = [pinchDown[0].chartX, pinchDown[1] &&
-                    pinchDown[1].chartX];
+            pinchDown[1].chartX];
             lastValidTouch.y = [pinchDown[0].chartY, pinchDown[1] &&
-                    pinchDown[1].chartY];
+            pinchDown[1].chartY];
             // Identify the data bounds in pixels
             chart.axes.forEach(function (axis) {
                 if (axis.zoomEnabled) {
-                    var bounds = chart.bounds[axis.horiz ? 'h' : 'v'], minPixelPadding = axis.minPixelPadding, min = axis.toPixels(Math.min(pick(axis.options.min, axis.dataMin), axis.dataMin)), max = axis.toPixels(Math.max(pick(axis.options.max, axis.dataMax), axis.dataMax)), absMin = Math.min(min, max), absMax = Math.max(min, max);
+                    var bounds = chart.bounds[axis.horiz ? 'h' : 'v'], minPixelPadding = axis.minPixelPadding,
+                        min = axis.toPixels(Math.min(pick(axis.options.min, axis.dataMin), axis.dataMin)),
+                        max = axis.toPixels(Math.max(pick(axis.options.max, axis.dataMax), axis.dataMax)),
+                        absMin = Math.min(min, max), absMax = Math.max(min, max);
                     // Store the bounds for use in the touchmove handler
                     bounds.min = Math.min(axis.pos, absMin - minPixelPadding);
                     bounds.max = Math.max(axis.pos + axis.len, absMax + minPixelPadding);
@@ -172,12 +183,10 @@ extend(Pointer.prototype, /** @lends Pointer.prototype */ {
             });
             self.res = true; // reset on next move
             // Optionally move the tooltip on touchmove
-        }
-        else if (self.followTouchMove && touchesLength === 1) {
+        } else if (self.followTouchMove && touchesLength === 1) {
             this.runPointActions(self.normalize(e));
             // Event type is touchmove, handle panning and pinching
-        }
-        else if (pinchDown.length) { // can be 0 when releasing, if touchend
+        } else if (pinchDown.length) { // can be 0 when releasing, if touchend
             // fires first
             // Set the marker
             if (!selectionMarker) {
@@ -212,7 +221,7 @@ extend(Pointer.prototype, /** @lends Pointer.prototype */ {
     touch: function (e, start) {
         var chart = this.chart, hasMoved, pinchDown, isInside;
         if (chart.index !== H.hoverChartIndex) {
-            this.onContainerMouseLeave({ relatedTarget: true });
+            this.onContainerMouseLeave({relatedTarget: true});
         }
         H.hoverChartIndex = chart.index;
         if (e.touches.length === 1) {
@@ -232,19 +241,17 @@ extend(Pointer.prototype, /** @lends Pointer.prototype */ {
                 if (e.type === 'touchmove') {
                     pinchDown = this.pinchDown;
                     hasMoved = pinchDown[0] ? Math.sqrt(// #5266
-                    Math.pow(pinchDown[0].chartX - e.chartX, 2) +
+                        Math.pow(pinchDown[0].chartX - e.chartX, 2) +
                         Math.pow(pinchDown[0].chartY - e.chartY, 2)) >= 4 : false;
                 }
                 if (pick(hasMoved, true)) {
                     this.pinch(e);
                 }
-            }
-            else if (start) {
+            } else if (start) {
                 // Hide the tooltip on touching outside the plot area (#1203)
                 this.reset();
             }
-        }
-        else if (e.touches.length === 2) {
+        } else if (e.touches.length === 2) {
             this.pinch(e);
         }
     },

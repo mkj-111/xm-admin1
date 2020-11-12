@@ -10,6 +10,7 @@
 'use strict';
 import H from './Globals.js';
 import U from './Utilities.js';
+
 var pick = U.pick;
 var Axis = H.Axis, getMagnitude = H.getMagnitude, normalizeTickInterval = H.normalizeTickInterval;
 /* ************************************************************************** *
@@ -28,10 +29,10 @@ var Axis = H.Axis, getMagnitude = H.getMagnitude, normalizeTickInterval = H.norm
  * @return {Array<number>}
  */
 Axis.prototype.getLogTickPositions = function (interval, min, max, minor) {
-    var axis = this, options = axis.options, axisLength = axis.len, 
-    // Since we use this method for both major and minor ticks,
-    // use a local variable and return the result
-    positions = [];
+    var axis = this, options = axis.options, axisLength = axis.len,
+        // Since we use this method for both major and minor ticks,
+        // use a local variable and return the result
+        positions = [];
     // Reset
     if (!minor) {
         axis._minorAutoInterval = null;
@@ -42,17 +43,14 @@ Axis.prototype.getLogTickPositions = function (interval, min, max, minor) {
         positions = axis.getLinearTickPositions(interval, min, max);
         // Second case: We need intermediary ticks. For example
         // 1, 2, 4, 6, 8, 10, 20, 40 etc.
-    }
-    else if (interval >= 0.08) {
+    } else if (interval >= 0.08) {
         var roundedMin = Math.floor(min), intermediate, i, j, len, pos, lastPos, break2;
         if (interval > 0.3) {
             intermediate = [1, 2, 4];
             // 0.2 equals five minor ticks per 1, 10, 100 etc
-        }
-        else if (interval > 0.15) {
+        } else if (interval > 0.15) {
             intermediate = [1, 2, 4, 6, 8];
-        }
-        else { // 0.1 equals ten minor ticks per 1, 10, 100 etc
+        } else { // 0.1 equals ten minor ticks per 1, 10, 100 etc
             intermediate = [1, 2, 3, 4, 5, 6, 7, 8, 9];
         }
         for (i = roundedMin; i < max + 1 && !break2; i++) {
@@ -74,15 +72,15 @@ Axis.prototype.getLogTickPositions = function (interval, min, max, minor) {
         // Third case: We are so deep in between whole logarithmic values that
         // we might as well handle the tick positions like a linear axis. For
         // example 1.01, 1.02, 1.03, 1.04.
-    }
-    else {
+    } else {
         var realMin = axis.lin2log(min), realMax = axis.lin2log(max), tickIntervalOption = minor ?
             this.getMinorTickInterval() :
             options.tickInterval, filteredTickIntervalOption = tickIntervalOption === 'auto' ?
             null :
-            tickIntervalOption, tickPixelIntervalOption = options.tickPixelInterval / (minor ? 5 : 1), totalPixelLength = minor ?
-            axisLength / axis.tickPositions.length :
-            axisLength;
+            tickIntervalOption, tickPixelIntervalOption = options.tickPixelInterval / (minor ? 5 : 1),
+            totalPixelLength = minor ?
+                axisLength / axis.tickPositions.length :
+                axisLength;
         interval = pick(filteredTickIntervalOption, axis._minorAutoInterval, (realMax - realMin) *
             tickPixelIntervalOption / (totalPixelLength || 1));
         interval = normalizeTickInterval(interval, null, getMagnitude(interval));

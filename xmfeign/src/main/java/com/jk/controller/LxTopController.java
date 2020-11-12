@@ -14,10 +14,9 @@ import java.util.List;
 
 
 /**
- *  @author: 李新
- *  @Date: 2020/11/4 16:10
- *  @Description:
- *  励志：一giao窝里giao giao
+ * @author: 李新
+ * @Date: 2020/11/4 16:10
+ * @Description: 励志：一giao窝里giao giao
  */
 @Controller
 @RequestMapping("top")
@@ -34,23 +33,24 @@ public class LxTopController {
 
     @RequestMapping("queryTopList")
     @ResponseBody
-    public List<GoodsBeab> queryTopList(String topName, Integer type){
+    public List<GoodsBeab> queryTopList(String topName, Integer type) {
 
 
-        List<GoodsBeab> goodsBeabs = (List)redisUtil.get(RedisConstant.Goods_Key+"_"+type);
-        if(goodsBeabs == null || goodsBeabs.isEmpty()) {
+        List<GoodsBeab> goodsBeabs = (List) redisUtil.get(RedisConstant.Goods_Key + "_" + type);
+        if (goodsBeabs == null || goodsBeabs.isEmpty()) {
             goodsBeabs = lxTopService.queryTopList(topName, type);
-            redisUtil.set(RedisConstant.Goods_Key+"_"+type,goodsBeabs);
+            redisUtil.set(RedisConstant.Goods_Key + "_" + type, goodsBeabs);
             // 设置key的过期时间
             //redisUtil.expire(RedisConstant.USER_LIST_KEY + "_" + user, 60);
         }
 
-            return goodsBeabs;
+        return goodsBeabs;
 
     }
+
     @RequestMapping("queryTopGoodsInfoById")
     @ResponseBody
-    public String queryTopGoodsInfoById(Integer id){
+    public String queryTopGoodsInfoById(Integer id) {
 
         return "";
     }

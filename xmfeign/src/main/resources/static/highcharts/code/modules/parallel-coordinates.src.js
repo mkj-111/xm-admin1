@@ -23,11 +23,13 @@
     }
 }(function (Highcharts) {
     var _modules = Highcharts ? Highcharts._modules : {};
+
     function _registerModule(obj, path, args, fn) {
         if (!obj.hasOwnProperty(path)) {
             obj[path] = fn.apply(null, args);
         }
     }
+
     _registerModule(_modules, 'modules/parallel-coordinates.src.js', [_modules['parts/Globals.js'], _modules['parts/Utilities.js']], function (H, U) {
         /* *
          *
@@ -40,7 +42,8 @@
          *  !!!!!!! SOURCE GETS TRANSPILED BY TYPESCRIPT. EDIT TS FILE ONLY. !!!!!!!
          *
          * */
-        var arrayMax = U.arrayMax, arrayMin = U.arrayMin, defined = U.defined, erase = U.erase, extend = U.extend, pick = U.pick, splat = U.splat;
+        var arrayMax = U.arrayMax, arrayMin = U.arrayMin, defined = U.defined, erase = U.erase, extend = U.extend,
+            pick = U.pick, splat = U.splat;
         // Extensions for parallel coordinates plot.
         var Axis = H.Axis, Chart = H.Chart, ChartProto = Chart.prototype, AxisProto = H.Axis.prototype;
         var addEvent = H.addEvent, wrap = H.wrap, merge = H.merge;
@@ -135,7 +138,8 @@
         /* eslint-disable no-invalid-this */
         // Initialize parallelCoordinates
         addEvent(Chart, 'init', function (e) {
-            var options = e.args[0], defaultyAxis = splat(options.yAxis || {}), yAxisLength = defaultyAxis.length, newYAxes = [];
+            var options = e.args[0], defaultyAxis = splat(options.yAxis || {}), yAxisLength = defaultyAxis.length,
+                newYAxes = [];
             /**
              * Flag used in parallel coordinates plot to check if chart has ||-coords
              * (parallel coords).
@@ -159,21 +163,21 @@
                 if (options.legend.enabled === undefined) {
                     options.legend.enabled = false;
                 }
-                merge(true, options, 
-                // Disable boost
-                {
-                    boost: {
-                        seriesThreshold: Number.MAX_VALUE
-                    },
-                    plotOptions: {
-                        series: {
-                            boostThreshold: Number.MAX_VALUE
+                merge(true, options,
+                    // Disable boost
+                    {
+                        boost: {
+                            seriesThreshold: Number.MAX_VALUE
+                        },
+                        plotOptions: {
+                            series: {
+                                boostThreshold: Number.MAX_VALUE
+                            }
                         }
-                    }
-                });
+                    });
                 options.yAxis = defaultyAxis.concat(newYAxes);
                 options.xAxis = merge(defaultXAxisOptions, // docs
-                splat(options.xAxis || {})[0]);
+                    splat(options.xAxis || {})[0]);
             }
         });
         // Initialize parallelCoordinates
@@ -238,8 +242,7 @@
                 }
                 if (axis.isXAxis) {
                     axis.options = merge(axis.options, defaultXAxisOptions, e.userOptions);
-                }
-                else {
+                } else {
                     axis.options = merge(axis.options, axis.chart.options.chart.parallelAxes, e.userOptions);
                     axis.parallelPosition = pick(axis.parallelPosition, chart.yAxis.length);
                     axis.setParallelPosition(axisPosition, axis.options);
@@ -287,8 +290,7 @@
                     (this.chart.parallelInfo.counter + 1);
                 if (this.chart.polar) {
                     options.angle = 360 * fraction;
-                }
-                else {
+                } else {
                     options[axisPosition[0]] = 100 * fraction + '%';
                     this[axisPosition[1]] =
                         options[axisPosition[1]] = 0;
@@ -316,20 +318,19 @@
         });
         // Translate each point using corresponding yAxis.
         addEvent(H.Series, 'afterTranslate', function () {
-            var series = this, chart = this.chart, points = series.points, dataLength = points && points.length, closestPointRangePx = Number.MAX_VALUE, lastPlotX, point, i;
+            var series = this, chart = this.chart, points = series.points, dataLength = points && points.length,
+                closestPointRangePx = Number.MAX_VALUE, lastPlotX, point, i;
             if (this.chart.hasParallelCoordinates) {
                 for (i = 0; i < dataLength; i++) {
                     point = points[i];
                     if (defined(point.y)) {
                         if (chart.polar) {
                             point.plotX = chart.yAxis[i].angleRad || 0;
-                        }
-                        else if (chart.inverted) {
+                        } else if (chart.inverted) {
                             point.plotX = (chart.plotHeight -
                                 chart.yAxis[i].top +
                                 chart.plotTop);
-                        }
-                        else {
+                        } else {
                             point.plotX = chart.yAxis[i].left - chart.plotLeft;
                         }
                         point.clientX = point.plotX;
@@ -340,14 +341,13 @@
                         }
                         lastPlotX = point.plotX;
                         point.isInside = chart.isInsidePlot(point.plotX, point.plotY, chart.inverted);
-                    }
-                    else {
+                    } else {
                         point.isNull = true;
                     }
                 }
                 this.closestPointRangePx = closestPointRangePx;
             }
-        }, { order: 1 });
+        }, {order: 1});
         // On destroy, we need to remove series from each axis.series
         H.addEvent(H.Series, 'destroy', function () {
             if (this.chart.hasParallelCoordinates) {
@@ -359,62 +359,63 @@
                 }, this);
             }
         });
+
         /**
          * @private
          */
         function addFormattedValue(proceed) {
-            var chart = this.series && this.series.chart, config = proceed.apply(this, Array.prototype.slice.call(arguments, 1)), formattedValue, yAxisOptions, labelFormat, yAxis;
+            var chart = this.series && this.series.chart,
+                config = proceed.apply(this, Array.prototype.slice.call(arguments, 1)), formattedValue, yAxisOptions,
+                labelFormat, yAxis;
             if (chart &&
                 chart.hasParallelCoordinates &&
                 !defined(config.formattedValue)) {
                 yAxis = chart.yAxis[this.x];
                 yAxisOptions = yAxis.options;
                 labelFormat = pick(
-                /**
-                 * Parallel coordinates only. Format that will be used for point.y
-                 * and available in [tooltip.pointFormat](#tooltip.pointFormat) as
-                 * `{point.formattedValue}`. If not set, `{point.formattedValue}`
-                 * will use other options, in this order:
-                 *
-                 * 1. [yAxis.labels.format](#yAxis.labels.format) will be used if
-                 *    set
-                 *
-                 * 2. If yAxis is a category, then category name will be displayed
-                 *
-                 * 3. If yAxis is a datetime, then value will use the same format as
-                 *    yAxis labels
-                 *
-                 * 4. If yAxis is linear/logarithmic type, then simple value will be
-                 *    used
-                 *
-                 * @sample {highcharts}
-                 *         /highcharts/parallel-coordinates/tooltipvalueformat/
-                 *         Different tooltipValueFormats's
-                 *
-                 * @type      {string}
-                 * @default   undefined
-                 * @since     6.0.0
-                 * @product   highcharts
-                 * @requires  modules/parallel-coordinates
-                 * @apioption yAxis.tooltipValueFormat
-                 */
-                yAxisOptions.tooltipValueFormat, yAxisOptions.labels.format);
+                    /**
+                     * Parallel coordinates only. Format that will be used for point.y
+                     * and available in [tooltip.pointFormat](#tooltip.pointFormat) as
+                     * `{point.formattedValue}`. If not set, `{point.formattedValue}`
+                     * will use other options, in this order:
+                     *
+                     * 1. [yAxis.labels.format](#yAxis.labels.format) will be used if
+                     *    set
+                     *
+                     * 2. If yAxis is a category, then category name will be displayed
+                     *
+                     * 3. If yAxis is a datetime, then value will use the same format as
+                     *    yAxis labels
+                     *
+                     * 4. If yAxis is linear/logarithmic type, then simple value will be
+                     *    used
+                     *
+                     * @sample {highcharts}
+                     *         /highcharts/parallel-coordinates/tooltipvalueformat/
+                     *         Different tooltipValueFormats's
+                     *
+                     * @type      {string}
+                     * @default   undefined
+                     * @since     6.0.0
+                     * @product   highcharts
+                     * @requires  modules/parallel-coordinates
+                     * @apioption yAxis.tooltipValueFormat
+                     */
+                    yAxisOptions.tooltipValueFormat, yAxisOptions.labels.format);
                 if (labelFormat) {
-                    formattedValue = H.format(labelFormat, extend(this, { value: this.y }), chart.time);
-                }
-                else if (yAxis.isDatetimeAxis) {
+                    formattedValue = H.format(labelFormat, extend(this, {value: this.y}), chart.time);
+                } else if (yAxis.isDatetimeAxis) {
                     formattedValue = chart.time.dateFormat(chart.time.resolveDTLFormat(yAxisOptions.dateTimeLabelFormats[yAxis.tickPositions.info.unitName]).main, this.y);
-                }
-                else if (yAxisOptions.categories) {
+                } else if (yAxisOptions.categories) {
                     formattedValue = yAxisOptions.categories[this.y];
-                }
-                else {
+                } else {
                     formattedValue = this.y;
                 }
                 config.formattedValue = config.point.formattedValue = formattedValue;
             }
             return config;
         }
+
         ['line', 'spline'].forEach(function (seriesName) {
             wrap(H.seriesTypes[seriesName].prototype.pointClass.prototype, 'getLabelConfig', addFormattedValue);
         });

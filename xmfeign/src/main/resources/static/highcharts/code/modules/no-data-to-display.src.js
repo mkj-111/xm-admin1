@@ -24,11 +24,13 @@
     }
 }(function (Highcharts) {
     var _modules = Highcharts ? Highcharts._modules : {};
+
     function _registerModule(obj, path, args, fn) {
         if (!obj.hasOwnProperty(path)) {
             obj[path] = fn.apply(null, args);
         }
     }
+
     _registerModule(_modules, 'modules/no-data-to-display.src.js', [_modules['parts/Globals.js'], _modules['parts/Utilities.js']], function (H, U) {
         /* *
          *
@@ -46,25 +48,25 @@
         var extend = U.extend;
         var chartPrototype = H.Chart.prototype, defaultOptions = H.getOptions();
         // Add language option
-        extend(defaultOptions.lang, 
-        /**
-         * @optionparent lang
-         */
-        {
+        extend(defaultOptions.lang,
             /**
-             * The text to display when the chart contains no data.
-             *
-             * @see [noData](#noData)
-             *
-             * @sample highcharts/no-data-to-display/no-data-line
-             *         No-data text
-             *
-             * @since    3.0.8
-             * @product  highcharts highstock
-             * @requires modules/no-data-to-display
+             * @optionparent lang
              */
-            noData: 'No data to display'
-        });
+            {
+                /**
+                 * The text to display when the chart contains no data.
+                 *
+                 * @see [noData](#noData)
+                 *
+                 * @sample highcharts/no-data-to-display/no-data-line
+                 *         No-data text
+                 *
+                 * @since    3.0.8
+                 * @product  highcharts highstock
+                 * @requires modules/no-data-to-display
+                 */
+                noData: 'No data to display'
+            });
         // Add default display options for message
         /**
          * Options for displaying a message like "No data to display".
@@ -154,7 +156,8 @@
          * @requires modules/no-data-to-display
          */
         chartPrototype.showNoData = function (str) {
-            var chart = this, options = chart.options, text = str || (options && options.lang.noData), noDataOptions = options && options.noData;
+            var chart = this, options = chart.options, text = str || (options && options.lang.noData),
+                noDataOptions = options && options.noData;
             if (!chart.noDataLabel && chart.renderer) {
                 chart.noDataLabel = chart.renderer
                     .label(text, 0, 0, null, null, null, noDataOptions.useHTML, null, 'no-data');
@@ -204,8 +207,7 @@
         H.addEvent(H.Chart, 'render', function handleNoData() {
             if (this.hasData()) {
                 this.hideNoData();
-            }
-            else {
+            } else {
                 this.showNoData();
             }
         });

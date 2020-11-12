@@ -11,6 +11,6 @@ import java.util.List;
 public interface CartService {
 
     @RequestMapping("/search_success")
-    public List<Goods> findGoods(@RequestParam Integer versionId,@RequestParam String goodsName);
+    public List<Goods> findGoods(@RequestParam Integer versionId, @RequestParam String goodsName);
 
 }

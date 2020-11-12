@@ -27,7 +27,7 @@ if (!Array.prototype.forEach) {
 }
 if (!Array.prototype.map) {
     Array.prototype.map = function (fn
-    // @todo support optional ctx
+                                    // @todo support optional ctx
     ) {
         var results = [], i = 0, len = this.length;
         for (; i < len; i++) {
@@ -39,7 +39,7 @@ if (!Array.prototype.map) {
 if (!Array.prototype.indexOf) {
     Array.prototype.indexOf = function (member, fromIndex) {
         var arr = this, // #8874
-        len, i = fromIndex || 0; // #8346
+            len, i = fromIndex || 0; // #8346
         if (arr) {
             len = arr.length;
             for (; i < len; i++) {
@@ -53,7 +53,7 @@ if (!Array.prototype.indexOf) {
 }
 if (!Array.prototype.filter) {
     Array.prototype.filter = function (fn
-    // @todo support optional ctx
+                                       // @todo support optional ctx
     ) {
         var ret = [], i = 0, length = this.length;
         for (; i < length; i++) {
@@ -77,7 +77,8 @@ if (!Array.prototype.some) {
 }
 if (!Array.prototype.reduce) {
     Array.prototype.reduce = function (func, initialValue) {
-        var context = this, i = arguments.length > 1 ? 0 : 1, accumulator = arguments.length > 1 ? initialValue : this[0], len = this.length;
+        var context = this, i = arguments.length > 1 ? 0 : 1,
+            accumulator = arguments.length > 1 ? initialValue : this[0], len = this.length;
         for (; i < len; ++i) {
             accumulator = func.call(context, accumulator, this[i], i, this);
         }
@@ -112,8 +113,7 @@ if (!document.getElementsByClassName) {
             while ((i = elements.iterateNext())) {
                 results.push(i);
             }
-        }
-        else {
+        } else {
             elements = d.getElementsByTagName('*');
             pattern = new RegExp('(^|\\s)' + search + '(\\s|$)');
             for (i = 0; i < elements.length; i++) {

@@ -3,6 +3,7 @@ import H from './../../parts/Globals.js';
 import './../../parts/Chart.js';
 
 import U from './../../parts/Utilities.js';
+
 var defined = U.defined,
     objectEach = U.objectEach,
     splat = U.splat;
@@ -74,7 +75,7 @@ var defaultMarkers = {
 };
 
 H.SVGRenderer.prototype.addMarker = function (id, markerOptions) {
-    var options = { id: id };
+    var options = {id: id};
 
     var attrs = {
         stroke: markerOptions.color || 'none',
@@ -150,7 +151,7 @@ var markerMixin = {
                             .addMarker(
                                 (itemOptions.id || H.uniqueKey()) + '-' +
                                 predefinedMarker.id,
-                                H.merge(predefinedMarker, { color: color })
+                                H.merge(predefinedMarker, {color: color})
                             );
 
                         item.attr(markerType, marker.attr('id'));
@@ -204,6 +205,7 @@ H.SVGRenderer.prototype.definition = function (def) {
         // Return last node added (on top level it's the only one)
         return ret;
     }
+
     return recurse(def);
 };
 

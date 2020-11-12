@@ -22,7 +22,7 @@ public class MkjColorController {
 
 
     @RequestMapping("findcolor")
-    public List<ColorBean>findcolor(@RequestParam String goodsname){
+    public List<ColorBean> findcolor(@RequestParam String goodsname) {
         return mkjColorService.findcolor(goodsname);
     }
 }

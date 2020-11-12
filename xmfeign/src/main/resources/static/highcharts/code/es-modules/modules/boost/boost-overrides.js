@@ -12,6 +12,7 @@
 'use strict';
 import H from '../../parts/Globals.js';
 import U from '../../parts/Utilities.js';
+
 var isNumber = U.isNumber;
 import '../../parts/Color.js';
 import '../../parts/Series.js';
@@ -21,7 +22,10 @@ import '../../parts/Interaction.js';
 import butils from './boost-utils.js';
 import boostable from './boostables.js';
 import boostableMap from './boostable-map.js';
-var boostEnabled = butils.boostEnabled, shouldForceChartSeriesBoosting = butils.shouldForceChartSeriesBoosting, Chart = H.Chart, Series = H.Series, Point = H.Point, seriesTypes = H.seriesTypes, addEvent = H.addEvent, pick = H.pick, wrap = H.wrap, plotOptions = H.getOptions().plotOptions;
+
+var boostEnabled = butils.boostEnabled, shouldForceChartSeriesBoosting = butils.shouldForceChartSeriesBoosting,
+    Chart = H.Chart, Series = H.Series, Point = H.Point, seriesTypes = H.seriesTypes, addEvent = H.addEvent,
+    pick = H.pick, wrap = H.wrap, plotOptions = H.getOptions().plotOptions;
 /**
  * Returns true if the chart is in series boost mode.
  *
@@ -84,11 +88,11 @@ Series.prototype.getPoint = function (boostPoint) {
         false);
     if (boostPoint && !(boostPoint instanceof this.pointClass)) {
         point = (new this.pointClass()).init(// eslint-disable-line new-cap
-        this, this.options.data[boostPoint.i], xData ? xData[boostPoint.i] : undefined);
+            this, this.options.data[boostPoint.i], xData ? xData[boostPoint.i] : undefined);
         point.category = pick(this.xAxis.categories ?
             this.xAxis.categories[point.x] :
             point.x, // @todo simplify
-        point.x);
+            point.x);
         point.dist = boostPoint.dist;
         point.distX = boostPoint.distX;
         point.plotX = boostPoint.plotX;
@@ -104,7 +108,8 @@ wrap(Series.prototype, 'searchPoint', function (proceed) {
 });
 // For inverted series, we need to swap X-Y values before running base methods
 wrap(Point.prototype, 'haloPath', function (proceed) {
-    var halo, point = this, series = point.series, chart = series.chart, plotX = point.plotX, plotY = point.plotY, inverted = chart.inverted;
+    var halo, point = this, series = point.series, chart = series.chart, plotX = point.plotX, plotY = point.plotY,
+        inverted = chart.inverted;
     if (series.isSeriesBoosting && inverted) {
         point.plotX = series.yAxis.len - plotY;
         point.plotY = series.xAxis.len - plotX;
@@ -117,7 +122,8 @@ wrap(Point.prototype, 'haloPath', function (proceed) {
     return halo;
 });
 wrap(Series.prototype, 'markerAttribs', function (proceed, point) {
-    var attribs, series = this, chart = series.chart, plotX = point.plotX, plotY = point.plotY, inverted = chart.inverted;
+    var attribs, series = this, chart = series.chart, plotX = point.plotX, plotY = point.plotY,
+        inverted = chart.inverted;
     if (series.isSeriesBoosting && inverted) {
         point.plotX = series.yAxis.len - plotY;
         point.plotY = series.xAxis.len - plotX;
@@ -187,11 +193,11 @@ wrap(Series.prototype, 'getExtremes', function (proceed) {
             this.options.boostThreshold === 0) {
             proceed.call(this);
             // If a canvas version of the method exists, like renderCanvas(), run
-        }
-        else if (this[method + 'Canvas']) {
+        } else if (this[method + 'Canvas']) {
             this[method + 'Canvas']();
         }
     }
+
     wrap(Series.prototype, method, branch);
     // A special case for some types - their translate method is already wrapped
     if (method === 'translate') {
@@ -213,6 +219,7 @@ wrap(Series.prototype, 'getExtremes', function (proceed) {
 // do the default behaviour. Otherwise, process if the series has no extremes.
 wrap(Series.prototype, 'processData', function (proceed) {
     var series = this, dataToMeasure = this.options.data, firstPoint;
+
     /**
      * Used twice in this function, first on this.options.data, the second
      * time it runs the check again after processedXData is built.
@@ -223,6 +230,7 @@ wrap(Series.prototype, 'processData', function (proceed) {
         return series.chart.isChartSeriesBoosting() || ((data ? data.length : 0) >=
             (series.options.boostThreshold || Number.MAX_VALUE));
     }
+
     if (boostEnabled(this.chart) && boostableMap[this.type]) {
         // If there are no extremes given in the options, we also need to
         // process the data to read the data extremes. If this is a heatmap, do
@@ -247,13 +255,11 @@ wrap(Series.prototype, 'processData', function (proceed) {
                 H.error(12, false, this.chart);
             }
             this.enterBoost();
-        }
-        else if (this.exitBoost) {
+        } else if (this.exitBoost) {
             this.exitBoost();
         }
         // The series type is not boostable
-    }
-    else {
+    } else {
         proceed.apply(this, Array.prototype.slice.call(arguments, 1));
     }
 });
@@ -303,8 +309,7 @@ Series.prototype.exitBoost = function () {
     (this.alteredByBoost || []).forEach(function (setting) {
         if (setting.own) {
             this[setting.prop] = setting.val;
-        }
-        else {
+        } else {
             // Revert to prototype
             delete this[setting.prop];
         }
@@ -323,7 +328,8 @@ Series.prototype.exitBoost = function () {
  * @return {boolean}
  */
 Series.prototype.hasExtremes = function (checkX) {
-    var options = this.options, data = options.data, xAxis = this.xAxis && this.xAxis.options, yAxis = this.yAxis && this.yAxis.options, colorAxis = this.colorAxis && this.colorAxis.options;
+    var options = this.options, data = options.data, xAxis = this.xAxis && this.xAxis.options,
+        yAxis = this.yAxis && this.yAxis.options, colorAxis = this.colorAxis && this.colorAxis.options;
     return data.length > (options.boostThreshold || Number.MAX_VALUE) &&
         // Defined yAxis extremes
         isNumber(yAxis.min) &&

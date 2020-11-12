@@ -11,7 +11,10 @@ import java.nio.charset.Charset;
 public class FastJsonRedisSerializer<T> implements RedisSerializer<T> {
 
     private final static ParserConfig defaultRedisConfig = new ParserConfig();
-    static {defaultRedisConfig.setAutoTypeSupport(true); }
+
+    static {
+        defaultRedisConfig.setAutoTypeSupport(true);
+    }
 
     public static final Charset DEFAULT_CHARSET = Charset.forName("UTF-8");
     private Class<T> clazz;

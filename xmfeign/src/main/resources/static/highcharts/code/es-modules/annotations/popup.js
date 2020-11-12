@@ -11,6 +11,7 @@
 import H from '../parts/Globals.js';
 
 import U from '../parts/Utilities.js';
+
 var defined = U.defined,
     isArray = U.isArray,
     isObject = U.isObject,
@@ -88,7 +89,7 @@ H.Popup.prototype = {
         }, null, this.container);
 
         closeBtn.style['background-image'] = 'url(' +
-                this.iconsURL + 'close.svg)';
+            this.iconsURL + 'close.svg)';
 
         ['click', 'touchstart'].forEach(function (eventName) {
             addEvent(closeBtn, eventName, function () {
@@ -219,7 +220,7 @@ H.Popup.prototype = {
         fieldsOutput = {
             actionType: type,
             linkedTo: linkedTo && linkedTo.getAttribute('value'),
-            fields: { }
+            fields: {}
         };
 
         [].forEach.call(inputList, function (input) {
@@ -881,7 +882,7 @@ H.Popup.prototype = {
                         parentDiv
                     );
                 } else if (
-                // skip volume field which is created by addFormFields
+                    // skip volume field which is created by addFormFields
                     parentFullName !== 'params.volumeSeriesID'
                 ) {
                     addInput.call(

@@ -17,13 +17,13 @@ public class TreeServiceImpl implements TreeService {
     //树
     @Override
     public List<xmtree> findtree() {
-        int pid=0;
+        int pid = 0;
         List<xmtree> list = findnode(pid);
         return list;
     }
 
     private List<xmtree> findnode(int pid) {
-        List<xmtree> list=xmtreeMapper.findtree(pid);
+        List<xmtree> list = xmtreeMapper.findtree(pid);
        /* for (xmtree tree:list
         ) {
             Integer id = tree.getId();

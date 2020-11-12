@@ -24,11 +24,13 @@
     }
 }(function (Highcharts) {
     var _modules = Highcharts ? Highcharts._modules : {};
+
     function _registerModule(obj, path, args, fn) {
         if (!obj.hasOwnProperty(path)) {
             obj[path] = fn.apply(null, args);
         }
     }
+
     _registerModule(_modules, 'modules/pattern-fill.src.js', [_modules['parts/Globals.js'], _modules['parts/Utilities.js']], function (H, U) {
         /* *
          *
@@ -47,61 +49,61 @@
          *
          * @interface Highcharts.PatternOptionsObject
          */ /**
-        * Background color for the pattern if a `path` is set (not images).
-        * @name Highcharts.PatternOptionsObject#backgroundColor
-        * @type {Highcharts.ColorString}
-        */ /**
-        * URL to an image to use as the pattern.
-        * @name Highcharts.PatternOptionsObject#image
-        * @type {string}
-        */ /**
-        * Width of the pattern. For images this is automatically set to the width of
-        * the element bounding box if not supplied. For non-image patterns the default
-        * is 32px. Note that automatic resizing of image patterns to fill a bounding
-        * box dynamically is only supported for patterns with an automatically
-        * calculated ID.
-        * @name Highcharts.PatternOptionsObject#width
-        * @type {number}
-        */ /**
-        * Analogous to pattern.width.
-        * @name Highcharts.PatternOptionsObject#height
-        * @type {number}
-        */ /**
-        * For automatically calculated width and height on images, it is possible to
-        * set an aspect ratio. The image will be zoomed to fill the bounding box,
-        * maintaining the aspect ratio defined.
-        * @name Highcharts.PatternOptionsObject#aspectRatio
-        * @type {number}
-        */ /**
-        * Horizontal offset of the pattern. Defaults to 0.
-        * @name Highcharts.PatternOptionsObject#x
-        * @type {number|undefined}
-        */ /**
-        * Vertical offset of the pattern. Defaults to 0.
-        * @name Highcharts.PatternOptionsObject#y
-        * @type {number|undefined}
-        */ /**
-        * Either an SVG path as string, or an object. As an object, supply the path
-        * string in the `path.d` property. Other supported properties are standard SVG
-        * attributes like `path.stroke` and `path.fill`. If a path is supplied for the
-        * pattern, the `image` property is ignored.
-        * @name Highcharts.PatternOptionsObject#path
-        * @type {string|Highcharts.SVGAttributes}
-        */ /**
-        * Pattern color, used as default path stroke.
-        * @name Highcharts.PatternOptionsObject#color
-        * @type {Highcharts.ColorString}
-        */ /**
-        * Opacity of the pattern as a float value from 0 to 1.
-        * @name Highcharts.PatternOptionsObject#opacity
-        * @type {number}
-        */ /**
-        * ID to assign to the pattern. This is automatically computed if not added, and
-        * identical patterns are reused. To refer to an existing pattern for a
-        * Highcharts color, use `color: "url(#pattern-id)"`.
-        * @name Highcharts.PatternOptionsObject#id
-        * @type {string}
-        */
+         * Background color for the pattern if a `path` is set (not images).
+         * @name Highcharts.PatternOptionsObject#backgroundColor
+         * @type {Highcharts.ColorString}
+         */ /**
+         * URL to an image to use as the pattern.
+         * @name Highcharts.PatternOptionsObject#image
+         * @type {string}
+         */ /**
+         * Width of the pattern. For images this is automatically set to the width of
+         * the element bounding box if not supplied. For non-image patterns the default
+         * is 32px. Note that automatic resizing of image patterns to fill a bounding
+         * box dynamically is only supported for patterns with an automatically
+         * calculated ID.
+         * @name Highcharts.PatternOptionsObject#width
+         * @type {number}
+         */ /**
+         * Analogous to pattern.width.
+         * @name Highcharts.PatternOptionsObject#height
+         * @type {number}
+         */ /**
+         * For automatically calculated width and height on images, it is possible to
+         * set an aspect ratio. The image will be zoomed to fill the bounding box,
+         * maintaining the aspect ratio defined.
+         * @name Highcharts.PatternOptionsObject#aspectRatio
+         * @type {number}
+         */ /**
+         * Horizontal offset of the pattern. Defaults to 0.
+         * @name Highcharts.PatternOptionsObject#x
+         * @type {number|undefined}
+         */ /**
+         * Vertical offset of the pattern. Defaults to 0.
+         * @name Highcharts.PatternOptionsObject#y
+         * @type {number|undefined}
+         */ /**
+         * Either an SVG path as string, or an object. As an object, supply the path
+         * string in the `path.d` property. Other supported properties are standard SVG
+         * attributes like `path.stroke` and `path.fill`. If a path is supplied for the
+         * pattern, the `image` property is ignored.
+         * @name Highcharts.PatternOptionsObject#path
+         * @type {string|Highcharts.SVGAttributes}
+         */ /**
+         * Pattern color, used as default path stroke.
+         * @name Highcharts.PatternOptionsObject#color
+         * @type {Highcharts.ColorString}
+         */ /**
+         * Opacity of the pattern as a float value from 0 to 1.
+         * @name Highcharts.PatternOptionsObject#opacity
+         * @type {number}
+         */ /**
+         * ID to assign to the pattern. This is automatically computed if not added, and
+         * identical patterns are reused. To refer to an existing pattern for a
+         * Highcharts color, use `color: "url(#pattern-id)"`.
+         * @name Highcharts.PatternOptionsObject#id
+         * @type {string}
+         */
         /**
          * Holds a pattern definition.
          *
@@ -129,16 +131,18 @@
          *
          * @interface Highcharts.PatternObject
          */ /**
-        * Pattern options
-        * @name Highcharts.PatternObject#pattern
-        * @type {Highcharts.PatternOptionsObject}
-        */ /**
-        * Animation options for the image pattern loading.
-        * @name Highcharts.PatternObject#animation
-        * @type {boolean|Highcharts.AnimationOptionsObject|undefined}
-        */
+         * Pattern options
+         * @name Highcharts.PatternObject#pattern
+         * @type {Highcharts.PatternOptionsObject}
+         */
+        /**
+         * Animation options for the image pattern loading.
+         * @name Highcharts.PatternObject#animation
+         * @type {boolean|Highcharts.AnimationOptionsObject|undefined}
+         */
         var erase = U.erase, pick = U.pick;
         var addEvent = H.addEvent, wrap = H.wrap, merge = H.merge;
+
         /**
          * Utility function to compute a hash value from an object. Modified Java
          * String.hashCode implementation in JS. Use the preSeed parameter to add an
@@ -172,6 +176,7 @@
             }
             return hash.toString(16).replace('-', '1');
         }
+
         /**
          * Set dimensions on pattern from point. This function will set internal
          * pattern._width/_height properties if width and height are not both already
@@ -197,7 +202,7 @@
             var bBox = this.graphic && (this.graphic.getBBox &&
                 this.graphic.getBBox(true) ||
                 this.graphic.element &&
-                    this.graphic.element.getBBox()) || {}, shapeArgs = this.shapeArgs;
+                this.graphic.element.getBBox()) || {}, shapeArgs = this.shapeArgs;
             // Prefer using shapeArgs, as it is animation agnostic
             if (shapeArgs) {
                 bBox.width = shapeArgs.width || bBox.width;
@@ -221,8 +226,7 @@
                     if (pattern.aspectRatio > bBox.aspectRatio) {
                         // Height of bBox will determine width
                         bBox.aspectWidth = bBox.height * pattern.aspectRatio;
-                    }
-                    else {
+                    } else {
                         // Width of bBox will determine height
                         bBox.aspectHeight = bBox.width / pattern.aspectRatio;
                     }
@@ -268,11 +272,14 @@
          * @requires modules/pattern-fill
          */
         H.SVGRenderer.prototype.addPattern = function (options, animation) {
-            var pattern, animate = pick(animation, true), animationOptions = H.animObject(animate), path, defaultSize = 32, width = options.width || options._width || defaultSize, height = (options.height || options._height || defaultSize), color = options.color || '#343434', id = options.id, ren = this, rect = function (fill) {
-                ren.rect(0, 0, width, height)
-                    .attr({ fill: fill })
-                    .add(pattern);
-            }, attribs;
+            var pattern, animate = pick(animation, true), animationOptions = H.animObject(animate), path,
+                defaultSize = 32, width = options.width || options._width || defaultSize,
+                height = (options.height || options._height || defaultSize), color = options.color || '#343434',
+                id = options.id, ren = this, rect = function (fill) {
+                    ren.rect(0, 0, width, height)
+                        .attr({fill: fill})
+                        .add(pattern);
+                }, attribs;
             if (!id) {
                 this.idCounter = this.idCounter || 0;
                 id = 'highcharts-pattern-' + (this.chartIndex || 0) + '-' +
@@ -320,8 +327,7 @@
                 this.createElement('path').attr(attribs).add(pattern);
                 pattern.color = color;
                 // Image pattern
-            }
-            else if (options.image) {
+            } else if (options.image) {
                 if (animate) {
                     this.image(options.image, 0, 0, width, height, function () {
                         // Onload
@@ -329,9 +335,8 @@
                             opacity: pick(options.opacity, 1)
                         }, animationOptions);
                         H.removeEvent(this.element, 'load');
-                    }).attr({ opacity: 0 }).add(pattern);
-                }
-                else {
+                    }).attr({opacity: 0}).add(pattern);
+                } else {
                     this.image(options.image, 0, 0, width, height).add(pattern);
                 }
             }
@@ -360,8 +365,7 @@
                 oldColor.pattern.color =
                     this.color;
                 this.color = this.options.color = oldColor;
-            }
-            else {
+            } else {
                 // We have a color, no need to do anything special
                 proceed.apply(this, Array.prototype.slice.call(arguments, 1));
             }
@@ -386,8 +390,7 @@
                                 'defer';
                             colorOptions.pattern._height =
                                 'defer';
-                        }
-                        else {
+                        } else {
                             point.calculatePatternDimensions(colorOptions.pattern);
                         }
                     }
@@ -413,7 +416,8 @@
         });
         // Add functionality to SVG renderer to handle patterns as complex colors
         H.addEvent(H.SVGRenderer, 'complexColor', function (args) {
-            var color = args.args[0], prop = args.args[1], element = args.args[2], pattern = color.pattern, value = '#343434', forceHashId;
+            var color = args.args[0], prop = args.args[1], element = args.args[2], pattern = color.pattern,
+                value = '#343434', forceHashId;
             // Skip and call default if there is no pattern
             if (!pattern) {
                 return true;
@@ -434,7 +438,7 @@
                 // If we don't have a width/height yet, handle it. Try faking a point
                 // and running the algorithm again.
                 if (pattern._width === 'defer' || pattern._height === 'defer') {
-                    H.Point.prototype.calculatePatternDimensions.call({ graphic: { element: element } }, pattern);
+                    H.Point.prototype.calculatePatternDimensions.call({graphic: {element: element}}, pattern);
                 }
                 // If we don't have an explicit ID, compute a hash from the
                 // definition and use that as the ID. This ensures that points with
@@ -449,10 +453,9 @@
                 }
                 // Add it. This function does nothing if an element with this ID
                 // already exists.
-                this.addPattern(pattern, !this.forExport && pick(pattern.animation, this.globalAnimation, { duration: 100 }));
+                this.addPattern(pattern, !this.forExport && pick(pattern.animation, this.globalAnimation, {duration: 100}));
                 value = 'url(' + this.url + '#' + pattern.id + ')';
-            }
-            else {
+            } else {
                 // Not a full pattern definition, just add color
                 value = pattern.color || value;
             }
@@ -494,12 +497,12 @@
         // Add a garbage collector to delete old patterns with autogenerated hashes that
         // are no longer being referenced.
         H.addEvent(H.Chart, 'redraw', function () {
-            var usedIds = [], renderer = this.renderer, 
-            // Get the autocomputed patterns - these are the ones we might delete
-            patterns = (renderer.defIds || []).filter(function (pattern) {
-                return (pattern.indexOf &&
-                    pattern.indexOf('highcharts-pattern-') === 0);
-            });
+            var usedIds = [], renderer = this.renderer,
+                // Get the autocomputed patterns - these are the ones we might delete
+                patterns = (renderer.defIds || []).filter(function (pattern) {
+                    return (pattern.indexOf &&
+                        pattern.indexOf('highcharts-pattern-') === 0);
+                });
             if (patterns.length) {
                 // Look through the DOM for usage of the patterns. This can be points,
                 // series, tooltips etc.

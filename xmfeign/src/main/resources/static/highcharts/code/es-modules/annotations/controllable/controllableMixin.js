@@ -2,6 +2,7 @@
 import H from './../../parts/Globals.js';
 
 import U from './../../parts/Utilities.js';
+
 var isObject = U.isObject,
     isString = U.isString,
     splat = U.splat;

@@ -24,11 +24,13 @@
     }
 }(function (Highcharts) {
     var _modules = Highcharts ? Highcharts._modules : {};
+
     function _registerModule(obj, path, args, fn) {
         if (!obj.hasOwnProperty(path)) {
             obj[path] = fn.apply(null, args);
         }
     }
+
     _registerModule(_modules, 'modules/stock-tools-bindings.js', [_modules['parts/Globals.js'], _modules['parts/Utilities.js']], function (H, U) {
         /**
          *
@@ -60,7 +62,8 @@
          * Event fired on first click on a chart.
          * @name Highcharts.StockToolsBindingsObject#start
          * @type {Function|undefined}
-         *//**
+         */
+        /**
          * Last event to be fired after last step event. Array of step events to be
          * called sequentially after each user click.
          * @name Highcharts.StockToolsBindingsObject#steps
@@ -438,8 +441,8 @@
 
                 positions = yAxes.map(function (yAxis) {
                     var height = isPercentage(yAxis.options.height) ?
-                            parseFloat(yAxis.options.height) / 100 :
-                            yAxis.height / plotHeight,
+                        parseFloat(yAxis.options.height) / 100 :
+                        yAxis.height / plotHeight,
                         top = isPercentage(yAxis.options.top) ?
                             parseFloat(yAxis.options.top) / 100 :
                             correctFloat(
@@ -1762,7 +1765,7 @@
                     fireEvent(
                         this,
                         'deselectButton',
-                        { button: button }
+                        {button: button}
                     );
                 }
             },
@@ -1787,7 +1790,7 @@
                     fireEvent(
                         this,
                         'deselectButton',
-                        { button: button }
+                        {button: button}
                     );
                 }
             },
@@ -1813,7 +1816,7 @@
                     fireEvent(
                         this,
                         'deselectButton',
-                        { button: button }
+                        {button: button}
                     );
                 }
             },
@@ -1837,7 +1840,7 @@
                     fireEvent(
                         this,
                         'deselectButton',
-                        { button: button }
+                        {button: button}
                     );
                 }
             },
@@ -1860,7 +1863,7 @@
                     fireEvent(
                         this,
                         'deselectButton',
-                        { button: button }
+                        {button: button}
                     );
                 }
             },
@@ -1883,7 +1886,7 @@
                     fireEvent(
                         this,
                         'deselectButton',
-                        { button: button }
+                        {button: button}
                     );
                 }
             },
@@ -1906,7 +1909,7 @@
                     fireEvent(
                         this,
                         'deselectButton',
-                        { button: button }
+                        {button: button}
                     );
                 }
             },
@@ -1928,7 +1931,7 @@
                         series = chart.series[0],
                         options = series.options,
                         lastVisiblePrice = options.lastVisiblePrice &&
-                                        options.lastVisiblePrice.enabled,
+                            options.lastVisiblePrice.enabled,
                         lastPrice = options.lastPrice && options.lastPrice.enabled,
                         gui = chart.stockTools,
                         iconsURL = gui.getIconsURL();
@@ -1963,7 +1966,7 @@
                     fireEvent(
                         this,
                         'deselectButton',
-                        { button: button }
+                        {button: button}
                     );
                 }
             },
@@ -2029,18 +2032,18 @@
                         if (this.toggledAnnotations) {
                             button.firstChild.style['background-image'] =
                                 'url("' + iconsURL +
-                                    'annotations-hidden.svg")';
+                                'annotations-hidden.svg")';
                         } else {
                             button.firstChild.style['background-image'] =
                                 'url("' + iconsURL +
-                                    'annotations-visible.svg")';
+                                'annotations-visible.svg")';
                         }
                     }
 
                     fireEvent(
                         this,
                         'deselectButton',
-                        { button: button }
+                        {button: button}
                     );
                 }
             },
@@ -2098,7 +2101,7 @@
                     fireEvent(
                         this,
                         'deselectButton',
-                        { button: button }
+                        {button: button}
                     );
                 }
             }
@@ -3070,7 +3073,7 @@
                             submenuWrapper.style.display = 'block';
 
                             topMargin = submenuWrapper.offsetHeight -
-                                        buttonWrapper.offsetHeight - 3;
+                                buttonWrapper.offsetHeight - 3;
 
                             // calculate position of submenu in the box
                             // if submenu is inside, reset top margin
@@ -3078,9 +3081,9 @@
                                 // cut on the bottom
                                 !(submenuWrapper.offsetHeight +
                                     buttonWrapper.offsetTop >
-                                wrapper.offsetHeight &&
-                                // cut on the top
-                                buttonWrapper.offsetTop > topMargin)
+                                    wrapper.offsetHeight &&
+                                    // cut on the top
+                                    buttonWrapper.offsetTop > topMargin)
                             ) {
                                 topMargin = 0;
                             }
@@ -3094,8 +3097,8 @@
                             buttonWrapper.className += ' ' + PREFIX + 'current';
                             menuWrapper.startWidth = wrapper.offsetWidth;
                             menuWrapper.style.width = menuWrapper.startWidth +
-                                            H.getStyle(menuWrapper, 'padding-left') +
-                                            submenuWrapper.offsetWidth + 3 + 'px';
+                                H.getStyle(menuWrapper, 'padding-left') +
+                                submenuWrapper.offsetWidth + 3 + 'px';
                         }
                     });
                 });
@@ -3309,7 +3312,7 @@
                 // toolbar
                 stockToolbar.toolbar = toolbar = createElement(UL, {
                     className: PREFIX + 'stocktools-toolbar ' +
-                            guiOptions.toolbarClassName
+                        guiOptions.toolbarClassName
                 });
 
                 // add container for list of buttons

@@ -23,6 +23,7 @@ public class RedisUtil {
 
     /**
      * 指定缓存失效时间
+     *
      * @param key  键
      * @param time 时间(秒)
      * @return 30
@@ -150,7 +151,6 @@ public class RedisUtil {
         try {
 
             redisTemplate.opsForValue().set(key, value);
-
             return true;
 
         } catch (Exception e) {
@@ -969,13 +969,15 @@ public class RedisUtil {
         }
 
     }
+
     //获取所有键
-    public Set<String> keys(String key){
+    public Set<String> keys(String key) {
         Set<String> keys = redisTemplate.keys(key);
         return keys;
     }
+
     //删除所有键
-    public void delAllKeys(String key){
+    public void delAllKeys(String key) {
         Set<String> keys = redisTemplate.keys(key);
         redisTemplate.delete(keys);
     }

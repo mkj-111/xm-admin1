@@ -85,11 +85,13 @@
     }
 }(function (Highcharts) {
     var _modules = Highcharts ? Highcharts._modules : {};
+
     function _registerModule(obj, path, args, fn) {
         if (!obj.hasOwnProperty(path)) {
             obj[path] = fn.apply(null, args);
         }
     }
+
     _registerModule(_modules, 'modules/boost/boostables.js', [], function () {
         /* *
          *
@@ -151,6 +153,7 @@
          *
          * */
         var pick = H.pick;
+
         /* eslint-disable valid-jsdoc */
         /**
          * A static shader mimicing axis translation functions found in parts/Axis
@@ -165,200 +168,201 @@
          */
         function GLShader(gl) {
             var vertShade = [
-                /* eslint-disable max-len, @typescript-eslint/indent */
-                '#version 100',
-                '#define LN10 2.302585092994046',
-                'precision highp float;',
-                'attribute vec4 aVertexPosition;',
-                'attribute vec4 aColor;',
-                'varying highp vec2 position;',
-                'varying highp vec4 vColor;',
-                'uniform mat4 uPMatrix;',
-                'uniform float pSize;',
-                'uniform float translatedThreshold;',
-                'uniform bool hasThreshold;',
-                'uniform bool skipTranslation;',
-                'uniform float xAxisTrans;',
-                'uniform float xAxisMin;',
-                'uniform float xAxisMinPad;',
-                'uniform float xAxisPointRange;',
-                'uniform float xAxisLen;',
-                'uniform bool  xAxisPostTranslate;',
-                'uniform float xAxisOrdinalSlope;',
-                'uniform float xAxisOrdinalOffset;',
-                'uniform float xAxisPos;',
-                'uniform bool  xAxisCVSCoord;',
-                'uniform bool  xAxisIsLog;',
-                'uniform bool  xAxisReversed;',
-                'uniform float yAxisTrans;',
-                'uniform float yAxisMin;',
-                'uniform float yAxisMinPad;',
-                'uniform float yAxisPointRange;',
-                'uniform float yAxisLen;',
-                'uniform bool  yAxisPostTranslate;',
-                'uniform float yAxisOrdinalSlope;',
-                'uniform float yAxisOrdinalOffset;',
-                'uniform float yAxisPos;',
-                'uniform bool  yAxisCVSCoord;',
-                'uniform bool  yAxisIsLog;',
-                'uniform bool  yAxisReversed;',
-                'uniform bool  isBubble;',
-                'uniform bool  bubbleSizeByArea;',
-                'uniform float bubbleZMin;',
-                'uniform float bubbleZMax;',
-                'uniform float bubbleZThreshold;',
-                'uniform float bubbleMinSize;',
-                'uniform float bubbleMaxSize;',
-                'uniform bool  bubbleSizeAbs;',
-                'uniform bool  isInverted;',
-                'float bubbleRadius(){',
-                'float value = aVertexPosition.w;',
-                'float zMax = bubbleZMax;',
-                'float zMin = bubbleZMin;',
-                'float radius = 0.0;',
-                'float pos = 0.0;',
-                'float zRange = zMax - zMin;',
-                'if (bubbleSizeAbs){',
-                'value = value - bubbleZThreshold;',
-                'zMax = max(zMax - bubbleZThreshold, zMin - bubbleZThreshold);',
-                'zMin = 0.0;',
-                '}',
-                'if (value < zMin){',
-                'radius = bubbleZMin / 2.0 - 1.0;',
-                '} else {',
-                'pos = zRange > 0.0 ? (value - zMin) / zRange : 0.5;',
-                'if (bubbleSizeByArea && pos > 0.0){',
-                'pos = sqrt(pos);',
-                '}',
-                'radius = ceil(bubbleMinSize + pos * (bubbleMaxSize - bubbleMinSize)) / 2.0;',
-                '}',
-                'return radius * 2.0;',
-                '}',
-                'float translate(float val,',
-                'float pointPlacement,',
-                'float localA,',
-                'float localMin,',
-                'float minPixelPadding,',
-                'float pointRange,',
-                'float len,',
-                'bool  cvsCoord,',
-                'bool  isLog,',
-                'bool  reversed',
-                '){',
-                'float sign = 1.0;',
-                'float cvsOffset = 0.0;',
-                'if (cvsCoord) {',
-                'sign *= -1.0;',
-                'cvsOffset = len;',
-                '}',
-                'if (isLog) {',
-                'val = log(val) / LN10;',
-                '}',
-                'if (reversed) {',
-                'sign *= -1.0;',
-                'cvsOffset -= sign * len;',
-                '}',
-                'return sign * (val - localMin) * localA + cvsOffset + ',
-                '(sign * minPixelPadding);',
-                '}',
-                'float xToPixels(float value) {',
-                'if (skipTranslation){',
-                'return value;// + xAxisPos;',
-                '}',
-                'return translate(value, 0.0, xAxisTrans, xAxisMin, xAxisMinPad, xAxisPointRange, xAxisLen, xAxisCVSCoord, xAxisIsLog, xAxisReversed);// + xAxisPos;',
-                '}',
-                'float yToPixels(float value, float checkTreshold) {',
-                'float v;',
-                'if (skipTranslation){',
-                'v = value;// + yAxisPos;',
-                '} else {',
-                'v = translate(value, 0.0, yAxisTrans, yAxisMin, yAxisMinPad, yAxisPointRange, yAxisLen, yAxisCVSCoord, yAxisIsLog, yAxisReversed);// + yAxisPos;',
-                'if (v > yAxisLen) {',
-                'v = yAxisLen;',
-                '}',
-                '}',
-                'if (checkTreshold > 0.0 && hasThreshold) {',
-                'v = min(v, translatedThreshold);',
-                '}',
-                'return v;',
-                '}',
-                'void main(void) {',
-                'if (isBubble){',
-                'gl_PointSize = bubbleRadius();',
-                '} else {',
-                'gl_PointSize = pSize;',
-                '}',
-                // 'gl_PointSize = 10.0;',
-                'vColor = aColor;',
-                'if (skipTranslation && isInverted) {',
-                // If we get translated values from JS, just swap them (x, y)
-                'gl_Position = uPMatrix * vec4(aVertexPosition.y + yAxisPos, aVertexPosition.x + xAxisPos, 0.0, 1.0);',
-                '} else if (isInverted) {',
-                // But when calculating pixel positions directly,
-                // swap axes and values (x, y)
-                'gl_Position = uPMatrix * vec4(yToPixels(aVertexPosition.y, aVertexPosition.z) + yAxisPos, xToPixels(aVertexPosition.x) + xAxisPos, 0.0, 1.0);',
-                '} else {',
-                'gl_Position = uPMatrix * vec4(xToPixels(aVertexPosition.x) + xAxisPos, yToPixels(aVertexPosition.y, aVertexPosition.z) + yAxisPos, 0.0, 1.0);',
-                '}',
-                // 'gl_Position = uPMatrix * vec4(aVertexPosition.x, aVertexPosition.y, 0.0, 1.0);',
-                '}'
-                /* eslint-enable max-len, @typescript-eslint/indent */
-            ].join('\n'), 
-            // Fragment shader source
-            fragShade = [
-                /* eslint-disable max-len, @typescript-eslint/indent */
-                'precision highp float;',
-                'uniform vec4 fillColor;',
-                'varying highp vec2 position;',
-                'varying highp vec4 vColor;',
-                'uniform sampler2D uSampler;',
-                'uniform bool isCircle;',
-                'uniform bool hasColor;',
-                // 'vec4 toColor(float value, vec2 point) {',
-                //     'return vec4(0.0, 0.0, 0.0, 0.0);',
-                // '}',
-                'void main(void) {',
-                'vec4 col = fillColor;',
-                'vec4 tcol;',
-                'if (hasColor) {',
-                'col = vColor;',
-                '}',
-                'if (isCircle) {',
-                'tcol = texture2D(uSampler, gl_PointCoord.st);',
-                'col *= tcol;',
-                'if (tcol.r < 0.0) {',
-                'discard;',
-                '} else {',
-                'gl_FragColor = col;',
-                '}',
-                '} else {',
-                'gl_FragColor = col;',
-                '}',
-                '}'
-                /* eslint-enable max-len, @typescript-eslint/indent */
-            ].join('\n'), uLocations = {}, 
-            // The shader program
-            shaderProgram, 
-            // Uniform handle to the perspective matrix
-            pUniform, 
-            // Uniform for point size
-            psUniform, 
-            // Uniform for fill color
-            fillColorUniform, 
-            // Uniform for isBubble
-            isBubbleUniform, 
-            // Uniform for bubble abs sizing
-            bubbleSizeAbsUniform, bubbleSizeAreaUniform, 
-            // Skip translation uniform
-            skipTranslationUniform, 
-            // Set to 1 if circle
-            isCircleUniform, 
-            // Uniform for invertion
-            isInverted, 
-            // Error stack
-            errors = [], 
-            // Texture uniform
-            uSamplerUniform;
+                    /* eslint-disable max-len, @typescript-eslint/indent */
+                    '#version 100',
+                    '#define LN10 2.302585092994046',
+                    'precision highp float;',
+                    'attribute vec4 aVertexPosition;',
+                    'attribute vec4 aColor;',
+                    'varying highp vec2 position;',
+                    'varying highp vec4 vColor;',
+                    'uniform mat4 uPMatrix;',
+                    'uniform float pSize;',
+                    'uniform float translatedThreshold;',
+                    'uniform bool hasThreshold;',
+                    'uniform bool skipTranslation;',
+                    'uniform float xAxisTrans;',
+                    'uniform float xAxisMin;',
+                    'uniform float xAxisMinPad;',
+                    'uniform float xAxisPointRange;',
+                    'uniform float xAxisLen;',
+                    'uniform bool  xAxisPostTranslate;',
+                    'uniform float xAxisOrdinalSlope;',
+                    'uniform float xAxisOrdinalOffset;',
+                    'uniform float xAxisPos;',
+                    'uniform bool  xAxisCVSCoord;',
+                    'uniform bool  xAxisIsLog;',
+                    'uniform bool  xAxisReversed;',
+                    'uniform float yAxisTrans;',
+                    'uniform float yAxisMin;',
+                    'uniform float yAxisMinPad;',
+                    'uniform float yAxisPointRange;',
+                    'uniform float yAxisLen;',
+                    'uniform bool  yAxisPostTranslate;',
+                    'uniform float yAxisOrdinalSlope;',
+                    'uniform float yAxisOrdinalOffset;',
+                    'uniform float yAxisPos;',
+                    'uniform bool  yAxisCVSCoord;',
+                    'uniform bool  yAxisIsLog;',
+                    'uniform bool  yAxisReversed;',
+                    'uniform bool  isBubble;',
+                    'uniform bool  bubbleSizeByArea;',
+                    'uniform float bubbleZMin;',
+                    'uniform float bubbleZMax;',
+                    'uniform float bubbleZThreshold;',
+                    'uniform float bubbleMinSize;',
+                    'uniform float bubbleMaxSize;',
+                    'uniform bool  bubbleSizeAbs;',
+                    'uniform bool  isInverted;',
+                    'float bubbleRadius(){',
+                    'float value = aVertexPosition.w;',
+                    'float zMax = bubbleZMax;',
+                    'float zMin = bubbleZMin;',
+                    'float radius = 0.0;',
+                    'float pos = 0.0;',
+                    'float zRange = zMax - zMin;',
+                    'if (bubbleSizeAbs){',
+                    'value = value - bubbleZThreshold;',
+                    'zMax = max(zMax - bubbleZThreshold, zMin - bubbleZThreshold);',
+                    'zMin = 0.0;',
+                    '}',
+                    'if (value < zMin){',
+                    'radius = bubbleZMin / 2.0 - 1.0;',
+                    '} else {',
+                    'pos = zRange > 0.0 ? (value - zMin) / zRange : 0.5;',
+                    'if (bubbleSizeByArea && pos > 0.0){',
+                    'pos = sqrt(pos);',
+                    '}',
+                    'radius = ceil(bubbleMinSize + pos * (bubbleMaxSize - bubbleMinSize)) / 2.0;',
+                    '}',
+                    'return radius * 2.0;',
+                    '}',
+                    'float translate(float val,',
+                    'float pointPlacement,',
+                    'float localA,',
+                    'float localMin,',
+                    'float minPixelPadding,',
+                    'float pointRange,',
+                    'float len,',
+                    'bool  cvsCoord,',
+                    'bool  isLog,',
+                    'bool  reversed',
+                    '){',
+                    'float sign = 1.0;',
+                    'float cvsOffset = 0.0;',
+                    'if (cvsCoord) {',
+                    'sign *= -1.0;',
+                    'cvsOffset = len;',
+                    '}',
+                    'if (isLog) {',
+                    'val = log(val) / LN10;',
+                    '}',
+                    'if (reversed) {',
+                    'sign *= -1.0;',
+                    'cvsOffset -= sign * len;',
+                    '}',
+                    'return sign * (val - localMin) * localA + cvsOffset + ',
+                    '(sign * minPixelPadding);',
+                    '}',
+                    'float xToPixels(float value) {',
+                    'if (skipTranslation){',
+                    'return value;// + xAxisPos;',
+                    '}',
+                    'return translate(value, 0.0, xAxisTrans, xAxisMin, xAxisMinPad, xAxisPointRange, xAxisLen, xAxisCVSCoord, xAxisIsLog, xAxisReversed);// + xAxisPos;',
+                    '}',
+                    'float yToPixels(float value, float checkTreshold) {',
+                    'float v;',
+                    'if (skipTranslation){',
+                    'v = value;// + yAxisPos;',
+                    '} else {',
+                    'v = translate(value, 0.0, yAxisTrans, yAxisMin, yAxisMinPad, yAxisPointRange, yAxisLen, yAxisCVSCoord, yAxisIsLog, yAxisReversed);// + yAxisPos;',
+                    'if (v > yAxisLen) {',
+                    'v = yAxisLen;',
+                    '}',
+                    '}',
+                    'if (checkTreshold > 0.0 && hasThreshold) {',
+                    'v = min(v, translatedThreshold);',
+                    '}',
+                    'return v;',
+                    '}',
+                    'void main(void) {',
+                    'if (isBubble){',
+                    'gl_PointSize = bubbleRadius();',
+                    '} else {',
+                    'gl_PointSize = pSize;',
+                    '}',
+                    // 'gl_PointSize = 10.0;',
+                    'vColor = aColor;',
+                    'if (skipTranslation && isInverted) {',
+                    // If we get translated values from JS, just swap them (x, y)
+                    'gl_Position = uPMatrix * vec4(aVertexPosition.y + yAxisPos, aVertexPosition.x + xAxisPos, 0.0, 1.0);',
+                    '} else if (isInverted) {',
+                    // But when calculating pixel positions directly,
+                    // swap axes and values (x, y)
+                    'gl_Position = uPMatrix * vec4(yToPixels(aVertexPosition.y, aVertexPosition.z) + yAxisPos, xToPixels(aVertexPosition.x) + xAxisPos, 0.0, 1.0);',
+                    '} else {',
+                    'gl_Position = uPMatrix * vec4(xToPixels(aVertexPosition.x) + xAxisPos, yToPixels(aVertexPosition.y, aVertexPosition.z) + yAxisPos, 0.0, 1.0);',
+                    '}',
+                    // 'gl_Position = uPMatrix * vec4(aVertexPosition.x, aVertexPosition.y, 0.0, 1.0);',
+                    '}'
+                    /* eslint-enable max-len, @typescript-eslint/indent */
+                ].join('\n'),
+                // Fragment shader source
+                fragShade = [
+                    /* eslint-disable max-len, @typescript-eslint/indent */
+                    'precision highp float;',
+                    'uniform vec4 fillColor;',
+                    'varying highp vec2 position;',
+                    'varying highp vec4 vColor;',
+                    'uniform sampler2D uSampler;',
+                    'uniform bool isCircle;',
+                    'uniform bool hasColor;',
+                    // 'vec4 toColor(float value, vec2 point) {',
+                    //     'return vec4(0.0, 0.0, 0.0, 0.0);',
+                    // '}',
+                    'void main(void) {',
+                    'vec4 col = fillColor;',
+                    'vec4 tcol;',
+                    'if (hasColor) {',
+                    'col = vColor;',
+                    '}',
+                    'if (isCircle) {',
+                    'tcol = texture2D(uSampler, gl_PointCoord.st);',
+                    'col *= tcol;',
+                    'if (tcol.r < 0.0) {',
+                    'discard;',
+                    '} else {',
+                    'gl_FragColor = col;',
+                    '}',
+                    '} else {',
+                    'gl_FragColor = col;',
+                    '}',
+                    '}'
+                    /* eslint-enable max-len, @typescript-eslint/indent */
+                ].join('\n'), uLocations = {},
+                // The shader program
+                shaderProgram,
+                // Uniform handle to the perspective matrix
+                pUniform,
+                // Uniform for point size
+                psUniform,
+                // Uniform for fill color
+                fillColorUniform,
+                // Uniform for isBubble
+                isBubbleUniform,
+                // Uniform for bubble abs sizing
+                bubbleSizeAbsUniform, bubbleSizeAreaUniform,
+                // Skip translation uniform
+                skipTranslationUniform,
+                // Set to 1 if circle
+                isCircleUniform,
+                // Uniform for invertion
+                isInverted,
+                // Error stack
+                errors = [],
+                // Texture uniform
+                uSamplerUniform;
+
             /**
              * Handle errors accumulated in errors stack
              * @private
@@ -368,6 +372,7 @@
                     H.error('[highcharts boost] shader error - ' + errors.join('\n'));
                 }
             }
+
             /**
              * String to shader program
              * @private
@@ -388,6 +393,7 @@
                 }
                 return shader;
             }
+
             /**
              * Create the shader.
              * Loads the shader program statically defined above
@@ -400,12 +406,14 @@
                     handleErrors();
                     return false;
                 }
+
                 /**
                  * @private
                  */
                 function uloc(n) {
                     return gl.getUniformLocation(shaderProgram, n);
                 }
+
                 shaderProgram = gl.createProgram();
                 gl.attachShader(shaderProgram, v);
                 gl.attachShader(shaderProgram, f);
@@ -430,6 +438,7 @@
                 isInverted = uloc('isInverted');
                 return true;
             }
+
             /**
              * Destroy the shader
              * @private
@@ -440,6 +449,7 @@
                     shaderProgram = false;
                 }
             }
+
             /**
              * Bind the shader.
              * This makes the shader the active one until another one is bound,
@@ -451,6 +461,7 @@
                     gl.useProgram(shaderProgram);
                 }
             }
+
             /**
              * Set a uniform value.
              * This uses a hash map to cache uniform locations.
@@ -465,6 +476,7 @@
                     gl.uniform1f(u, val);
                 }
             }
+
             /**
              * Set the active texture
              * @private
@@ -475,6 +487,7 @@
                     gl.uniform1i(uSamplerUniform, texture);
                 }
             }
+
             /**
              * Set if inversion state
              * @private
@@ -485,6 +498,7 @@
                     gl.uniform1i(isInverted, flag);
                 }
             }
+
             /**
              * Enable/disable circle drawing
              * @private
@@ -494,6 +508,7 @@
                     gl.uniform1i(isCircleUniform, flag ? 1 : 0);
                 }
             }
+
             /**
              * Flush
              * @private
@@ -504,6 +519,7 @@
                     gl.uniform1i(isCircleUniform, 0);
                 }
             }
+
             /**
              * Set bubble uniforms
              * @private
@@ -527,6 +543,7 @@
                     setUniform('bubbleMaxSize', series.maxPxSize);
                 }
             }
+
             /**
              * Set the Color uniform.
              * @private
@@ -537,6 +554,7 @@
                     gl.uniform4f(fillColorUniform, color[0] / 255.0, color[1] / 255.0, color[2] / 255.0, color[3]);
                 }
             }
+
             /**
              * Set skip translation
              * @private
@@ -546,6 +564,7 @@
                     gl.uniform1i(skipTranslationUniform, flag === true ? 1 : 0);
                 }
             }
+
             /**
              * Set the perspective matrix
              * @private
@@ -556,6 +575,7 @@
                     gl.uniformMatrix4fv(pUniform, false, m);
                 }
             }
+
             /**
              * Set the point size.
              * @private
@@ -566,6 +586,7 @@
                     gl.uniform1f(psUniform, p);
                 }
             }
+
             /**
              * Get the shader program handle
              * @private
@@ -574,6 +595,7 @@
             function getProgram() {
                 return shaderProgram;
             }
+
             if (gl) {
                 if (!createShader()) {
                     return false;
@@ -620,6 +642,7 @@
          *  !!!!!!! SOURCE GETS TRANSPILED BY TYPESCRIPT. EDIT TS FILE ONLY. !!!!!!!
          *
          * */
+
         /* eslint-disable valid-jsdoc */
         /**
          * Vertex Buffer abstraction.
@@ -638,11 +661,13 @@
          * @return {*}
          */
         function GLVertexBuffer(gl, shader, dataComponents
-        /* , type */
+                                /* , type */
         ) {
-            var buffer = false, vertAttribute = false, components = dataComponents || 2, preAllocated = false, iterator = 0, 
-            // farray = false,
-            data;
+            var buffer = false, vertAttribute = false, components = dataComponents || 2, preAllocated = false,
+                iterator = 0,
+                // farray = false,
+                data;
+
             // type = type || 'float';
             /**
              * @private
@@ -657,6 +682,7 @@
                 components = dataComponents || 2;
                 data = [];
             }
+
             /**
              * Build the buffer
              * @private
@@ -689,6 +715,7 @@
                 farray = false;
                 return true;
             }
+
             /**
              * Bind the buffer
              * @private
@@ -703,6 +730,7 @@
                 gl.vertexAttribPointer(vertAttribute, components, gl.FLOAT, false, 0, 0);
                 // gl.enableVertexAttribArray(vertAttribute);
             }
+
             /**
              * Render the buffer
              * @private
@@ -728,6 +756,7 @@
                 gl.drawArrays(gl[drawMode.toUpperCase()], from / components, (to - from) / components);
                 return true;
             }
+
             /**
              * @private
              */
@@ -739,6 +768,7 @@
                     preAllocated[++iterator] = b;
                 }
             }
+
             /**
              * Note about pre-allocated buffers:
              *     - This is slower for charts with many series
@@ -749,6 +779,7 @@
                 iterator = -1;
                 preAllocated = new Float32Array(size);
             }
+
             // /////////////////////////////////////////////////////////////////////////
             return {
                 destroy: destroy,
@@ -777,6 +808,7 @@
          * */
         var isNumber = U.isNumber, objEach = U.objectEach;
         var win = H.win, doc = win.document, merge = H.merge, some = H.some, Color = H.Color, pick = H.pick;
+
         /* eslint-disable valid-jsdoc */
         /**
          * Main renderer. Used to render series.
@@ -795,55 +827,56 @@
          */
         function GLRenderer(postRenderCallback) {
             //  // Shader
-            var shader = false, 
-            // Vertex buffers - keyed on shader attribute name
-            vbuffer = false, 
-            // Opengl context
-            gl = false, 
-            // Width of our viewport in pixels
-            width = 0, 
-            // Height of our viewport in pixels
-            height = 0, 
-            // The data to render - array of coordinates
-            data = false, 
-            // The marker data
-            markerData = false, 
-            // Exports
-            exports = {}, 
-            // Is it inited?
-            isInited = false, 
-            // The series stack
-            series = [], 
-            // Texture handles
-            textureHandles = {}, 
-            // Things to draw as "rectangles" (i.e lines)
-            asBar = {
-                'column': true,
-                'columnrange': true,
-                'bar': true,
-                'area': true,
-                'arearange': true
-            }, asCircle = {
-                'scatter': true,
-                'bubble': true
-            }, 
-            // Render settings
-            settings = {
-                pointSize: 1,
-                lineWidth: 1,
-                fillColor: '#AA00AA',
-                useAlpha: true,
-                usePreallocated: false,
-                useGPUTranslations: false,
-                debug: {
-                    timeRendering: false,
-                    timeSeriesProcessing: false,
-                    timeSetup: false,
-                    timeBufferCopy: false,
-                    timeKDTree: false,
-                    showSkipSummary: false
-                }
-            };
+            var shader = false,
+                // Vertex buffers - keyed on shader attribute name
+                vbuffer = false,
+                // Opengl context
+                gl = false,
+                // Width of our viewport in pixels
+                width = 0,
+                // Height of our viewport in pixels
+                height = 0,
+                // The data to render - array of coordinates
+                data = false,
+                // The marker data
+                markerData = false,
+                // Exports
+                exports = {},
+                // Is it inited?
+                isInited = false,
+                // The series stack
+                series = [],
+                // Texture handles
+                textureHandles = {},
+                // Things to draw as "rectangles" (i.e lines)
+                asBar = {
+                    'column': true,
+                    'columnrange': true,
+                    'bar': true,
+                    'area': true,
+                    'arearange': true
+                }, asCircle = {
+                    'scatter': true,
+                    'bubble': true
+                },
+                // Render settings
+                settings = {
+                    pointSize: 1,
+                    lineWidth: 1,
+                    fillColor: '#AA00AA',
+                    useAlpha: true,
+                    usePreallocated: false,
+                    useGPUTranslations: false,
+                    debug: {
+                        timeRendering: false,
+                        timeSeriesProcessing: false,
+                        timeSetup: false,
+                        timeBufferCopy: false,
+                        timeKDTree: false,
+                        showSkipSummary: false
+                    }
+                };
+
             // /////////////////////////////////////////////////////////////////////////
             /**
              * @private
@@ -851,6 +884,7 @@
             function setOptions(options) {
                 merge(true, settings, options);
             }
+
             /**
              * @private
              */
@@ -865,17 +899,16 @@
                         .length;
                     if (series.type === 'treemap') {
                         s *= 12;
-                    }
-                    else if (series.type === 'heatmap') {
+                    } else if (series.type === 'heatmap') {
                         s *= 6;
-                    }
-                    else if (asBar[series.type]) {
+                    } else if (asBar[series.type]) {
                         s *= 2;
                     }
                     return s;
                 }
                 return 0;
             }
+
             /**
              * Allocate a float buffer to fit all series
              * @private
@@ -892,6 +925,7 @@
                 });
                 vbuffer.allocate(s);
             }
+
             /**
              * @private
              */
@@ -905,6 +939,7 @@
                 }
                 vbuffer.allocate(s);
             }
+
             /**
              * Returns an orthographic perspective matrix
              * @private
@@ -920,6 +955,7 @@
                     -1, 1, -(far + near) / (far - near), 1
                 ];
             }
+
             /**
              * Clear the depth and color buffer
              * @private
@@ -927,6 +963,7 @@
             function clear() {
                 gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
             }
+
             /**
              * Get the WebGL context
              * @private
@@ -935,6 +972,7 @@
             function getGL() {
                 return gl;
             }
+
             /**
              * Push data for a single series
              * This calculates additional vertices and transforms the data to be
@@ -943,30 +981,42 @@
              */
             function pushSeriesData(series, inst) {
                 var isRange = (series.pointArrayMap &&
-                    series.pointArrayMap.join(',') === 'low,high'), chart = series.chart, options = series.options, isStacked = !!options.stacking, rawData = options.data, xExtremes = series.xAxis.getExtremes(), xMin = xExtremes.min, xMax = xExtremes.max, yExtremes = series.yAxis.getExtremes(), yMin = yExtremes.min, yMax = yExtremes.max, xData = series.xData || options.xData || series.processedXData, yData = series.yData || options.yData || series.processedYData, zData = (series.zData || options.zData ||
-                    series.processedZData), yAxis = series.yAxis, xAxis = series.xAxis, 
-                // plotHeight = series.chart.plotHeight,
-                plotWidth = series.chart.plotWidth, useRaw = !xData || xData.length === 0, 
-                // threshold = options.threshold,
-                // yBottom = chart.yAxis[0].getThreshold(threshold),
-                // hasThreshold = isNumber(threshold),
-                // colorByPoint = series.options.colorByPoint,
-                // This is required for color by point, so make sure this is
-                // uncommented if enabling that
-                // colorIndex = 0,
-                // Required for color axis support
-                // caxis,
-                connectNulls = options.connectNulls, 
-                // For some reason eslint/TypeScript don't pick up that this is
-                // actually used: --- bre1470: it is never read, just set
-                // maxVal: (number|undefined), // eslint-disable-line no-unused-vars
-                points = series.points || false, lastX = false, lastY = false, minVal, color, scolor, sdata = isStacked ? series.data : (xData || rawData), closestLeft = { x: Number.MAX_VALUE, y: 0 }, closestRight = { x: -Number.MAX_VALUE, y: 0 }, 
-                //
-                skipped = 0, hadPoints = false, 
-                //
-                cullXThreshold = 1, cullYThreshold = 1, 
-                // The following are used in the builder while loop
-                x, y, d, z, i = -1, px = false, nx = false, low, chartDestroyed = typeof chart.index === 'undefined', nextInside = false, prevInside = false, pcolor = false, drawAsBar = asBar[series.type], isXInside = false, isYInside = true, firstPoint = true, zones = options.zones || false, zoneDefColor = false, threshold = options.threshold, gapSize = false;
+                    series.pointArrayMap.join(',') === 'low,high'), chart = series.chart, options = series.options,
+                    isStacked = !!options.stacking, rawData = options.data, xExtremes = series.xAxis.getExtremes(),
+                    xMin = xExtremes.min, xMax = xExtremes.max, yExtremes = series.yAxis.getExtremes(),
+                    yMin = yExtremes.min, yMax = yExtremes.max,
+                    xData = series.xData || options.xData || series.processedXData,
+                    yData = series.yData || options.yData || series.processedYData,
+                    zData = (series.zData || options.zData ||
+                        series.processedZData), yAxis = series.yAxis, xAxis = series.xAxis,
+                    // plotHeight = series.chart.plotHeight,
+                    plotWidth = series.chart.plotWidth, useRaw = !xData || xData.length === 0,
+                    // threshold = options.threshold,
+                    // yBottom = chart.yAxis[0].getThreshold(threshold),
+                    // hasThreshold = isNumber(threshold),
+                    // colorByPoint = series.options.colorByPoint,
+                    // This is required for color by point, so make sure this is
+                    // uncommented if enabling that
+                    // colorIndex = 0,
+                    // Required for color axis support
+                    // caxis,
+                    connectNulls = options.connectNulls,
+                    // For some reason eslint/TypeScript don't pick up that this is
+                    // actually used: --- bre1470: it is never read, just set
+                    // maxVal: (number|undefined), // eslint-disable-line no-unused-vars
+                    points = series.points || false, lastX = false, lastY = false, minVal, color, scolor,
+                    sdata = isStacked ? series.data : (xData || rawData), closestLeft = {x: Number.MAX_VALUE, y: 0},
+                    closestRight = {x: -Number.MAX_VALUE, y: 0},
+                    //
+                    skipped = 0, hadPoints = false,
+                    //
+                    cullXThreshold = 1, cullYThreshold = 1,
+                    // The following are used in the builder while loop
+                    x, y, d, z, i = -1, px = false, nx = false, low,
+                    chartDestroyed = typeof chart.index === 'undefined', nextInside = false, prevInside = false,
+                    pcolor = false, drawAsBar = asBar[series.type], isXInside = false, isYInside = true,
+                    firstPoint = true, zones = options.zones || false, zoneDefColor = false,
+                    threshold = options.threshold, gapSize = false;
                 if (options.boostData && options.boostData.length > 0) {
                     return;
                 }
@@ -993,6 +1043,7 @@
                     plotWidth = series.chart.plotHeight;
                 }
                 series.closestPointRangePx = Number.MAX_VALUE;
+
                 /**
                  * Push color to color buffer - need to do this per vertex.
                  * @private
@@ -1005,6 +1056,7 @@
                         inst.colorData.push(color[3]);
                     }
                 }
+
                 /**
                  * Push a vertice to the data buffer.
                  * @private
@@ -1013,14 +1065,14 @@
                     pushColor(color);
                     if (settings.usePreallocated) {
                         vbuffer.push(x, y, checkTreshold ? 1 : 0, pointSize || 1);
-                    }
-                    else {
+                    } else {
                         data.push(x);
                         data.push(y);
                         data.push(checkTreshold ? 1 : 0);
                         data.push(pointSize || 1);
                     }
                 }
+
                 /**
                  * @private
                  */
@@ -1029,6 +1081,7 @@
                         inst.segments[inst.segments.length - 1].to = data.length;
                     }
                 }
+
                 /**
                  * Create a new segment for the current set.
                  * @private
@@ -1047,6 +1100,7 @@
                         from: data.length
                     });
                 }
+
                 /**
                  * Push a rectangle to the data buffer.
                  * @private
@@ -1065,6 +1119,7 @@
                     pushColor(color);
                     vertice(x + w, y);
                 }
+
                 // Create the first segment
                 beginSegment();
                 // Special case for point shapes
@@ -1187,8 +1242,7 @@
                                 inst.zMin = d[2];
                             }
                         }
-                    }
-                    else {
+                    } else {
                         x = d;
                         y = yData[i];
                         if (sdata[i + 1]) {
@@ -1223,8 +1277,7 @@
                         }
                         low = y[0];
                         y = y[1];
-                    }
-                    else if (isStacked) {
+                    } else if (isStacked) {
                         x = d.x;
                         y = d.stackY;
                         low = y - d.y;
@@ -1267,7 +1320,7 @@
                     if (zones) {
                         pcolor = zoneDefColor.rgba;
                         some(zones, function (// eslint-disable-line no-loop-func
-                        zone, i) {
+                            zone, i) {
                             var last = zones[i - 1];
                             if (typeof zone.value !== 'undefined' && y <= zone.value) {
                                 if (!last || y >= last.value) {
@@ -1310,14 +1363,13 @@
                         if (low === false || typeof low === 'undefined') {
                             if (y < 0) {
                                 minVal = y;
-                            }
-                            else {
+                            } else {
                                 minVal = 0;
                             }
                         }
                         if (!isRange && !isStacked) {
                             minVal = Math.max(threshold === null ? yMin : threshold, // #5268
-                            yMin); // #8731
+                                yMin); // #8731
                         }
                         if (!settings.useGPUTranslations) {
                             minVal = yAxis.toPixels(minVal, true);
@@ -1378,6 +1430,7 @@
                 if (settings.debug.showSkipSummary) {
                     console.log('skipped points:', skipped); // eslint-disable-line no-console
                 }
+
                 /**
                  * @private
                  */
@@ -1395,6 +1448,7 @@
                     }
                     vertice(point.x, point.y, 0, 2);
                 }
+
                 if (!hadPoints &&
                     connectNulls !== false &&
                     series.drawMode === 'line_strip') {
@@ -1408,6 +1462,7 @@
                 }
                 closeSegment();
             }
+
             /**
              * Push a series to the renderer
              * If we render the series immediatly, we don't have to loop later
@@ -1459,6 +1514,7 @@
                     console.timeEnd('building ' + s.type + ' series'); // eslint-disable-line no-console
                 }
             }
+
             /**
              * Flush the renderer.
              * This removes pushed series and vertices.
@@ -1473,6 +1529,7 @@
                     vbuffer.destroy();
                 }
             }
+
             /**
              * Pass x-axis to shader
              * @private
@@ -1492,6 +1549,7 @@
                 shader.setUniform('xAxisIsLog', axis.isLog);
                 shader.setUniform('xAxisReversed', (!!axis.reversed));
             }
+
             /**
              * Pass y-axis to shader
              * @private
@@ -1511,6 +1569,7 @@
                 shader.setUniform('yAxisIsLog', axis.isLog);
                 shader.setUniform('yAxisReversed', (!!axis.reversed));
             }
+
             /**
              * Set the translation threshold
              * @private
@@ -1521,6 +1580,7 @@
                 shader.setUniform('hasThreshold', has);
                 shader.setUniform('translatedThreshold', translation);
             }
+
             /**
              * Render the data
              * This renders all pushed series.
@@ -1533,8 +1593,7 @@
                     }
                     width = chart.chartWidth || 800;
                     height = chart.chartHeight || 400;
-                }
-                else {
+                } else {
                     return false;
                 }
                 if (!gl || !width || !height || !shader) {
@@ -1556,12 +1615,16 @@
                 shader.setInverted(chart.inverted);
                 // Render the series
                 series.forEach(function (s, si) {
-                    var options = s.series.options, shapeOptions = options.marker, sindex, lineWidth = (typeof options.lineWidth !== 'undefined' ?
-                        options.lineWidth :
-                        1), threshold = options.threshold, hasThreshold = isNumber(threshold), yBottom = s.series.yAxis.getThreshold(threshold), translatedThreshold = yBottom, cbuffer, showMarkers = pick(options.marker ? options.marker.enabled : null, s.series.xAxis.isRadial ? true : null, s.series.closestPointRangePx >
-                        2 * ((options.marker ?
-                            options.marker.radius :
-                            10) || 10)), fillColor, shapeTexture = textureHandles[(shapeOptions && shapeOptions.symbol) ||
+                    var options = s.series.options, shapeOptions = options.marker, sindex,
+                        lineWidth = (typeof options.lineWidth !== 'undefined' ?
+                            options.lineWidth :
+                            1), threshold = options.threshold, hasThreshold = isNumber(threshold),
+                        yBottom = s.series.yAxis.getThreshold(threshold), translatedThreshold = yBottom, cbuffer,
+                        showMarkers = pick(options.marker ? options.marker.enabled : null, s.series.xAxis.isRadial ? true : null, s.series.closestPointRangePx >
+                            2 * ((options.marker ?
+                                options.marker.radius :
+                                10) || 10)), fillColor,
+                        shapeTexture = textureHandles[(shapeOptions && shapeOptions.symbol) ||
                         s.series.symbol] || textureHandles.circle, color;
                     if (s.segments.length === 0 ||
                         (s.segmentslength &&
@@ -1575,11 +1638,10 @@
                     if (chart.styledMode) {
                         fillColor = (s.series.markerGroup &&
                             s.series.markerGroup.getStyle('fill'));
-                    }
-                    else {
+                    } else {
                         fillColor =
                             (s.series.pointAttribs && s.series.pointAttribs().fill) ||
-                                s.series.color;
+                            s.series.color;
                         if (options.colorByPoint) {
                             fillColor = s.series.chart.options.colors[si];
                         }
@@ -1601,16 +1663,13 @@
                     if (options.boostBlending === 'add') {
                         gl.blendFunc(gl.SRC_ALPHA, gl.ONE);
                         gl.blendEquation(gl.FUNC_ADD);
-                    }
-                    else if (options.boostBlending === 'mult' ||
+                    } else if (options.boostBlending === 'mult' ||
                         options.boostBlending === 'multiply') {
                         gl.blendFunc(gl.DST_COLOR, gl.ZERO);
-                    }
-                    else if (options.boostBlending === 'darken') {
+                    } else if (options.boostBlending === 'darken') {
                         gl.blendFunc(gl.ONE, gl.ONE);
                         gl.blendEquation(gl.FUNC_MIN);
-                    }
-                    else {
+                    } else {
                         // gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
                         // gl.blendEquation(gl.FUNC_ADD);
                         gl.blendFuncSeparate(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA, gl.ONE, gl.ONE_MINUS_SRC_ALPHA);
@@ -1631,8 +1690,7 @@
                     if (s.drawMode === 'points') {
                         if (options.marker && options.marker.radius) {
                             shader.setPointSize(options.marker.radius * 2.0);
-                        }
-                        else {
+                        } else {
                             shader.setPointSize(1);
                         }
                     }
@@ -1655,8 +1713,7 @@
                     if (s.hasMarkers && showMarkers) {
                         if (options.marker && options.marker.radius) {
                             shader.setPointSize(options.marker.radius * 2.0);
-                        }
-                        else {
+                        } else {
                             shader.setPointSize(10);
                         }
                         shader.setDrawAsCircle(true);
@@ -1675,6 +1732,7 @@
                 }
                 flush();
             }
+
             /**
              * Render the data when ready
              * @private
@@ -1686,13 +1744,13 @@
                 }
                 if (isInited) {
                     render(chart);
-                }
-                else {
+                } else {
                     setTimeout(function () {
                         renderWhenReady(chart);
                     }, 1);
                 }
             }
+
             /**
              * Set the viewport size in pixels
              * Creates an orthographic perspective matrix and applies it.
@@ -1710,6 +1768,7 @@
                 shader.bind();
                 shader.setPMatrix(orthoMatrix(width, height));
             }
+
             /**
              * Init OpenGL
              * @private
@@ -1731,7 +1790,7 @@
                 }
                 for (; i < contexts.length; i++) {
                     gl = canvas.getContext(contexts[i], {
-                    //    premultipliedAlpha: false
+                        //    premultipliedAlpha: false
                     });
                     if (gl) {
                         break;
@@ -1741,8 +1800,7 @@
                     if (!noFlush) {
                         flush();
                     }
-                }
-                else {
+                } else {
                     return false;
                 }
                 gl.enable(gl.BLEND);
@@ -1788,11 +1846,11 @@
                         // gl.generateMipmap(gl.TEXTURE_2D);
                         gl.bindTexture(gl.TEXTURE_2D, null);
                         props.isReady = true;
-                    }
-                    catch (e) {
+                    } catch (e) {
                         // silent error
                     }
                 }
+
                 // Circle shape
                 createTexture('circle', function (ctx) {
                     ctx.beginPath();
@@ -1838,6 +1896,7 @@
                 }
                 return true;
             }
+
             /**
              * Check if we have a valid OGL context
              * @private
@@ -1846,6 +1905,7 @@
             function valid() {
                 return gl !== false;
             }
+
             /**
              * Check if the renderer has been initialized
              * @private
@@ -1854,6 +1914,7 @@
             function inited() {
                 return isInited;
             }
+
             /**
              * @private
              */
@@ -1871,6 +1932,7 @@
                     gl.canvas.height = 1;
                 }
             }
+
             // /////////////////////////////////////////////////////////////////////////
             exports = {
                 allocateBufferForSingleSeries: allocateBufferForSingleSeries,
@@ -1910,6 +1972,7 @@
          *
          * */
         var win = H.win, doc = win.document, mainCanvas = doc.createElement('canvas');
+
         /**
          * Create a canvas + context and attach it to the target
          *
@@ -1926,11 +1989,12 @@
          * the canvas renderer
          */
         function createAndAttachRenderer(chart, series) {
-            var width = chart.chartWidth, height = chart.chartHeight, target = chart, targetGroup = chart.seriesGroup || series.group, alpha = 1, foSupported = doc.implementation.hasFeature('www.http://w3.org/TR/SVG11/feature#Extensibility', '1.1');
+            var width = chart.chartWidth, height = chart.chartHeight, target = chart,
+                targetGroup = chart.seriesGroup || series.group, alpha = 1,
+                foSupported = doc.implementation.hasFeature('www.http://w3.org/TR/SVG11/feature#Extensibility', '1.1');
             if (chart.isChartSeriesBoosting()) {
                 target = chart;
-            }
-            else {
+            } else {
                 target = series;
             }
             // Support for foreignObject is flimsy as best.
@@ -1948,7 +2012,7 @@
                         .addClass('highcharts-boost-canvas')
                         .add(targetGroup);
                     target.boostClear = function () {
-                        target.renderTarget.attr({ href: '' });
+                        target.renderTarget.attr({href: ''});
                     };
                     target.boostCopy = function () {
                         target.boostResizeTarget();
@@ -1956,8 +2020,7 @@
                             href: target.canvas.toDataURL('image/png')
                         });
                     };
-                }
-                else {
+                } else {
                     target.renderTargetFo = chart.renderer
                         .createElement('foreignObject')
                         .add(targetGroup);
@@ -1985,16 +2048,16 @@
                     height = chart.chartHeight;
                     (target.renderTargetFo || target.renderTarget)
                         .attr({
-                        x: 0,
-                        y: 0,
-                        width: width,
-                        height: height
-                    })
+                            x: 0,
+                            y: 0,
+                            width: width,
+                            height: height
+                        })
                         .css({
-                        pointerEvents: 'none',
-                        mixedBlendMode: 'normal',
-                        opacity: alpha
-                    });
+                            pointerEvents: 'none',
+                            mixedBlendMode: 'normal',
+                            opacity: alpha
+                        });
                     if (target instanceof H.Chart) {
                         target.markerGroup.translate(chart.plotLeft, chart.plotTop);
                     }
@@ -2057,6 +2120,7 @@
         var win = H.win, doc = win.document, pick = H.pick;
         // This should be a const.
         var CHUNK_SIZE = 3000;
+
         /**
          * Tolerant max() function.
          *
@@ -2088,6 +2152,7 @@
             });
             return r;
         }
+
         /**
          * Return true if ths boost.enabled option is true
          *
@@ -2106,6 +2171,7 @@
                 chart.options.boost &&
                 chart.options.boost.enabled), true);
         }
+
         /**
          * Returns true if we should force boosting the chart
          * @private
@@ -2120,7 +2186,8 @@
         function shouldForceChartSeriesBoosting(chart) {
             // If there are more than five series currently boosting,
             // we should boost the whole chart to avoid running out of webgl contexts.
-            var sboostCount = 0, canBoostCount = 0, allowBoostForce = pick(chart.options.boost && chart.options.boost.allowForce, true), series;
+            var sboostCount = 0, canBoostCount = 0,
+                allowBoostForce = pick(chart.options.boost && chart.options.boost.allowForce, true), series;
             if (typeof chart.boostForceChartBoost !== 'undefined') {
                 return chart.boostForceChartBoost;
             }
@@ -2144,9 +2211,9 @@
                     if (boostableMap[series.type]) {
                         ++canBoostCount;
                     }
-                    if (patientMax(series.processedXData, series.options.data, 
-                    // series.xData,
-                    series.points) >= (series.options.boostThreshold || Number.MAX_VALUE)) {
+                    if (patientMax(series.processedXData, series.options.data,
+                        // series.xData,
+                        series.points) >= (series.options.boostThreshold || Number.MAX_VALUE)) {
                         ++sboostCount;
                     }
                 }
@@ -2156,6 +2223,7 @@
                 sboostCount > 5);
             return chart.boostForceChartBoost;
         }
+
         /* eslint-disable valid-jsdoc */
         /**
          * Performs the actual render if the renderer is
@@ -2172,6 +2240,7 @@
                 renderer.render(chart || series.chart);
             }
         }
+
         /**
          * @private
          */
@@ -2183,6 +2252,7 @@
                 renderer.allocateBufferForSingleSeries(series);
             }
         }
+
         /**
          * An "async" foreach loop. Uses a setTimeout to keep the loop from blocking the
          * UI thread.
@@ -2208,24 +2278,22 @@
                 if (i < arr.length) {
                     if (noTimeout) {
                         eachAsync(arr, fn, finalFunc, chunkSize, i, noTimeout);
-                    }
-                    else if (win.requestAnimationFrame) {
+                    } else if (win.requestAnimationFrame) {
                         // If available, do requestAnimationFrame - shaves off a few ms
                         win.requestAnimationFrame(function () {
                             eachAsync(arr, fn, finalFunc, chunkSize, i);
                         });
-                    }
-                    else {
+                    } else {
                         setTimeout(function () {
                             eachAsync(arr, fn, finalFunc, chunkSize, i);
                         });
                     }
-                }
-                else if (finalFunc) {
+                } else if (finalFunc) {
                     finalFunc();
                 }
             }
         }
+
         /**
          * Returns true if the current browser supports webgl
          *
@@ -2244,14 +2312,14 @@
                         if (typeof context !== 'undefined' && context !== null) {
                             return true;
                         }
-                    }
-                    catch (e) {
+                    } catch (e) {
                         // silent error
                     }
                 }
             }
             return false;
         }
+
         /* eslint-disable no-invalid-this */
         /**
          * Used for treemap|heatmap.drawPoints
@@ -2282,6 +2350,7 @@
             }
             renderIfNotSeriesBoosting(renderer, this);
         }
+
         /* eslint-enable no-invalid-this, valid-jsdoc */
         var funs = {
             patientMax: patientMax,
@@ -2311,7 +2380,13 @@
          *
          * */
         var extend = U.extend;
-        var addEvent = H.addEvent, fireEvent = H.fireEvent, Series = H.Series, seriesTypes = H.seriesTypes, wrap = H.wrap, noop = function () { }, eachAsync = butils.eachAsync, pointDrawHandler = butils.pointDrawHandler, allocateIfNotSeriesBoosting = butils.allocateIfNotSeriesBoosting, renderIfNotSeriesBoosting = butils.renderIfNotSeriesBoosting, shouldForceChartSeriesBoosting = butils.shouldForceChartSeriesBoosting, index;
+        var addEvent = H.addEvent, fireEvent = H.fireEvent, Series = H.Series, seriesTypes = H.seriesTypes,
+            wrap = H.wrap, noop = function () {
+            }, eachAsync = butils.eachAsync, pointDrawHandler = butils.pointDrawHandler,
+            allocateIfNotSeriesBoosting = butils.allocateIfNotSeriesBoosting,
+            renderIfNotSeriesBoosting = butils.renderIfNotSeriesBoosting,
+            shouldForceChartSeriesBoosting = butils.shouldForceChartSeriesBoosting, index;
+
         /* eslint-disable valid-jsdoc */
         /**
          * Initialize the boot module.
@@ -2326,35 +2401,45 @@
                  * @function Highcharts.Series#renderCanvas
                  */
                 renderCanvas: function () {
-                    var series = this, options = series.options || {}, renderer = false, chart = series.chart, xAxis = this.xAxis, yAxis = this.yAxis, xData = options.xData || series.processedXData, yData = options.yData || series.processedYData, rawData = options.data, xExtremes = xAxis.getExtremes(), xMin = xExtremes.min, xMax = xExtremes.max, yExtremes = yAxis.getExtremes(), yMin = yExtremes.min, yMax = yExtremes.max, pointTaken = {}, lastClientX, sampling = !!series.sampling, points, enableMouseTracking = options.enableMouseTracking !== false, threshold = options.threshold, yBottom = yAxis.getThreshold(threshold), isRange = series.pointArrayMap &&
-                        series.pointArrayMap.join(',') === 'low,high', isStacked = !!options.stacking, cropStart = series.cropStart || 0, requireSorting = series.requireSorting, useRaw = !xData, minVal, maxVal, minI, maxI, boostOptions, compareX = options.findNearestPointBy === 'x', xDataFull = (this.xData ||
-                        this.options.xData ||
-                        this.processedXData ||
-                        false), addKDPoint = function (clientX, plotY, i) {
-                        // We need to do ceil on the clientX to make things
-                        // snap to pixel values. The renderer will frequently
-                        // draw stuff on "sub-pixels".
-                        clientX = Math.ceil(clientX);
-                        // Shaves off about 60ms compared to repeated concatenation
-                        index = compareX ? clientX : clientX + ',' + plotY;
-                        // The k-d tree requires series points.
-                        // Reduce the amount of points, since the time to build the
-                        // tree increases exponentially.
-                        if (enableMouseTracking && !pointTaken[index]) {
-                            pointTaken[index] = true;
-                            if (chart.inverted) {
-                                clientX = xAxis.len - clientX;
-                                plotY = yAxis.len - plotY;
+                    var series = this, options = series.options || {}, renderer = false, chart = series.chart,
+                        xAxis = this.xAxis, yAxis = this.yAxis, xData = options.xData || series.processedXData,
+                        yData = options.yData || series.processedYData, rawData = options.data,
+                        xExtremes = xAxis.getExtremes(), xMin = xExtremes.min, xMax = xExtremes.max,
+                        yExtremes = yAxis.getExtremes(), yMin = yExtremes.min, yMax = yExtremes.max, pointTaken = {},
+                        lastClientX, sampling = !!series.sampling, points,
+                        enableMouseTracking = options.enableMouseTracking !== false, threshold = options.threshold,
+                        yBottom = yAxis.getThreshold(threshold), isRange = series.pointArrayMap &&
+                        series.pointArrayMap.join(',') === 'low,high', isStacked = !!options.stacking,
+                        cropStart = series.cropStart || 0, requireSorting = series.requireSorting, useRaw = !xData,
+                        minVal, maxVal, minI, maxI, boostOptions, compareX = options.findNearestPointBy === 'x',
+                        xDataFull = (this.xData ||
+                            this.options.xData ||
+                            this.processedXData ||
+                            false), addKDPoint = function (clientX, plotY, i) {
+                            // We need to do ceil on the clientX to make things
+                            // snap to pixel values. The renderer will frequently
+                            // draw stuff on "sub-pixels".
+                            clientX = Math.ceil(clientX);
+                            // Shaves off about 60ms compared to repeated concatenation
+                            index = compareX ? clientX : clientX + ',' + plotY;
+                            // The k-d tree requires series points.
+                            // Reduce the amount of points, since the time to build the
+                            // tree increases exponentially.
+                            if (enableMouseTracking && !pointTaken[index]) {
+                                pointTaken[index] = true;
+                                if (chart.inverted) {
+                                    clientX = xAxis.len - clientX;
+                                    plotY = yAxis.len - plotY;
+                                }
+                                points.push({
+                                    x: xDataFull ? xDataFull[cropStart + i] : false,
+                                    clientX: clientX,
+                                    plotX: clientX,
+                                    plotY: plotY,
+                                    i: cropStart + i
+                                });
                             }
-                            points.push({
-                                x: xDataFull ? xDataFull[cropStart + i] : false,
-                                clientX: clientX,
-                                plotX: clientX,
-                                plotY: plotY,
-                                i: cropStart + i
-                            });
-                        }
-                    };
+                        };
                     // Get or create the renderer
                     renderer = createAndAttachRenderer(chart, series);
                     chart.isBoosting = true;
@@ -2376,8 +2461,7 @@
                             this.markerGroup = undefined;
                         }
                         this.markerGroup = series.plotGroup('markerGroup', 'markers', true, 1, chart.seriesGroup);
-                    }
-                    else {
+                    } else {
                         // If series has a private markeGroup, remove that
                         // and use common markerGroup
                         if (this.markerGroup &&
@@ -2401,18 +2485,19 @@
                         // Perform the actual renderer if we're on series level
                         renderIfNotSeriesBoosting(renderer, this, chart);
                     }
+
                     /**
                      * This builds the KD-tree
                      * @private
                      */
                     function processPoint(d, i) {
-                        var x, y, clientX, plotY, isNull, low = false, chartDestroyed = typeof chart.index === 'undefined', isYInside = true;
+                        var x, y, clientX, plotY, isNull, low = false,
+                            chartDestroyed = typeof chart.index === 'undefined', isYInside = true;
                         if (!chartDestroyed) {
                             if (useRaw) {
                                 x = d[0];
                                 y = d[1];
-                            }
-                            else {
+                            } else {
                                 x = d;
                                 y = yData[i];
                             }
@@ -2423,8 +2508,7 @@
                                 }
                                 low = y[0];
                                 y = y[1];
-                            }
-                            else if (isStacked) {
+                            } else if (isStacked) {
                                 x = d.x;
                                 y = d.stackY;
                                 low = y - d.y;
@@ -2466,8 +2550,7 @@
                                         minI = maxI = undefined;
                                         lastClientX = clientX;
                                     }
-                                }
-                                else {
+                                } else {
                                     plotY = Math.ceil(yAxis.toPixels(y, true));
                                     addKDPoint(clientX, plotY, i);
                                 }
@@ -2475,6 +2558,7 @@
                         }
                         return !chartDestroyed;
                     }
+
                     /**
                      * @private
                      */
@@ -2487,6 +2571,7 @@
                             console.timeEnd('kd tree building'); // eslint-disable-line no-console
                         }
                     }
+
                     // Loop over the points to build the k-d tree - skip this if
                     // exporting
                     if (!chart.renderer.forExport) {
@@ -2543,6 +2628,7 @@
                         chart.ogl.render(chart);
                     }
                 }
+
                 /**
                  * Clear chart-level canvas.
                  * @private
@@ -2573,6 +2659,7 @@
                         chart.markerGroup.translate(chart.xAxis[0].pos, chart.yAxis[0].pos);
                     }
                 }
+
                 addEvent(chart, 'predraw', preRender);
                 addEvent(chart, 'render', canvasToSVG);
                 // addEvent(chart, 'zoom', function () {
@@ -2598,7 +2685,9 @@
          *
          * */
         var isNumber = U.isNumber;
-        var boostEnabled = butils.boostEnabled, shouldForceChartSeriesBoosting = butils.shouldForceChartSeriesBoosting, Chart = H.Chart, Series = H.Series, Point = H.Point, seriesTypes = H.seriesTypes, addEvent = H.addEvent, pick = H.pick, wrap = H.wrap, plotOptions = H.getOptions().plotOptions;
+        var boostEnabled = butils.boostEnabled, shouldForceChartSeriesBoosting = butils.shouldForceChartSeriesBoosting,
+            Chart = H.Chart, Series = H.Series, Point = H.Point, seriesTypes = H.seriesTypes, addEvent = H.addEvent,
+            pick = H.pick, wrap = H.wrap, plotOptions = H.getOptions().plotOptions;
         /**
          * Returns true if the chart is in series boost mode.
          *
@@ -2661,11 +2750,11 @@
                 false);
             if (boostPoint && !(boostPoint instanceof this.pointClass)) {
                 point = (new this.pointClass()).init(// eslint-disable-line new-cap
-                this, this.options.data[boostPoint.i], xData ? xData[boostPoint.i] : undefined);
+                    this, this.options.data[boostPoint.i], xData ? xData[boostPoint.i] : undefined);
                 point.category = pick(this.xAxis.categories ?
                     this.xAxis.categories[point.x] :
                     point.x, // @todo simplify
-                point.x);
+                    point.x);
                 point.dist = boostPoint.dist;
                 point.distX = boostPoint.distX;
                 point.plotX = boostPoint.plotX;
@@ -2681,7 +2770,8 @@
         });
         // For inverted series, we need to swap X-Y values before running base methods
         wrap(Point.prototype, 'haloPath', function (proceed) {
-            var halo, point = this, series = point.series, chart = series.chart, plotX = point.plotX, plotY = point.plotY, inverted = chart.inverted;
+            var halo, point = this, series = point.series, chart = series.chart, plotX = point.plotX,
+                plotY = point.plotY, inverted = chart.inverted;
             if (series.isSeriesBoosting && inverted) {
                 point.plotX = series.yAxis.len - plotY;
                 point.plotY = series.xAxis.len - plotX;
@@ -2694,7 +2784,8 @@
             return halo;
         });
         wrap(Series.prototype, 'markerAttribs', function (proceed, point) {
-            var attribs, series = this, chart = series.chart, plotX = point.plotX, plotY = point.plotY, inverted = chart.inverted;
+            var attribs, series = this, chart = series.chart, plotX = point.plotX, plotY = point.plotY,
+                inverted = chart.inverted;
             if (series.isSeriesBoosting && inverted) {
                 point.plotX = series.yAxis.len - plotY;
                 point.plotY = series.xAxis.len - plotX;
@@ -2764,11 +2855,11 @@
                     this.options.boostThreshold === 0) {
                     proceed.call(this);
                     // If a canvas version of the method exists, like renderCanvas(), run
-                }
-                else if (this[method + 'Canvas']) {
+                } else if (this[method + 'Canvas']) {
                     this[method + 'Canvas']();
                 }
             }
+
             wrap(Series.prototype, method, branch);
             // A special case for some types - their translate method is already wrapped
             if (method === 'translate') {
@@ -2790,6 +2881,7 @@
         // do the default behaviour. Otherwise, process if the series has no extremes.
         wrap(Series.prototype, 'processData', function (proceed) {
             var series = this, dataToMeasure = this.options.data, firstPoint;
+
             /**
              * Used twice in this function, first on this.options.data, the second
              * time it runs the check again after processedXData is built.
@@ -2800,6 +2892,7 @@
                 return series.chart.isChartSeriesBoosting() || ((data ? data.length : 0) >=
                     (series.options.boostThreshold || Number.MAX_VALUE));
             }
+
             if (boostEnabled(this.chart) && boostableMap[this.type]) {
                 // If there are no extremes given in the options, we also need to
                 // process the data to read the data extremes. If this is a heatmap, do
@@ -2824,13 +2917,11 @@
                         H.error(12, false, this.chart);
                     }
                     this.enterBoost();
-                }
-                else if (this.exitBoost) {
+                } else if (this.exitBoost) {
                     this.exitBoost();
                 }
                 // The series type is not boostable
-            }
-            else {
+            } else {
                 proceed.apply(this, Array.prototype.slice.call(arguments, 1));
             }
         });
@@ -2880,8 +2971,7 @@
             (this.alteredByBoost || []).forEach(function (setting) {
                 if (setting.own) {
                     this[setting.prop] = setting.val;
-                }
-                else {
+                } else {
                     // Revert to prototype
                     delete this[setting.prop];
                 }
@@ -2900,7 +2990,8 @@
          * @return {boolean}
          */
         Series.prototype.hasExtremes = function (checkX) {
-            var options = this.options, data = options.data, xAxis = this.xAxis && this.xAxis.options, yAxis = this.yAxis && this.yAxis.options, colorAxis = this.colorAxis && this.colorAxis.options;
+            var options = this.options, data = options.data, xAxis = this.xAxis && this.xAxis.options,
+                yAxis = this.yAxis && this.yAxis.options, colorAxis = this.colorAxis && this.colorAxis.options;
             return data.length > (options.boostThreshold || Number.MAX_VALUE) &&
                 // Defined yAxis extremes
                 isNumber(yAxis.min) &&
@@ -3126,12 +3217,10 @@
             if (typeof H.initCanvasBoost !== 'undefined') {
                 // Fallback to canvas boost
                 H.initCanvasBoost();
-            }
-            else {
+            } else {
                 H.error(26);
             }
-        }
-        else {
+        } else {
             // WebGL support is alright, and we're good to go.
             init();
         }

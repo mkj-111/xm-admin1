@@ -12,14 +12,13 @@ import java.util.List;
 @RestController
 public class CartController {
 
-         @Autowired
-         private CartService carService;
+    @Autowired
+    private CartService carService;
 
-         @RequestMapping("/search_success")
-         public List<Goods> findGoods(@RequestParam Integer versionId,@RequestParam String goodsName){
-             Goods goods2=  carService.goodsList2(versionId,goodsName);
-             System.out.println("------------------------------"+goods2);
-             return  carService.findGoods(versionId,goodsName);
-         }
+    @RequestMapping("/search_success")
+    public List<Goods> findGoods(@RequestParam Integer versionId, @RequestParam String goodsName) {
+
+        return carService.findGoods(versionId, goodsName);
+    }
 
 }

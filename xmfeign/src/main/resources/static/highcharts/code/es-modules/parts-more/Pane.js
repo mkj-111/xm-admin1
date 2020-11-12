@@ -14,8 +14,10 @@ import H from '../parts/Globals.js';
  */
 import '../mixins/centered-series.js';
 import U from '../parts/Utilities.js';
+
 var extend = U.extend, splat = U.splat;
 var CenteredSeriesMixin = H.CenteredSeriesMixin, merge = H.merge;
+
 /* eslint-disable valid-jsdoc */
 /**
  * The Pane object allows options that are common to a set of X and Y axes.
@@ -31,6 +33,7 @@ var CenteredSeriesMixin = H.CenteredSeriesMixin, merge = H.merge;
 function Pane(options, chart) {
     this.init(options, chart);
 }
+
 // Extend the Pane prototype
 extend(Pane.prototype, {
     coll: 'pane',
@@ -58,7 +61,7 @@ extend(Pane.prototype, {
      */
     setOptions: function (options) {
         // Set options. Angular charts have a default background (#3318)
-        this.options = options = merge(this.defaultOptions, this.chart.angular ? { background: {} } : undefined, options);
+        this.options = options = merge(this.defaultOptions, this.chart.angular ? {background: {}} : undefined, options);
     },
     /**
      * Render the pane with its backgrounds.
@@ -70,7 +73,7 @@ extend(Pane.prototype, {
         var options = this.options, backgroundOption = this.options.background, renderer = this.chart.renderer, len, i;
         if (!this.group) {
             this.group = renderer.g('pane-group')
-                .attr({ zIndex: options.zIndex || 0 })
+                .attr({zIndex: options.zIndex || 0})
                 .add();
         }
         this.updateCenter();
@@ -83,8 +86,7 @@ extend(Pane.prototype, {
                 // background
                 if (backgroundOption[i] && this.axis) {
                     this.renderBackground(merge(this.defaultBackgroundOptions, backgroundOption[i]), i);
-                }
-                else if (this.background[i]) {
+                } else if (this.background[i]) {
                     this.background[i] = this.background[i].destroy();
                     this.background.splice(i, 1);
                 }
@@ -244,7 +246,7 @@ extend(Pane.prototype, {
          */
         backgroundColor: {
             /** @ignore-option */
-            linearGradient: { x1: 0, y1: 0, x2: 0, y2: 1 },
+            linearGradient: {x1: 0, y1: 0, x2: 0, y2: 1},
             /** @ignore-option */
             stops: [
                 [0, '#ffffff'],
@@ -294,7 +296,7 @@ extend(Pane.prototype, {
      * @private
      * @function Highcharts.Pane#destroy
      * /
-    destroy: function () {
+     destroy: function () {
         H.erase(this.chart.pane, this);
         this.background.forEach(function (background) {
             background.destroy();
@@ -302,7 +304,7 @@ extend(Pane.prototype, {
         this.background.length = 0;
         this.group = this.group.destroy();
     },
-    */
+     */
     /**
      * Update the pane item with new options
      *

@@ -10,7 +10,9 @@
 'use strict';
 import H from './Globals.js';
 import './Utilities.js';
-var Axis = H.Axis, getMagnitude = H.getMagnitude, normalizeTickInterval = H.normalizeTickInterval, timeUnits = H.timeUnits;
+
+var Axis = H.Axis, getMagnitude = H.getMagnitude, normalizeTickInterval = H.normalizeTickInterval,
+    timeUnits = H.timeUnits;
 /* eslint-disable valid-jsdoc */
 /**
  * Set the tick positions to a time unit that makes sense, for example
@@ -77,7 +79,7 @@ Axis.prototype.normalizeTimeTickInterval = function (tickInterval, unitsOption) 
             'year',
             null
         ]], unit = units[units.length - 1], // default unit is years
-    interval = timeUnits[unit[0]], multiples = unit[1], count, i;
+        interval = timeUnits[unit[0]], multiples = unit[1], count, i;
     // loop through the units to find the one that best fits the tickInterval
     for (i = 0; i < units.length; i++) {
         unit = units[i];

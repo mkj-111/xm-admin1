@@ -1,199 +1,230 @@
-#content2{
-	width: 1225px;
-	height: 110px;
-	margin: auto;
-	/*background-color: #2E8B57;*/
+#content2 {
+    width: 1225px;
+    height: 110px;
+    margin: auto;
+    /*background-color: #2E8B57;*/
 }
 
 /*内容导航栏*/
-#contop{
-	width: 1225px;
-	height: 100px;
-	background-color: white;
-	position: absolute;
+#contop {
+    width: 1225px;
+    height: 100px;
+    background-color: white;
+    position: absolute;
 }
-.contop1{
-	width: 50px;
-	height: 100px;
-	line-height: 150px;
-	float: left;
-	overflow: hidden;
+
+.contop1 {
+    width: 50px;
+    height: 100px;
+    line-height: 150px;
+    float: left;
+    overflow: hidden;
 }
-#top2left_img{
-	width: 122px;
-	height: 100px;
-	transform: translateX(-50px);/*水平向左平移50px*/
+
+#top2left_img {
+    width: 122px;
+    height: 100px;
+    transform: translateX(-50px); /*水平向左平移50px*/
 }
-#imgers{
-	background-color: #F56600;
+
+#imgers {
+    background-color: #F56600;
 }
-#imgers2{
-	width: 50px;
-	margin-left: -5px;
+
+#imgers2 {
+    width: 50px;
+    margin-left: -5px;
 }
-#top2left_img:hover{
-	transform: translateX(0px);/*向右边平移50px*/
-	transition: ease-in 0.3s; /*延迟0.3秒执行*/
+
+#top2left_img:hover {
+    transform: translateX(0px); /*向右边平移50px*/
+    transition: ease-in 0.3s; /*延迟0.3秒执行*/
 }
-#contop2{
-	width: 710px;
-	height: 98px;
-	margin-left: 115px;
-	/*border: 1px solid red;*/
-	float: left;
+
+#contop2 {
+    width: 710px;
+    height: 98px;
+    margin-left: 115px;
+    /*border: 1px solid red;*/
+    float: left;
 }
-#contop2 ul li{
-	width:75px;
-	height: 98px;
-	margin-top: 40px;
-	float: left;
-	text-align: center;
-	/*border: 1px solid red;*/
+
+#contop2 ul li {
+    width: 75px;
+    height: 98px;
+    margin-top: 40px;
+    float: left;
+    text-align: center;
+    /*border: 1px solid red;*/
 }
-#contop2 li:hover{
-	color: #F56600;
+
+#contop2 li:hover {
+    color: #F56600;
 }
-#contop2 ul li ul li{
-	width: 222px;
-	height: 110px;
-	margin-top: 30px;
-	border-right: 1px solid #A9A9A9;
-	/*border: 1px solid red;*/
-	
+
+#contop2 ul li ul li {
+    width: 222px;
+    height: 110px;
+    margin-top: 30px;
+    border-right: 1px solid #A9A9A9;
+    /*border: 1px solid red;*/
+
 }
-.miphone1{
-	width: 1360px;
-	height: 200px;
-	/*margin-left: -232px;*/
-	/*border: 1px solid red;*/ 
-	background-color: white;
-	border-top: 1px solid #A9A9A9;
-	border-bottom: 1px solid #A9A9A9;
-	margin-top: 38px;
-	position: absolute;
-	z-index: 999;
+
+.miphone1 {
+    width: 1360px;
+    height: 200px;
+    /*margin-left: -232px;*/
+    /*border: 1px solid red;*/
+    background-color: white;
+    border-top: 1px solid #A9A9A9;
+    border-bottom: 1px solid #A9A9A9;
+    margin-top: 38px;
+    position: absolute;
+    z-index: 999;
 }
+
 .contop2 ul li {
     /*display: inline-block;*/
     color: black;
     text-decoration: none;
 }
-.contop2 ul li:hover{
+
+.contop2 ul li:hover {
     color: #ff532e;
     text-decoration: none;
 }
-.contop2 ul li ul li a{
+
+.contop2 ul li ul li a {
     /*display: inline-block;*/
     color: black;
     text-decoration: none;
 }
 
-.contop2 ul li ul li a:hover{
+.contop2 ul li ul li a:hover {
     color: #ff532e;
     text-decoration: none;
 }
 
-a{
-	text-decoration: none;
-	color: black;
-	font-size: 15px;
+a {
+    text-decoration: none;
+    color: black;
+    font-size: 15px;
 }
-a:hover{
-	text-decoration: none;
+
+a:hover {
+    text-decoration: none;
 }
-h5{
-	color: orangered;
+
+h5 {
+    color: orangered;
 }
-#top2right{
-	float: right;
-	width: 316px;
-	height: 100px;	
-	margin-top: 10px;
+
+#top2right {
+    float: right;
+    width: 316px;
+    height: 100px;
+    margin-top: 10px;
 }
-#top2ul{
-	width: 267px;
-	height: 110px;
-	float: left;
+
+#top2ul {
+    width: 267px;
+    height: 110px;
+    float: left;
 }
-#top2ul ul li{
-	list-style-type: none;
+
+#top2ul ul li {
+    list-style-type: none;
 }
-#top2right input{
-	width: 265px;
-	height: 42px;
-	line-height: 40px;
-	text-align: center;
-	margin-top: 30px;
+
+#top2right input {
+    width: 265px;
+    height: 42px;
+    line-height: 40px;
+    text-align: center;
+    margin-top: 30px;
 }
-#ulliul li:hover{
-	background-color: #DCDCDC;
-	font-size: 10px;
+
+#ulliul li:hover {
+    background-color: #DCDCDC;
+    font-size: 10px;
 }
-#top2right ul li ul{
-	width: 264px;
-	height: 315px;
-	border: 1px solid orangered;
-	background-color: white;
-	position: absolute;
-	z-index: 999;
-	display: none;
-	margin-top: 75px;
+
+#top2right ul li ul {
+    width: 264px;
+    height: 315px;
+    border: 1px solid orangered;
+    background-color: white;
+    position: absolute;
+    z-index: 999;
+    display: none;
+    margin-top: 75px;
 }
-#top2right ul li ul li{
-	font-size: 8px;
-	width: 264px;
-	height: 30px;
-	
+
+#top2right ul li ul li {
+    font-size: 8px;
+    width: 264px;
+    height: 30px;
+
 }
-#top2right ul li ul li a{
-	margin-left:8px;
-	color: black;
-	font-size: 10px;
+
+#top2right ul li ul li a {
+    margin-left: 8px;
+    color: black;
+    font-size: 10px;
 }
-#top2rightimg img{
-	height: 38.5px;
-	width: 38.5px;
+
+#top2rightimg img {
+    height: 38.5px;
+    width: 38.5px;
 }
-#top2rightimg img:hover{
-	height: 38.5px;
-	width: 38.5px;
-	background-color: orangered;
+
+#top2rightimg img:hover {
+    height: 38.5px;
+    width: 38.5px;
+    background-color: orangered;
 }
-#top2rightimg{
-	height: 38.5px;
-	width: 38.5px;
-	float: left;
-	margin-top: 30px;
-	padding-top: 5px;
-	padding-left: 5px;
-	border: 1px solid gray;
-	cursor: pointer;
+
+#top2rightimg {
+    height: 38.5px;
+    width: 38.5px;
+    float: left;
+    margin-top: 30px;
+    padding-top: 5px;
+    padding-left: 5px;
+    border: 1px solid gray;
+    cursor: pointer;
 }
-#shuru{
-	position: absolute;
-	outline: none;/*本身的css*/
+
+#shuru {
+    position: absolute;
+    outline: none; /*本身的css*/
 }
-#btt1{
-	position: absolute;
-	margin-left: 80px;
-	margin-top: 45px;
-	background-color: gainsboro;
-	border: none;
-	color: gray;
+
+#btt1 {
+    position: absolute;
+    margin-left: 80px;
+    margin-top: 45px;
+    background-color: gainsboro;
+    border: none;
+    color: gray;
 }
-#btt1:hover{
-	background-color: orangered;
-	cursor: pointer;
+
+#btt1:hover {
+    background-color: orangered;
+    cursor: pointer;
 }
-#btt2{
-	position: absolute;
-	margin-left: 170px;
-	margin-top: 45px;
-	background-color: gainsboro;
-	border: none;
-	color: gray;
+
+#btt2 {
+    position: absolute;
+    margin-left: 170px;
+    margin-top: 45px;
+    background-color: gainsboro;
+    border: none;
+    color: gray;
 }
-#btt2:hover{
-	cursor: pointer;
-	background-color: orangered;
+
+#btt2:hover {
+    cursor: pointer;
+    background-color: orangered;
 }

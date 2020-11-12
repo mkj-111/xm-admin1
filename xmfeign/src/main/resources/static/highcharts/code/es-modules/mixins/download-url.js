@@ -11,7 +11,9 @@
  * */
 'use strict';
 import Highcharts from '../parts/Globals.js';
-var win = Highcharts.win, nav = win.navigator, doc = win.document, domurl = win.URL || win.webkitURL || win, isEdgeBrowser = /Edge\/\d+/.test(nav.userAgent);
+
+var win = Highcharts.win, nav = win.navigator, doc = win.document, domurl = win.URL || win.webkitURL || win,
+    isEdgeBrowser = /Edge\/\d+/.test(nav.userAgent);
 /**
  * Convert base64 dataURL to Blob if supported, otherwise returns undefined.
  * @private
@@ -31,11 +33,12 @@ Highcharts.dataURLtoBlob = function (dataURL) {
         win.Blob &&
         domurl.createObjectURL) {
         // Try to convert data URL to Blob
-        var binStr = win.atob(parts[3]), buf = new win.ArrayBuffer(binStr.length), binary = new win.Uint8Array(buf), blob;
+        var binStr = win.atob(parts[3]), buf = new win.ArrayBuffer(binStr.length), binary = new win.Uint8Array(buf),
+            blob;
         for (var i = 0; i < binary.length; ++i) {
             binary[i] = binStr.charCodeAt(i);
         }
-        blob = new win.Blob([binary], { 'type': parts[1] });
+        blob = new win.Blob([binary], {'type': parts[1]});
         return domurl.createObjectURL(blob);
     }
 };
@@ -75,16 +78,14 @@ Highcharts.downloadURL = function (dataURL, filename) {
         doc.body.appendChild(a);
         a.click();
         doc.body.removeChild(a);
-    }
-    else {
+    } else {
         // No download attr, just opening data URI
         try {
             windowRef = win.open(dataURL, 'chart');
             if (windowRef === undefined || windowRef === null) {
                 throw new Error('Failed to open window');
             }
-        }
-        catch (e) {
+        } catch (e) {
             // window.open failed, trying location.href
             win.location.href = dataURL;
         }

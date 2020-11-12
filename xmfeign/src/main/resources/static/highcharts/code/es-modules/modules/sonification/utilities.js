@@ -30,6 +30,7 @@ import musicalFrequencies from './musicalFrequencies.js';
 function SignalHandler(supportedSignals) {
     this.init(supportedSignals || []);
 }
+
 SignalHandler.prototype.init = function (supportedSignals) {
     this.supportedSignals = supportedSignals;
     this.signals = {};
@@ -50,7 +51,7 @@ SignalHandler.prototype.registerSignalCallbacks = function (signals) {
         if (signals[supportedSignal]) {
             (
                 signalHandler.signals[supportedSignal] =
-                signalHandler.signals[supportedSignal] || []
+                    signalHandler.signals[supportedSignal] || []
             ).push(
                 signals[supportedSignal]
             );

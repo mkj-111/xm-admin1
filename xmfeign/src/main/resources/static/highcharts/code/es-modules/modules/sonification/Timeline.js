@@ -48,6 +48,7 @@
 import H from '../../parts/Globals.js';
 
 import U from '../../parts/Utilities.js';
+
 var splat = U.splat;
 
 import utilities from './utilities.js';
@@ -68,6 +69,7 @@ import utilities from './utilities.js';
 function TimelineEvent(options) {
     this.init(options || {});
 }
+
 TimelineEvent.prototype.init = function (options) {
     this.options = options;
     this.time = options.time || 0;
@@ -189,6 +191,7 @@ TimelineEvent.prototype.cancel = function (fadeOut) {
 function TimelinePath(options) {
     this.init(options);
 }
+
 TimelinePath.prototype.init = function (options) {
     this.options = options;
     this.id = this.options.id = options.id || H.uniqueKey();
@@ -198,8 +201,8 @@ TimelinePath.prototype.init = function (options) {
     // Handle silent wait, otherwise use events from options
     this.events = options.silentWait ?
         [
-            new TimelineEvent({ time: 0 }),
-            new TimelineEvent({ time: options.silentWait })
+            new TimelineEvent({time: 0}),
+            new TimelineEvent({time: options.silentWait})
         ] :
         this.options.events;
 
@@ -214,7 +217,7 @@ TimelinePath.prototype.init = function (options) {
         ['playOnEnd', 'masterOnEnd', 'onStart', 'onEventStart', 'onEventEnd']
     );
     this.signalHandler.registerSignalCallbacks(
-        H.merge(options, { masterOnEnd: options.onEnd })
+        H.merge(options, {masterOnEnd: options.onEnd})
     );
 };
 
@@ -294,7 +297,7 @@ TimelinePath.prototype.play = function (onEnd) {
     this.pause();
     this.signalHandler.emitSignal('onStart');
     this.signalHandler.clearSignalCallbacks(['playOnEnd']);
-    this.signalHandler.registerSignalCallbacks({ playOnEnd: onEnd });
+    this.signalHandler.registerSignalCallbacks({playOnEnd: onEnd});
     this.playEvents(1);
 };
 
@@ -309,7 +312,7 @@ TimelinePath.prototype.rewind = function (onEnd) {
     this.pause();
     this.signalHandler.emitSignal('onStart');
     this.signalHandler.clearSignalCallbacks(['playOnEnd']);
-    this.signalHandler.registerSignalCallbacks({ playOnEnd: onEnd });
+    this.signalHandler.registerSignalCallbacks({playOnEnd: onEnd});
     this.playEvents(-1);
 };
 
@@ -480,6 +483,7 @@ TimelinePath.prototype.playEvents = function (direction) {
 function Timeline(options) {
     this.init(options || {});
 }
+
 Timeline.prototype.init = function (options) {
     this.options = options;
     this.cursor = 0;
@@ -489,7 +493,7 @@ Timeline.prototype.init = function (options) {
         ['playOnEnd', 'masterOnEnd', 'onPathStart', 'onPathEnd']
     );
     this.signalHandler.registerSignalCallbacks(
-        H.merge(options, { masterOnEnd: options.onEnd })
+        H.merge(options, {masterOnEnd: options.onEnd})
     );
 };
 
@@ -503,7 +507,7 @@ Timeline.prototype.init = function (options) {
 Timeline.prototype.play = function (onEnd) {
     this.pause();
     this.signalHandler.clearSignalCallbacks(['playOnEnd']);
-    this.signalHandler.registerSignalCallbacks({ playOnEnd: onEnd });
+    this.signalHandler.registerSignalCallbacks({playOnEnd: onEnd});
     this.playPaths(1);
 };
 
@@ -517,7 +521,7 @@ Timeline.prototype.play = function (onEnd) {
 Timeline.prototype.rewind = function (onEnd) {
     this.pause();
     this.signalHandler.clearSignalCallbacks(['playOnEnd']);
-    this.signalHandler.registerSignalCallbacks({ playOnEnd: onEnd });
+    this.signalHandler.registerSignalCallbacks({playOnEnd: onEnd});
     this.playPaths(-1);
 };
 
@@ -564,7 +568,7 @@ Timeline.prototype.playPaths = function (direction) {
                         splat(nextPaths).forEach(function (nextPath) {
                             nextPath[
                                 direction > 0 ? 'resetCursor' : 'resetCursorEnd'
-                            ]();
+                                ]();
                         });
                         // Play next
                         timeline.playPaths(direction);

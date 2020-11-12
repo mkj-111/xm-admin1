@@ -16,5 +16,5 @@ import java.util.List;
 public interface TypetreeService {
 
     @RequestMapping("findtype")
-    public List<TypetreeBean>findtype(@RequestParam Integer pid);
+    public List<TypetreeBean> findtype(@RequestParam Integer pid);
 }

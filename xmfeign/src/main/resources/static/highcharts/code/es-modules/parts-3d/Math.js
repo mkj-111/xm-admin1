@@ -10,6 +10,7 @@
 'use strict';
 import H from '../parts/Globals.js';
 import U from '../parts/Utilities.js';
+
 var pick = U.pick;
 // Mathematical Functionility
 var deg2rad = H.deg2rad;
@@ -41,6 +42,7 @@ var deg2rad = H.deg2rad;
  * @private
  * @function rotate3D
  */
+
 /* eslint-enable max-len */
 /**
  * @private
@@ -64,6 +66,7 @@ function rotate3D(x, y, z, angles) {
             angles.cosA * angles.cosB * z
     };
 }
+
 /**
  * Perspective3D function is available in global Highcharts scope because is
  * needed also outside of perspective() function (#8042).
@@ -115,25 +118,26 @@ H.perspective3D = function (coordinate, origin, distance) {
  */
 H.perspective = function (points, chart, insidePlotArea) {
     var options3d = chart.options.chart.options3d, inverted = insidePlotArea ? chart.inverted : false, origin = {
-        x: chart.plotWidth / 2,
-        y: chart.plotHeight / 2,
-        z: options3d.depth / 2,
-        vd: pick(options3d.depth, 1) * pick(options3d.viewDistance, 0)
-    }, scale = chart.scale3d || 1, beta = deg2rad * options3d.beta * (inverted ? -1 : 1), alpha = deg2rad * options3d.alpha * (inverted ? -1 : 1), angles = {
-        cosA: Math.cos(alpha),
-        cosB: Math.cos(-beta),
-        sinA: Math.sin(alpha),
-        sinB: Math.sin(-beta)
-    };
+            x: chart.plotWidth / 2,
+            y: chart.plotHeight / 2,
+            z: options3d.depth / 2,
+            vd: pick(options3d.depth, 1) * pick(options3d.viewDistance, 0)
+        }, scale = chart.scale3d || 1, beta = deg2rad * options3d.beta * (inverted ? -1 : 1),
+        alpha = deg2rad * options3d.alpha * (inverted ? -1 : 1), angles = {
+            cosA: Math.cos(alpha),
+            cosB: Math.cos(-beta),
+            sinA: Math.sin(alpha),
+            sinB: Math.sin(-beta)
+        };
     if (!insidePlotArea) {
         origin.x += chart.plotLeft;
         origin.y += chart.plotTop;
     }
     // Transform each point
     return points.map(function (point) {
-        var rotated = rotate3D((inverted ? point.y : point.x) - origin.x, (inverted ? point.x : point.y) - origin.y, (point.z || 0) - origin.z, angles), 
-        // Apply perspective
-        coordinate = H.perspective3D(rotated, origin, origin.vd);
+        var rotated = rotate3D((inverted ? point.y : point.x) - origin.x, (inverted ? point.x : point.y) - origin.y, (point.z || 0) - origin.z, angles),
+            // Apply perspective
+            coordinate = H.perspective3D(rotated, origin, origin.vd);
         // Apply translation
         coordinate.x = coordinate.x * scale + origin.x;
         coordinate.y = coordinate.y * scale + origin.y;

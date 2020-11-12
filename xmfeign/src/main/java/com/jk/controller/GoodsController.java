@@ -28,8 +28,8 @@ public class GoodsController {
     }
 
     @RequestMapping("findgoodsbyid")
-    public Goods findgoodsbyid(HttpSession session){
-        Goods goods = (Goods)session.getAttribute("goods");
+    public Goods findgoodsbyid(HttpSession session) {
+        Goods goods = (Goods) session.getAttribute("goods");
         return goods;
     }
 

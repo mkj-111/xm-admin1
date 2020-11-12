@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<!-- saved from url=(0050)https://www.mi.com/buy/checkout?r=66609.1605066789 -->
+<html lang="zh-CN" xml:lang="zh-CN"
+      xmlns:th="http://www.w3.org/1999/xhtml"
+      xmlns:v-on="http://www.w3.org/1999/xhtml"
+>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+
+    <title>填写订单信息</title>
+    <link rel="shortcut icon" href="https://s01.mifile.cn/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="https://s01.mifile.cn/favicon.ico" type="image/x-icon">
+    <meta name="description" content="小米商城填写订单信息">
+    <meta name="keywords" content="小米商城,小米手机,小米">
+    <link href="../填写订单信息_files/checkout.d13549a1.css" rel="preload" as="style">
+    <link href="../填写订单信息_files/checkout.83713201.js" rel="preload" as="script">
+    <link href="../填写订单信息_files/chunk-vendors.50ac3731.js" rel="preload" as="script">
+    <link href="../填写订单信息_files/checkout.d13549a1.css" rel="stylesheet">
+    <script type="text/javascript" async="" src="../填写订单信息_files/mstr.js"></script>
+    <script type="text/javascript" src="../填写订单信息_files/address_all_new.js"></script>
+    <link rel="stylesheet" href="../js/bootstrap3/css/bootstrap.css"/>
+    <link rel="stylesheet" href="../js/bootstrap-treeview/bootstrap-treeview.min.css">
+    <link rel="stylesheet" href="../js/bootStrap-addTabs/bootstrap.addtabs.css">
+    <script src="../js/jquery-1.9.1.min.js"></script>
+    <script src="../js/bootstrap3/js/bootstrap.js"></script>
+    <script src="../js/bootstrap-treeview/bootstrap-treeview.min.js"></script>
+    <script src="../js/bootStrap-addTabs/bootstrap.addtabs.min.js"></script>
+    <script src="../js/vue/vue.min.js"></script>
+</head>
+<body id="stat_e3c9df7196008778">
+<div>
+    <div>
+        <div class="site-header site-mini-header">
+            <div class="container">
+                <div class="header-logo"><a href="https://www.mi.com/index.html" title="小米官网" class="logo ir"
+                                            stat_exposure="true">小米官网</a></div>
+                <div id="J_miniHeaderTitle" class="header-title has-more"><h2>
+                    确认订单
+                </h2>
+                    <p></p></div>
+                <div class="site-topbar ">
+                    <div id="J_siteUserInfo" class="topbar-info"><span class="user">
+            <a rel="nofollow" class="user-name" href="https://www.mi.com/user/portal" target="_blank">
+                <span class="name">2472514573</span>
+                <i class="iconfont-arrow-down-mini"></i>
+            </a><div id="J_userMenuWrapper" class="user-menu-wrapper">
+                <ul class="user-menu">
+                    <li><a rel="nofollow" href="https://www.mi.com/user/portal" target="_blank">个人中心</a></li>
+                    <li><a rel="nofollow" href="https://www.mi.com/user/comment" target="_blank">评价晒单</a></li>
+                    <li><a rel="nofollow" href="https://www.mi.com/user/favorite" target="_blank">我的喜欢</a></li>
+                    <li><a rel="nofollow" href="https://account.xiaomi.com/" target="_blank">小米账户</a></li>
+                    <li><a rel="nofollow" id="J_userLogout" href="https://order.mi.com/site/logout">退出登录</a></li>
+                </ul>
+            </div>
+            </span>
+                        <span class="sep">|</span>
+                        <a rel="nofollow" class="link link-order" href="https://www.mi.com/user/orderList"
+                           target="_blank">我的订单</a></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="mi-checkout page-main">
+        <div class="container">
+            <div data-v-0166ce07="" class="checkout-wrap"><!---->
+                <div data-v-0166ce07="" class="loading" style="display: none;">
+                    <div data-v-0166ce07="" class="loader"></div>
+                </div>
+                <div data-v-0166ce07="" class="checkout-main" style="">
+                    <div data-v-0166ce07="" class="checkout-detail">
+                        <div data-v-0166ce07="" class="fixed-header" style="display: none;">
+                            <div data-v-0166ce07="" class="fixed-address-choose"><a data-v-0166ce07=""
+                                                                                    href="javascript:void(0)"
+                                                                                    class="choose-btn btn btn-primary"></a>
+                                <div data-v-0166ce07="" class="address-title"><span data-v-0166ce07=""
+                                                                                    class="address-desc"></span><span
+                                        data-v-0166ce07="" class="address-desc"></span><span
+                                        data-v-0166ce07="" class="address-desc"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div data-v-0166ce07="" class="detail-section address-detail">
+                            <div data-v-0166ce07="" class="address-header"><span data-v-0166ce07=""
+                                                                                 class="header-title">收货地址</span><!---->
+                                <!----><!----><!----><!----></div><!---->
+                            <div data-v-039a89f6="" data-v-0166ce07="" class="address-list show-less-list"
+                                 address-tip-info="[object Object]" style=""><!---->
+
+
+                                <div data-v-039a89f6="" class="address-item" style="float:left;width: 100%"
+                                     id="dizhiid">
+
+                                </div>
+
+
+                                <div id="aaa">
+
+                                    <div class="" style="">
+                                        <div class="form-group form-inline">
+                                            <div class="btn-group">
+                                                <button type="button" class="btn btn-default" title="添加收货地址"
+                                                        data-toggle="modal" data-target="#editModal"
+                                                        v-on:click="storeCategory = {}"><i class="fa fa-file-o"></i>
+                                                    添加收货地址
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- 编辑窗口 -->
+                                    <!-- 地址新增 -->
+                                    <div class="modal fade" id="editModal" tabindex="-1" role="dialog"
+                                         aria-labelledby="myModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog" id="ppa">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal"
+                                                            aria-hidden="true">×
+                                                    </button>
+                                                    <h3 id="myModalLabel">留言信息</h3>
+                                                </div>
+                                                <form id="userForm" method="post">
+
+                                                    <table class="table table-bordered table-striped" width="300px">
+                                                        <tr>
+                                                            <td> 收货人</td>
+                                                            <td><input id="name" name="name" class="form-control"
+                                                                       placeholder="收货人" v-model="name"></td>
+                                                        </tr>
+
+                                                        <tr>
+                                                            <td>手机</td>
+                                                            <td><input id="phone" name="phone" class="form-control"
+                                                                       placeholder="手机" v-model="phone"></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>省</td>
+                                                            <td>
+                                                                <select class="form-control con1" name="shengId"
+                                                                        v-model="shengId"><!--@change="changeProduct"-->
+                                                                    <option value="" disabled selected>请选择</option>
+                                                                    <option v-for="diqu in diqulist"
+                                                                            :value="diqu.provinceid">{{diqu.province}}
+                                                                    </option>
+                                                                </select>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>市</td>
+                                                            <td>
+                                                                <select class="form-control con1" name="shiId"
+                                                                        v-model="shiId"><!--@change="changeProduct"-->
+                                                                    <option value="" disabled selected>请选择</option>
+                                                                    <option v-for="shi in shilist" :value="shi.cityid">
+                                                                        {{shi.city}}
+                                                                    </option>
+                                                                </select>
+                                                            </td>
+
+                                                        </tr>
+                                                        <tr>
+                                                            <td>县</td>
+                                                            <td>
+                                                                <select class="form-control con1" name="xianId"
+                                                                        v-model="xianId"><!--@change="changeProduct"-->
+                                                                    <option value="" disabled selected>请选择</option>
+                                                                    <option v-for="xian in xianlist"
+                                                                            :value="xian.areaid">{{xian.area}}
+                                                                    </option>
+                                                                </select>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>详细地址</td>
+                                                            <td><input id="info" name="info" class="form-control"
+                                                                       placeholder="详细地址" v-model="info"></td>
+                                                        </tr>
+                                                    </table>
+                                                    <div class="modal-footer">
+                                                        <button class="btn btn-success" data-dismiss="modal"
+                                                                aria-hidden="true" onclick="saveStoreCategory()">保存
+                                                        </button>
+                                                        <button class="btn btn-default" data-dismiss="modal"
+                                                                aria-hidden="true">关闭
+                                                        </button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+
+                            </div>
+
+                        </div>
+                        <div data-v-0166ce07="" class="detail-section" id="goodsList">
+
+                        </div>
+                        <div data-v-0166ce07="" class="detail-section"><!---->
+                            <div data-v-0166ce07="" class="section-options section-shipment">
+                                <div data-v-0166ce07="" class="options-desc options-header">
+                                    <div data-v-0166ce07="" class="title">配送方式</div>
+                                </div>
+                                <div data-v-0166ce07="" class="options-desc options-body">
+                                    <div data-v-0166ce07="" class="options-list">
+                                        <div data-v-0166ce07="" class="options-item selected">包邮</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div data-v-0166ce07="" class="section-options section-invoice">
+                                <div data-v-0166ce07="" class="options-desc options-header">
+                                    <div data-v-0166ce07="" class="title">发票</div>
+                                </div>
+                                <div data-v-0166ce07="" class="options-desc options-body">
+                                    <div data-v-0166ce07="" class="options-list">
+                                        <div data-v-0166ce07="" class="options-item selected">电子普通发票</div>
+                                        <div data-v-0166ce07="" class="options-item selected">个人</div>
+                                        <div data-v-0166ce07="" class="options-item selected">商品明细</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div data-v-0166ce07="" class="detail-section count-detail"><!---->
+                                <div data-v-0166ce07="" class="section-discount">
+                                    <div data-v-0166ce07="" class="discount-coupon"><a data-v-0166ce07=""
+                                                                                       href="javascript:void(0)"
+                                                                                       data-log_code="bid=3515489.5&amp;bpm=25.83.3514683.1"
+                                                                                       class="coupon-title"
+                                                                                       data-settrack="true"
+                                                                                       onclick="_msq.push([&#39;trackEvent&#39;,&#39;bid=3515489.5&amp;bpm=25.83.3514683.1&#39;,&#39;javascript:void(0)&#39;,&#39;f8510bf55a388fba-c10fc0cbf0dc468e&#39;,&#39;&quot;&quot;&#39;]);"
+                                                                                       stat_exposure="true"><i
+                                            data-v-0166ce07="" class="iconfont icon-plus"></i></a><!----><!----></div>
+                                    <!---->
+                                    <div data-v-0166ce07="" class="position-box">
+                                        <div data-v-0166ce07="" class="discount-ecard"><a data-v-0166ce07=""
+                                                                                          data-log_code="bid=3515489.6&amp;bpm=25.83.3514684.1"
+                                                                                          class="coupon-title"
+                                                                                          data-settrack="true"
+                                                                                          onclick="_msq.push([&#39;trackEvent&#39;,&#39;bid=3515489.6&amp;bpm=25.83.3514684.1&#39;,&#39;&#39;,&#39;f8510bf55a388fba-e05b7050b7a71d10&#39;,&#39;&quot;&quot;&#39;]);"
+                                                                                          stat_exposure="true"><i
+                                                data-v-0166ce07="" class="iconfont icon-plus"></i></a><!----></div>
+                                        <!---->
+                                        <!----></div><!----></div>
+                                <div data-v-0166ce07="" class="section-bill" id="abc">
+
+                                </div>
+                            </div>
+                            <div data-v-0166ce07="" class="detail-section footer-detail clearfix"><!---->
+                                <div data-v-0166ce07="" class="handle-action">
+                                    <div data-v-0166ce07="" class="operating-button"><a data-v-0166ce07=""
+                                                                                        data-log_code="bid=3515489.8&amp;bpm=25.83.3513216.1&amp;next=26.82"
+                                                                                        href="javascript:jiesuan();"
+                                                                                        class="btn btn-primary"
+                                                                                        data-settrack="true"
+                                                                                        onclick="_msq.push([&#39;trackEvent&#39;,&#39;bid=3515489.8&amp;bpm=25.83.3513216.1&amp;next=26.82&#39;,&#39;&#39;,&#39;f8510bf55a388fba-027681ed89ac0cc6&#39;,&#39;&quot;&quot;&#39;]);"
+                                                                                        stat_exposure="true">去结算</a><a
+                                            data-v-0166ce07="" href="../search_add;" class="btn btn-return"
+                                            stat_exposure="true">返回购物车</a></div><!----></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div>
+            <div class="site-footer">
+                <div class="container">
+                    <div class="footer-service">
+                        <ul class="list-service clearfix">
+                            <li><a rel="nofollow" href="https://www.mi.com/service/quick-repair" target="_blank"><em
+                                    class="iconfont-tool"></em>预约维修服务</a></li>
+                            <li><a rel="nofollow" href="https://www.mi.com/service/exchange#back" target="_blank"><em
+                                    class="iconfont-circle-7"></em>7天无理由退货</a></li>
+                            <li><a rel="nofollow" href="https://www.mi.com/service/exchange#back" target="_blank"><em
+                                    class="iconfont-circle-15"></em>15天免费换货</a></li>
+                            <li><a rel="nofollow" href="https://www.mi.com/service/buy/Postal%20policy" target="_blank"><em
+                                    class="iconfont-gift"></em><span id="J_footerPrice">满99元包邮</span></a></li>
+                            <li><a rel="nofollow" href="https://www.mi.com/service/sitelist" target="_blank"><em
+                                    class="iconfont-location"></em>520余家售后网点</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-links clearfix">
+                        <dl class="col-links col-links-first">
+                            <dt>帮助中心</dt>
+                            <dd><a rel="nofollow" href="https://www.mi.com/service/account/Account%20registration/"
+                                   target="_blank">账户管理</a></dd>
+                            <dd><a rel="nofollow" href="https://www.mi.com/service/buy/SalesTime/"
+                                   target="_blank">购物指南</a>
+                            </dd>
+                            <dd><a rel="nofollow" href="https://www.mi.com/service/order/sendprogress/"
+                                   target="_blank">订单操作</a></dd>
+                        </dl>
+                        <dl class="col-links ">
+                            <dt>服务支持</dt>
+                            <dd><a rel="nofollow" href="https://www.mi.com/service/exchange" target="_blank">售后政策</a>
+                            </dd>
+                            <dd><a rel="nofollow" href="https://www.mi.com/service/" target="_blank">自助服务</a></dd>
+                            <dd><a rel="nofollow" href="https://www.mi.com/service/download/" target="_blank">相关下载</a>
+                            </dd>
+                        </dl>
+                        <dl class="col-links ">
+                            <dt>线下门店</dt>
+                            <dd><a rel="nofollow" href="https://www.mi.com/service/mihome/list" target="_blank">小米之家</a>
+                            </dd>
+                            <dd><a rel="nofollow" href="https://www.mi.com/service/sitelist" target="_blank">服务网点</a>
+                            </dd>
+                            <dd><a rel="nofollow" href="https://www.mi.com/service/family-location"
+                                   target="_blank">授权体验店</a></dd>
+                        </dl>
+                        <dl class="col-links ">
+                            <dt>关于小米</dt>
+                            <dd><a rel="nofollow" href="https://www.mi.com/about/" target="_blank">了解小米</a></dd>
+                            <dd><a rel="nofollow" href="https://hr.xiaomi.com/" target="_blank">加入小米</a></dd>
+                            <dd><a rel="nofollow" href="https://company.mi.com/zh-cn/ir/indexContent/index.html"
+                                   target="_blank">投资者关系</a></dd>
+                            <dd><a rel="nofollow" href="https://www.mi.com/csr/" target="_blank">企业社会责任</a></dd>
+                            <dd><a rel="nofollow" href="https://integrity.mi.com/" target="_blank">廉洁举报</a></dd>
+                        </dl>
+                        <dl class="col-links ">
+                            <dt>关注我们</dt>
+                            <dd><a rel="nofollow" href="https://weibo.com/xiaomishangcheng" target="_blank">新浪微博</a>
+                            </dd>
+                            <dd><a rel="nofollow" href="javascript:void(0);" id="J_siteWeixinCode">官方微信</a></dd>
+                            <dd><a rel="nofollow" href="https://www.mi.com/about/contact/" target="_blank">联系我们</a></dd>
+                            <dd><a rel="nofollow" href="https://www.mi.com/foundation/index" target="_blank">公益基金会</a>
+                            </dd>
+                        </dl>
+                        <dl class="col-links ">
+                            <dt>特色服务</dt>
+                            <dd><a rel="nofollow" href="https://www.mi.com/order/fcode" target="_blank">F 码通道</a></dd>
+                            <dd><a rel="nofollow" href="https://www.mi.com/order/giftcode" target="_blank">礼物码</a></dd>
+                            <dd><a rel="nofollow" href="https://www.mi.com/service/imei" target="_blank">防伪查询</a></dd>
+                        </dl>
+                        <div class="col-contact"><p class="phone">400-100-5678</p>
+                            <p>8:00-18:00（仅收市话费）</p> <a rel="nofollow"
+                                                        class="btn btn-line-primary btn-small J_contactBtn"><em
+                                    class="iconfont-message2"></em> 人工客服 </a>
+                            <div class="follow">关注小米：<a href="https://weibo.com/xiaomishangcheng" target="_blank"
+                                                        class="wb"></a><a href="javascript:void(0);" id="J_followWx"
+                                                                          class="wx"></a> <img
+                                    src="../填写订单信息_files/wx-img.png" id="J_followWxImg"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="site-info">
+                <div class="container">
+                    <div class="logo ir">小米官网</div>
+                    <div class="info-text"><p class="sites"><a rel="nofollow" href="https://www.mi.com/index.html"
+                                                               target="_blank">小米商城</a> <span class="sep">|</span> <a
+                            rel="nofollow" href="https://www.miui.com/" target="_blank">MIUI</a> <span
+                            class="sep">|</span>
+                        <a rel="nofollow" href="https://home.mi.com/index.html" target="_blank">米家</a> <span
+                                class="sep">|</span> <a rel="nofollow" href="http://www.miliao.com/"
+                                                        target="_blank">米聊</a>
+                        <span class="sep">|</span> <a rel="nofollow" href="https://www.duokan.com/"
+                                                      target="_blank">多看</a>
+                        <span class="sep">|</span> <a rel="nofollow" href="https://game.xiaomi.com/"
+                                                      target="_blank">游戏</a>
+                        <span class="sep">|</span> <a rel="nofollow"
+                                                      href="https://b.mi.com/?client_id=180100031058&amp;masid=17409.0358"
+                                                      target="_blank">政企服务</a> <span class="sep">|</span> <a
+                                rel="nofollow"
+                                href="https://xiaomi.tmall.com/"
+                                target="_blank">小米天猫店</a>
+                        <span class="sep">|</span> <a rel="nofollow" href="https://privacy.mi.com/all/zh_CN/"
+                                                      target="_blank">小米集团隐私政策</a> <span class="sep">|</span> <a
+                                rel="nofollow" href="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/f516fe9e2c01.html"
+                                target="_blank">小米公司儿童信息保护规则</a> <span class="sep">|</span> <a rel="nofollow"
+                                                                                               href="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/ded8d0e4a77d.html"
+                                                                                               target="_blank">小米商城隐私政策</a>
+                        <span class="sep">|</span> <a rel="nofollow" href="https://www.mi.com/about/user-agreement/"
+                                                      target="_blank">小米商城用户协议</a> <span class="sep">|</span> <a
+                                rel="nofollow" href="https://static.mi.com/feedback/" target="_blank">问题反馈</a> <span
+                                class="sep">|</span> <a rel="nofollow" href="javascript:void(0);"
+                                                        class="J_siteGlobalRegion">Select Location</a></p>
+                        <p>
+                            ©
+                            <a href="javascript:;" target="_blank" title="mi.com">mi.com</a> 京ICP证110507号
+                            <a href="http://beian.miit.gov.cn/" target="_blank" rel="nofollow">京ICP备10046444号</a> <a
+                                rel="nofollow"
+                                href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=11010802020134"
+                                target="_blank">京公网安备11010802020134号</a> <a href="https://www.mi.com/culture-license/"
+                                                                            target="_blank">京网文[2020]0276-042号</a> <br>
+                            <a
+                                    href="https://www.mi.com/medical/record/" target="_blank">（京）网械平台备字（2018）第00005号</a>
+                            <a
+                                    href="https://www.mi.com/medical/qualification/" target="_blank">互联网药品信息服务资格证
+                                (京)-非经营性-2014-0090</a> <a href="https://www.mi.com/business-license/" target="_blank">营业执照</a>
+                            <a href="https://www.mi.com/medical/list/" target="_blank">医疗器械质量公告</a> <br> <a
+                                href="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/e0c7d4cf3b7cd88de10196e30c92e020.png"
+                                target="_blank">增值电信业务许可证</a>&nbsp;网络食品经营备案 京食药网食备202010048 &nbsp;
+                            <a href="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/c6859168166651511897f54fa1047fe3.png"
+                               target="_blank">食品经营许可证</a> <br>
+                            违法和不良信息举报电话：171-5104-4404&nbsp;<a href="https://www.mi.com/intellectual" target="_blank">知识产权侵权投诉</a>&nbsp;本网站所列数据，除特殊说明，所有数据均出自我司实验室测试
+                        </p></div>
+                    <div class="info-links"><a rel="nofollow"
+                                               href="https://privacy.truste.com/privacy-seal/validation?rid=4fc28a8c-6822-4980-9c4b-9fdc69b94eb8&amp;lang=zh-cn"
+                                               target="_blank"><img rel="nofollow" src="../填写订单信息_files/truste.png"
+                                                                    alt="TRUSTe Privacy Certification"></a> <a
+                            rel="nofollow" href="https://search.szfw.org/cert/l/CX20120926001783002010" target="_blank"><img
+                            rel="nofollow" src="../填写订单信息_files/v-logo-2.png" alt="诚信网站"></a> <a rel="nofollow"
+                                                                                                 href="https://ss.knet.cn/verifyseal.dll?sn=e12033011010015771301369&amp;ct=df&amp;pa=461082"
+                                                                                                 target="_blank"><img
+                            rel="nofollow" src="../填写订单信息_files/v-logo-1.png" alt="可信网站"></a> <a rel="nofollow"
+                                                                                                 href="https://www.mi.com/service/buy/commitment/"
+                                                                                                 target="_blank"><img
+                            rel="nofollow" src="../填写订单信息_files/ba10428a4f9495ac310fd0b5e0cf8370.png"
+                            alt="诚信经营 放心消费"></a><a
+                            rel="nofollow"
+                            href="https://webcert.cnmstl.net/cert/grade?sn=3af21034e35011eab3ea00163e068ceb"
+                            class="safe-auth J_safeAuth                                    "><img rel="nofollow"
+                                                                                                  src="../填写订单信息_files/f1ee261b96ae71e845efba398efeca02.png"
+                                                                                                  class="img1"><img
+                            rel="nofollow" src="../填写订单信息_files/7975f6189978a3a0a39559fd2034e567.png" class="img2"></a>
+                    </div>
+                </div>
+                <div class="slogan ir">探索黑科技，小米为发烧而生</div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+</div>
+<script type="text/javascript" async="" src="../填写订单信息_files/mstr.js"></script>
+<script src="../填写订单信息_files/hm.js"></script>
+<script type="text/javascript" async="" src="../填写订单信息_files/xmst.js"></script>
+<script type="text/javascript" src="../填写订单信息_files/chunk-vendors.50ac3731.js"></script>
+<script type="text/javascript" src="../填写订单信息_files/checkout.83713201.js"></script>
+<script>
+
+
+    $(function () {
+        getSheng();
+        findAddress();
+        findgoods();
+    })
+
+    var vm = new Vue({
+        el: '#aaa',
+        data: {
+            storeCategoryList: "",
+            totalPage: "",
+            total: "",
+            currPage: "",
+            pageSize: "",
+            userName1: "",
+            shengId: "",
+            shiId: "",
+            xianId: "",
+            diqulist: "",
+            diquname: "",
+            diquid: "",
+            storeCategory: "",
+            shilist: "",
+            xianlist: "",
+            childrenId: "",
+            childrenlist: "",
+            name: "",
+            phone: "",
+            info: "",
+            sheng: "",
+            shi: "",
+            xian: ""
+        },
+        methods: {},
+        computed: {},
+        watch: {
+            shengId: function (val) {
+                $.ajax({
+                    type: "post",
+                    url: "../findShi",
+                    data: {"provinceid": val},
+                    dataType: "json",
+                    async: false,
+                    success: function (data) {
+                        vm.shilist = data
+                    },
+
+                })
+            },
+            shiId: function (val) {
+                $.ajax({
+                    type: "post",
+                    url: "../findXian",
+                    data: {"cityid": val},
+                    dataType: "json",
+                    async: false,
+                    success: function (data) {
+                        vm.xianlist = data
+                    },
+
+                })
+            }
+        }
+
+    })
+
+    function jiesuan() {
+        var suijishu = Math.ceil(Math.random() * 10) * 89999 + Math.ceil(Math.random() * 10) * 899999
+        // alert(suijishu);
+        // alert(consignee);
+        // alert(goodsPhone);
+        //  alert(goodsPrice)
+        // alert(goodsaddress);   consignee
+        $.ajax({
+            url: '../orderByInfo',
+            dataType: 'json',
+            data: {
+                consignee: consignee,
+                receivingTelephone: goodsPhone,
+                orderSumPrice: goodsPrice,
+                receivingAddress: goodsaddress,
+                orderNum: suijishu,
+                ordergoodsName: ordergoodsName,
+                goodsId: goodsId,
+                goodsNum: goodsNum
+            },
+            type: 'post',
+            success: function (data) {
+                alert(1)
+            },
+            error: function (data) {
+                location.href = "../orderSuccess?orderNum=" + suijishu;
+            }
+        })
+
+    }
+
+    function getSheng() {
+        $.ajax({
+            type: "post",
+            url: "../getSheng",
+            data: "",
+            dataType: "json",
+            success: function (data) {
+                vm.diqulist = data
+            },
+            error: function () {
+                alert("系统错误，请联系管理员！");
+            }
+        })
+    }
+
+    var consignee = "";
+    var goodsPhone = "";
+    var goodsaddress = "";
+    var goodsprice = "";
+    var ordergoodsName = "";
+    var goodsId = "";
+    var goodsNum = 0;
+
+    function findAddress() {
+        $.ajax({
+            type: "post",
+            url: "../findAddress",
+            data: "",
+            dataType: "json",
+            success: function (data) {
+                var str = "";
+                for (var i = 0; i < data.length; i++) {
+                    consignee = data[i].name;
+                    goodsPhone = data[i].phone;
+                    goodsaddress = data[i].sheng + "  " + data[i].shi + "  " + data[i].xian + "  " + data[i].info;
+                    goodsId = data[i].id;
+                    str += '<div data-v-039a89f6="" class="address-item" style="float:left">';
+                    str += ' <div data-v-039a89f6="" class="address-info">';
+                    str += '  <div data-v-039a89f6="" class="name">' + data[i].name + '<span data-v-039a89f6=" style="color: rgb(176, 176, 176);"></span>';
+                    str += '   </div>';
+                    str += '   <div data-v-039a89f6="" class="tel">' + data[i].phone + '</div>';
+                    str += '   <div data-v-039a89f6="" class="address-con"><span';
+                    str += '   data-v-039a89f6="">' + data[i].sheng + '</span><span data-v-039a89f6="">' + data[i].shi + '</span><span';
+                    str += '    data-v-039a89f6="">' + data[i].xian + '</span><span';
+                    str += '  data-v-039a89f6="" class="info"></span>' + data[i].info + '</div>';
+                    str += '    <button type="button" class="btn bg-olive btn-xs" data-toggle="modal" data-target="#editModal" v-on:click="findOne(' + data[i].id + ')" >修改</button>';
+                    str += '    </div>';
+                    str += '    <div data-v-039a89f6="" class="address-info-solt" style="display: none;"></div>';
+                    str += '     </div>  ';
+                }
+                $("#dizhiid").html(str);
+            },
+            error: function () {
+                alert("系统错误，请联系管理员！");
+            }
+        })
+    }
+
+
+    //保存
+    function saveStoreCategory() {
+        $.ajax({
+            type: 'post',
+            url: '../addAddress',
+            data: $("#userForm").serialize(),
+            dataType: 'json',
+            success: function (data) {
+                alert("sucess");
+            },
+            error: function () {
+                alert("成功");
+                findAddress();
+            }
+        })
+    }
+
+
+    function findgoods() {
+        $.ajax({
+            type: 'post',
+            url: '../findGoods',
+            data: '',
+            dataType: 'json',
+            success: function (data) {
+                console.log(data)
+                var str = "";
+                // var count = "";
+                var price = "";
+                var good = "";
+                for (var i = 0; i < data.length; i++) {
+                    console.log(data)
+                    goodsPrice = data[i].goodsPrice;
+                    ordergoodsName = data[i].goodsName;
+
+                    goodsNum += data[i].goodsNum;
+                    price = data[i].goodsPrice;
+                    str += ' <div data-v-73ddf45a="" data-v-0166ce07="" class="goods-list">';
+                    str += ' <div data-v-73ddf45a="" class="good-item">';
+                    str += '  <div data-v-73ddf45a="" class="item-desc good-img"><img data-v-73ddf45a=""';
+                    str += ' src="../' + data[i].goodsImg + '">';
+                    str += ' </div>';
+                    str += '   <div data-v-73ddf45a="" class="item-desc good-name"><a data-v-73ddf45a=""';
+                    str += '     href="https://www.mi.com/buy?product_id=1192300008"';
+                    str += '    target="_blank"><span';
+                    str += '  data-v-73ddf45a="">' + data[i].goodsName + '+' + data[i].colorByName + '+' + data[i].verisonByName + '</span><!----></a><!----></div>';
+                    str += '    <div data-v-73ddf45a="" class="item-desc price-box">';
+                    str += '        <div data-v-73ddf45a="" class="item-desc good-price">' + data[i].goodsPrice / data[i].goodsNum + 'x' + data[i].goodsNum + '</div>';
+                    str += '    <div data-v-73ddf45a="" class="item-desc good-status"></div>';
+                    str += '      <div data-v-73ddf45a="" class="item-desc good-total">' + data[i].goodsPrice + '</div><!----></div>';
+                    str += '  </div>';
+                    str += '   </div>';
+                }
+                $("#goodsList").html(str);
+
+                good += '<div data-v-0166ce07="" class="bill-item">';
+                good += '<div data-v-0166ce07="" class="bill-name">商品件数：</div>';
+                good += '  <div data-v-0166ce07="" class="bill-money">' + goodsNum + '件</div>';
+                good += '  </div><!----><!---->';
+                good += '<div data-v-0166ce07="" class="bill-item">';
+                good += '    <div data-v-0166ce07="" class="bill-name">商品总价：</div>';
+                good += ' <div data-v-0166ce07="" class="bill-money">' + price + '</div>';
+                good += ' </div><!---->';
+
+                good += '<div data-v-0166ce07="" class="bill-item">';
+                good += '    <div data-v-0166ce07="" class="bill-name">运费：</div>';
+                good += '  <div data-v-0166ce07="" class="bill-money">0元</div>';
+                good += ' </div>';
+                good += '  <div data-v-0166ce07="" class="bill-item total-price" >';
+                good += '      <div data-v-0166ce07="" class="bill-name">应付总额：</div>';
+                good += '  <div data-v-0166ce07="" class="bill-money"><em data-v-0166ce07="">' + price + '</em>元</div>';
+                good += '   </div>';
+                $("#abc").html(good);
+            }
+
+        })
+
+    }
+
+
+    window._msq = window._msq || [];
+    _msq.push(['setDomainId', 100]);
+    _msq.push(['trackPageView']);
+    (function () {
+        var ms = document.createElement('script');
+        ms.type = 'text/javascript';
+        ms.async = true;
+        ms.src = '//s1.mi.com/stat/20/xmst.js';
+        var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(ms, s);
+
+        window.statInit = function () {
+            if (window.xmstLittle && xmstLittle.isFunction(xmstLittle.fn.linkSign)) {
+                xmstLittle('body').linkSign();
+            }
+        }
+    })();
+
+
+    var _hmt = _hmt || [];
+    (function () {
+        var hm = document.createElement("script");
+        hm.src = "//hm.baidu.com/hm.js?c3e3e8b3ea48955284516b186acf0f4e";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+<script type="text/javascript" async="" src="../填写订单信息_files/gettimestamp"></script>
+</body>
+</html>

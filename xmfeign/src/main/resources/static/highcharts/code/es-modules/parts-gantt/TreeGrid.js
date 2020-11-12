@@ -12,19 +12,22 @@
 'use strict';
 import H from '../parts/Globals.js';
 import U from '../parts/Utilities.js';
+
 var defined = U.defined, extend = U.extend, isNumber = U.isNumber, isString = U.isString, pick = U.pick;
 import './GridAxis.js';
 import Tree from './Tree.js';
 import mixinTreeSeries from '../mixins/tree-series.js';
 import '../modules/broken-axis.src.js';
+
 var addEvent = H.addEvent, argsToArray = function (args) {
-    return Array.prototype.slice.call(args, 1);
-}, find = H.find, fireEvent = H.fireEvent, getLevelOptions = mixinTreeSeries.getLevelOptions, merge = H.merge, isBoolean = function (x) {
-    return typeof x === 'boolean';
-}, isObject = function (x) {
-    // Always use strict mode.
-    return U.isObject(x, true);
-}, wrap = H.wrap, GridAxis = H.Axis, GridAxisTick = H.Tick;
+        return Array.prototype.slice.call(args, 1);
+    }, find = H.find, fireEvent = H.fireEvent, getLevelOptions = mixinTreeSeries.getLevelOptions, merge = H.merge,
+    isBoolean = function (x) {
+        return typeof x === 'boolean';
+    }, isObject = function (x) {
+        // Always use strict mode.
+        return U.isObject(x, true);
+    }, wrap = H.wrap, GridAxis = H.Axis, GridAxisTick = H.Tick;
 var override = function (obj, methods) {
     var method, func;
     for (method in methods) {
@@ -173,10 +176,11 @@ var toggleCollapse = function (axis, node) {
         collapse(axis, node));
 };
 var renderLabelIcon = function (tick, params) {
-    var icon = tick.labelIcon, isNew = !icon, renderer = params.renderer, labelBox = params.xy, options = params.options, width = options.width, height = options.height, iconCenter = {
-        x: labelBox.x - (width / 2) - options.padding,
-        y: labelBox.y - (height / 2)
-    }, rotation = params.collapsed ? 90 : 180, shouldRender = params.show && isNumber(iconCenter.y);
+    var icon = tick.labelIcon, isNew = !icon, renderer = params.renderer, labelBox = params.xy,
+        options = params.options, width = options.width, height = options.height, iconCenter = {
+            x: labelBox.x - (width / 2) - options.padding,
+            y: labelBox.y - (height / 2)
+        }, rotation = params.collapsed ? 90 : 180, shouldRender = params.show && isNumber(iconCenter.y);
     if (isNew) {
         tick.labelIcon = icon = renderer
             .path(renderer.symbols[options.type](options.x, options.y, width, height))
@@ -185,20 +189,20 @@ var renderLabelIcon = function (tick, params) {
     }
     // Set the new position, and show or hide
     if (!shouldRender) {
-        icon.attr({ y: -9999 }); // #1338
+        icon.attr({y: -9999}); // #1338
     }
     // Presentational attributes
     if (!renderer.styledMode) {
         icon
             .attr({
-            'stroke-width': 1,
-            'fill': pick(params.color, '#666666')
-        })
+                'stroke-width': 1,
+                'fill': pick(params.color, '#666666')
+            })
             .css({
-            cursor: 'pointer',
-            stroke: options.lineColor,
-            strokeWidth: options.lineWidth
-        });
+                cursor: 'pointer',
+                stroke: options.lineColor,
+                strokeWidth: options.lineWidth
+            });
     }
     // Update the icon positions
     icon[isNew ? 'attr' : 'animate']({
@@ -249,7 +253,8 @@ var onTickHoverExit = function (label, options) {
  * @todo Add unit-tests.
  */
 var getTreeGridFromData = function (data, uniqueNames, numberOfSeries) {
-    var categories = [], collapsedNodes = [], mapOfIdToNode = {}, mapOfPosToGridNode = {}, posIterator = -1, uniqueNamesEnabled = isBoolean(uniqueNames) ? uniqueNames : false, tree, treeParams, updateYValuesAndTickPos;
+    var categories = [], collapsedNodes = [], mapOfIdToNode = {}, mapOfPosToGridNode = {}, posIterator = -1,
+        uniqueNamesEnabled = isBoolean(uniqueNames) ? uniqueNames : false, tree, treeParams, updateYValuesAndTickPos;
     // Build the tree from the series data.
     treeParams = {
         // After the children has been created.
@@ -267,11 +272,12 @@ var getTreeGridFromData = function (data, uniqueNames, numberOfSeries) {
         },
         // Before the children has been created.
         before: function (node) {
-            var data = isObject(node.data) ? node.data : {}, name = isString(data.name) ? data.name : '', parentNode = mapOfIdToNode[node.parent], parentGridNode = (isObject(parentNode) ?
+            var data = isObject(node.data) ? node.data : {}, name = isString(data.name) ? data.name : '',
+                parentNode = mapOfIdToNode[node.parent], parentGridNode = (isObject(parentNode) ?
                 mapOfPosToGridNode[parentNode.pos] :
                 null), hasSameName = function (x) {
-                return x.name === name;
-            }, gridNode, pos;
+                    return x.name === name;
+                }, gridNode, pos;
             // If not unique names, look for a sibling node with the same name.
             if (uniqueNamesEnabled &&
                 isObject(parentGridNode) &&
@@ -280,8 +286,7 @@ var getTreeGridFromData = function (data, uniqueNames, numberOfSeries) {
                 pos = gridNode.pos;
                 // Add data node to list of nodes in the grid node.
                 gridNode.nodes.push(node);
-            }
-            else {
+            } else {
                 // If it is a new grid node, increment position.
                 pos = posIterator++;
             }
@@ -318,7 +323,8 @@ var getTreeGridFromData = function (data, uniqueNames, numberOfSeries) {
     };
     updateYValuesAndTickPos = function (map, numberOfSeries) {
         var setValues = function (gridNode, start, result) {
-            var nodes = gridNode.nodes, end = start + (start === -1 ? 0 : numberOfSeries - 1), diff = (end - start) / 2, padding = 0.5, pos = start + diff;
+            var nodes = gridNode.nodes, end = start + (start === -1 ? 0 : numberOfSeries - 1), diff = (end - start) / 2,
+                padding = 0.5, pos = start + diff;
             nodes.forEach(function (node) {
                 var data = node.data;
                 if (isObject(data)) {
@@ -367,83 +373,84 @@ var onBeforeRender = function (e) {
     var chart = e.target, axes = chart.axes;
     axes
         .filter(function (axis) {
-        return axis.options.type === 'treegrid';
-    })
+            return axis.options.type === 'treegrid';
+        })
         .forEach(function (axis) {
-        var options = axis.options || {}, labelOptions = options.labels, removeFoundExtremesEvent, uniqueNames = options.uniqueNames, numberOfSeries = 0, isDirty, data, treeGrid;
-        // Check whether any of series is rendering for the first time,
-        // visibility has changed, or its data is dirty,
-        // and only then update. #10570, #10580
-        // Also check if mapOfPosToGridNode exists. #10887
-        isDirty = (!axis.mapOfPosToGridNode ||
-            axis.series.some(function (series) {
-                return !series.hasRendered ||
-                    series.isDirtyData ||
-                    series.isDirty;
-            }));
-        if (isDirty) {
-            // Concatenate data from all series assigned to this axis.
-            data = axis.series.reduce(function (arr, s) {
-                if (s.visible) {
-                    // Push all data to array
-                    s.options.data.forEach(function (data) {
-                        if (isObject(data)) {
-                            // Set series index on data. Removed again after
-                            // use.
-                            data.seriesIndex = numberOfSeries;
-                            arr.push(data);
-                        }
-                    });
-                    // Increment series index
-                    if (uniqueNames === true) {
-                        numberOfSeries++;
-                    }
-                }
-                return arr;
-            }, []);
-            // setScale is fired after all the series is initialized,
-            // which is an ideal time to update the axis.categories.
-            treeGrid = getTreeGridFromData(data, uniqueNames, (uniqueNames === true) ? numberOfSeries : 1);
-            // Assign values to the axis.
-            axis.categories = treeGrid.categories;
-            axis.mapOfPosToGridNode =
-                treeGrid.mapOfPosToGridNode;
-            axis.hasNames = true;
-            axis.tree = treeGrid.tree;
-            // Update yData now that we have calculated the y values
-            axis.series.forEach(function (series) {
-                var data = series.options.data.map(function (d) {
-                    return isObject(d) ? merge(d) : d;
-                });
-                // Avoid destroying points when series is not visible
-                if (series.visible) {
-                    series.setData(data, false);
-                }
-            });
-            // Calculate the label options for each level in the tree.
-            axis.mapOptionsToLevel =
-                getLevelOptions({
-                    defaults: labelOptions,
-                    from: 1,
-                    levels: labelOptions.levels,
-                    to: axis.tree.height
-                });
-            // Collapse all the nodes belonging to a point where collapsed
-            // equals true. Only do this on init.
-            // Can be called from beforeRender, if getBreakFromNode removes
-            // its dependency on axis.max.
-            if (e.type === 'beforeRender') {
-                removeFoundExtremesEvent =
-                    H.addEvent(axis, 'foundExtremes', function () {
-                        treeGrid.collapsedNodes.forEach(function (node) {
-                            var breaks = collapse(axis, node);
-                            axis.setBreaks(breaks, false);
+            var options = axis.options || {}, labelOptions = options.labels, removeFoundExtremesEvent,
+                uniqueNames = options.uniqueNames, numberOfSeries = 0, isDirty, data, treeGrid;
+            // Check whether any of series is rendering for the first time,
+            // visibility has changed, or its data is dirty,
+            // and only then update. #10570, #10580
+            // Also check if mapOfPosToGridNode exists. #10887
+            isDirty = (!axis.mapOfPosToGridNode ||
+                axis.series.some(function (series) {
+                    return !series.hasRendered ||
+                        series.isDirtyData ||
+                        series.isDirty;
+                }));
+            if (isDirty) {
+                // Concatenate data from all series assigned to this axis.
+                data = axis.series.reduce(function (arr, s) {
+                    if (s.visible) {
+                        // Push all data to array
+                        s.options.data.forEach(function (data) {
+                            if (isObject(data)) {
+                                // Set series index on data. Removed again after
+                                // use.
+                                data.seriesIndex = numberOfSeries;
+                                arr.push(data);
+                            }
                         });
-                        removeFoundExtremesEvent();
+                        // Increment series index
+                        if (uniqueNames === true) {
+                            numberOfSeries++;
+                        }
+                    }
+                    return arr;
+                }, []);
+                // setScale is fired after all the series is initialized,
+                // which is an ideal time to update the axis.categories.
+                treeGrid = getTreeGridFromData(data, uniqueNames, (uniqueNames === true) ? numberOfSeries : 1);
+                // Assign values to the axis.
+                axis.categories = treeGrid.categories;
+                axis.mapOfPosToGridNode =
+                    treeGrid.mapOfPosToGridNode;
+                axis.hasNames = true;
+                axis.tree = treeGrid.tree;
+                // Update yData now that we have calculated the y values
+                axis.series.forEach(function (series) {
+                    var data = series.options.data.map(function (d) {
+                        return isObject(d) ? merge(d) : d;
                     });
+                    // Avoid destroying points when series is not visible
+                    if (series.visible) {
+                        series.setData(data, false);
+                    }
+                });
+                // Calculate the label options for each level in the tree.
+                axis.mapOptionsToLevel =
+                    getLevelOptions({
+                        defaults: labelOptions,
+                        from: 1,
+                        levels: labelOptions.levels,
+                        to: axis.tree.height
+                    });
+                // Collapse all the nodes belonging to a point where collapsed
+                // equals true. Only do this on init.
+                // Can be called from beforeRender, if getBreakFromNode removes
+                // its dependency on axis.max.
+                if (e.type === 'beforeRender') {
+                    removeFoundExtremesEvent =
+                        H.addEvent(axis, 'foundExtremes', function () {
+                            treeGrid.collapsedNodes.forEach(function (node) {
+                                var breaks = collapse(axis, node);
+                                axis.setBreaks(breaks, false);
+                            });
+                            removeFoundExtremesEvent();
+                        });
+                }
             }
-        }
-    });
+        });
 };
 override(GridAxis.prototype, {
     init: function (proceed, chart, userOptions) {
@@ -463,44 +470,44 @@ override(GridAxis.prototype, {
                 labels: {
                     align: 'left',
                     /**
-                    * Set options on specific levels in a tree grid axis. Takes
-                    * precedence over labels options.
-                    *
-                    * @sample {gantt} gantt/treegrid-axis/labels-levels
-                    *         Levels on TreeGrid Labels
-                    *
-                    * @type      {Array<*>}
-                    * @product   gantt
-                    * @apioption yAxis.labels.levels
-                    *
-                    * @private
-                    */
+                     * Set options on specific levels in a tree grid axis. Takes
+                     * precedence over labels options.
+                     *
+                     * @sample {gantt} gantt/treegrid-axis/labels-levels
+                     *         Levels on TreeGrid Labels
+                     *
+                     * @type      {Array<*>}
+                     * @product   gantt
+                     * @apioption yAxis.labels.levels
+                     *
+                     * @private
+                     */
                     levels: [{
-                            /**
-                            * Specify the level which the options within this object
-                            * applies to.
-                            *
-                            * @type      {number}
-                            * @product   gantt
-                            * @apioption yAxis.labels.levels.level
-                            *
-                            * @private
-                            */
-                            level: undefined
-                        }, {
-                            level: 1,
-                            /**
-                             * @type      {Highcharts.CSSObject}
-                             * @product   gantt
-                             * @apioption yAxis.labels.levels.style
-                             *
-                             * @private
-                             */
-                            style: {
-                                /** @ignore-option */
-                                fontWeight: 'bold'
-                            }
-                        }],
+                        /**
+                         * Specify the level which the options within this object
+                         * applies to.
+                         *
+                         * @type      {number}
+                         * @product   gantt
+                         * @apioption yAxis.labels.levels.level
+                         *
+                         * @private
+                         */
+                        level: undefined
+                    }, {
+                        level: 1,
+                        /**
+                         * @type      {Highcharts.CSSObject}
+                         * @product   gantt
+                         * @apioption yAxis.labels.levels.style
+                         *
+                         * @private
+                         */
+                        style: {
+                            /** @ignore-option */
+                            fontWeight: 'bold'
+                        }
+                    }],
                     /**
                      * The symbol for the collapse and expand icon in a
                      * treegrid.
@@ -555,9 +562,11 @@ override(GridAxis.prototype, {
      *        The original function
      */
     getMaxLabelDimensions: function (proceed) {
-        var axis = this, options = axis.options, labelOptions = options && options.labels, indentation = (labelOptions && isNumber(labelOptions.indentation) ?
-            options.labels.indentation :
-            0), retVal = proceed.apply(axis, argsToArray(arguments)), isTreeGrid = axis.options.type === 'treegrid', treeDepth;
+        var axis = this, options = axis.options, labelOptions = options && options.labels,
+            indentation = (labelOptions && isNumber(labelOptions.indentation) ?
+                options.labels.indentation :
+                0), retVal = proceed.apply(axis, argsToArray(arguments)), isTreeGrid = axis.options.type === 'treegrid',
+            treeDepth;
         if (isTreeGrid && this.mapOfPosToGridNode) {
             treeDepth = axis.mapOfPosToGridNode[-1].height;
             retVal.width += indentation * (treeDepth - 1);
@@ -577,7 +586,9 @@ override(GridAxis.prototype, {
      *        The tick position in axis values.
      */
     generateTick: function (proceed, pos) {
-        var axis = this, mapOptionsToLevel = (isObject(axis.mapOptionsToLevel) ? axis.mapOptionsToLevel : {}), isTreeGrid = axis.options.type === 'treegrid', ticks = axis.ticks, tick = ticks[pos], levelOptions, options, gridNode;
+        var axis = this, mapOptionsToLevel = (isObject(axis.mapOptionsToLevel) ? axis.mapOptionsToLevel : {}),
+            isTreeGrid = axis.options.type === 'treegrid', ticks = axis.ticks, tick = ticks[pos], levelOptions, options,
+            gridNode;
         if (isTreeGrid) {
             gridNode = axis.mapOfPosToGridNode[pos];
             levelOptions = mapOptionsToLevel[gridNode.depth];
@@ -593,15 +604,13 @@ override(GridAxis.prototype, {
                         tickmarkOffset: gridNode.tickmarkOffset,
                         options: options
                     });
-            }
-            else {
+            } else {
                 // update labels depending on tick interval
                 tick.parameters.category = gridNode.name;
                 tick.options = options;
                 tick.addLabel();
             }
-        }
-        else {
+        } else {
             proceed.apply(axis, argsToArray(arguments));
         }
     },
@@ -628,15 +637,17 @@ override(GridAxis.prototype, {
             axis.tickPositions = this.mapOfPosToGridNode ?
                 getTickPositions(axis) :
                 [];
-        }
-        else {
+        } else {
             proceed.apply(axis, argsToArray(arguments));
         }
     }
 });
 override(GridAxisTick.prototype, {
     getLabelPosition: function (proceed, x, y, label, horiz, labelOptions, tickmarkOffset, index, step) {
-        var tick = this, lbOptions = pick(tick.options && tick.options.labels, labelOptions), pos = tick.pos, axis = tick.axis, options = axis.options, isTreeGrid = options.type === 'treegrid', result = proceed.apply(tick, [x, y, label, horiz, lbOptions, tickmarkOffset, index, step]), symbolOptions, indentation, mapOfPosToGridNode, node, level;
+        var tick = this, lbOptions = pick(tick.options && tick.options.labels, labelOptions), pos = tick.pos,
+            axis = tick.axis, options = axis.options, isTreeGrid = options.type === 'treegrid',
+            result = proceed.apply(tick, [x, y, label, horiz, lbOptions, tickmarkOffset, index, step]), symbolOptions,
+            indentation, mapOfPosToGridNode, node, level;
         if (isTreeGrid) {
             symbolOptions = (lbOptions && isObject(lbOptions.symbol) ?
                 lbOptions.symbol :
@@ -648,17 +659,23 @@ override(GridAxisTick.prototype, {
             node = mapOfPosToGridNode && mapOfPosToGridNode[pos];
             level = (node && node.depth) || 1;
             result.x += (
-            // Add space for symbols
-            ((symbolOptions.width) + (symbolOptions.padding * 2)) +
+                // Add space for symbols
+                ((symbolOptions.width) + (symbolOptions.padding * 2)) +
                 // Apply indentation
                 ((level - 1) * indentation));
         }
         return result;
     },
     renderLabel: function (proceed) {
-        var tick = this, pos = tick.pos, axis = tick.axis, label = tick.label, mapOfPosToGridNode = axis.mapOfPosToGridNode, options = axis.options, labelOptions = pick(tick.options && tick.options.labels, options && options.labels), symbolOptions = (labelOptions && isObject(labelOptions.symbol) ?
-            labelOptions.symbol :
-            {}), node = mapOfPosToGridNode && mapOfPosToGridNode[pos], level = node && node.depth, isTreeGrid = options.type === 'treegrid', hasLabel = !!(label && label.element), shouldRender = axis.tickPositions.indexOf(pos) > -1, prefixClassName = 'highcharts-treegrid-node-', collapsed, addClassName, removeClassName, styledMode = axis.chart.styledMode;
+        var tick = this, pos = tick.pos, axis = tick.axis, label = tick.label,
+            mapOfPosToGridNode = axis.mapOfPosToGridNode, options = axis.options,
+            labelOptions = pick(tick.options && tick.options.labels, options && options.labels),
+            symbolOptions = (labelOptions && isObject(labelOptions.symbol) ?
+                labelOptions.symbol :
+                {}), node = mapOfPosToGridNode && mapOfPosToGridNode[pos], level = node && node.depth,
+            isTreeGrid = options.type === 'treegrid', hasLabel = !!(label && label.element),
+            shouldRender = axis.tickPositions.indexOf(pos) > -1, prefixClassName = 'highcharts-treegrid-node-',
+            collapsed, addClassName, removeClassName, styledMode = axis.chart.styledMode;
         if (isTreeGrid && node) {
             // Add class name for hierarchical styling.
             if (hasLabel) {
@@ -724,7 +741,8 @@ extend(GridAxisTick.prototype, /** @lends Highcharts.Tick.prototype */ {
      *        {@link Highcharts.Chart#redraw}
      */
     collapse: function (redraw) {
-        var tick = this, axis = tick.axis, pos = tick.pos, node = axis.mapOfPosToGridNode[pos], breaks = collapse(axis, node);
+        var tick = this, axis = tick.axis, pos = tick.pos, node = axis.mapOfPosToGridNode[pos],
+            breaks = collapse(axis, node);
         axis.setBreaks(breaks, pick(redraw, true));
     },
     /**
@@ -740,7 +758,8 @@ extend(GridAxisTick.prototype, /** @lends Highcharts.Tick.prototype */ {
      *        {@link Highcharts.Chart#redraw}
      */
     expand: function (redraw) {
-        var tick = this, axis = tick.axis, pos = tick.pos, node = axis.mapOfPosToGridNode[pos], breaks = expand(axis, node);
+        var tick = this, axis = tick.axis, pos = tick.pos, node = axis.mapOfPosToGridNode[pos],
+            breaks = expand(axis, node);
         axis.setBreaks(breaks, pick(redraw, true));
     },
     /**
@@ -757,7 +776,8 @@ extend(GridAxisTick.prototype, /** @lends Highcharts.Tick.prototype */ {
      *        {@link Highcharts.Chart#redraw}
      */
     toggleCollapse: function (redraw) {
-        var tick = this, axis = tick.axis, pos = tick.pos, node = axis.mapOfPosToGridNode[pos], breaks = toggleCollapse(axis, node);
+        var tick = this, axis = tick.axis, pos = tick.pos, node = axis.mapOfPosToGridNode[pos],
+            breaks = toggleCollapse(axis, node);
         axis.setBreaks(breaks, pick(redraw, true));
     }
 });

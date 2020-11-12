@@ -9,6 +9,7 @@
 import H from '../parts/Globals.js';
 
 import U from '../parts/Utilities.js';
+
 var attr = U.attr,
     extend = U.extend,
     isArray = U.isArray,
@@ -296,7 +297,7 @@ extend(H.NavigationBindings.prototype, {
             fireEvent(
                 navigation,
                 'deselectButton',
-                { button: navigation.selectedButtonElement }
+                {button: navigation.selectedButtonElement}
             );
 
             if (navigation.nextEvent) {
@@ -314,7 +315,7 @@ extend(H.NavigationBindings.prototype, {
         navigation.selectedButton = events;
         navigation.selectedButtonElement = button;
 
-        fireEvent(navigation, 'selectButton', { button: button });
+        fireEvent(navigation, 'selectButton', {button: button});
 
         // Call "init" event, for example to open modal window
         if (events.init) {
@@ -381,7 +382,7 @@ extend(H.NavigationBindings.prototype, {
                 fireEvent(
                     navigation,
                     'deselectButton',
-                    { button: navigation.selectedButtonElement }
+                    {button: navigation.selectedButtonElement}
                 );
                 svgContainer.removeClass(PREFIX + 'draw-mode');
                 navigation.steps = false;
@@ -415,7 +416,7 @@ extend(H.NavigationBindings.prototype, {
                     fireEvent(
                         navigation,
                         'deselectButton',
-                        { button: navigation.selectedButtonElement }
+                        {button: navigation.selectedButtonElement}
                     );
                     svgContainer.removeClass(PREFIX + 'draw-mode');
                     // That was the last step, call end():
@@ -537,9 +538,9 @@ extend(H.NavigationBindings.prototype, {
             type = pick(
                 options.type,
                 options.shapes && options.shapes[0] &&
-                    options.shapes[0].type,
+                options.shapes[0].type,
                 options.labels && options.labels[0] &&
-                    options.labels[0].itemType,
+                options.labels[0].itemType,
                 'label'
             ),
             nonEditables = H.NavigationBindings
@@ -819,7 +820,7 @@ addEvent(H.Annotation, 'remove', function () {
 // Show edit-annotation form:
 function selectableAnnotation(annotationType) {
     var originalClick = annotationType.prototype.defaultOptions.events &&
-            annotationType.prototype.defaultOptions.events.click;
+        annotationType.prototype.defaultOptions.events.click;
 
     function selectAndshowPopup(event) {
         var annotation = this,
@@ -1029,15 +1030,15 @@ H.setOptions({
                                     target.setRadius(
                                         Math.max(
                                             target.options.r +
-                                                position.y /
-                                                Math.sin(Math.PI / 4),
+                                            position.y /
+                                            Math.sin(Math.PI / 4),
                                             5
                                         )
                                     );
 
                                     annotation.options.shapes[0] =
                                         annotation.userOptions.shapes[0] =
-                                        target.options;
+                                            target.options;
 
                                     target.redraw(false);
                                 }

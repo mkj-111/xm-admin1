@@ -40,22 +40,22 @@ import H from './Globals.js';
  *
  * @interface Highcharts.GradientColorObject
  */ /**
-* Holds an object that defines the start position and the end position relative
-* to the shape.
-* @name Highcharts.GradientColorObject#linearGradient
-* @type {Highcharts.LinearGradientColorObject|undefined}
-*/ /**
-* Holds an object that defines the center position and the radius.
-* @name Highcharts.GradientColorObject#radialGradient
-* @type {Highcharts.RadialGradientColorObject|undefined}
-*/ /**
-* The first item in each tuple is the position in the gradient, where 0 is the
-* start of the gradient and 1 is the end of the gradient. Multiple stops can be
-* applied. The second item is the color for each stop. This color can also be
-* given in the rgba format.
-* @name Highcharts.GradientColorObject#stops
-* @type {Array<Highcharts.GradientColorStopObject>}
-*/
+ * Holds an object that defines the start position and the end position relative
+ * to the shape.
+ * @name Highcharts.GradientColorObject#linearGradient
+ * @type {Highcharts.LinearGradientColorObject|undefined}
+ */ /**
+ * Holds an object that defines the center position and the radius.
+ * @name Highcharts.GradientColorObject#radialGradient
+ * @type {Highcharts.RadialGradientColorObject|undefined}
+ */ /**
+ * The first item in each tuple is the position in the gradient, where 0 is the
+ * start of the gradient and 1 is the end of the gradient. Multiple stops can be
+ * applied. The second item is the color for each stop. This color can also be
+ * given in the rgba format.
+ * @name Highcharts.GradientColorObject#stops
+ * @type {Array<Highcharts.GradientColorStopObject>}
+ */
 /**
  * Color stop tuple.
  *
@@ -63,15 +63,15 @@ import H from './Globals.js';
  *
  * @interface Highcharts.GradientColorStopObject
  */ /**
-* @name Highcharts.GradientColorStopObject#0
-* @type {number}
-*/ /**
-* @name Highcharts.GradientColorStopObject#1
-* @type {Highcharts.ColorString}
-*/ /**
-* @name Highcharts.GradoentColorStopObject#color
-* @type {Highcharts.Color|undefined}
-*/
+ * @name Highcharts.GradientColorStopObject#0
+ * @type {number}
+ */ /**
+ * @name Highcharts.GradientColorStopObject#1
+ * @type {Highcharts.ColorString}
+ */ /**
+ * @name Highcharts.GradoentColorStopObject#color
+ * @type {Highcharts.Color|undefined}
+ */
 /**
  * Defines the start position and the end position for a gradient relative
  * to the shape. Start position (x1, y1) and end position (x2, y2) are relative
@@ -79,40 +79,41 @@ import H from './Globals.js';
  *
  * @interface Highcharts.LinearGradientColorObject
  */ /**
-* Start horizontal position of the gradient. Float ranges 0-1.
-* @name Highcharts.LinearGradientColorObject#x1
-* @type {number}
-*/ /**
-* End horizontal position of the gradient. Float ranges 0-1.
-* @name Highcharts.LinearGradientColorObject#x2
-* @type {number}
-*/ /**
-* Start vertical position of the gradient. Float ranges 0-1.
-* @name Highcharts.LinearGradientColorObject#y1
-* @type {number}
-*/ /**
-* End vertical position of the gradient. Float ranges 0-1.
-* @name Highcharts.LinearGradientColorObject#y2
-* @type {number}
-*/
+ * Start horizontal position of the gradient. Float ranges 0-1.
+ * @name Highcharts.LinearGradientColorObject#x1
+ * @type {number}
+ */ /**
+ * End horizontal position of the gradient. Float ranges 0-1.
+ * @name Highcharts.LinearGradientColorObject#x2
+ * @type {number}
+ */ /**
+ * Start vertical position of the gradient. Float ranges 0-1.
+ * @name Highcharts.LinearGradientColorObject#y1
+ * @type {number}
+ */ /**
+ * End vertical position of the gradient. Float ranges 0-1.
+ * @name Highcharts.LinearGradientColorObject#y2
+ * @type {number}
+ */
 /**
  * Defines the center position and the radius for a gradient.
  *
  * @interface Highcharts.RadialGradientColorObject
  */ /**
-* Center horizontal position relative to the shape. Float ranges 0-1.
-* @name Highcharts.RadialGradientColorObject#cx
-* @type {number}
-*/ /**
-* Center vertical position relative to the shape. Float ranges 0-1.
-* @name Highcharts.RadialGradientColorObject#cy
-* @type {number}
-*/ /**
-* Radius relative to the shape. Float ranges 0-1.
-* @name Highcharts.RadialGradientColorObject#r
-* @type {number}
-*/
+ * Center horizontal position relative to the shape. Float ranges 0-1.
+ * @name Highcharts.RadialGradientColorObject#cx
+ * @type {number}
+ */ /**
+ * Center vertical position relative to the shape. Float ranges 0-1.
+ * @name Highcharts.RadialGradientColorObject#cy
+ * @type {number}
+ */ /**
+ * Radius relative to the shape. Float ranges 0-1.
+ * @name Highcharts.RadialGradientColorObject#r
+ * @type {number}
+ */
 import U from './Utilities.js';
+
 var isNumber = U.isNumber, pInt = U.pInt;
 var merge = H.merge;
 /* eslint-disable no-invalid-this, valid-jsdoc */
@@ -137,24 +138,24 @@ H.Color.prototype = {
     // Collection of parsers. This can be extended from the outside by pushing
     // parsers to Highcharts.Color.prototype.parsers.
     parsers: [{
-            // RGBA color
-            // eslint-disable-next-line max-len
-            regex: /rgba\(\s*([0-9]{1,3})\s*,\s*([0-9]{1,3})\s*,\s*([0-9]{1,3})\s*,\s*([0-9]?(?:\.[0-9]+)?)\s*\)/,
-            parse: function (result) {
-                return [
-                    pInt(result[1]),
-                    pInt(result[2]),
-                    pInt(result[3]),
-                    parseFloat(result[4], 10)
-                ];
-            }
-        }, {
-            // RGB color
-            regex: /rgb\(\s*([0-9]{1,3})\s*,\s*([0-9]{1,3})\s*,\s*([0-9]{1,3})\s*\)/,
-            parse: function (result) {
-                return [pInt(result[1]), pInt(result[2]), pInt(result[3]), 1];
-            }
-        }],
+        // RGBA color
+        // eslint-disable-next-line max-len
+        regex: /rgba\(\s*([0-9]{1,3})\s*,\s*([0-9]{1,3})\s*,\s*([0-9]{1,3})\s*,\s*([0-9]?(?:\.[0-9]+)?)\s*\)/,
+        parse: function (result) {
+            return [
+                pInt(result[1]),
+                pInt(result[2]),
+                pInt(result[3]),
+                parseFloat(result[4], 10)
+            ];
+        }
+    }, {
+        // RGB color
+        regex: /rgb\(\s*([0-9]{1,3})\s*,\s*([0-9]{1,3})\s*,\s*([0-9]{1,3})\s*\)/,
+        parse: function (result) {
+            return [pInt(result[1]), pInt(result[2]), pInt(result[3]), 1];
+        }
+    }],
     // Collection of named colors. Can be extended from the outside by adding
     // colors to Highcharts.Color.prototype.names.
     names: {
@@ -183,8 +184,7 @@ H.Color.prototype = {
                 return new H.Color(stop[1]);
             });
             // Solid colors
-        }
-        else {
+        } else {
             // Bitmasking as input[0] is not working for legacy IE.
             if (input &&
                 input.charAt &&
@@ -202,8 +202,7 @@ H.Color.prototype = {
                     // Handle short-form, e.g. #ABC
                     // In short form, the value is assumed to be the same
                     // for both nibbles for each component. e.g. #ABC = #AABBCC
-                }
-                else if (len === 4) {
+                } else if (len === 4) {
                     rgba = [
                         (((input & 0xF00) >> 4) |
                             (input & 0xF00) >> 8),
@@ -251,19 +250,15 @@ H.Color.prototype = {
                 ];
             });
             // it's NaN if gradient colors on a column chart
-        }
-        else if (rgba && isNumber(rgba[0])) {
+        } else if (rgba && isNumber(rgba[0])) {
             if (format === 'rgb' || (!format && rgba[3] === 1)) {
                 ret = 'rgb(' + rgba[0] + ',' + rgba[1] + ',' + rgba[2] + ')';
-            }
-            else if (format === 'a') {
+            } else if (format === 'a') {
                 ret = rgba[3];
-            }
-            else {
+            } else {
                 ret = 'rgba(' + rgba.join(',') + ')';
             }
-        }
-        else {
+        } else {
             ret = input;
         }
         return ret;
@@ -285,8 +280,7 @@ H.Color.prototype = {
             this.stops.forEach(function (stop) {
                 stop.brighten(alpha);
             });
-        }
-        else if (isNumber(alpha) && alpha !== 0) {
+        } else if (isNumber(alpha) && alpha !== 0) {
             for (i = 0; i < 3; i++) {
                 rgba[i] += pInt(alpha * 255);
                 if (rgba[i] < 0) {
@@ -337,8 +331,7 @@ H.Color.prototype = {
         if (!toRgba.length || !fromRgba || !fromRgba.length) {
             ret = to.input || 'none';
             // Interpolate
-        }
-        else {
+        } else {
             hasAlpha = (toRgba[3] !== 1 || fromRgba[3] !== 1);
             ret = (hasAlpha ? 'rgba(' : 'rgb(') +
                 Math.round(toRgba[0] + (fromRgba[0] - toRgba[0]) * (1 - pos)) +

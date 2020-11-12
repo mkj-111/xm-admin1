@@ -21,7 +21,8 @@ var isFn = function (x) {
  * @todo export this function to enable usage
  */
 var draw = function draw(params) {
-    var component = this, graphic = component.graphic, animatableAttribs = params.animatableAttribs, onComplete = params.onComplete, css = params.css, renderer = params.renderer;
+    var component = this, graphic = component.graphic, animatableAttribs = params.animatableAttribs,
+        onComplete = params.onComplete, css = params.css, renderer = params.renderer;
     if (component.shouldDraw()) {
         if (!graphic) {
             component.graphic = graphic =
@@ -32,8 +33,7 @@ var draw = function draw(params) {
             .css(css)
             .attr(params.attribs)
             .animate(animatableAttribs, params.isNew ? false : undefined, onComplete);
-    }
-    else if (graphic) {
+    } else if (graphic) {
         var destroy = function () {
             component.graphic = graphic = graphic.destroy();
             if (isFn(onComplete)) {
@@ -45,8 +45,7 @@ var draw = function draw(params) {
             graphic.animate(animatableAttribs, undefined, function () {
                 destroy();
             });
-        }
-        else {
+        } else {
             destroy();
         }
     }

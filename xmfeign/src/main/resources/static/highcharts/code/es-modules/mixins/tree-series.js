@@ -5,6 +5,7 @@
  * */
 import H from '../parts/Globals.js';
 import U from '../parts/Utilities.js';
+
 var extend = U.extend, isArray = U.isArray, isNumber = U.isNumber, isObject = U.isObject, pick = U.pick;
 var isBoolean = function (x) {
     return typeof x === 'boolean';
@@ -18,9 +19,11 @@ var isBoolean = function (x) {
  * @private
  */
 var setTreeValues = function setTreeValues(tree, options) {
-    var before = options.before, idRoot = options.idRoot, mapIdToNode = options.mapIdToNode, nodeRoot = mapIdToNode[idRoot], levelIsConstant = (isBoolean(options.levelIsConstant) ?
+    var before = options.before, idRoot = options.idRoot, mapIdToNode = options.mapIdToNode,
+        nodeRoot = mapIdToNode[idRoot], levelIsConstant = (isBoolean(options.levelIsConstant) ?
         options.levelIsConstant :
-        true), points = options.points, point = points[tree.i], optionsPoint = point && point.options || {}, childrenTotal = 0, children = [], value;
+        true), points = options.points, point = points[tree.i], optionsPoint = point && point.options || {},
+        childrenTotal = 0, children = [], value;
     extend(tree, {
         levelDynamic: tree.level - (levelIsConstant ? 0 : nodeRoot.level),
         name: pick(point && point.name, ''),
@@ -59,7 +62,12 @@ var setTreeValues = function setTreeValues(tree, options) {
  * @private
  */
 var getColor = function getColor(node, options) {
-    var index = options.index, mapOptionsToLevel = options.mapOptionsToLevel, parentColor = options.parentColor, parentColorIndex = options.parentColorIndex, series = options.series, colors = options.colors, siblings = options.siblings, points = series.points, getColorByPoint, chartOptionsChart = series.chart.options.chart, point, level, colorByPoint, colorIndexByPoint, color, colorIndex;
+    var index = options.index, mapOptionsToLevel = options.mapOptionsToLevel, parentColor = options.parentColor,
+        parentColorIndex = options.parentColorIndex, series = options.series, colors = options.colors,
+        siblings = options.siblings, points = series.points, getColorByPoint,
+        chartOptionsChart = series.chart.options.chart, point, level, colorByPoint, colorIndexByPoint, color,
+        colorIndex;
+
     /**
      * @private
      */
@@ -72,6 +80,7 @@ var getColor = function getColor(node, options) {
         }
         return color;
     }
+
     if (node) {
         point = points[node.i];
         level = mapOptionsToLevel[node.level] || {};
@@ -132,8 +141,7 @@ var getLevelOptions = function getLevelOptions(params) {
                     level = item.level + (levelIsConstant ? 0 : from - 1);
                     if (isObject(obj[level])) {
                         extend(obj[level], options);
-                    }
-                    else {
+                    } else {
                         obj[level] = options;
                     }
                 }

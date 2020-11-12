@@ -11,6 +11,7 @@
 import H from './Globals.js';
 import './Utilities.js';
 import './ColumnSeries.js';
+
 var seriesType = H.seriesType;
 /**
  * Bar series type.
@@ -21,24 +22,24 @@ var seriesType = H.seriesType;
  *
  * @augments Highcharts.Series
  */
-seriesType('bar', 'column', 
-/**
- * A bar series is a special type of column series where the columns are
- * horizontal.
- *
- * @sample highcharts/demo/bar-basic/
- *         Bar chart
- *
- * @extends   plotOptions.column
- * @product   highcharts
- * @apioption plotOptions.bar
- */
-/**
- * @ignore
- */
-null, {
-    inverted: true
-});
+seriesType('bar', 'column',
+    /**
+     * A bar series is a special type of column series where the columns are
+     * horizontal.
+     *
+     * @sample highcharts/demo/bar-basic/
+     *         Bar chart
+     *
+     * @extends   plotOptions.column
+     * @product   highcharts
+     * @apioption plotOptions.bar
+     */
+    /**
+     * @ignore
+     */
+    null, {
+        inverted: true
+    });
 /**
  * A `bar` series. If the [type](#series.bar.type) option is not specified,
  * it is inherited from [chart.type](#chart.type).

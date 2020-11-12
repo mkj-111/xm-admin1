@@ -40,6 +40,7 @@
 import H from '../parts/Globals.js';
 
 import U from '../parts/Utilities.js';
+
 var defined = U.defined,
     extend = U.extend,
     isNumber = U.isNumber,
@@ -409,8 +410,8 @@ extend(H.NavigationBindings.prototype, {
 
         positions = yAxes.map(function (yAxis) {
             var height = isPercentage(yAxis.options.height) ?
-                    parseFloat(yAxis.options.height) / 100 :
-                    yAxis.height / plotHeight,
+                parseFloat(yAxis.options.height) / 100 :
+                yAxis.height / plotHeight,
                 top = isPercentage(yAxis.options.top) ?
                     parseFloat(yAxis.options.top) / 100 :
                     correctFloat(
@@ -1733,7 +1734,7 @@ var stockToolsBindings = {
             fireEvent(
                 this,
                 'deselectButton',
-                { button: button }
+                {button: button}
             );
         }
     },
@@ -1758,7 +1759,7 @@ var stockToolsBindings = {
             fireEvent(
                 this,
                 'deselectButton',
-                { button: button }
+                {button: button}
             );
         }
     },
@@ -1784,7 +1785,7 @@ var stockToolsBindings = {
             fireEvent(
                 this,
                 'deselectButton',
-                { button: button }
+                {button: button}
             );
         }
     },
@@ -1808,7 +1809,7 @@ var stockToolsBindings = {
             fireEvent(
                 this,
                 'deselectButton',
-                { button: button }
+                {button: button}
             );
         }
     },
@@ -1831,7 +1832,7 @@ var stockToolsBindings = {
             fireEvent(
                 this,
                 'deselectButton',
-                { button: button }
+                {button: button}
             );
         }
     },
@@ -1854,7 +1855,7 @@ var stockToolsBindings = {
             fireEvent(
                 this,
                 'deselectButton',
-                { button: button }
+                {button: button}
             );
         }
     },
@@ -1877,7 +1878,7 @@ var stockToolsBindings = {
             fireEvent(
                 this,
                 'deselectButton',
-                { button: button }
+                {button: button}
             );
         }
     },
@@ -1899,7 +1900,7 @@ var stockToolsBindings = {
                 series = chart.series[0],
                 options = series.options,
                 lastVisiblePrice = options.lastVisiblePrice &&
-                                options.lastVisiblePrice.enabled,
+                    options.lastVisiblePrice.enabled,
                 lastPrice = options.lastPrice && options.lastPrice.enabled,
                 gui = chart.stockTools,
                 iconsURL = gui.getIconsURL();
@@ -1934,7 +1935,7 @@ var stockToolsBindings = {
             fireEvent(
                 this,
                 'deselectButton',
-                { button: button }
+                {button: button}
             );
         }
     },
@@ -2000,18 +2001,18 @@ var stockToolsBindings = {
                 if (this.toggledAnnotations) {
                     button.firstChild.style['background-image'] =
                         'url("' + iconsURL +
-                            'annotations-hidden.svg")';
+                        'annotations-hidden.svg")';
                 } else {
                     button.firstChild.style['background-image'] =
                         'url("' + iconsURL +
-                            'annotations-visible.svg")';
+                        'annotations-visible.svg")';
                 }
             }
 
             fireEvent(
                 this,
                 'deselectButton',
-                { button: button }
+                {button: button}
             );
         }
     },
@@ -2069,7 +2070,7 @@ var stockToolsBindings = {
             fireEvent(
                 this,
                 'deselectButton',
-                { button: button }
+                {button: button}
             );
         }
     }

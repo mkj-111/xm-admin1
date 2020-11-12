@@ -23,11 +23,13 @@
     }
 }(function (Highcharts) {
     var _modules = Highcharts ? Highcharts._modules : {};
+
     function _registerModule(obj, path, args, fn) {
         if (!obj.hasOwnProperty(path)) {
             obj[path] = fn.apply(null, args);
         }
     }
+
     _registerModule(_modules, 'modules/pyramid3d.src.js', [_modules['parts/Globals.js']], function (H) {
         /* *
          *
@@ -52,39 +54,39 @@
          * @requires modules/funnel3d
          * @requires modules/pyramid3d
          */
-        seriesType('pyramid3d', 'funnel3d', 
-        /**
-         * A pyramid3d is a 3d version of pyramid series type. Pyramid charts are
-         * a type of chart often used to visualize stages in a sales project,
-         * where the top are the initial stages with the most clients.
-         *
-         * @sample highcharts/demo/pyramid3d/
-         *         Pyramid3d
-         *
-         * @extends      plotOptions.funnel3d
-         * @excluding    neckHeight, neckWidth
-         * @product      highcharts
-         * @since        7.1.0
-         * @requires     highcharts-3d
-         * @requires     modules/cylinder
-         * @requires     modules/funnel3d
-         * @requires     modules/pyramid3d
-         * @optionparent plotOptions.pyramid3d
-         */
-        {
+        seriesType('pyramid3d', 'funnel3d',
             /**
-             * A reversed pyramid3d is funnel3d, but the latter supports neck
-             * related options: neckHeight and neckWidth
+             * A pyramid3d is a 3d version of pyramid series type. Pyramid charts are
+             * a type of chart often used to visualize stages in a sales project,
+             * where the top are the initial stages with the most clients.
              *
-             * @product highcharts
+             * @sample highcharts/demo/pyramid3d/
+             *         Pyramid3d
+             *
+             * @extends      plotOptions.funnel3d
+             * @excluding    neckHeight, neckWidth
+             * @product      highcharts
+             * @since        7.1.0
+             * @requires     highcharts-3d
+             * @requires     modules/cylinder
+             * @requires     modules/funnel3d
+             * @requires     modules/pyramid3d
+             * @optionparent plotOptions.pyramid3d
              */
-            reversed: true,
-            neckHeight: 0,
-            neckWidth: 0,
-            dataLabels: {
-                verticalAlign: 'top'
-            }
-        });
+            {
+                /**
+                 * A reversed pyramid3d is funnel3d, but the latter supports neck
+                 * related options: neckHeight and neckWidth
+                 *
+                 * @product highcharts
+                 */
+                reversed: true,
+                neckHeight: 0,
+                neckWidth: 0,
+                dataLabels: {
+                    verticalAlign: 'top'
+                }
+            });
         /**
          * A `pyramid3d` series. If the [type](#series.pyramid3d.type) option is
          * not specified, it is inherited from [chart.type](#chart.type).

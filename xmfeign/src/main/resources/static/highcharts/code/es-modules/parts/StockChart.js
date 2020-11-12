@@ -10,7 +10,9 @@
 'use strict';
 import H from './Globals.js';
 import U from './Utilities.js';
-var arrayMax = U.arrayMax, arrayMin = U.arrayMin, defined = U.defined, extend = U.extend, isNumber = U.isNumber, isString = U.isString, pick = U.pick, splat = U.splat;
+
+var arrayMax = U.arrayMax, arrayMin = U.arrayMin, defined = U.defined, extend = U.extend, isNumber = U.isNumber,
+    isString = U.isString, pick = U.pick, splat = U.splat;
 import './Chart.js';
 import './Axis.js';
 import './Point.js';
@@ -26,7 +28,11 @@ import './Scrollbar.js';
 // Has a dependency on RangeSelector due to the use of
 // defaultOptions.rangeSelector
 import './RangeSelector.js';
-var addEvent = H.addEvent, Axis = H.Axis, Chart = H.Chart, format = H.format, merge = H.merge, Point = H.Point, Renderer = H.Renderer, Series = H.Series, SVGRenderer = H.SVGRenderer, VMLRenderer = H.VMLRenderer, seriesProto = Series.prototype, seriesInit = seriesProto.init, seriesProcessData = seriesProto.processData, pointTooltipFormatter = Point.prototype.tooltipFormatter;
+
+var addEvent = H.addEvent, Axis = H.Axis, Chart = H.Chart, format = H.format, merge = H.merge, Point = H.Point,
+    Renderer = H.Renderer, Series = H.Series, SVGRenderer = H.SVGRenderer, VMLRenderer = H.VMLRenderer,
+    seriesProto = Series.prototype, seriesInit = seriesProto.init, seriesProcessData = seriesProto.processData,
+    pointTooltipFormatter = Point.prototype.tooltipFormatter;
 /**
  * Compare the values of the series against the first non-null, non-
  * zero value in the visible range. The y axis will show percentage
@@ -116,95 +122,96 @@ var addEvent = H.addEvent, Axis = H.Axis, Chart = H.Chart, format = H.format, me
  *         The chart object.
  */
 H.StockChart = H.stockChart = function (a, b, c) {
-    var hasRenderToArg = isString(a) || a.nodeName, options = arguments[hasRenderToArg ? 1 : 0], userOptions = options, 
-    // to increase performance, don't merge the data
-    seriesOptions = options.series, defaultOptions = H.getOptions(), opposite, 
-    // Always disable startOnTick:true on the main axis when the navigator
-    // is enabled (#1090)
-    navigatorEnabled = pick(options.navigator && options.navigator.enabled, defaultOptions.navigator.enabled, true), disableStartOnTick = navigatorEnabled ? {
-        startOnTick: false,
-        endOnTick: false
-    } : null;
+    var hasRenderToArg = isString(a) || a.nodeName, options = arguments[hasRenderToArg ? 1 : 0], userOptions = options,
+        // to increase performance, don't merge the data
+        seriesOptions = options.series, defaultOptions = H.getOptions(), opposite,
+        // Always disable startOnTick:true on the main axis when the navigator
+        // is enabled (#1090)
+        navigatorEnabled = pick(options.navigator && options.navigator.enabled, defaultOptions.navigator.enabled, true),
+        disableStartOnTick = navigatorEnabled ? {
+            startOnTick: false,
+            endOnTick: false
+        } : null;
     // apply X axis options to both single and multi y axes
     options.xAxis = splat(options.xAxis || {}).map(function (xAxisOptions, i) {
         return merge({
-            minPadding: 0,
-            maxPadding: 0,
-            overscroll: 0,
-            ordinal: true,
-            title: {
-                text: null
-            },
-            labels: {
-                overflow: 'justify'
-            },
-            showLastLabel: true
-        }, defaultOptions.xAxis, // #3802
-        defaultOptions.xAxis && defaultOptions.xAxis[i], // #7690
-        xAxisOptions, // user options
-        {
-            type: 'datetime',
-            categories: null
-        }, disableStartOnTick);
+                minPadding: 0,
+                maxPadding: 0,
+                overscroll: 0,
+                ordinal: true,
+                title: {
+                    text: null
+                },
+                labels: {
+                    overflow: 'justify'
+                },
+                showLastLabel: true
+            }, defaultOptions.xAxis, // #3802
+            defaultOptions.xAxis && defaultOptions.xAxis[i], // #7690
+            xAxisOptions, // user options
+            {
+                type: 'datetime',
+                categories: null
+            }, disableStartOnTick);
     });
     // apply Y axis options to both single and multi y axes
     options.yAxis = splat(options.yAxis || {}).map(function (yAxisOptions, i) {
         opposite = pick(yAxisOptions.opposite, true);
         return merge({
-            labels: {
-                y: -2
-            },
-            opposite: opposite,
-            /**
-             * @default {highcharts} true
-             * @default {highstock} false
-             * @apioption yAxis.showLastLabel
-             *
-             * @private
-             */
-            showLastLabel: !!(
-            // #6104, show last label by default for category axes
-            yAxisOptions.categories ||
-                yAxisOptions.type === 'category'),
-            title: {
-                text: null
-            }
-        }, defaultOptions.yAxis, // #3802
-        defaultOptions.yAxis && defaultOptions.yAxis[i], // #7690
-        yAxisOptions // user options
+                labels: {
+                    y: -2
+                },
+                opposite: opposite,
+                /**
+                 * @default {highcharts} true
+                 * @default {highstock} false
+                 * @apioption yAxis.showLastLabel
+                 *
+                 * @private
+                 */
+                showLastLabel: !!(
+                    // #6104, show last label by default for category axes
+                    yAxisOptions.categories ||
+                    yAxisOptions.type === 'category'),
+                title: {
+                    text: null
+                }
+            }, defaultOptions.yAxis, // #3802
+            defaultOptions.yAxis && defaultOptions.yAxis[i], // #7690
+            yAxisOptions // user options
         );
     });
     options.series = null;
     options = merge({
-        chart: {
-            panning: true,
-            pinchType: 'x'
-        },
-        navigator: {
-            enabled: navigatorEnabled
-        },
-        scrollbar: {
-            // #4988 - check if setOptions was called
-            enabled: pick(defaultOptions.scrollbar.enabled, true)
-        },
-        rangeSelector: {
-            // #4988 - check if setOptions was called
-            enabled: pick(defaultOptions.rangeSelector.enabled, true)
-        },
-        title: {
-            text: null
-        },
-        tooltip: {
-            split: pick(defaultOptions.tooltip.split, true),
-            crosshairs: true
-        },
-        legend: {
-            enabled: false
-        }
-    }, options, // user's options
-    {
-        isStock: true // internal flag
-    });
+            chart: {
+                panning: true,
+                pinchType: 'x'
+            },
+            navigator: {
+                enabled: navigatorEnabled
+            },
+            scrollbar: {
+                // #4988 - check if setOptions was called
+                enabled: pick(defaultOptions.scrollbar.enabled, true)
+            },
+            rangeSelector: {
+                // #4988 - check if setOptions was called
+                enabled: pick(defaultOptions.rangeSelector.enabled, true)
+            },
+            title: {
+                text: null
+            },
+            tooltip: {
+                split: pick(defaultOptions.tooltip.split, true),
+                crosshairs: true
+            },
+            legend: {
+                enabled: false
+            }
+        }, options, // user's options
+        {
+            isStock: true // internal flag
+        });
     options.series = userOptions.series = seriesOptions;
     return hasRenderToArg ?
         new Chart(a, options, c) :
@@ -214,20 +221,21 @@ H.StockChart = H.stockChart = function (a, b, c) {
 // series options are handled.
 addEvent(Series, 'setOptions', function (e) {
     var series = this, overrides;
+
     /**
      * @private
      */
     function is(type) {
         return H.seriesTypes[type] && series instanceof H.seriesTypes[type];
     }
+
     if (this.chart.options.isStock) {
         if (is('column') || is('columnrange')) {
             overrides = {
                 borderWidth: 0,
                 shadow: false
             };
-        }
-        else if (is('line') && !is('scatter') && !is('sma')) {
+        } else if (is('line') && !is('scatter') && !is('sma')) {
             overrides = {
                 marker: {
                     enabled: false,
@@ -243,7 +251,8 @@ addEvent(Series, 'setOptions', function (e) {
 // Override the automatic label alignment so that the first Y axis' labels
 // are drawn on top of the grid line, and subsequent axes are drawn outside
 addEvent(Axis, 'autoLabelAlign', function (e) {
-    var chart = this.chart, options = this.options, panes = chart._labelPanes = chart._labelPanes || {}, key, labelOptions = this.options.labels;
+    var chart = this.chart, options = this.options, panes = chart._labelPanes = chart._labelPanes || {}, key,
+        labelOptions = this.options.labels;
     if (this.chart.options.isStock && this.coll === 'yAxis') {
         key = options.top + ',' + options.height;
         // do it only for the first Y axis of each pane
@@ -271,8 +280,10 @@ addEvent(Axis, 'destroy', function () {
 addEvent(Axis, 'getPlotLinePath', function (e) {
     var axis = this, series = (this.isLinked && !this.series ?
         this.linkedParent.series :
-        this.series), chart = axis.chart, renderer = chart.renderer, axisLeft = axis.left, axisTop = axis.top, x1, y1, x2, y2, result = [], axes = [], // #3416 need a default array
-    axes2, uniqueAxes, translatedValue = e.translatedValue, value = e.value, force = e.force, transVal;
+        this.series), chart = axis.chart, renderer = chart.renderer, axisLeft = axis.left, axisTop = axis.top, x1, y1,
+        x2, y2, result = [], axes = [], // #3416 need a default array
+        axes2, uniqueAxes, translatedValue = e.translatedValue, value = e.value, force = e.force, transVal;
+
     /**
      * Return the other axis based on either the axis option or on related
      * series.
@@ -293,9 +304,10 @@ addEvent(Axis, 'getPlotLinePath', function (e) {
             return s[otherColl];
         });
     }
+
     if ( // For stock chart, by default render paths across the panes
-    // except the case when `acrossPanes` is disabled by user (#6644)
-    (chart.options.isStock && e.acrossPanes !== false) &&
+        // except the case when `acrossPanes` is disabled by user (#6644)
+        (chart.options.isStock && e.acrossPanes !== false) &&
         // Ignore in case of colorAxis or zAxis. #3360, #3524, #6720
         axis.coll === 'xAxis' || axis.coll === 'yAxis') {
         e.preventDefault();
@@ -343,8 +355,7 @@ addEvent(Axis, 'getPlotLinePath', function (e) {
                         (x1 < axisLeft || x1 > axisLeft + axis.width)) {
                         if (force) {
                             x1 = x2 = Math.min(Math.max(axisLeft, x1), axisLeft + axis.width);
-                        }
-                        else {
+                        } else {
                             skip = true;
                         }
                     }
@@ -352,8 +363,7 @@ addEvent(Axis, 'getPlotLinePath', function (e) {
                         result.push('M', x1, y1, 'L', x2, y2);
                     }
                 });
-            }
-            else {
+            } else {
                 uniqueAxes.forEach(function (axis2) {
                     var skip;
                     x1 = axis2.pos;
@@ -364,8 +374,7 @@ addEvent(Axis, 'getPlotLinePath', function (e) {
                         (y1 < axisTop || y1 > axisTop + axis.height)) {
                         if (force) {
                             y1 = y2 = Math.min(Math.max(axisTop, y1), axis.top + axis.height);
-                        }
-                        else {
+                        } else {
                             skip = true;
                         }
                     }
@@ -426,19 +435,19 @@ addEvent(Axis, 'afterDrawCrosshair', function (event) {
         return;
     }
     var chart = this.chart, options = this.options.crosshair.label, // the label's options
-    horiz = this.horiz, // axis orientation
-    opposite = this.opposite, // axis position
-    left = this.left, // left position
-    top = this.top, // top position
-    crossLabel = this.crossLabel, // the svgElement
-    posx, posy, crossBox, formatOption = options.format, formatFormat = '', limit, align, tickInside = this.options.tickPosition === 'inside', snap = this.crosshair.snap !== false, value, offset = 0, 
-    // Use last available event (#5287)
-    e = event.e || (this.cross && this.cross.e), point = event.point, lin2log = this.lin2log, min, max;
+        horiz = this.horiz, // axis orientation
+        opposite = this.opposite, // axis position
+        left = this.left, // left position
+        top = this.top, // top position
+        crossLabel = this.crossLabel, // the svgElement
+        posx, posy, crossBox, formatOption = options.format, formatFormat = '', limit, align,
+        tickInside = this.options.tickPosition === 'inside', snap = this.crosshair.snap !== false, value, offset = 0,
+        // Use last available event (#5287)
+        e = event.e || (this.cross && this.cross.e), point = event.point, lin2log = this.lin2log, min, max;
     if (this.isLog) {
         min = lin2log(this.min);
         max = lin2log(this.max);
-    }
-    else {
+    } else {
         min = this.min;
         max = this.max;
     }
@@ -450,37 +459,36 @@ addEvent(Axis, 'afterDrawCrosshair', function (event) {
         crossLabel = this.crossLabel = chart.renderer
             .label(null, null, null, options.shape || 'callout')
             .addClass('highcharts-crosshair-label' + (this.series[0] &&
-            ' highcharts-color-' + this.series[0].colorIndex))
+                ' highcharts-color-' + this.series[0].colorIndex))
             .attr({
-            align: options.align || align,
-            padding: pick(options.padding, 8),
-            r: pick(options.borderRadius, 3),
-            zIndex: 2
-        })
+                align: options.align || align,
+                padding: pick(options.padding, 8),
+                r: pick(options.borderRadius, 3),
+                zIndex: 2
+            })
             .add(this.labelGroup);
         // Presentational
         if (!chart.styledMode) {
             crossLabel
                 .attr({
-                fill: options.backgroundColor ||
-                    (this.series[0] && this.series[0].color) ||
-                    '#666666',
-                stroke: options.borderColor || '',
-                'stroke-width': options.borderWidth || 0
-            })
+                    fill: options.backgroundColor ||
+                        (this.series[0] && this.series[0].color) ||
+                        '#666666',
+                    stroke: options.borderColor || '',
+                    'stroke-width': options.borderWidth || 0
+                })
                 .css(extend({
-                color: '#ffffff',
-                fontWeight: 'normal',
-                fontSize: '11px',
-                textAlign: 'center'
-            }, options.style));
+                    color: '#ffffff',
+                    fontWeight: 'normal',
+                    fontSize: '11px',
+                    textAlign: 'center'
+                }, options.style));
         }
     }
     if (horiz) {
         posx = snap ? point.plotX + left : e.chartX;
         posy = top + (opposite ? 0 : this.height);
-    }
-    else {
+    } else {
         posx = opposite ? this.width + left : 0;
         posy = snap ? point.plotY + top : e.chartY;
     }
@@ -497,7 +505,7 @@ addEvent(Axis, 'afterDrawCrosshair', function (event) {
         this.toValue(horiz ? e.chartX : e.chartY);
     crossLabel.attr({
         text: formatOption ?
-            format(formatOption, { value: value }, chart.time) :
+            format(formatOption, {value: value}, chart.time) :
             options.formatter.call(this, value),
         x: posx,
         y: posy,
@@ -512,8 +520,7 @@ addEvent(Axis, 'afterDrawCrosshair', function (event) {
         if ((tickInside && !opposite) || (!tickInside && opposite)) {
             posy = crossLabel.y - crossBox.height;
         }
-    }
-    else {
+    } else {
         posy = crossLabel.y - (crossBox.height / 2);
     }
     // check the edges
@@ -522,8 +529,7 @@ addEvent(Axis, 'afterDrawCrosshair', function (event) {
             left: left - crossBox.x,
             right: left + this.width - crossBox.x
         };
-    }
-    else {
+    } else {
         limit = {
             left: this.labelAlign === 'left' ? left : 0,
             right: this.labelAlign === 'right' ?
@@ -592,8 +598,7 @@ seriesProto.setCompare = function (compare) {
                 if (compare === 'value') {
                     value -= compareValue;
                     // Compare percent
-                }
-                else {
+                } else {
                     value = 100 * (value / compareValue) -
                         (this.options.compareBase === 100 ? 0 : 100);
                 }
@@ -621,7 +626,8 @@ seriesProto.setCompare = function (compare) {
  * @function Highcharts.Series#processData
  */
 seriesProto.processData = function (force) {
-    var series = this, i, keyIndex = -1, processedXData, processedYData, compareStart = series.options.compareStart === true ? 0 : 1, length, compareValue;
+    var series = this, i, keyIndex = -1, processedXData, processedYData,
+        compareStart = series.options.compareStart === true ? 0 : 1, length, compareValue;
     // call base method
     seriesProcessData.apply(this, arguments);
     if (series.xAxis && series.processedYData) { // not pies
@@ -641,7 +647,7 @@ seriesProto.processData = function (force) {
                 processedYData[i];
             if (isNumber(compareValue) &&
                 processedXData[i + compareStart] >=
-                    series.xAxis.min &&
+                series.xAxis.min &&
                 compareValue !== 0) {
                 series.compareValue = compareValue;
                 break;
@@ -724,7 +730,8 @@ addEvent(Series, 'render', function () {
         // edge of the X axis (#11005).
         if (this.xAxis.axisLine) {
             var dist = chart.plotTop + chart.plotHeight -
-                this.yAxis.pos - this.yAxis.len, lineHeightCorrection = Math.floor(this.xAxis.axisLine.strokeWidth() / 2);
+                this.yAxis.pos - this.yAxis.len,
+                lineHeightCorrection = Math.floor(this.xAxis.axisLine.strokeWidth() / 2);
             if (dist >= 0) {
                 clipHeight -= Math.max(lineHeightCorrection - dist, 0);
             }
@@ -735,8 +742,7 @@ addEvent(Series, 'render', function () {
             this.clipBox.width = this.xAxis.len;
             this.clipBox.height = clipHeight;
             // On redrawing, resizing etc, update the clip rectangle
-        }
-        else if (chart[this.sharedClipKey]) {
+        } else if (chart[this.sharedClipKey]) {
             // animate in case resize is done during initial animation
             chart[this.sharedClipKey].animate({
                 width: this.xAxis.len,

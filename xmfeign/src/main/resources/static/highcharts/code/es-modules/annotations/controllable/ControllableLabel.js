@@ -2,6 +2,7 @@
 import H from './../../parts/Globals.js';
 
 import U from './../../parts/Utilities.js';
+
 var extend = U.extend,
     isNumber = U.isNumber,
     pick = U.pick;
@@ -403,7 +404,7 @@ H.merge(
                             negative: point.negative,
                             ttBelow: point.ttBelow,
                             h: anchorRelativePosition.height ||
-                            anchorRelativePosition.width
+                                anchorRelativePosition.width
                         }
                     );
                 } else if (itemOptions.positioner) {

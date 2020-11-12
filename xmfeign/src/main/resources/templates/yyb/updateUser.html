@@ -2,14 +2,17 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0, maximum-scale=1.0,user-scalable=no">
-    <meta name="format-detection" content="telephone=no" />
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1.0,minimum-scale=1.0, maximum-scale=1.0,user-scalable=no">
+    <meta name="format-detection" content="telephone=no"/>
     <title>小米帐号 -个人信息</title>
     <link type="text/css" rel="stylesheet" href="../css/reset.css">
     <link type="text/css" rel="stylesheet" href="../css/layout.css">
     <link type="text/css" rel="stylesheet" href="../css/modacctip.css">
     <style>
-        html{ overflow-y:scroll;}
+        html {
+            overflow-y: scroll;
+        }
     </style>
 </head>
 <body class="zh_CN">
@@ -20,10 +23,12 @@
         <div class="layout bugfix_ie6 dis_none">
             <div class="n-logo-area clearfix">
                 <div class="fl-l">
-                    <img src="/static/res/aff1713/account-static/respassport/acc-2014/img/milogo36.png" srcset="/static/res/aff1713/account-static/respassport/acc-2014/img/milogo36.png 1x, /static/res/aff1713/account-static/respassport/acc-2014/img/milogo36@2x.png 2x">
+                    <img src="/static/res/aff1713/account-static/respassport/acc-2014/img/milogo36.png"
+                         srcset="/static/res/aff1713/account-static/respassport/acc-2014/img/milogo36.png 1x, /static/res/aff1713/account-static/respassport/acc-2014/img/milogo36@2x.png 2x">
                     <span class="logo_title">小米帐号</span>
                 </div>
-                <a id="logoutLink" class="fl-r logout" href="/pass/logout?userId=2247120295&amp;callback=https://account.xiaomi.com">
+                <a id="logoutLink" class="fl-r logout"
+                   href="/pass/logout?userId=2247120295&amp;callback=https://account.xiaomi.com">
                     退出
                 </a>
             </div>
@@ -35,7 +40,9 @@
                         <p class="na-num">2247120295</p>
                     </div>
                     <div class="na-img-area fl-l">
-                        <div class="na-img-bg-area"><img src="https://cdn.cnbj1.fds.api.mi-img.com/user-avatar/542e8967-91ba-4347-8a4f-889c0c6459a3.jpg"></div>
+                        <div class="na-img-bg-area"><img
+                                src="https://cdn.cnbj1.fds.api.mi-img.com/user-avatar/542e8967-91ba-4347-8a4f-889c0c6459a3.jpg">
+                        </div>
                     </div>
                 </div>
             </div>
@@ -44,7 +51,8 @@
             <div class="n-main-nav clearfix">
                 <ul class="c_b">
                     <li class="current">
-                        <a href="/pass/auth/profile/home?cUserId=6RSHpJ1a8bQesd2EdySB9Wdyvoo&amp;userId=2247120295" title="个人信息" data-action="profile">个人信息</a>
+                        <a href="/pass/auth/profile/home?cUserId=6RSHpJ1a8bQesd2EdySB9Wdyvoo&amp;userId=2247120295"
+                           title="个人信息" data-action="profile">个人信息</a>
                         <em class="n-nav-corner"></em>
                     </li>
                 </ul>
@@ -64,7 +72,8 @@
                                 <div class="fdata lblgender">
                                     <p><span>性别：</span><span class="value" val="m" id="userSex"> 男 </span></p>
                                 </div>
-                                <div class="btn_editinfo"><a id="editInfoWap" class="btnadpt bg_normal" href="">编辑基础资料</a></div>
+                                <div class="btn_editinfo"><a id="editInfoWap" class="btnadpt bg_normal"
+                                                             href="">编辑基础资料</a></div>
                             </div>
                         </div>
                     </div>
@@ -72,7 +81,8 @@
             </div>
         </div>
         <div class="logout_wap log-out">
-            <a class="btnadpt bg_white" href="/pass/logout?userId=2247120295&amp;callback=https://account.xiaomi.com">退出</a>
+            <a class="btnadpt bg_white"
+               href="/pass/logout?userId=2247120295&amp;callback=https://account.xiaomi.com">退出</a>
         </div>
     </div>
 </div>
@@ -92,21 +102,22 @@
 <div id="img_cache" style="visibility:hidden;"></div>
 </body>
 <script type="text/javascript">
-$(function () {
-    findStatus();
-})
-var name = "";
-var id = 0;
-var sex = "";
-var phone="";
-function findStatus() {
-    $.ajax({
-        url: '/user/findLoginStatus',
-        success: function (data) {
-            $("#userName").html(data.userName);
-
-        }
+    $(function () {
+        findStatus();
     })
-}
+    var name = "";
+    var id = 0;
+    var sex = "";
+    var phone = "";
+
+    function findStatus() {
+        $.ajax({
+            url: '/user/findLoginStatus',
+            success: function (data) {
+                $("#userName").html(data.userName);
+
+            }
+        })
+    }
 </script>
 </html>

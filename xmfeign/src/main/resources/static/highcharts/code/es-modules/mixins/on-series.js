@@ -10,6 +10,7 @@
 'use strict';
 import H from '../parts/Globals.js';
 import U from '../parts/Utilities.js';
+
 var defined = U.defined;
 var seriesTypes = H.seriesTypes, stableSort = H.stableSort;
 /**
@@ -39,8 +40,13 @@ var onSeriesMixin = {
      */
     translate: function () {
         seriesTypes.column.prototype.translate.apply(this);
-        var series = this, options = series.options, chart = series.chart, points = series.points, cursor = points.length - 1, point, lastPoint, optionsOnSeries = options.onSeries, onSeries = (optionsOnSeries &&
-            chart.get(optionsOnSeries)), onKey = options.onKey || 'y', step = onSeries && onSeries.options.step, onData = (onSeries && onSeries.points), i = onData && onData.length, inverted = chart.inverted, xAxis = series.xAxis, yAxis = series.yAxis, xOffset = 0, leftPoint, lastX, rightPoint, currentDataGrouping, distanceRatio;
+        var series = this, options = series.options, chart = series.chart, points = series.points,
+            cursor = points.length - 1, point, lastPoint, optionsOnSeries = options.onSeries,
+            onSeries = (optionsOnSeries &&
+                chart.get(optionsOnSeries)), onKey = options.onKey || 'y', step = onSeries && onSeries.options.step,
+            onData = (onSeries && onSeries.points), i = onData && onData.length, inverted = chart.inverted,
+            xAxis = series.xAxis, yAxis = series.yAxis, xOffset = 0, leftPoint, lastX, rightPoint, currentDataGrouping,
+            distanceRatio;
         // relate to a master series
         if (onSeries && onSeries.visible && i) {
             xOffset = (onSeries.pointXOffset || 0) + (onSeries.barW || 0) / 2;
@@ -68,14 +74,14 @@ var onSeriesMixin = {
                                 // the distance ratio, between 0 and 1
                                 distanceRatio =
                                     (point.x - leftPoint.x) /
-                                        (rightPoint.x - leftPoint.x);
+                                    (rightPoint.x - leftPoint.x);
                                 point.plotY +=
                                     distanceRatio *
-                                        // the plotY distance
-                                        (rightPoint[onKey] - leftPoint[onKey]);
+                                    // the plotY distance
+                                    (rightPoint[onKey] - leftPoint[onKey]);
                                 point.y +=
                                     distanceRatio *
-                                        (rightPoint.y - leftPoint.y);
+                                    (rightPoint.y - leftPoint.y);
                             }
                         }
                     }
@@ -106,13 +112,11 @@ var onSeriesMixin = {
                         point.plotX = defined(point.y) ?
                             yAxis.translate(point.y, 0, 0, 0, 1) :
                             0;
-                    }
-                    else {
+                    } else {
                         point.plotY = (xAxis.opposite ? 0 : series.yAxis.len) +
                             xAxis.offset; // For the windbarb demo
                     }
-                }
-                else {
+                } else {
                     point.shapeArgs = {}; // 847
                 }
             }

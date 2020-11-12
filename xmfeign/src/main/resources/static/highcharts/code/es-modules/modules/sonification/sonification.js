@@ -12,6 +12,7 @@
 
 import H from '../../parts/Globals.js';
 import U from '../../parts/Utilities.js';
+
 var extend = U.extend;
 
 import Instrument from './Instrument.js';
@@ -73,7 +74,8 @@ import TimelineClasses from './Timeline.js';
  * @private
  * @name Highcharts.SonificationObject#TimelinePath
  * @type {Function}
- *//**
+ */
+/**
  * The Timeline class.
  * @private
  * @name Highcharts.SonificationObject#Timeline

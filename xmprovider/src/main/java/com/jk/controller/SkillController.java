@@ -22,7 +22,7 @@ public class SkillController {
 
     //查询所有秒杀商品
     @RequestMapping("findskill")
-    public List<SkillBean>findskill(){
+    public List<SkillBean> findskill() {
         return skillService.findskill();
     }
 }

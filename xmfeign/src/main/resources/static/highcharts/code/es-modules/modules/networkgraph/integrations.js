@@ -51,7 +51,8 @@ H.networkgraphIntegrations = {
          * @return {void}
          */
         barycenter: function () {
-            var gravitationalConstant = this.options.gravitationalConstant, xFactor = this.barycenter.xFactor, yFactor = this.barycenter.yFactor;
+            var gravitationalConstant = this.options.gravitationalConstant, xFactor = this.barycenter.xFactor,
+                yFactor = this.barycenter.yFactor;
             // To consider:
             xFactor = (xFactor - (this.box.left + this.box.width) / 2) *
                 gravitationalConstant;
@@ -104,7 +105,8 @@ H.networkgraphIntegrations = {
          * @return {void}
          */
         attractive: function (link, force, distanceXY) {
-            var massFactor = link.getMass(), translatedX = -distanceXY.x * force * this.diffTemperature, translatedY = -distanceXY.y * force * this.diffTemperature;
+            var massFactor = link.getMass(), translatedX = -distanceXY.x * force * this.diffTemperature,
+                translatedY = -distanceXY.y * force * this.diffTemperature;
             if (!link.fromNode.fixedPosition) {
                 link.fromNode.plotX -=
                     translatedX * massFactor.fromNode / link.fromNode.degree;
@@ -151,12 +153,13 @@ H.networkgraphIntegrations = {
          * @return {void}
          */
         integrate: function (layout, node) {
-            var friction = -layout.options.friction, maxSpeed = layout.options.maxSpeed, prevX = node.prevX, prevY = node.prevY, 
-            // Apply friciton:
-            diffX = ((node.plotX + node.dispX -
-                prevX) * friction), diffY = ((node.plotY + node.dispY -
+            var friction = -layout.options.friction, maxSpeed = layout.options.maxSpeed, prevX = node.prevX,
+                prevY = node.prevY,
+                // Apply friciton:
+                diffX = ((node.plotX + node.dispX -
+                    prevX) * friction), diffY = ((node.plotY + node.dispY -
                 prevY) * friction), abs = Math.abs, signX = abs(diffX) / (diffX || 1), // need to deal with 0
-            signY = abs(diffY) / (diffY || 1);
+                signY = abs(diffY) / (diffY || 1);
             // Apply max speed:
             diffX = signX * Math.min(maxSpeed, Math.abs(diffX));
             diffY = signY * Math.min(maxSpeed, Math.abs(diffY));
@@ -235,7 +238,8 @@ H.networkgraphIntegrations = {
          * @return {void}
          */
         barycenter: function () {
-            var gravitationalConstant = this.options.gravitationalConstant, xFactor = this.barycenter.xFactor, yFactor = this.barycenter.yFactor;
+            var gravitationalConstant = this.options.gravitationalConstant, xFactor = this.barycenter.xFactor,
+                yFactor = this.barycenter.yFactor;
             this.nodes.forEach(function (node) {
                 if (!node.fixedPosition) {
                     var degree = node.getDegree(), phi = degree * (1 + degree / 2);
@@ -283,7 +287,8 @@ H.networkgraphIntegrations = {
          * @return {void}
          */
         attractive: function (link, force, distanceXY, distanceR) {
-            var massFactor = link.getMass(), translatedX = (distanceXY.x / distanceR) * force, translatedY = (distanceXY.y / distanceR) * force;
+            var massFactor = link.getMass(), translatedX = (distanceXY.x / distanceR) * force,
+                translatedY = (distanceXY.y / distanceR) * force;
             if (!link.fromNode.fixedPosition) {
                 link.fromNode.dispX -=
                     translatedX * massFactor.fromNode / link.fromNode.degree;

@@ -10,39 +10,40 @@
 'use strict';
 import H from '../parts/Globals.js';
 import U from '../parts/Utilities.js';
+
 var objectEach = U.objectEach;
 /**
  * @interface Highcharts.AjaxSettingsObject
  */ /**
-* The payload to send.
-*
-* @name Highcharts.AjaxSettingsObject#data
-* @type {string|Highcharts.Dictionary<any>}
-*/ /**
-* The data type expected.
-* @name Highcharts.AjaxSettingsObject#dataType
-* @type {"json"|"xml"|"text"|"octet"}
-*/ /**
-* Function to call on error.
-* @name Highcharts.AjaxSettingsObject#error
-* @type {Function}
-*/ /**
-* The headers; keyed on header name.
-* @name Highcharts.AjaxSettingsObject#headers
-* @type {Highcharts.Dictionary<string>}
-*/ /**
-* Function to call on success.
-* @name Highcharts.AjaxSettingsObject#success
-* @type {Function}
-*/ /**
-* The verb to use.
-* @name Highcharts.AjaxSettingsObject#type
-* @type {"GET"|"POST"|"UPDATE"|"DELETE"}
-*/ /**
-* The URL to call.
-* @name Highcharts.AjaxSettingsObject#url
-* @type {string}
-*/
+ * The payload to send.
+ *
+ * @name Highcharts.AjaxSettingsObject#data
+ * @type {string|Highcharts.Dictionary<any>}
+ */ /**
+ * The data type expected.
+ * @name Highcharts.AjaxSettingsObject#dataType
+ * @type {"json"|"xml"|"text"|"octet"}
+ */ /**
+ * Function to call on error.
+ * @name Highcharts.AjaxSettingsObject#error
+ * @type {Function}
+ */ /**
+ * The headers; keyed on header name.
+ * @name Highcharts.AjaxSettingsObject#headers
+ * @type {Highcharts.Dictionary<string>}
+ */ /**
+ * Function to call on success.
+ * @name Highcharts.AjaxSettingsObject#success
+ * @type {Function}
+ */ /**
+ * The verb to use.
+ * @name Highcharts.AjaxSettingsObject#type
+ * @type {"GET"|"POST"|"UPDATE"|"DELETE"}
+ */ /**
+ * The URL to call.
+ * @name Highcharts.AjaxSettingsObject#url
+ * @type {string}
+ */
 /**
  * Perform an Ajax call.
  *
@@ -69,6 +70,7 @@ H.ajax = function (attr) {
         text: 'text/plain',
         octet: 'application/octet-stream'
     }, r = new XMLHttpRequest();
+
     /**
      * @private
      * @param {XMLHttpRequest} xhr - Internal request object.
@@ -78,11 +80,11 @@ H.ajax = function (attr) {
     function handleError(xhr, err) {
         if (options.error) {
             options.error(xhr, err);
-        }
-        else {
+        } else {
             // @todo Maybe emit a highcharts error event here
         }
     }
+
     if (!options.url) {
         return false;
     }
@@ -102,8 +104,7 @@ H.ajax = function (attr) {
                 if (options.dataType === 'json') {
                     try {
                         res = JSON.parse(res);
-                    }
-                    catch (e) {
+                    } catch (e) {
                         return handleError(r, e);
                     }
                 }
@@ -114,8 +115,7 @@ H.ajax = function (attr) {
     };
     try {
         options.data = JSON.stringify(options.data);
-    }
-    catch (e) {
+    } catch (e) {
         // empty
     }
     r.send(options.data || true);

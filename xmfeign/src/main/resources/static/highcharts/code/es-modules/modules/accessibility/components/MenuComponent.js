@@ -12,6 +12,7 @@
 
 import H from '../../../parts/Globals.js';
 import U from '../../../parts/Utilities.js';
+
 var extend = U.extend;
 
 import AccessibilityComponent from '../AccessibilityComponent.js';
@@ -145,7 +146,8 @@ function exportingShouldHaveA11y(chart) {
  * @class
  * @name Highcharts.MenuComponent
  */
-var MenuComponent = function () {};
+var MenuComponent = function () {
+};
 MenuComponent.prototype = new AccessibilityComponent();
 extend(MenuComponent.prototype, /** @lends Highcharts.MenuComponent */ {
 
@@ -223,7 +225,7 @@ extend(MenuComponent.prototype, /** @lends Highcharts.MenuComponent */ {
                 a11yOptions.landmarkVerbosity === 'all' ? {
                     'aria-label': chart.langFormat(
                         'accessibility.exporting.exportRegionLabel',
-                        { chart: chart }
+                        {chart: chart}
                     ),
                     'role': 'region'
                 } : null
@@ -236,7 +238,7 @@ extend(MenuComponent.prototype, /** @lends Highcharts.MenuComponent */ {
                 {
                     'aria-label': chart.langFormat(
                         'accessibility.exporting.menuButtonLabel',
-                        { chart: chart }
+                        {chart: chart}
                     ),
                     'aria-expanded': 'false'
                 }
@@ -272,7 +274,7 @@ extend(MenuComponent.prototype, /** @lends Highcharts.MenuComponent */ {
             parentDiv.setAttribute(
                 'aria-label',
                 chart.langFormat(
-                    'accessibility.exporting.chartMenuLabel', { chart: chart }
+                    'accessibility.exporting.chartMenuLabel', {chart: chart}
                 )
             );
         }
@@ -379,7 +381,7 @@ extend(MenuComponent.prototype, /** @lends Highcharts.MenuComponent */ {
 
         // Try to highlight next item in list. Highlighting e.g.
         // separators will fail.
-        for (;i < chart.exportDivElements.length; ++i) {
+        for (; i < chart.exportDivElements.length; ++i) {
             if (chart.highlightExportItem(i)) {
                 return response.success;
             }

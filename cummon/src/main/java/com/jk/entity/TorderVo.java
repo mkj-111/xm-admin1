@@ -8,13 +8,12 @@ import java.util.Date;
 public class TorderVo {
 
 
-
     private Integer tNumber;// 订单编号
     private String tUser;//用户微信
     private String tMobile;//用户手机号
     private String tCurriculum;//课程名称
     private String tIndent;// 订单金额 int
-    private Integer tState ;//  订单状态 int (1.待支付2.已关闭3.待确认4.学习中5.已完成)
+    private Integer tState;//  订单状态 int (1.待支付2.已关闭3.待确认4.学习中5.已完成)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @JsonFormat(pattern = "yyyy-MM-dd")
     private Date submissionTime;//提交时间 date

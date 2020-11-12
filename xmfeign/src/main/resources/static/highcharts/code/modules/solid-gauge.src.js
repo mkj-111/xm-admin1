@@ -23,11 +23,13 @@
     }
 }(function (Highcharts) {
     var _modules = Highcharts ? Highcharts._modules : {};
+
     function _registerModule(obj, path, args, fn) {
         if (!obj.hasOwnProperty(path)) {
             obj[path] = fn.apply(null, args);
         }
     }
+
     _registerModule(_modules, 'modules/solid-gauge.src.js', [_modules['parts/Globals.js'], _modules['parts/Utilities.js']], function (H, U) {
         /* *
          *
@@ -44,11 +46,12 @@
          * Additional options, depending on the actual symbol drawn.
          *
          * @interface Highcharts.SymbolOptionsObject
-         */ /**
-        * Whether to draw rounded edges.
-        * @name Highcharts.SymbolOptionsObject#rounded
-        * @type {boolean|undefined}
-        */
+         */
+        /**
+         * Whether to draw rounded edges.
+         * @name Highcharts.SymbolOptionsObject#rounded
+         * @type {boolean|undefined}
+         */
         var extend = U.extend, isNumber = U.isNumber, pick = U.pick, pInt = U.pInt;
         var wrap = H.wrap, Renderer = H.Renderer, colorAxisMethods;
         /**
@@ -78,7 +81,9 @@
         wrap(Renderer.prototype.symbols, 'arc', function (proceed, x, y, w, h, options) {
             var arc = proceed, path = arc(x, y, w, h, options);
             if (options.rounded) {
-                var r = options.r || w, smallR = (r - options.innerR) / 2, x1 = path[1], y1 = path[2], x2 = path[12], y2 = path[13], roundStart = ['A', smallR, smallR, 0, 1, 1, x1, y1], roundEnd = ['A', smallR, smallR, 0, 1, 1, x2, y2];
+                var r = options.r || w, smallR = (r - options.innerR) / 2, x1 = path[1], y1 = path[2], x2 = path[12],
+                    y2 = path[13], roundStart = ['A', smallR, smallR, 0, 1, 1, x1, y1],
+                    roundEnd = ['A', smallR, smallR, 0, 1, 1, x2, y2];
                 // Insert rounded edge on end, and remove line.
                 path.splice.apply(path, [path.length - 1, 0].concat(roundStart));
                 // Insert rounded edge on end, and remove line.
@@ -104,8 +109,7 @@
                             if (colorCounter === colors.length) {
                                 colorCounter = 0;
                             }
-                        }
-                        else {
+                        } else {
                             dataClass.color = H.color(options.minColor).tweenTo(H.color(options.maxColor), i / (userOptions.dataClasses.length - 1));
                         }
                     }
@@ -138,8 +142,7 @@
                             break;
                         }
                     }
-                }
-                else {
+                } else {
                     if (this.isLog) {
                         value = this.val2lin(value);
                     }
@@ -275,9 +278,11 @@
             },
             // Draw the points where each point is one needle.
             drawPoints: function () {
-                var series = this, yAxis = series.yAxis, center = yAxis.center, options = series.options, renderer = series.chart.renderer, overshoot = options.overshoot, overshootVal = isNumber(overshoot) ?
-                    overshoot / 180 * Math.PI :
-                    0, thresholdAngleRad;
+                var series = this, yAxis = series.yAxis, center = yAxis.center, options = series.options,
+                    renderer = series.chart.renderer, overshoot = options.overshoot,
+                    overshootVal = isNumber(overshoot) ?
+                        overshoot / 180 * Math.PI :
+                        0, thresholdAngleRad;
                 // Handle the threshold option
                 if (isNumber(options.threshold)) {
                     thresholdAngleRad = yAxis.startAngleRad + yAxis.translate(options.threshold, null, null, null, true);
@@ -287,7 +292,12 @@
                     // #10630 null point should not be draw
                     if (!point.isNull) { // condition like in pie chart
                         var graphic = point.graphic, rotation = (yAxis.startAngleRad +
-                            yAxis.translate(point.y, null, null, null, true)), radius = ((pInt(pick(point.options.radius, options.radius, 100)) * center[2]) / 200), innerRadius = ((pInt(pick(point.options.innerRadius, options.innerRadius, 60)) * center[2]) / 200), shapeArgs, d, toColor = yAxis.toColor(point.y, point), axisMinAngle = Math.min(yAxis.startAngleRad, yAxis.endAngleRad), axisMaxAngle = Math.max(yAxis.startAngleRad, yAxis.endAngleRad), minAngle, maxAngle;
+                            yAxis.translate(point.y, null, null, null, true)),
+                            radius = ((pInt(pick(point.options.radius, options.radius, 100)) * center[2]) / 200),
+                            innerRadius = ((pInt(pick(point.options.innerRadius, options.innerRadius, 60)) * center[2]) / 200),
+                            shapeArgs, d, toColor = yAxis.toColor(point.y, point),
+                            axisMinAngle = Math.min(yAxis.startAngleRad, yAxis.endAngleRad),
+                            axisMaxAngle = Math.max(yAxis.startAngleRad, yAxis.endAngleRad), minAngle, maxAngle;
                         if (toColor === 'none') { // #3708
                             toColor = point.color || series.color || 'none';
                         }
@@ -317,17 +327,16 @@
                         point.startR = radius; // For PieSeries.animate
                         if (graphic) {
                             d = shapeArgs.d;
-                            graphic.animate(extend({ fill: toColor }, shapeArgs));
+                            graphic.animate(extend({fill: toColor}, shapeArgs));
                             if (d) {
                                 shapeArgs.d = d; // animate alters it
                             }
-                        }
-                        else {
+                        } else {
                             point.graphic = graphic = renderer.arc(shapeArgs)
                                 .attr({
-                                fill: toColor,
-                                'sweep-flag': 0
-                            })
+                                    fill: toColor,
+                                    'sweep-flag': 0
+                                })
                                 .add(series.group);
                             if (!series.chart.styledMode) {
                                 if (options.linecap !== 'square') {

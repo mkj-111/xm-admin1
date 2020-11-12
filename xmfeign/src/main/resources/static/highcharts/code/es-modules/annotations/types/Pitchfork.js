@@ -21,8 +21,8 @@ Pitchfork.findEdgePoint = function (
     secondAnglePoint
 ) {
     var angle = Math.atan2(
-            secondAnglePoint.plotY - firstAnglePoint.plotY,
-            secondAnglePoint.plotX - firstAnglePoint.plotX
+        secondAnglePoint.plotY - firstAnglePoint.plotY,
+        secondAnglePoint.plotX - firstAnglePoint.plotX
         ),
         distance = 1e7;
 

@@ -12,27 +12,27 @@ import H from './Globals.js';
 /**
  * @interface Highcharts.PointEventsOptionsObject
  */ /**
-* Fires when the point is selected either programmatically or following a click
-* on the point. One parameter, `event`, is passed to the function. Returning
-* `false` cancels the operation.
-* @name Highcharts.PointEventsOptionsObject#select
-* @type {Highcharts.PointSelectCallbackFunction|undefined}
-*/ /**
-* Fires when the point is unselected either programmatically or following a
-* click on the point. One parameter, `event`, is passed to the function.
-* Returning `false` cancels the operation.
-* @name Highcharts.PointEventsOptionsObject#unselect
-* @type {Highcharts.PointUnselectCallbackFunction|undefined}
-*/
+ * Fires when the point is selected either programmatically or following a click
+ * on the point. One parameter, `event`, is passed to the function. Returning
+ * `false` cancels the operation.
+ * @name Highcharts.PointEventsOptionsObject#select
+ * @type {Highcharts.PointSelectCallbackFunction|undefined}
+ */ /**
+ * Fires when the point is unselected either programmatically or following a
+ * click on the point. One parameter, `event`, is passed to the function.
+ * Returning `false` cancels the operation.
+ * @name Highcharts.PointEventsOptionsObject#unselect
+ * @type {Highcharts.PointUnselectCallbackFunction|undefined}
+ */
 /**
  * Information about the select/unselect event.
  *
  * @interface Highcharts.PointInteractionEventObject
  * @extends global.Event
  */ /**
-* @name Highcharts.PointInteractionEventObject#accumulate
-* @type {boolean}
-*/
+ * @name Highcharts.PointInteractionEventObject#accumulate
+ * @type {boolean}
+ */
 /**
  * Gets fired when the point is selected either programmatically or following a
  * click on the point.
@@ -58,13 +58,19 @@ import H from './Globals.js';
  *        Event that occured.
  */
 import U from './Utilities.js';
-var defined = U.defined, extend = U.extend, isArray = U.isArray, isObject = U.isObject, objectEach = U.objectEach, pick = U.pick;
+
+var defined = U.defined, extend = U.extend, isArray = U.isArray, isObject = U.isObject, objectEach = U.objectEach,
+    pick = U.pick;
 import './Chart.js';
 import './Options.js';
 import './Legend.js';
 import './Point.js';
 import './Series.js';
-var addEvent = H.addEvent, Chart = H.Chart, createElement = H.createElement, css = H.css, defaultOptions = H.defaultOptions, defaultPlotOptions = H.defaultPlotOptions, fireEvent = H.fireEvent, hasTouch = H.hasTouch, Legend = H.Legend, merge = H.merge, Point = H.Point, Series = H.Series, seriesTypes = H.seriesTypes, svg = H.svg, TrackerMixin;
+
+var addEvent = H.addEvent, Chart = H.Chart, createElement = H.createElement, css = H.css,
+    defaultOptions = H.defaultOptions, defaultPlotOptions = H.defaultPlotOptions, fireEvent = H.fireEvent,
+    hasTouch = H.hasTouch, Legend = H.Legend, merge = H.merge, Point = H.Point, Series = H.Series,
+    seriesTypes = H.seriesTypes, svg = H.svg, TrackerMixin;
 /* eslint-disable valid-jsdoc */
 /**
  * TrackerMixin for points and graphs.
@@ -102,8 +108,7 @@ TrackerMixin = H.TrackerMixin = {
             dataLabels.forEach(function (dataLabel) {
                 if (dataLabel.div) {
                     dataLabel.div.point = point;
-                }
-                else {
+                } else {
                     dataLabel.element.point = point;
                 }
             });
@@ -117,15 +122,15 @@ TrackerMixin = H.TrackerMixin = {
                         .addClass('highcharts-tracker')
                         .on('mouseover', onMouseOver)
                         .on('mouseout', function (e) {
-                        pointer.onTrackerMouseOut(e);
-                    });
+                            pointer.onTrackerMouseOut(e);
+                        });
                     if (hasTouch) {
                         series[key].on('touchstart', onMouseOver);
                     }
                     if (!chart.styledMode && series.options.cursor) {
                         series[key]
                             .css(css)
-                            .css({ cursor: series.options.cursor });
+                            .css({cursor: series.options.cursor});
                     }
                 }
             });
@@ -146,27 +151,30 @@ TrackerMixin = H.TrackerMixin = {
      * @fires Highcharts.Series#event:afterDrawTracker
      */
     drawTrackerGraph: function () {
-        var series = this, options = series.options, trackByArea = options.trackByArea, trackerPath = [].concat(trackByArea ?
-            series.areaPath :
-            series.graphPath), trackerPathLength = trackerPath.length, chart = series.chart, pointer = chart.pointer, renderer = chart.renderer, snap = chart.options.tooltip.snap, tracker = series.tracker, i, onMouseOver = function () {
-            if (chart.hoverSeries !== series) {
-                series.onMouseOver();
-            }
-        }, 
-        /*
-         * Empirical lowest possible opacities for TRACKER_FILL for an
-         * element to stay invisible but clickable
-         * IE6: 0.002
-         * IE7: 0.002
-         * IE8: 0.002
-         * IE9: 0.00000000001 (unlimited)
-         * IE10: 0.0001 (exporting only)
-         * FF: 0.00000000001 (unlimited)
-         * Chrome: 0.000001
-         * Safari: 0.000001
-         * Opera: 0.00000000001 (unlimited)
-         */
-        TRACKER_FILL = 'rgba(192,192,192,' + (svg ? 0.0001 : 0.002) + ')';
+        var series = this, options = series.options, trackByArea = options.trackByArea,
+            trackerPath = [].concat(trackByArea ?
+                series.areaPath :
+                series.graphPath), trackerPathLength = trackerPath.length, chart = series.chart,
+            pointer = chart.pointer, renderer = chart.renderer, snap = chart.options.tooltip.snap,
+            tracker = series.tracker, i, onMouseOver = function () {
+                if (chart.hoverSeries !== series) {
+                    series.onMouseOver();
+                }
+            },
+            /*
+             * Empirical lowest possible opacities for TRACKER_FILL for an
+             * element to stay invisible but clickable
+             * IE6: 0.002
+             * IE7: 0.002
+             * IE8: 0.002
+             * IE9: 0.00000000001 (unlimited)
+             * IE10: 0.0001 (exporting only)
+             * FF: 0.00000000001 (unlimited)
+             * Chrome: 0.000001
+             * Safari: 0.000001
+             * Opera: 0.00000000001 (unlimited)
+             */
+            TRACKER_FILL = 'rgba(192,192,192,' + (svg ? 0.0001 : 0.002) + ')';
         // Extend end points. A better way would be to use round linecaps,
         // but those are not clickable in VML.
         if (trackerPathLength && !trackByArea) {
@@ -185,17 +193,16 @@ TrackerMixin = H.TrackerMixin = {
         }
         // draw the tracker
         if (tracker) {
-            tracker.attr({ d: trackerPath });
-        }
-        else if (series.graph) { // create
+            tracker.attr({d: trackerPath});
+        } else if (series.graph) { // create
             series.tracker = renderer.path(trackerPath)
                 .attr({
-                visibility: series.visible ? 'visible' : 'hidden',
-                zIndex: 2
-            })
+                    visibility: series.visible ? 'visible' : 'hidden',
+                    zIndex: 2
+                })
                 .addClass(trackByArea ?
-                'highcharts-tracker-area' :
-                'highcharts-tracker-line')
+                    'highcharts-tracker-area' :
+                    'highcharts-tracker-line')
                 .add(series.group);
             if (!chart.styledMode) {
                 series.tracker.attr({
@@ -213,10 +220,10 @@ TrackerMixin = H.TrackerMixin = {
                 tracker.addClass('highcharts-tracker')
                     .on('mouseover', onMouseOver)
                     .on('mouseout', function (e) {
-                    pointer.onTrackerMouseOut(e);
-                });
+                        pointer.onTrackerMouseOut(e);
+                    });
                 if (options.cursor && !chart.styledMode) {
-                    tracker.css({ cursor: options.cursor });
+                    tracker.css({cursor: options.cursor});
                 }
                 if (hasTouch) {
                     tracker.on('touchstart', onMouseOver);
@@ -263,72 +270,72 @@ extend(Legend.prototype, {
      * @fires Highcharts.Series#event:legendItemClick
      */
     setItemEvents: function (item, legendItem, useHTML) {
-        var legend = this, boxWrapper = legend.chart.renderer.boxWrapper, isPoint = item instanceof Point, activeClass = 'highcharts-legend-' +
-            (isPoint ? 'point' : 'series') + '-active', styledMode = legend.chart.styledMode;
+        var legend = this, boxWrapper = legend.chart.renderer.boxWrapper, isPoint = item instanceof Point,
+            activeClass = 'highcharts-legend-' +
+                (isPoint ? 'point' : 'series') + '-active', styledMode = legend.chart.styledMode;
         // Set the events on the item group, or in case of useHTML, the item
         // itself (#1249)
         (useHTML ? legendItem : item.legendGroup)
             .on('mouseover', function () {
-            if (item.visible) {
+                if (item.visible) {
+                    legend.allItems.forEach(function (inactiveItem) {
+                        if (item !== inactiveItem) {
+                            inactiveItem.setState('inactive', !isPoint);
+                        }
+                    });
+                }
+                item.setState('hover');
+                // A CSS class to dim or hide other than the hovered series.
+                // Works only if hovered series is visible (#10071).
+                if (item.visible) {
+                    boxWrapper.addClass(activeClass);
+                }
+                if (!styledMode) {
+                    legendItem.css(legend.options.itemHoverStyle);
+                }
+            })
+            .on('mouseout', function () {
+                if (!legend.chart.styledMode) {
+                    legendItem.css(merge(item.visible ?
+                        legend.itemStyle :
+                        legend.itemHiddenStyle));
+                }
                 legend.allItems.forEach(function (inactiveItem) {
                     if (item !== inactiveItem) {
-                        inactiveItem.setState('inactive', !isPoint);
+                        inactiveItem.setState('', !isPoint);
                     }
                 });
-            }
-            item.setState('hover');
-            // A CSS class to dim or hide other than the hovered series.
-            // Works only if hovered series is visible (#10071).
-            if (item.visible) {
-                boxWrapper.addClass(activeClass);
-            }
-            if (!styledMode) {
-                legendItem.css(legend.options.itemHoverStyle);
-            }
-        })
-            .on('mouseout', function () {
-            if (!legend.chart.styledMode) {
-                legendItem.css(merge(item.visible ?
-                    legend.itemStyle :
-                    legend.itemHiddenStyle));
-            }
-            legend.allItems.forEach(function (inactiveItem) {
-                if (item !== inactiveItem) {
-                    inactiveItem.setState('', !isPoint);
+                // A CSS class to dim or hide other than the hovered series
+                boxWrapper.removeClass(activeClass);
+                item.setState();
+            })
+            .on('click', function (event) {
+                var strLegendItemClick = 'legendItemClick', fnLegendItemClick = function () {
+                    if (item.setVisible) {
+                        item.setVisible();
+                    }
+                    // Reset inactive state
+                    legend.allItems.forEach(function (inactiveItem) {
+                        if (item !== inactiveItem) {
+                            inactiveItem.setState(item.visible ? 'inactive' : '', !isPoint);
+                        }
+                    });
+                };
+                // A CSS class to dim or hide other than the hovered series.
+                // Event handling in iOS causes the activeClass to be added
+                // prior to click in some cases (#7418).
+                boxWrapper.removeClass(activeClass);
+                // Pass over the click/touch event. #4.
+                event = {
+                    browserEvent: event
+                };
+                // click the name or symbol
+                if (item.firePointEvent) { // point
+                    item.firePointEvent(strLegendItemClick, event, fnLegendItemClick);
+                } else {
+                    fireEvent(item, strLegendItemClick, event, fnLegendItemClick);
                 }
             });
-            // A CSS class to dim or hide other than the hovered series
-            boxWrapper.removeClass(activeClass);
-            item.setState();
-        })
-            .on('click', function (event) {
-            var strLegendItemClick = 'legendItemClick', fnLegendItemClick = function () {
-                if (item.setVisible) {
-                    item.setVisible();
-                }
-                // Reset inactive state
-                legend.allItems.forEach(function (inactiveItem) {
-                    if (item !== inactiveItem) {
-                        inactiveItem.setState(item.visible ? 'inactive' : '', !isPoint);
-                    }
-                });
-            };
-            // A CSS class to dim or hide other than the hovered series.
-            // Event handling in iOS causes the activeClass to be added
-            // prior to click in some cases (#7418).
-            boxWrapper.removeClass(activeClass);
-            // Pass over the click/touch event. #4.
-            event = {
-                browserEvent: event
-            };
-            // click the name or symbol
-            if (item.firePointEvent) { // point
-                item.firePointEvent(strLegendItemClick, event, fnLegendItemClick);
-            }
-            else {
-                fireEvent(item, strLegendItemClick, event, fnLegendItemClick);
-            }
-        });
     },
     /**
      * @private
@@ -367,23 +374,26 @@ extend(Chart.prototype, /** @lends Chart.prototype */ {
      * @fires Highcharts.Chart#event:beforeShowResetZoom
      */
     showResetZoom: function () {
-        var chart = this, lang = defaultOptions.lang, btnOptions = chart.options.chart.resetZoomButton, theme = btnOptions.theme, states = theme.states, alignTo = (btnOptions.relativeTo === 'chart' ||
+        var chart = this, lang = defaultOptions.lang, btnOptions = chart.options.chart.resetZoomButton,
+            theme = btnOptions.theme, states = theme.states, alignTo = (btnOptions.relativeTo === 'chart' ||
             btnOptions.relativeTo === 'spaceBox' ?
             null :
             'plotBox');
+
         /**
          * @private
          */
         function zoomOut() {
             chart.zoomOut();
         }
+
         fireEvent(this, 'beforeShowResetZoom', null, function () {
             chart.resetZoomButton = chart.renderer
                 .button(lang.resetZoom, null, null, zoomOut, theme, states && states.hover)
                 .attr({
-                align: btnOptions.position.align,
-                title: lang.resetZoomTitle
-            })
+                    align: btnOptions.position.align,
+                    title: lang.resetZoomTitle
+                })
                 .addClass('highcharts-reset-zoom')
                 .add()
                 .align(btnOptions.position, false, alignTo);
@@ -399,7 +409,7 @@ extend(Chart.prototype, /** @lends Chart.prototype */ {
      * @fires Highcharts.Chart#event:selection
      */
     zoomOut: function () {
-        fireEvent(this, 'selection', { resetSelection: true }, this.zoom);
+        fireEvent(this, 'selection', {resetSelection: true}, this.zoom);
     },
     /**
      * Zoom into a given portion of the chart given by axis coordinates.
@@ -410,18 +420,20 @@ extend(Chart.prototype, /** @lends Chart.prototype */ {
      * @return {void}
      */
     zoom: function (event) {
-        var chart = this, hasZoomed, pointer = chart.pointer, displayButton = false, mouseDownPos = chart.inverted ? pointer.mouseDownX : pointer.mouseDownY, resetZoomButton;
+        var chart = this, hasZoomed, pointer = chart.pointer, displayButton = false,
+            mouseDownPos = chart.inverted ? pointer.mouseDownX : pointer.mouseDownY, resetZoomButton;
         // If zoom is called with no arguments, reset the axes
         if (!event || event.resetSelection) {
             chart.axes.forEach(function (axis) {
                 hasZoomed = axis.zoom();
             });
             pointer.initiated = false; // #6804
-        }
-        else { // else, zoom in on all axes
+        } else { // else, zoom in on all axes
             event.xAxis.concat(event.yAxis).forEach(function (axisData) {
-                var axis = axisData.axis, axisStartPos = chart.inverted ? axis.left : axis.top, axisEndPos = chart.inverted ?
-                    axisStartPos + axis.width : axisStartPos + axis.height, isXAxis = axis.isXAxis, isWithinPane = false;
+                var axis = axisData.axis, axisStartPos = chart.inverted ? axis.left : axis.top,
+                    axisEndPos = chart.inverted ?
+                        axisStartPos + axis.width : axisStartPos + axis.height, isXAxis = axis.isXAxis,
+                    isWithinPane = false;
                 // Check if zoomed area is within the pane (#1289).
                 // In case of multiple panes only one pane should be zoomed.
                 if ((!isXAxis &&
@@ -444,8 +456,7 @@ extend(Chart.prototype, /** @lends Chart.prototype */ {
         resetZoomButton = chart.resetZoomButton;
         if (displayButton && !resetZoomButton) {
             chart.showResetZoom();
-        }
-        else if (!displayButton && isObject(resetZoomButton)) {
+        } else if (!displayButton && isObject(resetZoomButton)) {
             chart.resetZoomButton = resetZoomButton.destroy();
         }
         // Redraw
@@ -466,7 +477,7 @@ extend(Chart.prototype, /** @lends Chart.prototype */ {
      */
     pan: function (e, panning) {
         var chart = this, hoverPoints = chart.hoverPoints, doRedraw;
-        fireEvent(this, 'pan', { originalEvent: e }, function () {
+        fireEvent(this, 'pan', {originalEvent: e}, function () {
             // remove active points for shared tooltip
             if (hoverPoints) {
                 hoverPoints.forEach(function (point) {
@@ -475,12 +486,16 @@ extend(Chart.prototype, /** @lends Chart.prototype */ {
             }
             // xy is used in maps
             (panning === 'xy' ? [1, 0] : [1]).forEach(function (isX) {
-                var axis = chart[isX ? 'xAxis' : 'yAxis'][0], horiz = axis.horiz, mousePos = e[horiz ? 'chartX' : 'chartY'], mouseDown = horiz ? 'mouseDownX' : 'mouseDownY', startPos = chart[mouseDown], halfPointRange = (axis.pointRange || 0) / 2, pointRangeDirection = (axis.reversed && !chart.inverted) ||
+                var axis = chart[isX ? 'xAxis' : 'yAxis'][0], horiz = axis.horiz,
+                    mousePos = e[horiz ? 'chartX' : 'chartY'], mouseDown = horiz ? 'mouseDownX' : 'mouseDownY',
+                    startPos = chart[mouseDown], halfPointRange = (axis.pointRange || 0) / 2,
+                    pointRangeDirection = (axis.reversed && !chart.inverted) ||
                     (!axis.reversed && chart.inverted) ?
-                    -1 :
-                    1, extremes = axis.getExtremes(), panMin = axis.toValue(startPos - mousePos, true) +
+                        -1 :
+                        1, extremes = axis.getExtremes(), panMin = axis.toValue(startPos - mousePos, true) +
                     halfPointRange * pointRangeDirection, panMax = axis.toValue(startPos + axis.len - mousePos, true) -
-                    halfPointRange * pointRangeDirection, flipped = panMax < panMin, newMin = flipped ? panMax : panMin, newMax = flipped ? panMin : panMax, paddedMin = Math.min(extremes.dataMin, halfPointRange ?
+                    halfPointRange * pointRangeDirection, flipped = panMax < panMin, newMin = flipped ? panMax : panMin,
+                    newMax = flipped ? panMin : panMax, paddedMin = Math.min(extremes.dataMin, halfPointRange ?
                     extremes.min :
                     axis.toValue(axis.toPixels(extremes.min) -
                         axis.minPixelPadding)), paddedMax = Math.max(extremes.dataMax, halfPointRange ?
@@ -503,7 +518,7 @@ extend(Chart.prototype, /** @lends Chart.prototype */ {
                 if (axis.series.length &&
                     newMin !== extremes.min &&
                     newMax !== extremes.max) {
-                    axis.setExtremes(newMin, newMax, false, false, { trigger: 'pan' });
+                    axis.setExtremes(newMin, newMax, false, false, {trigger: 'pan'});
                     doRedraw = true;
                 }
                 // set new reference for next run:
@@ -512,7 +527,7 @@ extend(Chart.prototype, /** @lends Chart.prototype */ {
             if (doRedraw) {
                 chart.redraw(false);
             }
-            css(chart.container, { cursor: 'move' });
+            css(chart.container, {cursor: 'move'});
         });
     }
 });
@@ -555,7 +570,7 @@ extend(Point.prototype, /** @lends Highcharts.Point.prototype */ {
         selected = pick(selected, !point.selected);
         this.selectedStaging = selected;
         // fire the event with the default handler
-        point.firePointEvent(selected ? 'select' : 'unselect', { accumulate: accumulate }, function () {
+        point.firePointEvent(selected ? 'select' : 'unselect', {accumulate: accumulate}, function () {
             /**
              * Whether the point is selected or not.
              *
@@ -581,7 +596,7 @@ extend(Point.prototype, /** @lends Highcharts.Point.prototype */ {
                         // normal state, but when click happened on other
                         // point, set inactive state to match other points
                         loopPoint.setState(chart.hoverPoints &&
-                            loopSeries.options.inactiveOtherPoints ?
+                        loopSeries.options.inactiveOtherPoints ?
                             'inactive' : '');
                         loopPoint.firePointEvent('unselect');
                     }
@@ -661,15 +676,20 @@ extend(Point.prototype, /** @lends Highcharts.Point.prototype */ {
      * @fires Highcharts.Point#event:afterSetState
      */
     setState: function (state, move) {
-        var point = this, series = point.series, previousState = point.state, stateOptions = (series.options.states[state || 'normal'] ||
-            {}), markerOptions = (defaultPlotOptions[series.type].marker &&
-            series.options.marker), normalDisabled = (markerOptions && markerOptions.enabled === false), markerStateOptions = ((markerOptions &&
-            markerOptions.states &&
-            markerOptions.states[state || 'normal']) || {}), stateDisabled = markerStateOptions.enabled === false, stateMarkerGraphic = series.stateMarkerGraphic, pointMarker = point.marker || {}, chart = series.chart, halo = series.halo, haloOptions, markerAttribs, pointAttribs, pointAttribsAnimation, hasMarkers = (markerOptions && series.markerAttribs), newSymbol;
+        var point = this, series = point.series, previousState = point.state,
+            stateOptions = (series.options.states[state || 'normal'] ||
+                {}), markerOptions = (defaultPlotOptions[series.type].marker &&
+            series.options.marker), normalDisabled = (markerOptions && markerOptions.enabled === false),
+            markerStateOptions = ((markerOptions &&
+                markerOptions.states &&
+                markerOptions.states[state || 'normal']) || {}), stateDisabled = markerStateOptions.enabled === false,
+            stateMarkerGraphic = series.stateMarkerGraphic, pointMarker = point.marker || {}, chart = series.chart,
+            halo = series.halo, haloOptions, markerAttribs, pointAttribs, pointAttribsAnimation,
+            hasMarkers = (markerOptions && series.markerAttribs), newSymbol;
         state = state || ''; // empty string
         if (
-        // already has this state
-        (state === point.state && !move) ||
+            // already has this state
+            (state === point.state && !move) ||
             // selected points don't respond to hover
             (point.selected && state !== 'select') ||
             // series' state options is disabled
@@ -721,15 +741,14 @@ extend(Point.prototype, /** @lends Highcharts.Point.prototype */ {
             }
             if (markerAttribs) {
                 point.graphic.animate(markerAttribs, pick(
-                // Turn off globally:
-                chart.options.chart.animation, markerStateOptions.animation, markerOptions.animation));
+                    // Turn off globally:
+                    chart.options.chart.animation, markerStateOptions.animation, markerOptions.animation));
             }
             // Zooming in from a range with no markers to a range with markers
             if (stateMarkerGraphic) {
                 stateMarkerGraphic.hide();
             }
-        }
-        else {
+        } else {
             // if a graphic is not applied to each point in the normal state,
             // create a shared graphic for the hover state
             if (state && markerStateOptions) {
@@ -751,8 +770,7 @@ extend(Point.prototype, /** @lends Highcharts.Point.prototype */ {
                             stateMarkerGraphic.currentSymbol = newSymbol;
                         }
                         // Move the existing graphic
-                    }
-                    else {
+                    } else {
                         stateMarkerGraphic[move ? 'animate' : 'attr']({
                             x: markerAttribs.x,
                             y: markerAttribs.y
@@ -798,13 +816,12 @@ extend(Point.prototype, /** @lends Highcharts.Point.prototype */ {
                     'fill-opacity': haloOptions.opacity
                 }, haloOptions.attributes));
             }
-        }
-        else if (halo && halo.point && halo.point.haloPath) {
+        } else if (halo && halo.point && halo.point.haloPath) {
             // Animate back to 0 on the current halo point (#6055)
-            halo.animate({ d: halo.point.haloPath(0) }, null, 
-            // Hide after unhovering. The `complete` callback runs in the
-            // halo's context (#7681).
-            halo.hide);
+            halo.animate({d: halo.point.haloPath(0)}, null,
+                // Hide after unhovering. The `complete` callback runs in the
+                // halo's context (#7681).
+                halo.hide);
         }
         fireEvent(point, 'afterSetState');
     },
@@ -864,7 +881,8 @@ extend(Series.prototype, /** @lends Highcharts.Series.prototype */ {
      */
     onMouseOut: function () {
         // trigger the event only if listeners exist
-        var series = this, options = series.options, chart = series.chart, tooltip = chart.tooltip, hoverPoint = chart.hoverPoint;
+        var series = this, options = series.options, chart = series.chart, tooltip = chart.tooltip,
+            hoverPoint = chart.hoverPoint;
         // #182, set to null before the mouseOut event fires
         chart.hoverSeries = null;
         // trigger mouse out on the point, which must be in this series
@@ -899,11 +917,13 @@ extend(Series.prototype, /** @lends Highcharts.Series.prototype */ {
      *        Determines if state should be inherited by points too.
      */
     setState: function (state, inherit) {
-        var series = this, options = series.options, graph = series.graph, inactiveOtherPoints = options.inactiveOtherPoints, stateOptions = options.states, lineWidth = options.lineWidth, opacity = options.opacity, 
-        // By default a quick animation to hover/inactive,
-        // slower to un-hover
-        stateAnimation = pick((stateOptions[state || 'normal'] &&
-            stateOptions[state || 'normal'].animation), series.chart.options.chart.animation), attribs, i = 0;
+        var series = this, options = series.options, graph = series.graph,
+            inactiveOtherPoints = options.inactiveOtherPoints, stateOptions = options.states,
+            lineWidth = options.lineWidth, opacity = options.opacity,
+            // By default a quick animation to hover/inactive,
+            // slower to un-hover
+            stateAnimation = pick((stateOptions[state || 'normal'] &&
+                stateOptions[state || 'normal'].animation), series.chart.options.chart.animation), attribs, i = 0;
         state = state || '';
         if (series.state !== state) {
             // Toggle class names
@@ -1006,7 +1026,8 @@ extend(Series.prototype, /** @lends Highcharts.Series.prototype */ {
      * @fires Highcharts.Series#event:show
      */
     setVisible: function (vis, redraw) {
-        var series = this, chart = series.chart, legendItem = series.legendItem, showOrHide, ignoreHiddenSeries = chart.options.chart.ignoreHiddenSeries, oldVisibility = series.visible;
+        var series = this, chart = series.chart, legendItem = series.legendItem, showOrHide,
+            ignoreHiddenSeries = chart.options.chart.ignoreHiddenSeries, oldVisibility = series.visible;
         // if called without an argument, toggle visibility
         series.visible =
             vis =
@@ -1071,7 +1092,7 @@ extend(Series.prototype, /** @lends Highcharts.Series.prototype */ {
     },
     /**
      * Hide the series if visible. If the {@link
-     * https://api.highcharts.com/highcharts/chart.ignoreHiddenSeries|
+        * https://api.highcharts.com/highcharts/chart.ignoreHiddenSeries|
      * chart.ignoreHiddenSeries} option is true, the chart is redrawn without
      * this series.
      *

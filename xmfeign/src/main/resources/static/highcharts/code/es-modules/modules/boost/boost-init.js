@@ -12,11 +12,19 @@
 'use strict';
 import H from '../../parts/Globals.js';
 import U from '../../parts/Utilities.js';
+
 var extend = U.extend;
 import '../../parts/Series.js';
 import butils from './boost-utils.js';
 import createAndAttachRenderer from './boost-attach.js';
-var addEvent = H.addEvent, fireEvent = H.fireEvent, Series = H.Series, seriesTypes = H.seriesTypes, wrap = H.wrap, noop = function () { }, eachAsync = butils.eachAsync, pointDrawHandler = butils.pointDrawHandler, allocateIfNotSeriesBoosting = butils.allocateIfNotSeriesBoosting, renderIfNotSeriesBoosting = butils.renderIfNotSeriesBoosting, shouldForceChartSeriesBoosting = butils.shouldForceChartSeriesBoosting, index;
+
+var addEvent = H.addEvent, fireEvent = H.fireEvent, Series = H.Series, seriesTypes = H.seriesTypes, wrap = H.wrap,
+    noop = function () {
+    }, eachAsync = butils.eachAsync, pointDrawHandler = butils.pointDrawHandler,
+    allocateIfNotSeriesBoosting = butils.allocateIfNotSeriesBoosting,
+    renderIfNotSeriesBoosting = butils.renderIfNotSeriesBoosting,
+    shouldForceChartSeriesBoosting = butils.shouldForceChartSeriesBoosting, index;
+
 /* eslint-disable valid-jsdoc */
 /**
  * Initialize the boot module.
@@ -31,35 +39,44 @@ function init() {
          * @function Highcharts.Series#renderCanvas
          */
         renderCanvas: function () {
-            var series = this, options = series.options || {}, renderer = false, chart = series.chart, xAxis = this.xAxis, yAxis = this.yAxis, xData = options.xData || series.processedXData, yData = options.yData || series.processedYData, rawData = options.data, xExtremes = xAxis.getExtremes(), xMin = xExtremes.min, xMax = xExtremes.max, yExtremes = yAxis.getExtremes(), yMin = yExtremes.min, yMax = yExtremes.max, pointTaken = {}, lastClientX, sampling = !!series.sampling, points, enableMouseTracking = options.enableMouseTracking !== false, threshold = options.threshold, yBottom = yAxis.getThreshold(threshold), isRange = series.pointArrayMap &&
-                series.pointArrayMap.join(',') === 'low,high', isStacked = !!options.stacking, cropStart = series.cropStart || 0, requireSorting = series.requireSorting, useRaw = !xData, minVal, maxVal, minI, maxI, boostOptions, compareX = options.findNearestPointBy === 'x', xDataFull = (this.xData ||
-                this.options.xData ||
-                this.processedXData ||
-                false), addKDPoint = function (clientX, plotY, i) {
-                // We need to do ceil on the clientX to make things
-                // snap to pixel values. The renderer will frequently
-                // draw stuff on "sub-pixels".
-                clientX = Math.ceil(clientX);
-                // Shaves off about 60ms compared to repeated concatenation
-                index = compareX ? clientX : clientX + ',' + plotY;
-                // The k-d tree requires series points.
-                // Reduce the amount of points, since the time to build the
-                // tree increases exponentially.
-                if (enableMouseTracking && !pointTaken[index]) {
-                    pointTaken[index] = true;
-                    if (chart.inverted) {
-                        clientX = xAxis.len - clientX;
-                        plotY = yAxis.len - plotY;
+            var series = this, options = series.options || {}, renderer = false, chart = series.chart,
+                xAxis = this.xAxis, yAxis = this.yAxis, xData = options.xData || series.processedXData,
+                yData = options.yData || series.processedYData, rawData = options.data, xExtremes = xAxis.getExtremes(),
+                xMin = xExtremes.min, xMax = xExtremes.max, yExtremes = yAxis.getExtremes(), yMin = yExtremes.min,
+                yMax = yExtremes.max, pointTaken = {}, lastClientX, sampling = !!series.sampling, points,
+                enableMouseTracking = options.enableMouseTracking !== false, threshold = options.threshold,
+                yBottom = yAxis.getThreshold(threshold), isRange = series.pointArrayMap &&
+                series.pointArrayMap.join(',') === 'low,high', isStacked = !!options.stacking,
+                cropStart = series.cropStart || 0, requireSorting = series.requireSorting, useRaw = !xData, minVal,
+                maxVal, minI, maxI, boostOptions, compareX = options.findNearestPointBy === 'x',
+                xDataFull = (this.xData ||
+                    this.options.xData ||
+                    this.processedXData ||
+                    false), addKDPoint = function (clientX, plotY, i) {
+                    // We need to do ceil on the clientX to make things
+                    // snap to pixel values. The renderer will frequently
+                    // draw stuff on "sub-pixels".
+                    clientX = Math.ceil(clientX);
+                    // Shaves off about 60ms compared to repeated concatenation
+                    index = compareX ? clientX : clientX + ',' + plotY;
+                    // The k-d tree requires series points.
+                    // Reduce the amount of points, since the time to build the
+                    // tree increases exponentially.
+                    if (enableMouseTracking && !pointTaken[index]) {
+                        pointTaken[index] = true;
+                        if (chart.inverted) {
+                            clientX = xAxis.len - clientX;
+                            plotY = yAxis.len - plotY;
+                        }
+                        points.push({
+                            x: xDataFull ? xDataFull[cropStart + i] : false,
+                            clientX: clientX,
+                            plotX: clientX,
+                            plotY: plotY,
+                            i: cropStart + i
+                        });
                     }
-                    points.push({
-                        x: xDataFull ? xDataFull[cropStart + i] : false,
-                        clientX: clientX,
-                        plotX: clientX,
-                        plotY: plotY,
-                        i: cropStart + i
-                    });
-                }
-            };
+                };
             // Get or create the renderer
             renderer = createAndAttachRenderer(chart, series);
             chart.isBoosting = true;
@@ -81,8 +98,7 @@ function init() {
                     this.markerGroup = undefined;
                 }
                 this.markerGroup = series.plotGroup('markerGroup', 'markers', true, 1, chart.seriesGroup);
-            }
-            else {
+            } else {
                 // If series has a private markeGroup, remove that
                 // and use common markerGroup
                 if (this.markerGroup &&
@@ -106,18 +122,19 @@ function init() {
                 // Perform the actual renderer if we're on series level
                 renderIfNotSeriesBoosting(renderer, this, chart);
             }
+
             /**
              * This builds the KD-tree
              * @private
              */
             function processPoint(d, i) {
-                var x, y, clientX, plotY, isNull, low = false, chartDestroyed = typeof chart.index === 'undefined', isYInside = true;
+                var x, y, clientX, plotY, isNull, low = false, chartDestroyed = typeof chart.index === 'undefined',
+                    isYInside = true;
                 if (!chartDestroyed) {
                     if (useRaw) {
                         x = d[0];
                         y = d[1];
-                    }
-                    else {
+                    } else {
                         x = d;
                         y = yData[i];
                     }
@@ -128,8 +145,7 @@ function init() {
                         }
                         low = y[0];
                         y = y[1];
-                    }
-                    else if (isStacked) {
+                    } else if (isStacked) {
                         x = d.x;
                         y = d.stackY;
                         low = y - d.y;
@@ -171,8 +187,7 @@ function init() {
                                 minI = maxI = undefined;
                                 lastClientX = clientX;
                             }
-                        }
-                        else {
+                        } else {
                             plotY = Math.ceil(yAxis.toPixels(y, true));
                             addKDPoint(clientX, plotY, i);
                         }
@@ -180,6 +195,7 @@ function init() {
                 }
                 return !chartDestroyed;
             }
+
             /**
              * @private
              */
@@ -192,6 +208,7 @@ function init() {
                     console.timeEnd('kd tree building'); // eslint-disable-line no-console
                 }
             }
+
             // Loop over the points to build the k-d tree - skip this if
             // exporting
             if (!chart.renderer.forExport) {
@@ -248,6 +265,7 @@ function init() {
                 chart.ogl.render(chart);
             }
         }
+
         /**
          * Clear chart-level canvas.
          * @private
@@ -278,6 +296,7 @@ function init() {
                 chart.markerGroup.translate(chart.xAxis[0].pos, chart.yAxis[0].pos);
             }
         }
+
         addEvent(chart, 'predraw', preRender);
         addEvent(chart, 'render', canvasToSVG);
         // addEvent(chart, 'zoom', function () {
@@ -287,4 +306,5 @@ function init() {
     });
     /* eslint-enable no-invalid-this */
 }
+
 export default init;

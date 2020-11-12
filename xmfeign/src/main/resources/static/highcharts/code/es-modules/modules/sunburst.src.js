@@ -24,33 +24,38 @@ import H from '../parts/Globals.js';
  * @interface Highcharts.SeriesSunburstDataLabelsOptionsObject
  * @extends Highcharts.DataLabelsOptionsObject
  */ /**
-* @name Highcharts.SeriesSunburstDataLabelsOptionsObject#align
-* @type {undefined}
-*/ /**
-* @name Highcharts.SeriesSunburstDataLabelsOptionsObject#allowOverlap
-* @type {undefined}
-*/ /**
-* Decides how the data label will be rotated relative to the perimeter
-* of the sunburst. Valid values are `auto`, `parallel` and
-* `perpendicular`. When `auto`, the best fit will be computed for the
-* point.
-*
-* The `series.rotation` option takes precedence over `rotationMode`.
-*
-* @name Highcharts.SeriesSunburstDataLabelsOptionsObject#rotationMode
-* @type {Highcharts.SeriesSunburstDataLabelsRotationValue|undefined}
-* @since 6.0.0
-*/
+ * @name Highcharts.SeriesSunburstDataLabelsOptionsObject#align
+ * @type {undefined}
+ */ /**
+ * @name Highcharts.SeriesSunburstDataLabelsOptionsObject#allowOverlap
+ * @type {undefined}
+ */ /**
+ * Decides how the data label will be rotated relative to the perimeter
+ * of the sunburst. Valid values are `auto`, `parallel` and
+ * `perpendicular`. When `auto`, the best fit will be computed for the
+ * point.
+ *
+ * The `series.rotation` option takes precedence over `rotationMode`.
+ *
+ * @name Highcharts.SeriesSunburstDataLabelsOptionsObject#rotationMode
+ * @type {Highcharts.SeriesSunburstDataLabelsRotationValue|undefined}
+ * @since 6.0.0
+ */
 import U from '../parts/Utilities.js';
+
 var extend = U.extend, isNumber = U.isNumber, isObject = U.isObject, isString = U.isString;
 import '../mixins/centered-series.js';
 import drawPoint from '../mixins/draw-point.js';
 import mixinTreeSeries from '../mixins/tree-series.js';
 import '../parts/Series.js';
 import './treemap.src.js';
-var CenteredSeriesMixin = H.CenteredSeriesMixin, Series = H.Series, getCenter = CenteredSeriesMixin.getCenter, getColor = mixinTreeSeries.getColor, getLevelOptions = mixinTreeSeries.getLevelOptions, getStartAndEndRadians = CenteredSeriesMixin.getStartAndEndRadians, isBoolean = function (x) {
-    return typeof x === 'boolean';
-}, merge = H.merge, noop = H.noop, rad2deg = 180 / Math.PI, seriesType = H.seriesType, seriesTypes = H.seriesTypes, setTreeValues = mixinTreeSeries.setTreeValues, updateRootId = mixinTreeSeries.updateRootId;
+
+var CenteredSeriesMixin = H.CenteredSeriesMixin, Series = H.Series, getCenter = CenteredSeriesMixin.getCenter,
+    getColor = mixinTreeSeries.getColor, getLevelOptions = mixinTreeSeries.getLevelOptions,
+    getStartAndEndRadians = CenteredSeriesMixin.getStartAndEndRadians, isBoolean = function (x) {
+        return typeof x === 'boolean';
+    }, merge = H.merge, noop = H.noop, rad2deg = 180 / Math.PI, seriesType = H.seriesType, seriesTypes = H.seriesTypes,
+    setTreeValues = mixinTreeSeries.setTreeValues, updateRootId = mixinTreeSeries.updateRootId;
 // TODO introduce step, which should default to 1.
 var range = function range(from, to) {
     var result = [], i;
@@ -75,7 +80,8 @@ var range = function range(from, to) {
  * Returns the modified options, or undefined.
  */
 var calculateLevelSizes = function calculateLevelSizes(levelOptions, params) {
-    var result, p = isObject(params) ? params : {}, totalWeight = 0, diffRadius, levels, levelsNotIncluded, remainingSize, from, to;
+    var result, p = isObject(params) ? params : {}, totalWeight = 0, diffRadius, levels, levelsNotIncluded,
+        remainingSize, from, to;
     if (isObject(levelOptions)) {
         result = merge({}, levelOptions);
         from = isNumber(p.from) ? p.from : 0;
@@ -92,15 +98,13 @@ var calculateLevelSizes = function calculateLevelSizes(levelOptions, params) {
             var options = result[level], unit = options.levelSize.unit, value = options.levelSize.value;
             if (unit === 'weight') {
                 totalWeight += value;
-            }
-            else if (unit === 'percentage') {
+            } else if (unit === 'percentage') {
                 options.levelSize = {
                     unit: 'pixels',
                     value: (value / 100) * diffRadius
                 };
                 remainingSize -= options.levelSize.value;
-            }
-            else if (unit === 'pixels') {
+            } else if (unit === 'pixels') {
                 remainingSize -= value;
             }
         });
@@ -154,23 +158,27 @@ var getEndPoint = function getEndPoint(x, y, angle, distance) {
     };
 };
 var layoutAlgorithm = function layoutAlgorithm(parent, children, options) {
-    var startAngle = parent.start, range = parent.end - startAngle, total = parent.val, x = parent.x, y = parent.y, radius = ((options &&
-        isObject(options.levelSize) &&
-        isNumber(options.levelSize.value)) ?
-        options.levelSize.value :
-        0), innerRadius = parent.r, outerRadius = innerRadius + radius, slicedOffset = options && isNumber(options.slicedOffset) ?
-        options.slicedOffset :
-        0;
+    var startAngle = parent.start, range = parent.end - startAngle, total = parent.val, x = parent.x, y = parent.y,
+        radius = ((options &&
+            isObject(options.levelSize) &&
+            isNumber(options.levelSize.value)) ?
+            options.levelSize.value :
+            0), innerRadius = parent.r, outerRadius = innerRadius + radius,
+        slicedOffset = options && isNumber(options.slicedOffset) ?
+            options.slicedOffset :
+            0;
     return (children || []).reduce(function (arr, child) {
-        var percentage = (1 / total) * child.val, radians = percentage * range, radiansCenter = startAngle + (radians / 2), offsetPosition = getEndPoint(x, y, radiansCenter, slicedOffset), values = {
-            x: child.sliced ? offsetPosition.x : x,
-            y: child.sliced ? offsetPosition.y : y,
-            innerR: innerRadius,
-            r: outerRadius,
-            radius: radius,
-            start: startAngle,
-            end: startAngle + radians
-        };
+        var percentage = (1 / total) * child.val, radians = percentage * range,
+            radiansCenter = startAngle + (radians / 2), offsetPosition = getEndPoint(x, y, radiansCenter, slicedOffset),
+            values = {
+                x: child.sliced ? offsetPosition.x : x,
+                y: child.sliced ? offsetPosition.y : y,
+                innerR: innerRadius,
+                r: outerRadius,
+                radius: radius,
+                start: startAngle,
+                end: startAngle + radians
+            };
         arr.push(values);
         startAngle = values.end;
         return arr;
@@ -178,24 +186,23 @@ var layoutAlgorithm = function layoutAlgorithm(parent, children, options) {
 };
 var getDlOptions = function getDlOptions(params) {
     // Set options to new object to avoid problems with scope
-    var point = params.point, shape = isObject(params.shapeArgs) ? params.shapeArgs : {}, optionsPoint = (isObject(params.optionsPoint) ?
-        params.optionsPoint.dataLabels :
-        {}), optionsLevel = (isObject(params.level) ?
+    var point = params.point, shape = isObject(params.shapeArgs) ? params.shapeArgs : {},
+        optionsPoint = (isObject(params.optionsPoint) ?
+            params.optionsPoint.dataLabels :
+            {}), optionsLevel = (isObject(params.level) ?
         params.level.dataLabels :
         {}), options = merge({
-        style: {}
-    }, optionsLevel, optionsPoint), rotationRad, rotation, rotationMode = options.rotationMode;
+            style: {}
+        }, optionsLevel, optionsPoint), rotationRad, rotation, rotationMode = options.rotationMode;
     if (!isNumber(options.rotation)) {
         if (rotationMode === 'auto') {
             if (point.innerArcLength < 1 &&
                 point.outerArcLength > shape.radius) {
                 rotationRad = 0;
-            }
-            else if (point.innerArcLength > 1 &&
+            } else if (point.innerArcLength > 1 &&
                 point.outerArcLength > 1.5 * shape.radius) {
                 rotationMode = 'parallel';
-            }
-            else {
+            } else {
                 rotationMode = 'perpendicular';
             }
         }
@@ -205,8 +212,7 @@ var getDlOptions = function getDlOptions(params) {
         }
         if (rotationMode === 'parallel') {
             options.style.width = Math.min(shape.radius * 2.5, (point.outerArcLength + point.innerArcLength) / 2);
-        }
-        else {
+        } else {
             options.style.width = shape.radius;
         }
         if (rotationMode === 'perpendicular' &&
@@ -222,8 +228,7 @@ var getDlOptions = function getDlOptions(params) {
         // Prevent text from rotating upside down
         if (rotation > 90) {
             rotation -= 180;
-        }
-        else if (rotation < -90) {
+        } else if (rotation < -90) {
             rotation += 180;
         }
         options.rotation = rotation;
@@ -236,14 +241,16 @@ var getDlOptions = function getDlOptions(params) {
     return options;
 };
 var getAnimation = function getAnimation(shape, params) {
-    var point = params.point, radians = params.radians, innerR = params.innerR, idRoot = params.idRoot, idPreviousRoot = params.idPreviousRoot, shapeExisting = params.shapeExisting, shapeRoot = params.shapeRoot, shapePreviousRoot = params.shapePreviousRoot, visible = params.visible, from = {}, to = {
-        end: shape.end,
-        start: shape.start,
-        innerR: shape.innerR,
-        r: shape.r,
-        x: shape.x,
-        y: shape.y
-    };
+    var point = params.point, radians = params.radians, innerR = params.innerR, idRoot = params.idRoot,
+        idPreviousRoot = params.idPreviousRoot, shapeExisting = params.shapeExisting, shapeRoot = params.shapeRoot,
+        shapePreviousRoot = params.shapePreviousRoot, visible = params.visible, from = {}, to = {
+            end: shape.end,
+            start: shape.start,
+            innerR: shape.innerR,
+            r: shape.r,
+            x: shape.x,
+            y: shape.y
+        };
     if (visible) {
         // Animate points in
         if (!point.graphic && shapePreviousRoot) {
@@ -252,8 +259,7 @@ var getAnimation = function getAnimation(shape, params) {
                     start: radians.start,
                     end: radians.end
                 };
-            }
-            else {
+            } else {
                 from = (shapePreviousRoot.end <= shape.start) ? {
                     start: radians.end,
                     end: radians.end
@@ -265,8 +271,7 @@ var getAnimation = function getAnimation(shape, params) {
             // Animate from center and outwards.
             from.innerR = from.r = innerR;
         }
-    }
-    else {
+    } else {
         // Animate points out
         if (point.graphic) {
             if (idPreviousRoot === point.id) {
@@ -274,8 +279,7 @@ var getAnimation = function getAnimation(shape, params) {
                     innerR: innerR,
                     r: innerR
                 };
-            }
-            else if (shapeRoot) {
+            } else if (shapeRoot) {
                 to = (shapeRoot.end <= shapeExisting.start) ?
                     {
                         innerR: innerR,
@@ -283,11 +287,11 @@ var getAnimation = function getAnimation(shape, params) {
                         start: radians.end,
                         end: radians.end
                     } : {
-                    innerR: innerR,
-                    r: innerR,
-                    start: radians.start,
-                    end: radians.start
-                };
+                        innerR: innerR,
+                        r: innerR,
+                        start: radians.start,
+                        end: radians.start
+                    };
             }
         }
     }
@@ -303,24 +307,25 @@ var getDrillId = function getDrillId(point, idRoot, mapIdToNode) {
         if (idRoot === point.id) {
             nodeRoot = mapIdToNode[idRoot];
             drillId = nodeRoot.parent;
-        }
-        else {
+        } else {
             drillId = point.id;
         }
     }
     return drillId;
 };
 var cbSetTreeValuesBefore = function before(node, options) {
-    var mapIdToNode = options.mapIdToNode, nodeParent = mapIdToNode[node.parent], series = options.series, chart = series.chart, points = series.points, point = points[node.i], colors = (series.options.colors || chart && chart.options.colors), colorInfo = getColor(node, {
-        colors: colors,
-        colorIndex: series.colorIndex,
-        index: options.index,
-        mapOptionsToLevel: options.mapOptionsToLevel,
-        parentColor: nodeParent && nodeParent.color,
-        parentColorIndex: nodeParent && nodeParent.colorIndex,
-        series: options.series,
-        siblings: options.siblings
-    });
+    var mapIdToNode = options.mapIdToNode, nodeParent = mapIdToNode[node.parent], series = options.series,
+        chart = series.chart, points = series.points, point = points[node.i],
+        colors = (series.options.colors || chart && chart.options.colors), colorInfo = getColor(node, {
+            colors: colors,
+            colorIndex: series.colorIndex,
+            index: options.index,
+            mapOptionsToLevel: options.mapOptionsToLevel,
+            parentColor: nodeParent && nodeParent.color,
+            parentColorIndex: nodeParent && nodeParent.colorIndex,
+            series: options.series,
+            siblings: options.siblings
+        });
     node.color = colorInfo.color;
     node.colorIndex = colorInfo.colorIndex;
     if (point) {
@@ -554,17 +559,25 @@ var sunburstOptions = {
 var sunburstSeries = {
     drawDataLabels: noop,
     drawPoints: function drawPoints() {
-        var series = this, mapOptionsToLevel = series.mapOptionsToLevel, shapeRoot = series.shapeRoot, group = series.group, hasRendered = series.hasRendered, idRoot = series.rootNode, idPreviousRoot = series.idPreviousRoot, nodeMap = series.nodeMap, nodePreviousRoot = nodeMap[idPreviousRoot], shapePreviousRoot = nodePreviousRoot && nodePreviousRoot.shapeArgs, points = series.points, radians = series.startAndEndRadians, chart = series.chart, optionsChart = chart && chart.options && chart.options.chart || {}, animation = (isBoolean(optionsChart.animation) ?
-            optionsChart.animation :
-            true), positions = series.center, center = {
-            x: positions[0],
-            y: positions[1]
-        }, innerR = positions[3] / 2, renderer = series.chart.renderer, animateLabels, animateLabelsCalled = false, addedHack = false, hackDataLabelAnimation = !!(animation &&
+        var series = this, mapOptionsToLevel = series.mapOptionsToLevel, shapeRoot = series.shapeRoot,
+            group = series.group, hasRendered = series.hasRendered, idRoot = series.rootNode,
+            idPreviousRoot = series.idPreviousRoot, nodeMap = series.nodeMap,
+            nodePreviousRoot = nodeMap[idPreviousRoot],
+            shapePreviousRoot = nodePreviousRoot && nodePreviousRoot.shapeArgs, points = series.points,
+            radians = series.startAndEndRadians, chart = series.chart,
+            optionsChart = chart && chart.options && chart.options.chart || {},
+            animation = (isBoolean(optionsChart.animation) ?
+                optionsChart.animation :
+                true), positions = series.center, center = {
+                x: positions[0],
+                y: positions[1]
+            }, innerR = positions[3] / 2, renderer = series.chart.renderer, animateLabels, animateLabelsCalled = false,
+            addedHack = false, hackDataLabelAnimation = !!(animation &&
             hasRendered &&
             idRoot !== idPreviousRoot &&
             series.dataLabelsGroup);
         if (hackDataLabelAnimation) {
-            series.dataLabelsGroup.attr({ opacity: 0 });
+            series.dataLabelsGroup.attr({opacity: 0});
             animateLabels = function () {
                 var s = series;
                 animateLabelsCalled = true;
@@ -577,7 +590,8 @@ var sunburstSeries = {
             };
         }
         points.forEach(function (point) {
-            var node = point.node, level = mapOptionsToLevel[node.level], shapeExisting = point.shapeExisting || {}, shape = node.shapeArgs || {}, animationInfo, onComplete, visible = !!(node.visible && node.shapeArgs);
+            var node = point.node, level = mapOptionsToLevel[node.level], shapeExisting = point.shapeExisting || {},
+                shape = node.shapeArgs || {}, animationInfo, onComplete, visible = !!(node.visible && node.shapeArgs);
             if (hasRendered && animation) {
                 animationInfo = getAnimation(shape, {
                     center: center,
@@ -591,8 +605,7 @@ var sunburstSeries = {
                     shapePreviousRoot: shapePreviousRoot,
                     visible: visible
                 });
-            }
-            else {
+            } else {
                 // When animation is disabled, attr is called from animation.
                 animationInfo = {
                     to: shape,
@@ -641,8 +654,7 @@ var sunburstSeries = {
             if (animateLabelsCalled) {
                 animateLabels();
             }
-        }
-        else {
+        } else {
             Series.prototype.drawDataLabels.call(series);
         }
     },
@@ -651,15 +663,17 @@ var sunburstSeries = {
     layoutAlgorithm: layoutAlgorithm,
     // Set the shape arguments on the nodes. Recursive from root down.
     setShapeArgs: function (parent, parentValues, mapOptionsToLevel) {
-        var childrenValues = [], level = parent.level + 1, options = mapOptionsToLevel[level], 
-        // Collect all children which should be included
-        children = parent.children.filter(function (n) {
-            return n.visible;
-        }), twoPi = 6.28; // Two times Pi.
+        var childrenValues = [], level = parent.level + 1, options = mapOptionsToLevel[level],
+            // Collect all children which should be included
+            children = parent.children.filter(function (n) {
+                return n.visible;
+            }), twoPi = 6.28; // Two times Pi.
         childrenValues = this.layoutAlgorithm(parentValues, children, options);
         children.forEach(function (child, index) {
-            var values = childrenValues[index], angle = values.start + ((values.end - values.start) / 2), radius = values.innerR + ((values.r - values.innerR) / 2), radians = (values.end - values.start), isCircle = (values.innerR === 0 && radians > twoPi), center = (isCircle ?
-                { x: values.x, y: values.y } :
+            var values = childrenValues[index], angle = values.start + ((values.end - values.start) / 2),
+                radius = values.innerR + ((values.r - values.innerR) / 2), radians = (values.end - values.start),
+                isCircle = (values.innerR === 0 && radians > twoPi), center = (isCircle ?
+                {x: values.x, y: values.y} :
                 getEndPoint(values.x, values.y, angle, radius)), val = (child.val ?
                 (child.childrenTotal > child.val ?
                     child.childrenTotal :
@@ -684,9 +698,12 @@ var sunburstSeries = {
         }, this);
     },
     translate: function translate() {
-        var series = this, options = series.options, positions = series.center = getCenter.call(series), radians = series.startAndEndRadians = getStartAndEndRadians(options.startAngle, options.endAngle), innerRadius = positions[3] / 2, outerRadius = positions[2] / 2, diffRadius = outerRadius - innerRadius, 
-        // NOTE: updateRootId modifies series.
-        rootId = updateRootId(series), mapIdToNode = series.nodeMap, mapOptionsToLevel, idTop, nodeRoot = mapIdToNode && mapIdToNode[rootId], nodeTop, tree, values, nodeIds = {};
+        var series = this, options = series.options, positions = series.center = getCenter.call(series),
+            radians = series.startAndEndRadians = getStartAndEndRadians(options.startAngle, options.endAngle),
+            innerRadius = positions[3] / 2, outerRadius = positions[2] / 2, diffRadius = outerRadius - innerRadius,
+            // NOTE: updateRootId modifies series.
+            rootId = updateRootId(series), mapIdToNode = series.nodeMap, mapOptionsToLevel, idTop,
+            nodeRoot = mapIdToNode && mapIdToNode[rootId], nodeTop, tree, values, nodeIds = {};
         series.shapeRoot = nodeRoot && nodeRoot.shapeArgs;
         // Call prototype function
         Series.prototype.translate.call(series);
@@ -769,8 +786,7 @@ var sunburstSeries = {
             };
             group.attr(attribs);
             // Run the animation
-        }
-        else {
+        } else {
             attribs = {
                 translateX: plotLeft,
                 translateY: plotTop,
@@ -841,18 +857,18 @@ var sunburstPoint = {
  * @apioption series.treemap.data.parent
  */
 /**
-  * Whether to display a slice offset from the center. When a sunburst point is
-  * sliced, its children are also offset.
-  *
-  * @sample highcharts/plotoptions/sunburst-sliced
-  *         Sliced sunburst
-  *
-  * @type      {boolean}
-  * @default   false
-  * @since     6.0.4
-  * @product   highcharts
-  * @apioption series.sunburst.data.sliced
-  */
+ * Whether to display a slice offset from the center. When a sunburst point is
+ * sliced, its children are also offset.
+ *
+ * @sample highcharts/plotoptions/sunburst-sliced
+ *         Sliced sunburst
+ *
+ * @type      {boolean}
+ * @default   false
+ * @since     6.0.4
+ * @product   highcharts
+ * @apioption series.sunburst.data.sliced
+ */
 /**
  * @private
  * @class

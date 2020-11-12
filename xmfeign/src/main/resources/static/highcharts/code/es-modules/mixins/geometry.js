@@ -16,7 +16,7 @@ var getCenterOfPoints = function getCenterOfPoints(points) {
         sum.x += point.x;
         sum.y += point.y;
         return sum;
-    }, { x: 0, y: 0 });
+    }, {x: 0, y: 0});
     return {
         x: sum.x / points.length,
         y: sum.y / points.length

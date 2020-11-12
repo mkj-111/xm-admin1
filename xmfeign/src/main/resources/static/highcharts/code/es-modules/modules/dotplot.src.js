@@ -19,8 +19,10 @@
 'use strict';
 import H from '../parts/Globals.js';
 import U from '../parts/Utilities.js';
+
 var extend = U.extend, objectEach = U.objectEach, pick = U.pick;
 import '../parts/Series.js';
+
 var seriesType = H.seriesType;
 /**
  * @private
@@ -40,11 +42,14 @@ seriesType('dotplot', 'column', {
     }
 }, {
     drawPoints: function () {
-        var series = this, renderer = series.chart.renderer, seriesMarkerOptions = this.options.marker, itemPaddingTranslated = this.yAxis.transA *
-            series.options.itemPadding, borderWidth = this.borderWidth, crisp = borderWidth % 2 ? 0.5 : 1;
+        var series = this, renderer = series.chart.renderer, seriesMarkerOptions = this.options.marker,
+            itemPaddingTranslated = this.yAxis.transA *
+                series.options.itemPadding, borderWidth = this.borderWidth, crisp = borderWidth % 2 ? 0.5 : 1;
         this.points.forEach(function (point) {
-            var yPos, attr, graphics, itemY, pointAttr, pointMarkerOptions = point.marker || {}, symbol = (pointMarkerOptions.symbol ||
-                seriesMarkerOptions.symbol), radius = pick(pointMarkerOptions.radius, seriesMarkerOptions.radius), size, yTop, isSquare = symbol !== 'rect', x, y;
+            var yPos, attr, graphics, itemY, pointAttr, pointMarkerOptions = point.marker || {},
+                symbol = (pointMarkerOptions.symbol ||
+                    seriesMarkerOptions.symbol), radius = pick(pointMarkerOptions.radius, seriesMarkerOptions.radius),
+                size, yTop, isSquare = symbol !== 'rect', x, y;
             point.graphics = graphics = point.graphics || {};
             pointAttr = point.pointAttr ?
                 (point.pointAttr[point.selected ? 'selected' : ''] ||
@@ -81,8 +86,7 @@ seriesType('dotplot', 'column', {
                     };
                     if (graphics[itemY]) {
                         graphics[itemY].animate(attr);
-                    }
-                    else {
+                    } else {
                         graphics[itemY] = renderer.symbol(symbol)
                             .attr(extend(attr, pointAttr))
                             .add(point.graphic);
@@ -95,8 +99,7 @@ seriesType('dotplot', 'column', {
                 if (!graphic.isActive) {
                     graphic.destroy();
                     delete graphic[key];
-                }
-                else {
+                } else {
                     graphic.isActive = false;
                 }
             });

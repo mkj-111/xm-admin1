@@ -10,7 +10,9 @@
 'use strict';
 import H from './Globals.js';
 import U from './Utilities.js';
-var defined = U.defined, discardElement = U.discardElement, extend = U.extend, isNumber = U.isNumber, isString = U.isString, pick = U.pick, splat = U.splat, syncTimeout = U.syncTimeout;
+
+var defined = U.defined, discardElement = U.discardElement, extend = U.extend, isNumber = U.isNumber,
+    isString = U.isString, pick = U.pick, splat = U.splat, syncTimeout = U.syncTimeout;
 /**
  * Callback function to format the text of the tooltip from scratch.
  *
@@ -33,36 +35,36 @@ var defined = U.defined, discardElement = U.discardElement, extend = U.extend, i
 /**
  * @interface Highcharts.TooltipFormatterContextObject
  */ /**
-* @name Highcharts.TooltipFormatterContextObject#color
-* @type {Highcharts.ColorString|Highcharts.GradientColorObject|Highcharts.PatternObject}
-*/ /**
-* @name Highcharts.TooltipFormatterContextObject#colorIndex
-* @type {number|undefined}
-*/ /**
-* @name Highcharts.TooltipFormatterContextObject#key
-* @type {number}
-*/ /**
-* @name Highcharts.TooltipFormatterContextObject#percentage
-* @type {number|undefined}
-*/ /**
-* @name Highcharts.TooltipFormatterContextObject#point
-* @type {Highcharts.Point}
-*/ /**
-* @name Highcharts.TooltipFormatterContextObject#points
-* @type {Array<Highcharts.TooltipFormatterContextObject>|undefined}
-*/ /**
-* @name Highcharts.TooltipFormatterContextObject#series
-* @type {Highcharts.Series}
-*/ /**
-* @name Highcharts.TooltipFormatterContextObject#total
-* @type {number|undefined}
-*/ /**
-* @name Highcharts.TooltipFormatterContextObject#x
-* @type {number}
-*/ /**
-* @name Highcharts.TooltipFormatterContextObject#y
-* @type {number}
-*/
+ * @name Highcharts.TooltipFormatterContextObject#color
+ * @type {Highcharts.ColorString|Highcharts.GradientColorObject|Highcharts.PatternObject}
+ */ /**
+ * @name Highcharts.TooltipFormatterContextObject#colorIndex
+ * @type {number|undefined}
+ */ /**
+ * @name Highcharts.TooltipFormatterContextObject#key
+ * @type {number}
+ */ /**
+ * @name Highcharts.TooltipFormatterContextObject#percentage
+ * @type {number|undefined}
+ */ /**
+ * @name Highcharts.TooltipFormatterContextObject#point
+ * @type {Highcharts.Point}
+ */ /**
+ * @name Highcharts.TooltipFormatterContextObject#points
+ * @type {Array<Highcharts.TooltipFormatterContextObject>|undefined}
+ */ /**
+ * @name Highcharts.TooltipFormatterContextObject#series
+ * @type {Highcharts.Series}
+ */ /**
+ * @name Highcharts.TooltipFormatterContextObject#total
+ * @type {number|undefined}
+ */ /**
+ * @name Highcharts.TooltipFormatterContextObject#x
+ * @type {number}
+ */ /**
+ * @name Highcharts.TooltipFormatterContextObject#y
+ * @type {number}
+ */
 /**
  * A callback function to place the tooltip in a specific position.
  *
@@ -85,25 +87,25 @@ var defined = U.defined, discardElement = U.discardElement, extend = U.extend, i
  *
  * @interface Highcharts.TooltipPositionerPointObject
  */ /**
-* If `tooltip.split` option is enabled and positioner is called for each of the
-* boxes separately, this property indicates the call on the xAxis header, which
-* is not a point itself.
-* @name Highcharts.TooltipPositionerPointObject#isHeader
-* @type {boolean}
-*/ /**
-* @name Highcharts.TooltipPositionerPointObject#negative
-* @type {boolean}
-*/ /**
-* The reference point relative to the plot area. Add chart.plotLeft to get the
-* full coordinates.
-* @name Highcharts.TooltipPositionerPointObject#plotX
-* @type {number}
-*/ /**
-* The reference point relative to the plot area. Add chart.plotTop to get the
-* full coordinates.
-* @name Highcharts.TooltipPositionerPointObject#plotY
-* @type {number}
-*/
+ * If `tooltip.split` option is enabled and positioner is called for each of the
+ * boxes separately, this property indicates the call on the xAxis header, which
+ * is not a point itself.
+ * @name Highcharts.TooltipPositionerPointObject#isHeader
+ * @type {boolean}
+ */ /**
+ * @name Highcharts.TooltipPositionerPointObject#negative
+ * @type {boolean}
+ */ /**
+ * The reference point relative to the plot area. Add chart.plotLeft to get the
+ * full coordinates.
+ * @name Highcharts.TooltipPositionerPointObject#plotX
+ * @type {number}
+ */ /**
+ * The reference point relative to the plot area. Add chart.plotTop to get the
+ * full coordinates.
+ * @name Highcharts.TooltipPositionerPointObject#plotY
+ * @type {number}
+ */
 /**
  * @typedef {"callout"|"circle"|"square"} Highcharts.TooltipShapeValue
  */
@@ -172,7 +174,7 @@ H.Tooltip.prototype = {
          * @name Highcharts.Tooltip#now
          * @type {Highcharts.PositionObject}
          */
-        this.now = { x: 0, y: 0 };
+        this.now = {x: 0, y: 0};
         /**
          * Tooltips are initially hidden.
          *
@@ -234,8 +236,7 @@ H.Tooltip.prototype = {
             if (tt) {
                 if (!tt.isActive || force) {
                     series.tt = tt.destroy();
-                }
-                else {
+                } else {
                     tt.isActive = false;
                 }
             }
@@ -258,29 +259,29 @@ H.Tooltip.prototype = {
             id: 'drop-shadow-' + chart.index,
             opacity: 0.5,
             children: [{
-                    tagName: 'feGaussianBlur',
-                    'in': 'SourceAlpha',
-                    stdDeviation: 1
-                }, {
-                    tagName: 'feOffset',
-                    dx: 1,
-                    dy: 1
-                }, {
-                    tagName: 'feComponentTransfer',
-                    children: [{
-                            tagName: 'feFuncA',
-                            type: 'linear',
-                            slope: 0.3
-                        }]
-                }, {
-                    tagName: 'feMerge',
-                    children: [{
-                            tagName: 'feMergeNode'
-                        }, {
-                            tagName: 'feMergeNode',
-                            'in': 'SourceGraphic'
-                        }]
+                tagName: 'feGaussianBlur',
+                'in': 'SourceAlpha',
+                stdDeviation: 1
+            }, {
+                tagName: 'feOffset',
+                dx: 1,
+                dy: 1
+            }, {
+                tagName: 'feComponentTransfer',
+                children: [{
+                    tagName: 'feFuncA',
+                    type: 'linear',
+                    slope: 0.3
                 }]
+            }, {
+                tagName: 'feMerge',
+                children: [{
+                    tagName: 'feMergeNode'
+                }, {
+                    tagName: 'feMergeNode',
+                    'in': 'SourceGraphic'
+                }]
+            }]
         });
         chart.renderer.definition({
             tagName: 'style',
@@ -296,8 +297,9 @@ H.Tooltip.prototype = {
      * @return {Highcharts.SVGElement}
      */
     getLabel: function () {
-        var tooltip = this, renderer = this.chart.renderer, styledMode = this.chart.styledMode, options = this.options, className = 'tooltip' +
-            (defined(options.className) ? ' ' + options.className : ''), container, set;
+        var tooltip = this, renderer = this.chart.renderer, styledMode = this.chart.styledMode, options = this.options,
+            className = 'tooltip' +
+                (defined(options.className) ? ' ' + options.className : ''), container, set;
         if (!this.label) {
             if (this.outside) {
                 /**
@@ -330,20 +332,19 @@ H.Tooltip.prototype = {
             // Create the label
             if (this.split) {
                 this.label = renderer.g(className);
-            }
-            else {
+            } else {
                 this.label = renderer
                     .label('', 0, 0, options.shape || 'callout', null, null, options.useHTML, null, className)
                     .attr({
-                    padding: options.padding,
-                    r: options.borderRadius
-                });
+                        padding: options.padding,
+                        r: options.borderRadius
+                    });
                 if (!styledMode) {
                     this.label
                         .attr({
-                        fill: options.backgroundColor,
-                        'stroke-width': options.borderWidth
-                    })
+                            fill: options.backgroundColor,
+                            'stroke-width': options.borderWidth
+                        })
                         // #2301, #2657
                         .css(options.style)
                         .shadow(options.shadow);
@@ -372,8 +373,8 @@ H.Tooltip.prototype = {
             }
             this.label
                 .attr({
-                zIndex: 8
-            })
+                    zIndex: 8
+                })
                 .add();
         }
         return this.label;
@@ -503,7 +504,8 @@ H.Tooltip.prototype = {
      * @return {Array<number>}
      */
     getAnchor: function (points, mouseEvent) {
-        var ret, chart = this.chart, pointer = chart.pointer, inverted = chart.inverted, plotTop = chart.plotTop, plotLeft = chart.plotLeft, plotX = 0, plotY = 0, yAxis, xAxis;
+        var ret, chart = this.chart, pointer = chart.pointer, inverted = chart.inverted, plotTop = chart.plotTop,
+            plotLeft = chart.plotLeft, plotX = 0, plotY = 0, yAxis, xAxis;
         points = splat(points);
         // When tooltip follows mouse, relate the position to the mouse
         if (this.followPointer && mouseEvent) {
@@ -515,12 +517,10 @@ H.Tooltip.prototype = {
                 mouseEvent.chartY - plotTop
             ];
             // Pie uses a special tooltipPos
-        }
-        else if (points[0].tooltipPos) {
+        } else if (points[0].tooltipPos) {
             ret = points[0].tooltipPos;
             // When shared, use the average position
-        }
-        else {
+        } else {
             points.forEach(function (point) {
                 yAxis = point.series.yAxis;
                 xAxis = point.series.xAxis;
@@ -558,129 +558,129 @@ H.Tooltip.prototype = {
      * @return {Highcharts.Dictionary<number>}
      */
     getPosition: function (boxWidth, boxHeight, point) {
-        var chart = this.chart, distance = this.distance, ret = {}, 
-        // Don't use h if chart isn't inverted (#7242) ???
-        h = (chart.inverted && point.h) || 0, // #4117 ???
-        swapped, outside = this.outside, outerWidth = outside ?
+        var chart = this.chart, distance = this.distance, ret = {},
+            // Don't use h if chart isn't inverted (#7242) ???
+            h = (chart.inverted && point.h) || 0, // #4117 ???
+            swapped, outside = this.outside, outerWidth = outside ?
             // substract distance to prevent scrollbars
             doc.documentElement.clientWidth - 2 * distance :
             chart.chartWidth, outerHeight = outside ?
             Math.max(doc.body.scrollHeight, doc.documentElement.scrollHeight, doc.body.offsetHeight, doc.documentElement.offsetHeight, doc.documentElement.clientHeight) :
-            chart.chartHeight, chartPosition = chart.pointer.getChartPosition(), containerScaling = chart.containerScaling, scaleX = function (val) { return ( // eslint-disable-line no-confusing-arrow
-        containerScaling ? val * containerScaling.scaleX : val); }, scaleY = function (val) { return ( // eslint-disable-line no-confusing-arrow
-        containerScaling ? val * containerScaling.scaleY : val); }, 
-        // Build parameter arrays for firstDimension()/secondDimension()
-        buildDimensionArray = function (dim) {
-            var isX = dim === 'x';
-            return [
-                dim,
-                isX ? outerWidth : outerHeight,
-                isX ? boxWidth : boxHeight
-            ].concat(outside ? [
-                // If we are using tooltip.outside, we need to scale the
-                // position to match scaling of the container in case there
-                // is a transform/zoom on the container. #11329
-                isX ? scaleX(boxWidth) : scaleY(boxHeight),
-                isX ? chartPosition.left - distance +
-                    scaleX(point.plotX + chart.plotLeft) :
-                    chartPosition.top - distance +
+            chart.chartHeight, chartPosition = chart.pointer.getChartPosition(),
+            containerScaling = chart.containerScaling, scaleX = function (val) {
+                return ( // eslint-disable-line no-confusing-arrow
+                    containerScaling ? val * containerScaling.scaleX : val);
+            }, scaleY = function (val) {
+                return ( // eslint-disable-line no-confusing-arrow
+                    containerScaling ? val * containerScaling.scaleY : val);
+            },
+            // Build parameter arrays for firstDimension()/secondDimension()
+            buildDimensionArray = function (dim) {
+                var isX = dim === 'x';
+                return [
+                    dim,
+                    isX ? outerWidth : outerHeight,
+                    isX ? boxWidth : boxHeight
+                ].concat(outside ? [
+                    // If we are using tooltip.outside, we need to scale the
+                    // position to match scaling of the container in case there
+                    // is a transform/zoom on the container. #11329
+                    isX ? scaleX(boxWidth) : scaleY(boxHeight),
+                    isX ? chartPosition.left - distance +
+                        scaleX(point.plotX + chart.plotLeft) :
+                        chartPosition.top - distance +
                         scaleY(point.plotY + chart.plotTop),
-                0,
-                isX ? outerWidth : outerHeight
-            ] : [
-                // Not outside, no scaling is needed
-                isX ? boxWidth : boxHeight,
-                isX ? point.plotX + chart.plotLeft :
-                    point.plotY + chart.plotTop,
-                isX ? chart.plotLeft : chart.plotTop,
-                isX ? chart.plotLeft + chart.plotWidth :
-                    chart.plotTop + chart.plotHeight
-            ]);
-        }, first = buildDimensionArray('y'), second = buildDimensionArray('x'), 
-        // The far side is right or bottom
-        preferFarSide = !this.followPointer && pick(point.ttBelow, !chart.inverted === !!point.negative), // #4984
-        /*
-         * Handle the preferred dimension. When the preferred dimension is
-         * tooltip on top or bottom of the point, it will look for space
-         * there.
-         *
-         * @private
-         */
-        firstDimension = function (dim, outerSize, innerSize, scaledInnerSize, // #11329
-        point, min, max) {
-            var scaledDist = dim === 'y' ?
-                scaleY(distance) : scaleX(distance), scaleDiff = (innerSize - scaledInnerSize) / 2, roomLeft = scaledInnerSize < point - distance, roomRight = point + distance + scaledInnerSize < outerSize, alignedLeft = point - scaledDist - innerSize + scaleDiff, alignedRight = point + scaledDist - scaleDiff;
-            if (preferFarSide && roomRight) {
-                ret[dim] = alignedRight;
-            }
-            else if (!preferFarSide && roomLeft) {
-                ret[dim] = alignedLeft;
-            }
-            else if (roomLeft) {
-                ret[dim] = Math.min(max - scaledInnerSize, alignedLeft - h < 0 ? alignedLeft : alignedLeft - h);
-            }
-            else if (roomRight) {
-                ret[dim] = Math.max(min, alignedRight + h + innerSize > outerSize ?
-                    alignedRight :
-                    alignedRight + h);
-            }
-            else {
-                return false;
-            }
-        }, 
-        /*
-         * Handle the secondary dimension. If the preferred dimension is
-         * tooltip on top or bottom of the point, the second dimension is to
-         * align the tooltip above the point, trying to align center but
-         * allowing left or right align within the chart box.
-         *
-         * @private
-         */
-        secondDimension = function (dim, outerSize, innerSize, scaledInnerSize, // #11329
-        point) {
-            var retVal;
-            // Too close to the edge, return false and swap dimensions
-            if (point < distance || point > outerSize - distance) {
-                retVal = false;
-                // Align left/top
-            }
-            else if (point < innerSize / 2) {
-                ret[dim] = 1;
-                // Align right/bottom
-            }
-            else if (point > outerSize - scaledInnerSize / 2) {
-                ret[dim] = outerSize - scaledInnerSize - 2;
-                // Align center
-            }
-            else {
-                ret[dim] = point - innerSize / 2;
-            }
-            return retVal;
-        }, 
-        /*
-         * Swap the dimensions
-         */
-        swap = function (count) {
-            var temp = first;
-            first = second;
-            second = temp;
-            swapped = count;
-        }, run = function () {
-            if (firstDimension.apply(0, first) !== false) {
-                if (secondDimension.apply(0, second) === false &&
-                    !swapped) {
+                    0,
+                    isX ? outerWidth : outerHeight
+                ] : [
+                    // Not outside, no scaling is needed
+                    isX ? boxWidth : boxHeight,
+                    isX ? point.plotX + chart.plotLeft :
+                        point.plotY + chart.plotTop,
+                    isX ? chart.plotLeft : chart.plotTop,
+                    isX ? chart.plotLeft + chart.plotWidth :
+                        chart.plotTop + chart.plotHeight
+                ]);
+            }, first = buildDimensionArray('y'), second = buildDimensionArray('x'),
+            // The far side is right or bottom
+            preferFarSide = !this.followPointer && pick(point.ttBelow, !chart.inverted === !!point.negative), // #4984
+            /*
+             * Handle the preferred dimension. When the preferred dimension is
+             * tooltip on top or bottom of the point, it will look for space
+             * there.
+             *
+             * @private
+             */
+            firstDimension = function (dim, outerSize, innerSize, scaledInnerSize, // #11329
+                                       point, min, max) {
+                var scaledDist = dim === 'y' ?
+                    scaleY(distance) : scaleX(distance), scaleDiff = (innerSize - scaledInnerSize) / 2,
+                    roomLeft = scaledInnerSize < point - distance,
+                    roomRight = point + distance + scaledInnerSize < outerSize,
+                    alignedLeft = point - scaledDist - innerSize + scaleDiff,
+                    alignedRight = point + scaledDist - scaleDiff;
+                if (preferFarSide && roomRight) {
+                    ret[dim] = alignedRight;
+                } else if (!preferFarSide && roomLeft) {
+                    ret[dim] = alignedLeft;
+                } else if (roomLeft) {
+                    ret[dim] = Math.min(max - scaledInnerSize, alignedLeft - h < 0 ? alignedLeft : alignedLeft - h);
+                } else if (roomRight) {
+                    ret[dim] = Math.max(min, alignedRight + h + innerSize > outerSize ?
+                        alignedRight :
+                        alignedRight + h);
+                } else {
+                    return false;
+                }
+            },
+            /*
+             * Handle the secondary dimension. If the preferred dimension is
+             * tooltip on top or bottom of the point, the second dimension is to
+             * align the tooltip above the point, trying to align center but
+             * allowing left or right align within the chart box.
+             *
+             * @private
+             */
+            secondDimension = function (dim, outerSize, innerSize, scaledInnerSize, // #11329
+                                        point) {
+                var retVal;
+                // Too close to the edge, return false and swap dimensions
+                if (point < distance || point > outerSize - distance) {
+                    retVal = false;
+                    // Align left/top
+                } else if (point < innerSize / 2) {
+                    ret[dim] = 1;
+                    // Align right/bottom
+                } else if (point > outerSize - scaledInnerSize / 2) {
+                    ret[dim] = outerSize - scaledInnerSize - 2;
+                    // Align center
+                } else {
+                    ret[dim] = point - innerSize / 2;
+                }
+                return retVal;
+            },
+            /*
+             * Swap the dimensions
+             */
+            swap = function (count) {
+                var temp = first;
+                first = second;
+                second = temp;
+                swapped = count;
+            }, run = function () {
+                if (firstDimension.apply(0, first) !== false) {
+                    if (secondDimension.apply(0, second) === false &&
+                        !swapped) {
+                        swap(true);
+                        run();
+                    }
+                } else if (!swapped) {
                     swap(true);
                     run();
+                } else {
+                    ret.x = ret.y = 0;
                 }
-            }
-            else if (!swapped) {
-                swap(true);
-                run();
-            }
-            else {
-                ret.x = ret.y = 0;
-            }
-        };
+            };
         // Under these conditions, prefer the tooltip on the side of the point
         if (chart.inverted || this.len > 1) {
             swap();
@@ -723,7 +723,9 @@ H.Tooltip.prototype = {
      * @return {void}
      */
     refresh: function (pointOrPoints, mouseEvent) {
-        var tooltip = this, chart = this.chart, options = tooltip.options, x, y, point = pointOrPoints, anchor, textConfig = {}, text, pointConfig = [], formatter = options.formatter || tooltip.defaultFormatter, shared = tooltip.shared, currentSeries, styledMode = chart.styledMode;
+        var tooltip = this, chart = this.chart, options = tooltip.options, x, y, point = pointOrPoints, anchor,
+            textConfig = {}, text, pointConfig = [], formatter = options.formatter || tooltip.defaultFormatter,
+            shared = tooltip.shared, currentSeries, styledMode = chart.styledMode;
         if (!options.enabled) {
             return;
         }
@@ -751,8 +753,7 @@ H.Tooltip.prototype = {
             textConfig.points = pointConfig;
             point = point[0];
             // single point tooltip
-        }
-        else {
+        } else {
             textConfig = point.getLabelConfig();
         }
         this.len = pointConfig.length; // #6128
@@ -763,13 +764,11 @@ H.Tooltip.prototype = {
         // update the inner HTML
         if (text === false) {
             this.hide();
-        }
-        else {
+        } else {
             // update text
             if (tooltip.split) {
                 this.renderSplit(text, splat(pointOrPoints));
-            }
-            else {
+            } else {
                 var label = tooltip.getLabel();
                 // Prevent the tooltip from flowing over the chart box (#6659)
                 if (!options.style.width || styledMode) {
@@ -785,7 +784,7 @@ H.Tooltip.prototype = {
                 // Set the stroke color of the box to reflect the point
                 label.removeClass(/highcharts-color-[\d]+/g)
                     .addClass('highcharts-color-' +
-                    pick(point.colorIndex, currentSeries.colorIndex));
+                        pick(point.colorIndex, currentSeries.colorIndex));
                 if (!styledMode) {
                     label.attr({
                         stroke: (options.borderColor ||
@@ -825,7 +824,9 @@ H.Tooltip.prototype = {
      * @param {Array<Highcharts.Point>} points
      */
     renderSplit: function (labels, points) {
-        var tooltip = this, boxes = [], chart = this.chart, ren = chart.renderer, rightAligned = true, options = this.options, headerHeight = 0, headerTop, tooltipLabel = this.getLabel(), distributionBoxTop = chart.plotTop;
+        var tooltip = this, boxes = [], chart = this.chart, ren = chart.renderer, rightAligned = true,
+            options = this.options, headerHeight = 0, headerTop, tooltipLabel = this.getLabel(),
+            distributionBoxTop = chart.plotTop;
         // Graceful degradation for legacy formatters
         if (isString(labels)) {
             labels = [false, labels];
@@ -840,7 +841,9 @@ H.Tooltip.prototype = {
                         isHeader: true,
                         plotX: points[0].plotX,
                         plotY: chart.plotHeight
-                    }, owner = point.series || tooltip, tt = owner.tt, series = point.series || {}, colorClass = 'highcharts-color-' + pick(point.colorIndex, series.colorIndex, 'none'), target, x, bBox, boxWidth, attribs;
+                    }, owner = point.series || tooltip, tt = owner.tt, series = point.series || {},
+                    colorClass = 'highcharts-color-' + pick(point.colorIndex, series.colorIndex, 'none'), target, x,
+                    bBox, boxWidth, attribs;
                 // Store the tooltip referance on the series
                 if (!tt) {
                     attribs = {
@@ -853,12 +856,12 @@ H.Tooltip.prototype = {
                     }
                     owner.tt = tt = ren
                         .label(null, null, null, (point.isHeader ?
-                        options.headerShape :
-                        options.shape) || 'callout', null, null, options.useHTML)
+                            options.headerShape :
+                            options.shape) || 'callout', null, null, options.useHTML)
                         .addClass(point.isHeader ?
-                        'highcharts-tooltip-header ' : '' +
-                        'highcharts-tooltip-box ' +
-                        colorClass)
+                            'highcharts-tooltip-header ' : '' +
+                            'highcharts-tooltip-box ' +
+                            colorClass)
                         .attr(attribs)
                         .add(tooltipLabel);
                 }
@@ -870,11 +873,11 @@ H.Tooltip.prototype = {
                     tt.css(options.style)
                         .shadow(options.shadow)
                         .attr({
-                        stroke: (options.borderColor ||
-                            point.color ||
-                            series.color ||
-                            '#333333')
-                    });
+                            stroke: (options.borderColor ||
+                                point.color ||
+                                series.color ||
+                                '#333333')
+                        });
                 }
                 // Get X position now, so we can move all to the other side in
                 // case of overflow
@@ -887,20 +890,19 @@ H.Tooltip.prototype = {
                         distributionBoxTop -= headerHeight;
                     }
                     x = Math.max(0, // No left overflow
-                    Math.min(point.plotX +
-                        chart.plotLeft -
-                        boxWidth / 2, 
-                    // No right overflow (#5794)
-                    chart.chartWidth +
-                        (
-                        // Scrollable plot area
-                        chart.scrollablePixelsX ?
-                            chart.scrollablePixelsX -
-                                chart.marginRight :
-                            0) -
-                        boxWidth));
-                }
-                else {
+                        Math.min(point.plotX +
+                            chart.plotLeft -
+                            boxWidth / 2,
+                            // No right overflow (#5794)
+                            chart.chartWidth +
+                            (
+                                // Scrollable plot area
+                                chart.scrollablePixelsX ?
+                                    chart.scrollablePixelsX -
+                                    chart.marginRight :
+                                    0) -
+                            boxWidth));
+                } else {
                     x = point.plotX + chart.plotLeft -
                         pick(options.distance, 16) - boxWidth;
                 }
@@ -913,8 +915,7 @@ H.Tooltip.prototype = {
                     target = headerTop ?
                         -headerHeight :
                         chart.plotHeight + headerHeight;
-                }
-                else {
+                } else {
                     var yAxis = series.yAxis;
                     target = yAxis.pos - distributionBoxTop + Math.max(0, Math.min((point.plotY || 0), yAxis.len)); // Limit target position to within yAxis
                 }
@@ -983,7 +984,8 @@ H.Tooltip.prototype = {
      * @param {Highcharts.Point} point
      */
     updatePosition: function (point) {
-        var chart = this.chart, pointer = chart.pointer, label = this.getLabel(), pos, anchorX = point.plotX + chart.plotLeft, anchorY = point.plotY + chart.plotTop, pad;
+        var chart = this.chart, pointer = chart.pointer, label = this.getLabel(), pos,
+            anchorX = point.plotX + chart.plotLeft, anchorY = point.plotY + chart.plotTop, pad;
         // Needed for outside: true (#11688)
         var chartPosition = pointer.getChartPosition();
         pos = (this.options.positioner || this.getPosition).call(this, label.width, label.height, point);
@@ -1006,7 +1008,7 @@ H.Tooltip.prototype = {
         }
         // do the move
         this.move(Math.round(pos.x), Math.round(pos.y || 0), // can be undefined (#3977)
-        anchorX, anchorY);
+            anchorX, anchorY);
     },
     /**
      * Get the optimal date format for a point, based on a range.
@@ -1031,13 +1033,14 @@ H.Tooltip.prototype = {
      *         The optimal date format for a point.
      */
     getDateFormat: function (range, date, startOfWeek, dateTimeLabelFormats) {
-        var time = this.chart.time, dateStr = time.dateFormat('%m-%d %H:%M:%S.%L', date), format, n, blank = '01-01 00:00:00.000', strpos = {
-            millisecond: 15,
-            second: 12,
-            minute: 9,
-            hour: 6,
-            day: 3
-        }, lastN = 'millisecond'; // for sub-millisecond data, #4223
+        var time = this.chart.time, dateStr = time.dateFormat('%m-%d %H:%M:%S.%L', date), format, n,
+            blank = '01-01 00:00:00.000', strpos = {
+                millisecond: 15,
+                second: 12,
+                minute: 9,
+                hour: 6,
+                day: 3
+            }, lastN = 'millisecond'; // for sub-millisecond data, #4223
         for (n in timeUnits) { // eslint-disable-line guard-for-in
             // If the range is exactly one week and we're looking at a
             // Sunday/Monday, go for the week format
@@ -1084,11 +1087,11 @@ H.Tooltip.prototype = {
      * @return {string}
      */
     getXDateFormat: function (point, options, xAxis) {
-        var xDateFormat, dateTimeLabelFormats = options.dateTimeLabelFormats, closestPointRange = xAxis && xAxis.closestPointRange;
+        var xDateFormat, dateTimeLabelFormats = options.dateTimeLabelFormats,
+            closestPointRange = xAxis && xAxis.closestPointRange;
         if (closestPointRange) {
             xDateFormat = this.getDateFormat(closestPointRange, point.x, xAxis.options.startOfWeek, dateTimeLabelFormats);
-        }
-        else {
+        } else {
             xDateFormat = dateTimeLabelFormats.day;
         }
         return xDateFormat || dateTimeLabelFormats.year; // #2546, 2581
@@ -1104,12 +1107,14 @@ H.Tooltip.prototype = {
      * @return {string}
      */
     tooltipFooterHeaderFormatter: function (labelConfig, isFooter) {
-        var footOrHead = isFooter ? 'footer' : 'header', series = labelConfig.series, tooltipOptions = series.tooltipOptions, xDateFormat = tooltipOptions.xDateFormat, xAxis = series.xAxis, isDateTime = (xAxis &&
-            xAxis.options.type === 'datetime' &&
-            isNumber(labelConfig.key)), formatString = tooltipOptions[footOrHead + 'Format'], evt = {
-            isFooter: isFooter,
-            labelConfig: labelConfig
-        };
+        var footOrHead = isFooter ? 'footer' : 'header', series = labelConfig.series,
+            tooltipOptions = series.tooltipOptions, xDateFormat = tooltipOptions.xDateFormat, xAxis = series.xAxis,
+            isDateTime = (xAxis &&
+                xAxis.options.type === 'datetime' &&
+                isNumber(labelConfig.key)), formatString = tooltipOptions[footOrHead + 'Format'], evt = {
+                isFooter: isFooter,
+                labelConfig: labelConfig
+            };
         H.fireEvent(this, 'headerFormatter', evt, function (e) {
             // Guess the best date format based on the closest point distance
             // (#568, #3418)

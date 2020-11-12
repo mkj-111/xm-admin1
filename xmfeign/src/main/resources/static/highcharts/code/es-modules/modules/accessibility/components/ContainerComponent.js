@@ -12,6 +12,7 @@
 
 import H from '../../../parts/Globals.js';
 import U from '../../../parts/Utilities.js';
+
 var extend = U.extend;
 
 import AccessibilityComponent from '../AccessibilityComponent.js';
@@ -28,7 +29,8 @@ var doc = H.win.document,
  * @class
  * @name Highcharts.ContainerComponent
  */
-var ContainerComponent = function () {};
+var ContainerComponent = function () {
+};
 ContainerComponent.prototype = new AccessibilityComponent();
 extend(ContainerComponent.prototype, /** @lends Highcharts.ContainerComponent */ { // eslint-disable-line
 
@@ -41,7 +43,7 @@ extend(ContainerComponent.prototype, /** @lends Highcharts.ContainerComponent */
             titleElement,
             titleId = 'highcharts-title-' + chart.index,
             chartTitle = chart.options.title.text || chart.langFormat(
-                'accessibility.defaultChartTitle', { chart: chart }
+                'accessibility.defaultChartTitle', {chart: chart}
             ),
             svgContainerTitle = stripHTMLTags(chart.langFormat(
                 'accessibility.svgContainerTitle', {
@@ -58,8 +60,8 @@ extend(ContainerComponent.prototype, /** @lends Highcharts.ContainerComponent */
         if (svgContainerTitle.length) {
             titleElement = this.svgTitleElement =
                 this.svgTitleElement || doc.createElementNS(
-                    'http://www.w3.org/2000/svg',
-                    'title'
+                'http://www.w3.org/2000/svg',
+                'title'
                 );
             titleElement.textContent = svgContainerTitle;
             titleElement.id = titleId;

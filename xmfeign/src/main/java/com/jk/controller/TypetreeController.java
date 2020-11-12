@@ -23,7 +23,7 @@ public class TypetreeController {
 
     //查询分类导航
     @RequestMapping("findtype")
-    public List<TypetreeBean> findtype(@RequestParam Integer pid){
+    public List<TypetreeBean> findtype(@RequestParam Integer pid) {
         return typetreeService.findtype(pid);
     }
 }

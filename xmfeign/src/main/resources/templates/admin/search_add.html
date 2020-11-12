@@ -30,6 +30,10 @@
     <link as="script" href="../我的购物车-小米商城_files/cart.51503133.js.下载" rel="preload">
     <link as="script" href="../我的购物车-小米商城_files/chunk-vendors.50ac3731.js.下载" rel="preload">
     <link href="../我的购物车-小米商城_files/cart.83dd4cb0.css" rel="stylesheet">
+    <script type="text/javascript" src="/mi/js/jquery-1.12.4.js"></script>
+    <script type="text/javascript" src="/mi/js/jquery-1.4.2.min.js"></script>
+    <script type="text/javascript" src="/js/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript" src="/js/vue/vue.min.js"></script>
 </head>
 <body id="stat_e3c9df7196008778">
 <div id="app">
@@ -74,8 +78,15 @@
                             <a data-v-562c5445="" href="javascript:void(0);">去凑单 &gt;</a></div>
                         <div class="cart-goods-list" data-v-562c5445="">
                             <div class="list-head clearfix" data-v-562c5445="">
-                                <div class="col col-check" data-v-562c5445=""><i class="iconfont icon-checkbox icon-checkbox-selected"
-                                                                                 data-v-562c5445="">√</i>全选
+
+                                <table>
+                                    <tr>
+
+
+                                    </tr>
+
+                                </table>
+                                <div class="col col-check" data-v-562c5445=""><input type="checkbox">全选
                                 </div>
                                 <div class="col col-img" data-v-562c5445="">&nbsp;</div>
                                 <div class="col col-name" data-v-562c5445="">商品名称</div>
@@ -85,576 +96,882 @@
                                 <div class="col col-action" data-v-562c5445="">操作</div>
                             </div>
                             <div class="list-body" data-v-562c5445="">
-                                <div class="list-item" data-v-562c5445=""><!---->
+                                <div class="list-item" data-v-562c5445="" id="table"><!---->
                                     <div class="item-box" data-v-562c5445="">
+
                                         <div class="item-table" data-v-562c5445="">
+
                                             <div class="item-row clearfix" data-v-562c5445="">
-                                                <div class="col col-check" data-v-562c5445=""><i class="iconfont icon-checkbox icon-checkbox-selected"
-                                                                                                 data-v-562c5445="">√</i>
+                                                <div class="col col-check" data-v-562c5445=""><i
+                                                        class="iconfont icon-checkbox "
+                                                        data-v-562c5445=""></i>
                                                 </div>
-                                                <div class="col col-img" data-v-562c5445=""><a data-v-562c5445=""
-                                                                                               href="javascript:void(0)"><img
-                                                        alt="" data-v-562c5445=""
-                                                        height="80" src="../我的购物车-小米商城_files/pms_1581494045.31058391.jpg"
-                                                        width="80"></a></div>
+
+                                                <div class="col col-img" data-v-562c5445="">
+                                                    <a data-v-562c5445="" href="javascript:void(0)">
+                                                        <img alt="" data-v-562c5445="" height="80"
+                                                             src="../我的购物车-小米商城_files/pms_1581494045.31058391.jpg"
+                                                             width="80"></a>
+                                                </div>
+
                                                 <div class="col col-name" data-v-562c5445="">
-                                                    <div class="tags" data-v-562c5445=""><!----><!----></div>
-                                                    <div class="tags" data-v-562c5445=""></div>
-                                                    <h3 class="name" data-v-562c5445=""><a data-v-562c5445=""
-                                                                                           href="javascript:void(0)">小米10
-                                                        全网通版 8GB+128GB 钛银黑</a></h3><!----><!----><!----><!----></div>
+                                                    <h3 class="name" data-v-562c5445="">
+                                                        <a data-v-562c5445="" href="javascript:void(0)">小米10
+                                                            全网通版 8GB+128GB 钛银黑</a>
+                                                    </h3>
+                                                </div>
+
                                                 <div class="col col-price" data-v-562c5445="">3499元<p class="pre-info"
                                                                                                       data-v-562c5445="">
-                                                    <!----></p></div>
+                                                </p></div>
+
                                                 <div class="col col-num" data-v-562c5445="">
-                                                    <div class="change-goods-num clearfix" data-v-562c5445=""><a
-                                                            data-v-562c5445="" href="javascript:void(0)"><i
-                                                            class="iconfont" data-v-562c5445=""></i></a><input
-                                                            autocomplete="off" class="goods-num" data-v-562c5445=""
-                                                            type="text"><a data-v-562c5445=""
-                                                                                 href="javascript:void(0)"><i
-                                                            class="iconfont" data-v-562c5445=""></i></a><!----></div>
+                                                    <div class="change-goods-num clearfix" data-v-562c5445="">
+                                                        <a data-v-562c5445="" href="javascript:void(0)">
+                                                            <i class="iconfont" data-v-562c5445=""></i></a>
+                                                        <input autocomplete="off" class="goods-num" data-v-562c5445=""
+                                                               type="text">
+                                                        <a data-v-562c5445="" href="javascript:void(0)">
+                                                            <i class="iconfont" data-v-562c5445=""></i>
+                                                        </a><!----></div>
                                                 </div>
                                                 <div class="col col-total" data-v-562c5445="">3499元<p class="pre-info"
                                                                                                       data-v-562c5445="">
-                                                    <!----></p></div>
-                                                <div class="col col-action" data-v-562c5445=""><a class="del"
-                                                                                                  data-v-562c5445=""
-                                                                                                  href="javascript:void(0);"
-                                                                                                  title="删除"><i
-                                                        class="iconfont" data-v-562c5445=""></i></a></div>
+                                                </p></div>
+
+                                                <div class="col col-action" data-v-562c5445="">
+                                                    <a class="del" data-v-562c5445="" href="javascript:void(0);"
+                                                       title="删除">
+                                                        <i class="iconfont" data-v-562c5445=""></i>
+                                                    </a>
+                                                </div>
+
                                             </div>
-                                        </div><!----><!----><!----><!---->
+                                        </div>
 
                                     </div>
                                 </div>
+
+
                                 <div class="list-item" data-v-562c5445=""><!---->
                                     <div class="item-box" data-v-562c5445="">
                                         <div class="item-table" data-v-562c5445="">
                                             <div class="item-row clearfix" data-v-562c5445="">
 
-                        </div>
-                        <div class="raise-buy-box" data-v-562c5445=""></div>
-                        <div class="cart-bar clearfix cart-bar-fixed" data-v-562c5445="">
-                            <div class="section-left" data-v-562c5445=""><a class="back-shopping"
-                                                                            data-v-562c5445=""
-                                                                            href="https://list.mi.com/0">继续购物</a><span
-                                    class="cart-total" data-v-562c5445="">共 <i data-v-562c5445="">5</i> 件商品，已选择 <i
-                                    data-v-562c5445="">5</i>件</span></div><!----><span class="total-price"
-                                                                                       data-v-562c5445="">合计：<em
-                                data-v-562c5445="">14697</em>元<a class="btn btn-a btn-primary" data-v-562c5445=""
-                                                                 href="javascript:void(0);">去结算</a></span>
-                            <div class="no-select-tip" data-v-562c5445="" style="display: none;">请勾选需要结算的商品<i
-                                    class="arrow arrow-a" data-v-562c5445=""></i><i class="arrow arrow-b"data-v-562c5445=""></i></div>
+                                            </div>
+                                            <div class="raise-buy-box" data-v-562c5445=""></div>
+                                            <div class="cart-bar clearfix cart-bar-fixed" data-v-562c5445="" id="jie">
+                                                <!-- <div class="section-left" data-v-562c5445=""><a class="back-shopping"
+                                                                                                 data-v-562c5445=""
+                                                                                                 href="https://list.mi.com/0">继续购物</a><span
+                                                         class="cart-total" data-v-562c5445="">共 <i
+                                                         data-v-562c5445="">5</i> 件商品，已选择 <i
+                                                         data-v-562c5445="">5</i>件</span></div>-->
+                                                <span class="total-price" data-v-562c5445="">合计：
+                                                    <em data-v-562c5445="" id="zong">0</em>元
+                                                    <a class="btn btn-a btn-primary" data-v-562c5445=""
+                                                       onclick="jiesuan()">去结算</a>
+                                                </span>
+                                                <!--<div class="no-select-tip" data-v-562c5445="" style="display: none;">
+                                                    请勾选需要结算的商品<i
+                                                        class="arrow arrow-a" data-v-562c5445=""></i><i
+                                                        class="arrow arrow-b" data-v-562c5445=""></i></div>-->
+                                            </div>
+                                        </div>
+                                        <div class="cart-recommend" data-v-562c5445="">
+
+                                            <div class="recommend-bd" data-v-1956af42="" id="J_recommend_cartBuy">
+                                                <!---->
+                                                <ul class="recommend-list clearfix" data-v-1956af42="">
+                                                    <li class="recommend-item" data-v-1956af42=""><a
+                                                            data-log_code="reccom_Cart_0_0#eid=180:16:0:0:0:0:0:0:0:0&amp;traceId=CartRec-iV6KlCkfaOh3UFXKG63l1w==&amp;pid=9072&amp;bid=3038456.0&amp;page=cartbuy"
+                                                            data-stat-aid="黑鲨游戏 Type-C 耳机"
+                                                            data-stat-index="0"
+                                                            data-stat-method="1_11"
+                                                            data-stat-text="黑鲨游戏 Type-C 耳机"
+                                                            data-v-1956af42=""
+                                                            href="https://www.mi.com/buy?product_id=1184800004"
+                                                            target="_blank"><img
+                                                            alt="黑鲨游戏 Type-C 耳机"
+                                                            data-src="//cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/a2889874bdd0d3565f0dbf7bcc56abc1.jpg?thumb=1&amp;w=225&amp;h=225"
+                                                            data-v-1956af42=""
+                                                            lazy="loading"
+                                                            src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+                                                            width="140px">
+                                                        <div class="recommend-name" data-v-1956af42="">黑鲨游戏 Type-C
+                                                            耳机
+                                                        </div>
+                                                        <div class="recommend-price" data-v-1956af42="">99元</div>
+                                                        <div class="recommend-tips" data-v-1956af42="">4181人好评</div>
+                                                    </a>
+                                                        <div class="recommend-action" data-v-1956af42=""><a
+                                                                :data-log_code="reccom_Cart_0_0#eid=180:16:0:0:0:0:0:0:0:0&amp;traceId=CartRec-iV6KlCkfaOh3UFXKG63l1w==&amp;pid=9072&amp;bid=3038456.0&amp;page=cartbuy"
+                                                                class="btn btn-small btn-line-primary"
+                                                                data-stat-addcart="加购"
+                                                                data-stat-gid="2184800004"
+                                                                data-stat-index="0"
+                                                                data-stat-method="1_11"
+                                                                data-stat-text="黑鲨游戏 Type-C 耳机"
+                                                                data-v-1956af42=""
+                                                                href="../search_add">加入购物车</a>
+                                                        </div>
+                                                        <div class="recommend-notice" data-v-1956af42=""><a
+                                                                class="btn btn-block btn-green btn-notice"
+                                                                data-v-1956af42="">成功加入购物车</a>
+                                                        </div>
+                                                    </li>
+                                                    <li class="recommend-item" data-v-1956af42=""><a
+                                                            data-log_code="reccom_Cart_0_1#eid=180:16:0:0:0:0:0:0:0:0&amp;traceId=CartRec-iV6KlCkfaOh3UFXKG63l1w==&amp;pid=5828&amp;bid=3038456.1&amp;page=cartbuy"
+                                                            data-stat-aid="手机USB micro 数据线  "
+                                                            data-stat-index="1"
+                                                            data-stat-method="1_11"
+                                                            data-stat-text="手机USB micro 数据线  "
+                                                            data-v-1956af42=""
+                                                            href="https://www.mi.com/buy?product_id=1171900017"
+                                                            target="_blank"><img
+                                                            alt="手机USB micro 数据线  "
+                                                            data-src="//i8.mifile.cn/b2c-mimall-media/64de04b0cb774f0b33ed4a00df0f9c3c!225x225.jpg"
+                                                            data-v-1956af42=""
+                                                            lazy="loading"
+                                                            src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+                                                            width="140px">
+                                                        <div class="recommend-name" data-v-1956af42="">手机USB micro
+                                                            数据线
+                                                        </div>
+                                                        <div class="recommend-price" data-v-1956af42="">9.9元</div>
+                                                        <div class="recommend-tips" data-v-1956af42="">43.4万人好评
+                                                        </div>
+                                                    </a>
+                                                        <div class="recommend-action" data-v-1956af42=""><a
+                                                                :data-log_code="reccom_Cart_0_1#eid=180:16:0:0:0:0:0:0:0:0&amp;traceId=CartRec-iV6KlCkfaOh3UFXKG63l1w==&amp;pid=5828&amp;bid=3038456.1&amp;page=cartbuy"
+                                                                class="btn btn-small btn-line-primary"
+                                                                data-stat-addcart="加购"
+                                                                data-stat-gid="2171900028"
+                                                                data-stat-index="1"
+                                                                data-stat-method="1_11"
+                                                                data-stat-text="手机USB micro 数据线  "
+                                                                data-v-1956af42=""
+                                                                href="javascript:void(0);">加入购物车</a>
+                                                        </div>
+                                                        <div class="recommend-notice" data-v-1956af42=""><a
+                                                                class="btn btn-block btn-green btn-notice"
+                                                                data-v-1956af42="">成功加入购物车</a>
+                                                        </div>
+                                                    </li>
+                                                    <li class="recommend-item" data-v-1956af42=""><a
+                                                            data-log_code="reccom_Cart_0_2#eid=180:16:0:0:0:0:0:0:0:0&amp;traceId=CartRec-iV6KlCkfaOh3UFXKG63l1w==&amp;pid=9995&amp;bid=3038456.2&amp;page=cartbuy"
+                                                            data-stat-aid="小米手环4 NFC版"
+                                                            data-stat-index="2"
+                                                            data-stat-method="1_11"
+                                                            data-stat-text="小米手环4 NFC版"
+                                                            data-v-1956af42=""
+                                                            href="https://www.mi.com/buy?product_id=1192300038"
+                                                            target="_blank"><img
+                                                            alt="小米手环4 NFC版"
+                                                            data-src="//cdn.cnbj1.fds.api.mi-img.com/mi-mall/4edbcaa6ce1e36a121ad63ff460c7d8d.png?thumb=1&amp;w=225&amp;h=225&amp;f=webp&amp;q=90"
+                                                            data-v-1956af42=""
+                                                            lazy="loading"
+                                                            src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+                                                            width="140px">
+                                                        <div class="recommend-name" data-v-1956af42="">小米手环4 NFC版
+                                                        </div>
+                                                        <div class="recommend-price" data-v-1956af42="">179元</div>
+                                                        <div class="recommend-tips" data-v-1956af42="">51.1万人好评
+                                                        </div>
+                                                    </a>
+                                                        <div class="recommend-action" data-v-1956af42=""><a
+                                                                :data-log_code="reccom_Cart_0_2#eid=180:16:0:0:0:0:0:0:0:0&amp;traceId=CartRec-iV6KlCkfaOh3UFXKG63l1w==&amp;pid=9995&amp;bid=3038456.2&amp;page=cartbuy"
+                                                                class="btn btn-small btn-line-primary"
+                                                                data-stat-addcart="加购"
+                                                                data-stat-gid="2192300021"
+                                                                data-stat-index="2"
+                                                                data-stat-method="1_11"
+                                                                data-stat-text="小米手环4 NFC版"
+                                                                data-v-1956af42=""
+                                                                href="javascript:void(0);">加入购物车</a>
+                                                        </div>
+                                                        <div class="recommend-notice" data-v-1956af42=""><a
+                                                                class="btn btn-block btn-green btn-notice"
+                                                                data-v-1956af42="">成功加入购物车</a>
+                                                        </div>
+                                                    </li>
+                                                    <li class="recommend-item" data-v-1956af42=""><a
+                                                            data-log_code="reccom_Cart_0_3#eid=180:16:0:0:0:0:0:0:0:0&amp;traceId=CartRec-iV6KlCkfaOh3UFXKG63l1w==&amp;pid=9530&amp;bid=3038456.3&amp;page=cartbuy"
+                                                            data-stat-aid="米家压力IH电饭煲1S 3L"
+                                                            data-stat-index="3"
+                                                            data-stat-method="1_11"
+                                                            data-stat-text="米家压力IH电饭煲1S 3L"
+                                                            data-v-1956af42=""
+                                                            href="https://www.mi.com/buy?product_id=1191200019"
+                                                            target="_blank"><img
+                                                            alt="米家压力IH电饭煲1S 3L"
+                                                            data-src="//cdn.cnbj1.fds.api.mi-img.com/mi-mall/07390d2d89220f2e3f06710360ec1077.jpg?thumb=1&amp;w=225&amp;h=225&amp;f=webp&amp;q=90"
+                                                            data-v-1956af42=""
+                                                            lazy="loading"
+                                                            src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+                                                            width="140px">
+                                                        <div class="recommend-name" data-v-1956af42="">米家压力IH电饭煲1S
+                                                            3L
+                                                        </div>
+                                                        <div class="recommend-price" data-v-1956af42="">849元</div>
+                                                        <div class="recommend-tips" data-v-1956af42="">1.6万人好评</div>
+                                                    </a>
+                                                        <div class="recommend-action" data-v-1956af42=""><a
+                                                                :data-log_code="reccom_Cart_0_3#eid=180:16:0:0:0:0:0:0:0:0&amp;traceId=CartRec-iV6KlCkfaOh3UFXKG63l1w==&amp;pid=9530&amp;bid=3038456.3&amp;page=cartbuy"
+                                                                class="btn btn-small btn-line-primary"
+                                                                data-stat-addcart="加购"
+                                                                data-stat-gid="2191200018"
+                                                                data-stat-index="3"
+                                                                data-stat-method="1_11"
+                                                                data-stat-text="米家压力IH电饭煲1S 3L"
+                                                                data-v-1956af42=""
+                                                                href="javascript:void(0);">加入购物车</a>
+                                                        </div>
+                                                        <div class="recommend-notice" data-v-1956af42=""><a
+                                                                class="btn btn-block btn-green btn-notice"
+                                                                data-v-1956af42="">成功加入购物车</a>
+                                                        </div>
+                                                    </li>
+                                                    <li class="recommend-item" data-v-1956af42=""><a
+                                                            data-log_code="reccom_Cart_0_4#eid=180:16:0:0:0:0:0:0:0:0&amp;traceId=CartRec-iV6KlCkfaOh3UFXKG63l1w==&amp;pid=9849&amp;bid=3038456.4&amp;page=cartbuy"
+                                                            data-stat-aid="小爱老师 4G版"
+                                                            data-stat-index="4"
+                                                            data-stat-method="1_11"
+                                                            data-stat-text="小爱老师 4G版"
+                                                            data-v-1956af42=""
+                                                            href="https://www.mi.com/buy?product_id=1192100015"
+                                                            target="_blank"><img
+                                                            alt="小爱老师 4G版"
+                                                            data-src="//cdn.cnbj1.fds.api.mi-img.com/mi-mall/27a4c031437fd27d2063977a4c1650c3.jpg?thumb=1&amp;w=225&amp;h=225&amp;f=webp&amp;q=90"
+                                                            data-v-1956af42=""
+                                                            lazy="loading"
+                                                            src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+                                                            width="140px">
+                                                        <div class="recommend-name" data-v-1956af42="">小爱老师 4G版
+                                                        </div>
+                                                        <div class="recommend-price" data-v-1956af42="">999元</div>
+                                                        <div class="recommend-tips" data-v-1956af42="">2.7万人好评</div>
+                                                    </a>
+                                                        <div class="recommend-action" data-v-1956af42=""><a
+                                                                :data-log_code="reccom_Cart_0_4#eid=180:16:0:0:0:0:0:0:0:0&amp;traceId=CartRec-iV6KlCkfaOh3UFXKG63l1w==&amp;pid=9849&amp;bid=3038456.4&amp;page=cartbuy"
+                                                                class="btn btn-small btn-line-primary"
+                                                                data-stat-addcart="加购"
+                                                                data-stat-gid="2192100015"
+                                                                data-stat-index="4"
+                                                                data-stat-method="1_11"
+                                                                data-stat-text="小爱老师 4G版"
+                                                                data-v-1956af42=""
+                                                                href="javascript:void(0);">加入购物车</a>
+                                                        </div>
+                                                        <div class="recommend-notice" data-v-1956af42=""><a
+                                                                class="btn btn-block btn-green btn-notice"
+                                                                data-v-1956af42="">成功加入购物车</a>
+                                                        </div>
+                                                    </li>
+                                                    <li class="recommend-item" data-v-1956af42=""><a
+                                                            data-log_code="reccom_Cart_0_5#eid=180:16:0:0:0:0:0:0:0:0&amp;traceId=CartRec-iV6KlCkfaOh3UFXKG63l1w==&amp;pid=9408&amp;bid=3038456.5&amp;page=cartbuy"
+                                                            data-stat-aid="米家破壁料理机"
+                                                            data-stat-index="5"
+                                                            data-stat-method="1_11"
+                                                            data-stat-text="米家破壁料理机"
+                                                            data-v-1956af42=""
+                                                            href="https://www.mi.com/buy?product_id=1190900004"
+                                                            target="_blank"><img
+                                                            alt="米家破壁料理机"
+                                                            data-src="//cdn.cnbj1.fds.api.mi-img.com/mi-mall/634566706d943d710f61debe31ea566b.jpg?thumb=1&amp;w=225&amp;h=225&amp;f=webp&amp;q=90"
+                                                            data-v-1956af42=""
+                                                            lazy="loading"
+                                                            src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+                                                            width="140px">
+                                                        <div class="recommend-name" data-v-1956af42="">米家破壁料理机</div>
+                                                        <div class="recommend-price" data-v-1956af42="">549元</div>
+                                                        <div class="recommend-tips" data-v-1956af42="">5.4万人好评</div>
+                                                    </a>
+                                                        <div class="recommend-action" data-v-1956af42=""><a
+                                                                :data-log_code="reccom_Cart_0_5#eid=180:16:0:0:0:0:0:0:0:0&amp;traceId=CartRec-iV6KlCkfaOh3UFXKG63l1w==&amp;pid=9408&amp;bid=3038456.5&amp;page=cartbuy"
+                                                                class="btn btn-small btn-line-primary"
+                                                                data-stat-addcart="加购"
+                                                                data-stat-gid="2190900004"
+                                                                data-stat-index="5"
+                                                                data-stat-method="1_11"
+                                                                data-stat-text="米家破壁料理机"
+                                                                data-v-1956af42=""
+                                                                href="javascript:void(0);">加入购物车</a>
+                                                        </div>
+                                                        <div class="recommend-notice" data-v-1956af42=""><a
+                                                                class="btn btn-block btn-green btn-notice"
+                                                                data-v-1956af42="">成功加入购物车</a>
+                                                        </div>
+                                                    </li>
+                                                    <li class="recommend-item" data-v-1956af42=""><a
+                                                            data-log_code="reccom_Cart_0_6#eid=180:16:0:0:0:0:0:0:0:0&amp;traceId=CartRec-iV6KlCkfaOh3UFXKG63l1w==&amp;pid=9540&amp;bid=3038456.6&amp;page=cartbuy"
+                                                            data-stat-aid="米家防蓝光护目镜 Pro"
+                                                            data-stat-index="6"
+                                                            data-stat-method="1_11"
+                                                            data-stat-text="米家防蓝光护目镜 Pro"
+                                                            data-v-1956af42=""
+                                                            href="https://www.mi.com/buy?product_id=1191300010"
+                                                            target="_blank"><img
+                                                            alt="米家防蓝光护目镜 Pro"
+                                                            data-src="//cdn.cnbj1.fds.api.mi-img.com/mi-mall/39ab0576f66275a0ce9793a628976c8f.jpg?thumb=1&amp;w=225&amp;h=225&amp;f=webp&amp;q=90"
+                                                            data-v-1956af42=""
+                                                            lazy="loading"
+                                                            src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+                                                            width="140px">
+                                                        <div class="recommend-name" data-v-1956af42="">米家防蓝光护目镜
+                                                            Pro
+                                                        </div>
+                                                        <div class="recommend-price" data-v-1956af42="">149元</div>
+                                                        <div class="recommend-tips" data-v-1956af42="">6.8万人好评</div>
+                                                    </a>
+                                                        <div class="recommend-action" data-v-1956af42=""><a
+                                                                :data-log_code="reccom_Cart_0_6#eid=180:16:0:0:0:0:0:0:0:0&amp;traceId=CartRec-iV6KlCkfaOh3UFXKG63l1w==&amp;pid=9540&amp;bid=3038456.6&amp;page=cartbuy"
+                                                                class="btn btn-small btn-line-primary"
+                                                                data-stat-addcart="加购"
+                                                                data-stat-gid="2191300008"
+                                                                data-stat-index="6"
+                                                                data-stat-method="1_11"
+                                                                data-stat-text="米家防蓝光护目镜 Pro"
+                                                                data-v-1956af42=""
+                                                                href="javascript:void(0);">加入购物车</a>
+                                                        </div>
+                                                        <div class="recommend-notice" data-v-1956af42=""><a
+                                                                class="btn btn-block btn-green btn-notice"
+                                                                data-v-1956af42="">成功加入购物车</a>
+                                                        </div>
+                                                    </li>
+                                                    <li class="recommend-item" data-v-1956af42=""><a
+                                                            data-log_code="reccom_Cart_0_7#eid=180:16:0:0:0:0:0:0:0:0&amp;traceId=CartRec-iV6KlCkfaOh3UFXKG63l1w==&amp;pid=9144&amp;bid=3038456.7&amp;page=cartbuy"
+                                                            data-stat-aid="变频 | 米家互联网空调 1.5匹"
+                                                            data-stat-index="7"
+                                                            data-stat-method="1_11"
+                                                            data-stat-text="变频 | 米家互联网空调 1.5匹"
+                                                            data-v-1956af42=""
+                                                            href="https://www.mi.com/buy?product_id=1185000014"
+                                                            target="_blank"><img
+                                                            alt="变频 | 米家互联网空调 1.5匹"
+                                                            data-src="//cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/2c5854c18a9078a2b1809dbee6b7dbd8.jpg?thumb=1&amp;w=225&amp;h=225"
+                                                            data-v-1956af42=""
+                                                            lazy="loading"
+                                                            src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+                                                            width="140px">
+                                                        <div class="recommend-name" data-v-1956af42="">变频 | 米家互联网空调
+                                                            1.5匹
+                                                        </div>
+                                                        <div class="recommend-price" data-v-1956af42="">2699元</div>
+                                                        <div class="recommend-tips" data-v-1956af42="">49.5万人好评
+                                                        </div>
+                                                    </a><!----><!----></li>
+                                                    <li class="recommend-item" data-v-1956af42=""><a
+                                                            data-log_code="reccom_Cart_0_8#eid=180:16:0:0:0:0:0:0:0:0&amp;traceId=CartRec-iV6KlCkfaOh3UFXKG63l1w==&amp;pid=9932&amp;bid=3038456.8&amp;page=cartbuy"
+                                                            data-stat-aid="照片打印机彩色相纸"
+                                                            data-stat-index="8"
+                                                            data-stat-method="1_11"
+                                                            data-stat-text="照片打印机彩色相纸"
+                                                            data-v-1956af42=""
+                                                            href="https://www.mi.com/buy?product_id=1192200029"
+                                                            target="_blank"><img
+                                                            alt="照片打印机彩色相纸"
+                                                            data-src="//cdn.cnbj1.fds.api.mi-img.com/mi-mall/ecf96d63d48c90af6867bdd673df7284.jpg?thumb=1&amp;w=225&amp;h=225&amp;f=webp&amp;q=90"
+                                                            data-v-1956af42=""
+                                                            lazy="loading"
+                                                            src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+                                                            width="140px">
+                                                        <div class="recommend-name" data-v-1956af42="">照片打印机彩色相纸
+                                                        </div>
+                                                        <div class="recommend-price" data-v-1956af42="">59元</div>
+                                                        <div class="recommend-tips" data-v-1956af42="">13.6万人好评
+                                                        </div>
+                                                    </a>
+                                                        <div class="recommend-action" data-v-1956af42=""><a
+                                                                :data-log_code="reccom_Cart_0_8#eid=180:16:0:0:0:0:0:0:0:0&amp;traceId=CartRec-iV6KlCkfaOh3UFXKG63l1w==&amp;pid=9932&amp;bid=3038456.8&amp;page=cartbuy"
+                                                                class="btn btn-small btn-line-primary"
+                                                                data-stat-addcart="加购"
+                                                                data-stat-gid="2192200016"
+                                                                data-stat-index="8"
+                                                                data-stat-method="1_11"
+                                                                data-stat-text="照片打印机彩色相纸"
+                                                                data-v-1956af42=""
+                                                                href="javascript:void(0);">加入购物车</a>
+                                                        </div>
+                                                        <div class="recommend-notice" data-v-1956af42=""><a
+                                                                class="btn btn-block btn-green btn-notice"
+                                                                data-v-1956af42="">成功加入购物车</a>
+                                                        </div>
+                                                    </li>
+                                                    <li class="recommend-item" data-v-1956af42=""><a
+                                                            data-log_code="reccom_Cart_0_9#eid=180:16:0:0:0:0:0:0:0:0&amp;traceId=CartRec-iV6KlCkfaOh3UFXKG63l1w==&amp;pid=7530&amp;bid=3038456.9&amp;page=cartbuy"
+                                                            data-stat-aid="知吾煮汤锅 米家定制"
+                                                            data-stat-index="9"
+                                                            data-stat-method="1_11"
+                                                            data-stat-text="知吾煮汤锅 米家定制"
+                                                            data-v-1956af42=""
+                                                            href="https://www.mi.com/buy?product_id=1175100002"
+                                                            target="_blank"><img
+                                                            alt="知吾煮汤锅 米家定制"
+                                                            data-src="//i8.mifile.cn/b2c-mimall-media/91b546daa8c9797bb2602c236178c852!225x225.jpg"
+                                                            data-v-1956af42=""
+                                                            lazy="loading"
+                                                            src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+                                                            width="140px">
+                                                        <div class="recommend-name" data-v-1956af42="">知吾煮汤锅 米家定制
+                                                        </div>
+                                                        <div class="recommend-price" data-v-1956af42="">99元</div>
+                                                        <div class="recommend-tips" data-v-1956af42="">18.8万人好评
+                                                        </div>
+                                                    </a>
+                                                        <div class="recommend-action" data-v-1956af42=""><a
+                                                                :data-log_code="reccom_Cart_0_9#eid=180:16:0:0:0:0:0:0:0:0&amp;traceId=CartRec-iV6KlCkfaOh3UFXKG63l1w==&amp;pid=7530&amp;bid=3038456.9&amp;page=cartbuy"
+                                                                class="btn btn-small btn-line-primary"
+                                                                data-stat-addcart="加购"
+                                                                data-stat-gid="2175100001"
+                                                                data-stat-index="9"
+                                                                data-stat-method="1_11"
+                                                                data-stat-text="知吾煮汤锅 米家定制"
+                                                                data-v-1956af42=""
+                                                                href="javascript:void(0);">加入购物车</a>
+                                                        </div>
+                                                        <div class="recommend-notice" data-v-1956af42=""><a
+                                                                class="btn btn-block btn-green btn-notice"
+                                                                data-v-1956af42="">成功加入购物车</a>
+                                                        </div>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <div class="swiper-recommend-pagination" data-v-1956af42=""
+                                                 style="display: none;"></div>
+                                            <div class="swiper-recommend-controls" data-v-1956af42=""
+                                                 style="display: none;"><span
+                                                    class="swiper-recommend-prev" data-v-1956af42=""><em
+                                                    class="iconfont-arrow-left-big"
+                                                    data-v-1956af42=""></em></span><span
+                                                    class="swiper-recommend-next" data-v-1956af42=""><em
+                                                    class="iconfont-arrow-right-big"
+                                                    data-v-1956af42=""></em></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div><!----></div>
                         </div>
                     </div>
-                    <div class="cart-recommend" data-v-562c5445="">
-                        <div class="mi-recommend cart-recommend" data-v-1956af42="" data-v-562c5445=""><h2
-                                class="recommend-title" data-v-1956af42=""><span data-v-1956af42="">买购物车中商品的人还买了</span>
-                        </h2>
-                            <div class="recommend-bd" data-v-1956af42="" id="J_recommend_cartBuy"><!---->
-                                <ul class="recommend-list clearfix" data-v-1956af42="">
-                                    <li class="recommend-item" data-v-1956af42=""><a data-log_code="reccom_Cart_0_0#eid=180:16:0:0:0:0:0:0:0:0&amp;traceId=CartRec-iV6KlCkfaOh3UFXKG63l1w==&amp;pid=9072&amp;bid=3038456.0&amp;page=cartbuy"
-                                                                                     data-stat-aid="黑鲨游戏 Type-C 耳机"
-                                                                                     data-stat-index="0"
-                                                                                     data-stat-method="1_11"
-                                                                                     data-stat-text="黑鲨游戏 Type-C 耳机"
-                                                                                     data-v-1956af42=""
-                                                                                     href="https://www.mi.com/buy?product_id=1184800004"
-                                                                                     target="_blank"><img
-                                            alt="黑鲨游戏 Type-C 耳机" data-src="//cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/a2889874bdd0d3565f0dbf7bcc56abc1.jpg?thumb=1&amp;w=225&amp;h=225" data-v-1956af42=""
-                                            lazy="loading"
-                                            src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
-                                            width="140px">
-                                        <div class="recommend-name" data-v-1956af42="">黑鲨游戏 Type-C 耳机</div>
-                                        <div class="recommend-price" data-v-1956af42="">99元</div>
-                                        <div class="recommend-tips" data-v-1956af42="">4181人好评</div>
-                                    </a>
-                                        <div class="recommend-action" data-v-1956af42=""><a :data-log_code="reccom_Cart_0_0#eid=180:16:0:0:0:0:0:0:0:0&amp;traceId=CartRec-iV6KlCkfaOh3UFXKG63l1w==&amp;pid=9072&amp;bid=3038456.0&amp;page=cartbuy"
-                                                                                            class="btn btn-small btn-line-primary"
-                                                                                            data-stat-addcart="加购"
-                                                                                            data-stat-gid="2184800004"
-                                                                                            data-stat-index="0"
-                                                                                            data-stat-method="1_11"
-                                                                                            data-stat-text="黑鲨游戏 Type-C 耳机"
-                                                                                            data-v-1956af42=""
-                                                                                            href="../search_add">加入购物车</a>
-                                        </div>
-                                        <div class="recommend-notice" data-v-1956af42=""><a class="btn btn-block btn-green btn-notice"
-                                                                                            data-v-1956af42="">成功加入购物车</a>
-                                        </div>
-                                    </li>
-                                    <li class="recommend-item" data-v-1956af42=""><a data-log_code="reccom_Cart_0_1#eid=180:16:0:0:0:0:0:0:0:0&amp;traceId=CartRec-iV6KlCkfaOh3UFXKG63l1w==&amp;pid=5828&amp;bid=3038456.1&amp;page=cartbuy"
-                                                                                     data-stat-aid="手机USB micro 数据线  "
-                                                                                     data-stat-index="1"
-                                                                                     data-stat-method="1_11"
-                                                                                     data-stat-text="手机USB micro 数据线  "
-                                                                                     data-v-1956af42=""
-                                                                                     href="https://www.mi.com/buy?product_id=1171900017"
-                                                                                     target="_blank"><img
-                                            alt="手机USB micro 数据线  " data-src="//i8.mifile.cn/b2c-mimall-media/64de04b0cb774f0b33ed4a00df0f9c3c!225x225.jpg" data-v-1956af42=""
-                                            lazy="loading"
-                                            src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
-                                            width="140px">
-                                        <div class="recommend-name" data-v-1956af42="">手机USB micro 数据线</div>
-                                        <div class="recommend-price" data-v-1956af42="">9.9元</div>
-                                        <div class="recommend-tips" data-v-1956af42="">43.4万人好评</div>
-                                    </a>
-                                        <div class="recommend-action" data-v-1956af42=""><a :data-log_code="reccom_Cart_0_1#eid=180:16:0:0:0:0:0:0:0:0&amp;traceId=CartRec-iV6KlCkfaOh3UFXKG63l1w==&amp;pid=5828&amp;bid=3038456.1&amp;page=cartbuy"
-                                                                                            class="btn btn-small btn-line-primary"
-                                                                                            data-stat-addcart="加购"
-                                                                                            data-stat-gid="2171900028"
-                                                                                            data-stat-index="1"
-                                                                                            data-stat-method="1_11"
-                                                                                            data-stat-text="手机USB micro 数据线  "
-                                                                                            data-v-1956af42=""
-                                                                                            href="javascript:void(0);">加入购物车</a>
-                                        </div>
-                                        <div class="recommend-notice" data-v-1956af42=""><a class="btn btn-block btn-green btn-notice"
-                                                                                            data-v-1956af42="">成功加入购物车</a>
-                                        </div>
-                                    </li>
-                                    <li class="recommend-item" data-v-1956af42=""><a data-log_code="reccom_Cart_0_2#eid=180:16:0:0:0:0:0:0:0:0&amp;traceId=CartRec-iV6KlCkfaOh3UFXKG63l1w==&amp;pid=9995&amp;bid=3038456.2&amp;page=cartbuy"
-                                                                                     data-stat-aid="小米手环4 NFC版"
-                                                                                     data-stat-index="2"
-                                                                                     data-stat-method="1_11"
-                                                                                     data-stat-text="小米手环4 NFC版"
-                                                                                     data-v-1956af42=""
-                                                                                     href="https://www.mi.com/buy?product_id=1192300038"
-                                                                                     target="_blank"><img
-                                            alt="小米手环4 NFC版" data-src="//cdn.cnbj1.fds.api.mi-img.com/mi-mall/4edbcaa6ce1e36a121ad63ff460c7d8d.png?thumb=1&amp;w=225&amp;h=225&amp;f=webp&amp;q=90" data-v-1956af42=""
-                                            lazy="loading"
-                                            src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
-                                            width="140px">
-                                        <div class="recommend-name" data-v-1956af42="">小米手环4 NFC版</div>
-                                        <div class="recommend-price" data-v-1956af42="">179元</div>
-                                        <div class="recommend-tips" data-v-1956af42="">51.1万人好评</div>
-                                    </a>
-                                        <div class="recommend-action" data-v-1956af42=""><a :data-log_code="reccom_Cart_0_2#eid=180:16:0:0:0:0:0:0:0:0&amp;traceId=CartRec-iV6KlCkfaOh3UFXKG63l1w==&amp;pid=9995&amp;bid=3038456.2&amp;page=cartbuy"
-                                                                                            class="btn btn-small btn-line-primary"
-                                                                                            data-stat-addcart="加购"
-                                                                                            data-stat-gid="2192300021"
-                                                                                            data-stat-index="2"
-                                                                                            data-stat-method="1_11"
-                                                                                            data-stat-text="小米手环4 NFC版"
-                                                                                            data-v-1956af42=""
-                                                                                            href="javascript:void(0);">加入购物车</a>
-                                        </div>
-                                        <div class="recommend-notice" data-v-1956af42=""><a class="btn btn-block btn-green btn-notice"
-                                                                                            data-v-1956af42="">成功加入购物车</a>
-                                        </div>
-                                    </li>
-                                    <li class="recommend-item" data-v-1956af42=""><a data-log_code="reccom_Cart_0_3#eid=180:16:0:0:0:0:0:0:0:0&amp;traceId=CartRec-iV6KlCkfaOh3UFXKG63l1w==&amp;pid=9530&amp;bid=3038456.3&amp;page=cartbuy"
-                                                                                     data-stat-aid="米家压力IH电饭煲1S 3L"
-                                                                                     data-stat-index="3"
-                                                                                     data-stat-method="1_11"
-                                                                                     data-stat-text="米家压力IH电饭煲1S 3L"
-                                                                                     data-v-1956af42=""
-                                                                                     href="https://www.mi.com/buy?product_id=1191200019"
-                                                                                     target="_blank"><img
-                                            alt="米家压力IH电饭煲1S 3L" data-src="//cdn.cnbj1.fds.api.mi-img.com/mi-mall/07390d2d89220f2e3f06710360ec1077.jpg?thumb=1&amp;w=225&amp;h=225&amp;f=webp&amp;q=90" data-v-1956af42=""
-                                            lazy="loading"
-                                            src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
-                                            width="140px">
-                                        <div class="recommend-name" data-v-1956af42="">米家压力IH电饭煲1S 3L</div>
-                                        <div class="recommend-price" data-v-1956af42="">849元</div>
-                                        <div class="recommend-tips" data-v-1956af42="">1.6万人好评</div>
-                                    </a>
-                                        <div class="recommend-action" data-v-1956af42=""><a :data-log_code="reccom_Cart_0_3#eid=180:16:0:0:0:0:0:0:0:0&amp;traceId=CartRec-iV6KlCkfaOh3UFXKG63l1w==&amp;pid=9530&amp;bid=3038456.3&amp;page=cartbuy"
-                                                                                            class="btn btn-small btn-line-primary"
-                                                                                            data-stat-addcart="加购"
-                                                                                            data-stat-gid="2191200018"
-                                                                                            data-stat-index="3"
-                                                                                            data-stat-method="1_11"
-                                                                                            data-stat-text="米家压力IH电饭煲1S 3L"
-                                                                                            data-v-1956af42=""
-                                                                                            href="javascript:void(0);">加入购物车</a>
-                                        </div>
-                                        <div class="recommend-notice" data-v-1956af42=""><a class="btn btn-block btn-green btn-notice"
-                                                                                            data-v-1956af42="">成功加入购物车</a>
-                                        </div>
-                                    </li>
-                                    <li class="recommend-item" data-v-1956af42=""><a data-log_code="reccom_Cart_0_4#eid=180:16:0:0:0:0:0:0:0:0&amp;traceId=CartRec-iV6KlCkfaOh3UFXKG63l1w==&amp;pid=9849&amp;bid=3038456.4&amp;page=cartbuy"
-                                                                                     data-stat-aid="小爱老师 4G版"
-                                                                                     data-stat-index="4"
-                                                                                     data-stat-method="1_11"
-                                                                                     data-stat-text="小爱老师 4G版"
-                                                                                     data-v-1956af42=""
-                                                                                     href="https://www.mi.com/buy?product_id=1192100015"
-                                                                                     target="_blank"><img
-                                            alt="小爱老师 4G版" data-src="//cdn.cnbj1.fds.api.mi-img.com/mi-mall/27a4c031437fd27d2063977a4c1650c3.jpg?thumb=1&amp;w=225&amp;h=225&amp;f=webp&amp;q=90" data-v-1956af42=""
-                                            lazy="loading"
-                                            src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
-                                            width="140px">
-                                        <div class="recommend-name" data-v-1956af42="">小爱老师 4G版</div>
-                                        <div class="recommend-price" data-v-1956af42="">999元</div>
-                                        <div class="recommend-tips" data-v-1956af42="">2.7万人好评</div>
-                                    </a>
-                                        <div class="recommend-action" data-v-1956af42=""><a :data-log_code="reccom_Cart_0_4#eid=180:16:0:0:0:0:0:0:0:0&amp;traceId=CartRec-iV6KlCkfaOh3UFXKG63l1w==&amp;pid=9849&amp;bid=3038456.4&amp;page=cartbuy"
-                                                                                            class="btn btn-small btn-line-primary"
-                                                                                            data-stat-addcart="加购"
-                                                                                            data-stat-gid="2192100015"
-                                                                                            data-stat-index="4"
-                                                                                            data-stat-method="1_11"
-                                                                                            data-stat-text="小爱老师 4G版"
-                                                                                            data-v-1956af42=""
-                                                                                            href="javascript:void(0);">加入购物车</a>
-                                        </div>
-                                        <div class="recommend-notice" data-v-1956af42=""><a class="btn btn-block btn-green btn-notice"
-                                                                                            data-v-1956af42="">成功加入购物车</a>
-                                        </div>
-                                    </li>
-                                    <li class="recommend-item" data-v-1956af42=""><a data-log_code="reccom_Cart_0_5#eid=180:16:0:0:0:0:0:0:0:0&amp;traceId=CartRec-iV6KlCkfaOh3UFXKG63l1w==&amp;pid=9408&amp;bid=3038456.5&amp;page=cartbuy"
-                                                                                     data-stat-aid="米家破壁料理机"
-                                                                                     data-stat-index="5"
-                                                                                     data-stat-method="1_11"
-                                                                                     data-stat-text="米家破壁料理机"
-                                                                                     data-v-1956af42=""
-                                                                                     href="https://www.mi.com/buy?product_id=1190900004"
-                                                                                     target="_blank"><img
-                                            alt="米家破壁料理机" data-src="//cdn.cnbj1.fds.api.mi-img.com/mi-mall/634566706d943d710f61debe31ea566b.jpg?thumb=1&amp;w=225&amp;h=225&amp;f=webp&amp;q=90" data-v-1956af42=""
-                                            lazy="loading"
-                                            src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
-                                            width="140px">
-                                        <div class="recommend-name" data-v-1956af42="">米家破壁料理机</div>
-                                        <div class="recommend-price" data-v-1956af42="">549元</div>
-                                        <div class="recommend-tips" data-v-1956af42="">5.4万人好评</div>
-                                    </a>
-                                        <div class="recommend-action" data-v-1956af42=""><a :data-log_code="reccom_Cart_0_5#eid=180:16:0:0:0:0:0:0:0:0&amp;traceId=CartRec-iV6KlCkfaOh3UFXKG63l1w==&amp;pid=9408&amp;bid=3038456.5&amp;page=cartbuy"
-                                                                                            class="btn btn-small btn-line-primary"
-                                                                                            data-stat-addcart="加购"
-                                                                                            data-stat-gid="2190900004"
-                                                                                            data-stat-index="5"
-                                                                                            data-stat-method="1_11"
-                                                                                            data-stat-text="米家破壁料理机"
-                                                                                            data-v-1956af42=""
-                                                                                            href="javascript:void(0);">加入购物车</a>
-                                        </div>
-                                        <div class="recommend-notice" data-v-1956af42=""><a class="btn btn-block btn-green btn-notice"
-                                                                                            data-v-1956af42="">成功加入购物车</a>
-                                        </div>
-                                    </li>
-                                    <li class="recommend-item" data-v-1956af42=""><a data-log_code="reccom_Cart_0_6#eid=180:16:0:0:0:0:0:0:0:0&amp;traceId=CartRec-iV6KlCkfaOh3UFXKG63l1w==&amp;pid=9540&amp;bid=3038456.6&amp;page=cartbuy"
-                                                                                     data-stat-aid="米家防蓝光护目镜 Pro"
-                                                                                     data-stat-index="6"
-                                                                                     data-stat-method="1_11"
-                                                                                     data-stat-text="米家防蓝光护目镜 Pro"
-                                                                                     data-v-1956af42=""
-                                                                                     href="https://www.mi.com/buy?product_id=1191300010"
-                                                                                     target="_blank"><img
-                                            alt="米家防蓝光护目镜 Pro" data-src="//cdn.cnbj1.fds.api.mi-img.com/mi-mall/39ab0576f66275a0ce9793a628976c8f.jpg?thumb=1&amp;w=225&amp;h=225&amp;f=webp&amp;q=90" data-v-1956af42=""
-                                            lazy="loading"
-                                            src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
-                                            width="140px">
-                                        <div class="recommend-name" data-v-1956af42="">米家防蓝光护目镜 Pro</div>
-                                        <div class="recommend-price" data-v-1956af42="">149元</div>
-                                        <div class="recommend-tips" data-v-1956af42="">6.8万人好评</div>
-                                    </a>
-                                        <div class="recommend-action" data-v-1956af42=""><a :data-log_code="reccom_Cart_0_6#eid=180:16:0:0:0:0:0:0:0:0&amp;traceId=CartRec-iV6KlCkfaOh3UFXKG63l1w==&amp;pid=9540&amp;bid=3038456.6&amp;page=cartbuy"
-                                                                                            class="btn btn-small btn-line-primary"
-                                                                                            data-stat-addcart="加购"
-                                                                                            data-stat-gid="2191300008"
-                                                                                            data-stat-index="6"
-                                                                                            data-stat-method="1_11"
-                                                                                            data-stat-text="米家防蓝光护目镜 Pro"
-                                                                                            data-v-1956af42=""
-                                                                                            href="javascript:void(0);">加入购物车</a>
-                                        </div>
-                                        <div class="recommend-notice" data-v-1956af42=""><a class="btn btn-block btn-green btn-notice"
-                                                                                            data-v-1956af42="">成功加入购物车</a>
-                                        </div>
-                                    </li>
-                                    <li class="recommend-item" data-v-1956af42=""><a data-log_code="reccom_Cart_0_7#eid=180:16:0:0:0:0:0:0:0:0&amp;traceId=CartRec-iV6KlCkfaOh3UFXKG63l1w==&amp;pid=9144&amp;bid=3038456.7&amp;page=cartbuy"
-                                                                                     data-stat-aid="变频 | 米家互联网空调 1.5匹"
-                                                                                     data-stat-index="7"
-                                                                                     data-stat-method="1_11"
-                                                                                     data-stat-text="变频 | 米家互联网空调 1.5匹"
-                                                                                     data-v-1956af42=""
-                                                                                     href="https://www.mi.com/buy?product_id=1185000014"
-                                                                                     target="_blank"><img
-                                            alt="变频 | 米家互联网空调 1.5匹" data-src="//cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/2c5854c18a9078a2b1809dbee6b7dbd8.jpg?thumb=1&amp;w=225&amp;h=225" data-v-1956af42=""
-                                            lazy="loading"
-                                            src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
-                                            width="140px">
-                                        <div class="recommend-name" data-v-1956af42="">变频 | 米家互联网空调 1.5匹</div>
-                                        <div class="recommend-price" data-v-1956af42="">2699元</div>
-                                        <div class="recommend-tips" data-v-1956af42="">49.5万人好评</div>
-                                    </a><!----><!----></li>
-                                    <li class="recommend-item" data-v-1956af42=""><a data-log_code="reccom_Cart_0_8#eid=180:16:0:0:0:0:0:0:0:0&amp;traceId=CartRec-iV6KlCkfaOh3UFXKG63l1w==&amp;pid=9932&amp;bid=3038456.8&amp;page=cartbuy"
-                                                                                     data-stat-aid="照片打印机彩色相纸"
-                                                                                     data-stat-index="8"
-                                                                                     data-stat-method="1_11"
-                                                                                     data-stat-text="照片打印机彩色相纸"
-                                                                                     data-v-1956af42=""
-                                                                                     href="https://www.mi.com/buy?product_id=1192200029"
-                                                                                     target="_blank"><img
-                                            alt="照片打印机彩色相纸" data-src="//cdn.cnbj1.fds.api.mi-img.com/mi-mall/ecf96d63d48c90af6867bdd673df7284.jpg?thumb=1&amp;w=225&amp;h=225&amp;f=webp&amp;q=90" data-v-1956af42=""
-                                            lazy="loading"
-                                            src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
-                                            width="140px">
-                                        <div class="recommend-name" data-v-1956af42="">照片打印机彩色相纸</div>
-                                        <div class="recommend-price" data-v-1956af42="">59元</div>
-                                        <div class="recommend-tips" data-v-1956af42="">13.6万人好评</div>
-                                    </a>
-                                        <div class="recommend-action" data-v-1956af42=""><a :data-log_code="reccom_Cart_0_8#eid=180:16:0:0:0:0:0:0:0:0&amp;traceId=CartRec-iV6KlCkfaOh3UFXKG63l1w==&amp;pid=9932&amp;bid=3038456.8&amp;page=cartbuy"
-                                                                                            class="btn btn-small btn-line-primary"
-                                                                                            data-stat-addcart="加购"
-                                                                                            data-stat-gid="2192200016"
-                                                                                            data-stat-index="8"
-                                                                                            data-stat-method="1_11"
-                                                                                            data-stat-text="照片打印机彩色相纸"
-                                                                                            data-v-1956af42=""
-                                                                                            href="javascript:void(0);">加入购物车</a>
-                                        </div>
-                                        <div class="recommend-notice" data-v-1956af42=""><a class="btn btn-block btn-green btn-notice"
-                                                                                            data-v-1956af42="">成功加入购物车</a>
-                                        </div>
-                                    </li>
-                                    <li class="recommend-item" data-v-1956af42=""><a data-log_code="reccom_Cart_0_9#eid=180:16:0:0:0:0:0:0:0:0&amp;traceId=CartRec-iV6KlCkfaOh3UFXKG63l1w==&amp;pid=7530&amp;bid=3038456.9&amp;page=cartbuy"
-                                                                                     data-stat-aid="知吾煮汤锅 米家定制"
-                                                                                     data-stat-index="9"
-                                                                                     data-stat-method="1_11"
-                                                                                     data-stat-text="知吾煮汤锅 米家定制"
-                                                                                     data-v-1956af42=""
-                                                                                     href="https://www.mi.com/buy?product_id=1175100002"
-                                                                                     target="_blank"><img
-                                            alt="知吾煮汤锅 米家定制" data-src="//i8.mifile.cn/b2c-mimall-media/91b546daa8c9797bb2602c236178c852!225x225.jpg" data-v-1956af42=""
-                                            lazy="loading"
-                                            src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
-                                            width="140px">
-                                        <div class="recommend-name" data-v-1956af42="">知吾煮汤锅 米家定制</div>
-                                        <div class="recommend-price" data-v-1956af42="">99元</div>
-                                        <div class="recommend-tips" data-v-1956af42="">18.8万人好评</div>
-                                    </a>
-                                        <div class="recommend-action" data-v-1956af42=""><a :data-log_code="reccom_Cart_0_9#eid=180:16:0:0:0:0:0:0:0:0&amp;traceId=CartRec-iV6KlCkfaOh3UFXKG63l1w==&amp;pid=7530&amp;bid=3038456.9&amp;page=cartbuy"
-                                                                                            class="btn btn-small btn-line-primary"
-                                                                                            data-stat-addcart="加购"
-                                                                                            data-stat-gid="2175100001"
-                                                                                            data-stat-index="9"
-                                                                                            data-stat-method="1_11"
-                                                                                            data-stat-text="知吾煮汤锅 米家定制"
-                                                                                            data-v-1956af42=""
-                                                                                            href="javascript:void(0);">加入购物车</a>
-                                        </div>
-                                        <div class="recommend-notice" data-v-1956af42=""><a class="btn btn-block btn-green btn-notice"
-                                                                                            data-v-1956af42="">成功加入购物车</a>
-                                        </div>
-                                    </li>
-                                </ul>
+                    <div>
+                        <div class="site-footer">
+                            <div class="container">
+                                <div class="footer-service">
+                                    <ul class="list-service clearfix">
+                                        <li><a href="https://www.mi.com/service/quick-repair" rel="nofollow"
+                                               stat_exposure="true"
+                                               target="_blank"><em class="iconfont-tool"></em>预约维修服务</a></li>
+                                        <li><a href="https://www.mi.com/service/exchange#back" rel="nofollow"
+                                               stat_exposure="true"
+                                               target="_blank"><em class="iconfont-circle-7"></em>7天无理由退货</a></li>
+                                        <li><a href="https://www.mi.com/service/exchange#back" rel="nofollow"
+                                               stat_exposure="true"
+                                               target="_blank"><em class="iconfont-circle-15"></em>15天免费换货</a></li>
+                                        <li><a href="https://www.mi.com/service/buy/Postal%20policy" rel="nofollow"
+                                               stat_exposure="true"
+                                               target="_blank"><em class="iconfont-gift"></em><span
+                                                id="J_footerPrice">满99元包邮</span></a></li>
+                                        <li><a href="https://www.mi.com/service/sitelist" rel="nofollow"
+                                               stat_exposure="true"
+                                               target="_blank"><em class="iconfont-location"></em>520余家售后网点</a></li>
+                                    </ul>
+                                </div>
+                                <div class="footer-links clearfix">
+                                    <dl class="col-links col-links-first">
+                                        <dt>帮助中心</dt>
+                                        <dd><a href="https://www.mi.com/service/account/Account%20registration/"
+                                               rel="nofollow"
+                                               stat_exposure="true" target="_blank">账户管理</a></dd>
+                                        <dd><a href="https://www.mi.com/service/buy/SalesTime/" rel="nofollow"
+                                               stat_exposure="true"
+                                               target="_blank">购物指南</a></dd>
+                                        <dd><a href="https://www.mi.com/service/order/sendprogress/" rel="nofollow"
+                                               stat_exposure="true"
+                                               target="_blank">订单操作</a></dd>
+                                    </dl>
+                                    <dl class="col-links ">
+                                        <dt>服务支持</dt>
+                                        <dd><a href="https://www.mi.com/service/exchange" rel="nofollow"
+                                               stat_exposure="true"
+                                               target="_blank">售后政策</a></dd>
+                                        <dd><a href="https://www.mi.com/service/" rel="nofollow"
+                                               stat_exposure="true" target="_blank">自助服务</a>
+                                        </dd>
+                                        <dd><a href="https://www.mi.com/service/download/" rel="nofollow"
+                                               stat_exposure="true"
+                                               target="_blank">相关下载</a></dd>
+                                    </dl>
+                                    <dl class="col-links ">
+                                        <dt>线下门店</dt>
+                                        <dd><a href="https://www.mi.com/service/mihome/list" rel="nofollow"
+                                               stat_exposure="true"
+                                               target="_blank">小米之家</a></dd>
+                                        <dd><a href="https://www.mi.com/service/sitelist" rel="nofollow"
+                                               stat_exposure="true"
+                                               target="_blank">服务网点</a></dd>
+                                        <dd><a href="https://www.mi.com/service/family-location" rel="nofollow"
+                                               stat_exposure="true"
+                                               target="_blank">授权体验店</a></dd>
+                                    </dl>
+                                    <dl class="col-links ">
+                                        <dt>关于小米</dt>
+                                        <dd><a href="https://www.mi.com/about/" rel="nofollow" stat_exposure="true"
+                                               target="_blank">了解小米</a></dd>
+                                        <dd><a href="https://hr.xiaomi.com/" rel="nofollow" stat_exposure="true"
+                                               target="_blank">加入小米</a></dd>
+                                        <dd><a href="https://company.mi.com/zh-cn/ir/indexContent/index.html"
+                                               rel="nofollow"
+                                               stat_exposure="true" target="_blank">投资者关系</a></dd>
+                                        <dd><a href="https://www.mi.com/csr/" rel="nofollow" stat_exposure="true"
+                                               target="_blank">企业社会责任</a></dd>
+                                        <dd><a href="https://integrity.mi.com/" rel="nofollow" stat_exposure="true"
+                                               target="_blank">廉洁举报</a></dd>
+                                    </dl>
+                                    <dl class="col-links ">
+                                        <dt>关注我们</dt>
+                                        <dd><a href="https://weibo.com/xiaomishangcheng" rel="nofollow"
+                                               stat_exposure="true"
+                                               target="_blank">新浪微博</a></dd>
+                                        <dd><a href="javascript:void(0);" id="J_siteWeixinCode" rel="nofollow"
+                                               stat_exposure="true">官方微信</a></dd>
+                                        <dd><a href="https://www.mi.com/about/contact/" rel="nofollow"
+                                               stat_exposure="true"
+                                               target="_blank">联系我们</a></dd>
+                                        <dd><a href="https://www.mi.com/foundation/index" rel="nofollow"
+                                               stat_exposure="true"
+                                               target="_blank">公益基金会</a></dd>
+                                    </dl>
+                                    <dl class="col-links ">
+                                        <dt>特色服务</dt>
+                                        <dd><a href="https://www.mi.com/order/fcode" rel="nofollow"
+                                               stat_exposure="true"
+                                               target="_blank">F 码通道</a></dd>
+                                        <dd><a href="https://www.mi.com/order/giftcode" rel="nofollow"
+                                               stat_exposure="true"
+                                               target="_blank">礼物码</a></dd>
+                                        <dd><a href="https://www.mi.com/service/imei" rel="nofollow"
+                                               stat_exposure="true"
+                                               target="_blank">防伪查询</a></dd>
+                                    </dl>
+                                    <div class="col-contact"><p class="phone">400-100-5678</p>
+                                        <p>8:00-18:00（仅收市话费）</p> <a
+                                                class="btn btn-line-primary btn-small J_contactBtn" rel="nofollow"
+                                                stat_exposure="true"><em class="iconfont-message2"></em> 人工客服 </a>
+                                        <div class="follow">关注小米：<a class="wb"
+                                                                    href="https://weibo.com/xiaomishangcheng"
+                                                                    stat_exposure="true"
+                                                                    target="_blank"></a><a class="wx"
+                                                                                           href="javascript:void(0);"
+                                                                                           id="J_followWx"
+                                                                                           stat_exposure="true"></a>
+                                            <img
+                                                    id="J_followWxImg" src="../我的购物车-小米商城_files/wx-img.png"></div>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="swiper-recommend-pagination" data-v-1956af42="" style="display: none;"></div>
-                            <div class="swiper-recommend-controls" data-v-1956af42="" style="display: none;"><span
-                                    class="swiper-recommend-prev" data-v-1956af42=""><em class="iconfont-arrow-left-big"
-                                                                                         data-v-1956af42=""></em></span><span
-                                    class="swiper-recommend-next" data-v-1956af42=""><em class="iconfont-arrow-right-big"
-                                                                                         data-v-1956af42=""></em></span>
-                            </div>
                         </div>
-                    </div>
-                </div><!----></div>
-        </div>
-    </div>
-    <div>
-        <div class="site-footer">
-            <div class="container">
-                <div class="footer-service">
-                    <ul class="list-service clearfix">
-                        <li><a href="https://www.mi.com/service/quick-repair" rel="nofollow" stat_exposure="true"
-                               target="_blank"><em class="iconfont-tool"></em>预约维修服务</a></li>
-                        <li><a href="https://www.mi.com/service/exchange#back" rel="nofollow" stat_exposure="true"
-                               target="_blank"><em class="iconfont-circle-7"></em>7天无理由退货</a></li>
-                        <li><a href="https://www.mi.com/service/exchange#back" rel="nofollow" stat_exposure="true"
-                               target="_blank"><em class="iconfont-circle-15"></em>15天免费换货</a></li>
-                        <li><a href="https://www.mi.com/service/buy/Postal%20policy" rel="nofollow" stat_exposure="true"
-                               target="_blank"><em class="iconfont-gift"></em><span
-                                id="J_footerPrice">满99元包邮</span></a></li>
-                        <li><a href="https://www.mi.com/service/sitelist" rel="nofollow" stat_exposure="true"
-                               target="_blank"><em class="iconfont-location"></em>520余家售后网点</a></li>
-                    </ul>
-                </div>
-                <div class="footer-links clearfix">
-                    <dl class="col-links col-links-first">
-                        <dt>帮助中心</dt>
-                        <dd><a href="https://www.mi.com/service/account/Account%20registration/" rel="nofollow"
-                               stat_exposure="true" target="_blank">账户管理</a></dd>
-                        <dd><a href="https://www.mi.com/service/buy/SalesTime/" rel="nofollow" stat_exposure="true"
-                               target="_blank">购物指南</a></dd>
-                        <dd><a href="https://www.mi.com/service/order/sendprogress/" rel="nofollow" stat_exposure="true"
-                               target="_blank">订单操作</a></dd>
-                    </dl>
-                    <dl class="col-links ">
-                        <dt>服务支持</dt>
-                        <dd><a href="https://www.mi.com/service/exchange" rel="nofollow" stat_exposure="true"
-                               target="_blank">售后政策</a></dd>
-                        <dd><a href="https://www.mi.com/service/" rel="nofollow" stat_exposure="true" target="_blank">自助服务</a>
-                        </dd>
-                        <dd><a href="https://www.mi.com/service/download/" rel="nofollow" stat_exposure="true"
-                               target="_blank">相关下载</a></dd>
-                    </dl>
-                    <dl class="col-links ">
-                        <dt>线下门店</dt>
-                        <dd><a href="https://www.mi.com/service/mihome/list" rel="nofollow" stat_exposure="true"
-                               target="_blank">小米之家</a></dd>
-                        <dd><a href="https://www.mi.com/service/sitelist" rel="nofollow" stat_exposure="true"
-                               target="_blank">服务网点</a></dd>
-                        <dd><a href="https://www.mi.com/service/family-location" rel="nofollow" stat_exposure="true"
-                               target="_blank">授权体验店</a></dd>
-                    </dl>
-                    <dl class="col-links ">
-                        <dt>关于小米</dt>
-                        <dd><a href="https://www.mi.com/about/" rel="nofollow" stat_exposure="true"
-                               target="_blank">了解小米</a></dd>
-                        <dd><a href="https://hr.xiaomi.com/" rel="nofollow" stat_exposure="true"
-                               target="_blank">加入小米</a></dd>
-                        <dd><a href="https://company.mi.com/zh-cn/ir/indexContent/index.html" rel="nofollow"
-                               stat_exposure="true" target="_blank">投资者关系</a></dd>
-                        <dd><a href="https://www.mi.com/csr/" rel="nofollow" stat_exposure="true"
-                               target="_blank">企业社会责任</a></dd>
-                        <dd><a href="https://integrity.mi.com/" rel="nofollow" stat_exposure="true"
-                               target="_blank">廉洁举报</a></dd>
-                    </dl>
-                    <dl class="col-links ">
-                        <dt>关注我们</dt>
-                        <dd><a href="https://weibo.com/xiaomishangcheng" rel="nofollow" stat_exposure="true"
-                               target="_blank">新浪微博</a></dd>
-                        <dd><a href="javascript:void(0);" id="J_siteWeixinCode" rel="nofollow"
-                               stat_exposure="true">官方微信</a></dd>
-                        <dd><a href="https://www.mi.com/about/contact/" rel="nofollow" stat_exposure="true"
-                               target="_blank">联系我们</a></dd>
-                        <dd><a href="https://www.mi.com/foundation/index" rel="nofollow" stat_exposure="true"
-                               target="_blank">公益基金会</a></dd>
-                    </dl>
-                    <dl class="col-links ">
-                        <dt>特色服务</dt>
-                        <dd><a href="https://www.mi.com/order/fcode" rel="nofollow" stat_exposure="true"
-                               target="_blank">F 码通道</a></dd>
-                        <dd><a href="https://www.mi.com/order/giftcode" rel="nofollow" stat_exposure="true"
-                               target="_blank">礼物码</a></dd>
-                        <dd><a href="https://www.mi.com/service/imei" rel="nofollow" stat_exposure="true"
-                               target="_blank">防伪查询</a></dd>
-                    </dl>
-                    <div class="col-contact"><p class="phone">400-100-5678</p>
-                        <p>8:00-18:00（仅收市话费）</p> <a class="btn btn-line-primary btn-small J_contactBtn" rel="nofollow"
-                                                    stat_exposure="true"><em class="iconfont-message2"></em> 人工客服 </a>
-                        <div class="follow">关注小米：<a class="wb" href="https://weibo.com/xiaomishangcheng" stat_exposure="true"
-                                                    target="_blank"></a><a class="wx"
-                                                                                href="javascript:void(0);" id="J_followWx"
-                                                                                stat_exposure="true"></a> <img
-                                id="J_followWxImg" src="../我的购物车-小米商城_files/wx-img.png"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="site-info">
-            <div class="container">
-                <div class="logo ir">小米官网</div>
-                <div class="info-text"><p class="sites"><a href="https://www.mi.com/index.html" rel="nofollow"
-                                                           stat_exposure="true" target="_blank">小米商城</a> <span
-                        class="sep">|</span> <a href="https://www.miui.com/" rel="nofollow" stat_exposure="true"
-                                                target="_blank">MIUI</a> <span class="sep">|</span> <a
-                        href="https://home.mi.com/index.html" rel="nofollow" stat_exposure="true" target="_blank">米家</a>
-                    <span class="sep">|</span> <a href="http://www.miliao.com/" rel="nofollow" stat_exposure="true"
-                                                  target="_blank">米聊</a> <span class="sep">|</span> <a
-                            href="https://www.duokan.com/" rel="nofollow" stat_exposure="true" target="_blank">多看</a>
-                    <span class="sep">|</span> <a href="https://game.xiaomi.com/" rel="nofollow" stat_exposure="true"
-                                                  target="_blank">游戏</a> <span class="sep">|</span> <a
-                            href="https://b.mi.com/?client_id=180100031058&amp;masid=17409.0358" rel="nofollow"
-                            stat_exposure="true" target="_blank">政企服务</a> <span class="sep">|</span> <a href="https://xiaomi.tmall.com/"
-                                                                                                        rel="nofollow"
-                                                                                                        stat_exposure="true"
-                                                                                                        target="_blank">小米天猫店</a>
-                    <span class="sep">|</span> <a href="https://privacy.mi.com/all/zh_CN/" rel="nofollow"
-                                                  stat_exposure="true" target="_blank">小米集团隐私政策</a> <span
-                            class="sep">|</span> <a href="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/f516fe9e2c01.html"
-                                                    rel="nofollow"
-                                                    stat_exposure="true" target="_blank">小米公司儿童信息保护规则</a> <span
-                            class="sep">|</span> <a href="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/ded8d0e4a77d.html"
-                                                    rel="nofollow"
-                                                    stat_exposure="true" target="_blank">小米商城隐私政策</a> <span class="sep">|</span>
-                    <a href="https://www.mi.com/about/user-agreement/" rel="nofollow" stat_exposure="true"
-                       target="_blank">小米商城用户协议</a> <span class="sep">|</span> <a href="https://static.mi.com/feedback/"
-                                                                                       rel="nofollow"
-                                                                                       stat_exposure="true"
-                                                                                       target="_blank">问题反馈</a>
-                    <span class="sep">|</span> <a class="J_siteGlobalRegion" href="javascript:void(0);" rel="nofollow"
-                                                  stat_exposure="true">Select Location</a></p>
-                    <p>
-                        ©
-                        <a href="javascript:" stat_exposure="true" target="_blank" title="mi.com">mi.com</a>
-                        京ICP证110507号
-                        <a href="http://beian.miit.gov.cn/" rel="nofollow" stat_exposure="true" target="_blank">京ICP备10046444号</a>
-                        <a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=11010802020134"
-                           rel="nofollow"
-                           stat_exposure="true" target="_blank">京公网安备11010802020134号</a> <a
-                            href="https://www.mi.com/culture-license/" stat_exposure="true" target="_blank">京网文[2020]0276-042号</a>
-                        <br> <a href="https://www.mi.com/medical/record/" target="_blank">（京）网械平台备字（2018）第00005号</a> <a
-                            href="https://www.mi.com/medical/qualification/" target="_blank">互联网药品信息服务资格证
-                        (京)-非经营性-2014-0090</a> <a href="https://www.mi.com/business-license/" target="_blank">营业执照</a>
-                        <a href="https://www.mi.com/medical/list/" target="_blank">医疗器械质量公告</a> <br> <a
-                            href="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/e0c7d4cf3b7cd88de10196e30c92e020.png"
-                            target="_blank">增值电信业务许可证</a>&nbsp;网络食品经营备案 京食药网食备202010048 &nbsp;
-                        <a href="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/c6859168166651511897f54fa1047fe3.png"
-                           target="_blank">食品经营许可证</a> <br>
-                        违法和不良信息举报电话：171-5104-4404&nbsp;<a href="https://www.mi.com/intellectual" target="_blank">知识产权侵权投诉</a>&nbsp;本网站所列数据，除特殊说明，所有数据均出自我司实验室测试
-                    </p></div>
-                <div class="info-links"><a href="https://privacy.truste.com/privacy-seal/validation?rid=4fc28a8c-6822-4980-9c4b-9fdc69b94eb8&amp;lang=zh-cn"
+                        <div class="site-info">
+                            <div class="container">
+                                <div class="logo ir">小米官网</div>
+                                <div class="info-text"><p class="sites"><a href="https://www.mi.com/index.html"
+                                                                           rel="nofollow"
+                                                                           stat_exposure="true"
+                                                                           target="_blank">小米商城</a> <span
+                                        class="sep">|</span> <a href="https://www.miui.com/" rel="nofollow"
+                                                                stat_exposure="true"
+                                                                target="_blank">MIUI</a> <span class="sep">|</span>
+                                    <a
+                                            href="https://home.mi.com/index.html" rel="nofollow"
+                                            stat_exposure="true" target="_blank">米家</a>
+                                    <span class="sep">|</span> <a href="http://www.miliao.com/" rel="nofollow"
+                                                                  stat_exposure="true"
+                                                                  target="_blank">米聊</a> <span class="sep">|</span>
+                                    <a
+                                            href="https://www.duokan.com/" rel="nofollow" stat_exposure="true"
+                                            target="_blank">多看</a>
+                                    <span class="sep">|</span> <a href="https://game.xiaomi.com/" rel="nofollow"
+                                                                  stat_exposure="true"
+                                                                  target="_blank">游戏</a> <span class="sep">|</span>
+                                    <a
+                                            href="https://b.mi.com/?client_id=180100031058&amp;masid=17409.0358"
+                                            rel="nofollow"
+                                            stat_exposure="true" target="_blank">政企服务</a> <span class="sep">|</span>
+                                    <a href="https://xiaomi.tmall.com/"
+                                       rel="nofollow"
+                                       stat_exposure="true"
+                                       target="_blank">小米天猫店</a>
+                                    <span class="sep">|</span> <a href="https://privacy.mi.com/all/zh_CN/"
+                                                                  rel="nofollow"
+                                                                  stat_exposure="true" target="_blank">小米集团隐私政策</a>
+                                    <span
+                                            class="sep">|</span> <a
+                                            href="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/f516fe9e2c01.html"
+                                            rel="nofollow"
+                                            stat_exposure="true" target="_blank">小米公司儿童信息保护规则</a> <span
+                                            class="sep">|</span> <a
+                                            href="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/ded8d0e4a77d.html"
+                                            rel="nofollow"
+                                            stat_exposure="true" target="_blank">小米商城隐私政策</a> <span
+                                            class="sep">|</span>
+                                    <a href="https://www.mi.com/about/user-agreement/" rel="nofollow"
+                                       stat_exposure="true"
+                                       target="_blank">小米商城用户协议</a> <span class="sep">|</span> <a
+                                            href="https://static.mi.com/feedback/"
+                                            rel="nofollow"
+                                            stat_exposure="true"
+                                            target="_blank">问题反馈</a>
+                                    <span class="sep">|</span> <a class="J_siteGlobalRegion"
+                                                                  href="javascript:void(0);" rel="nofollow"
+                                                                  stat_exposure="true">Select Location</a></p>
+                                    <p>
+                                        ©
+                                        <a href="javascript:" stat_exposure="true" target="_blank"
+                                           title="mi.com">mi.com</a>
+                                        京ICP证110507号
+                                        <a href="http://beian.miit.gov.cn/" rel="nofollow" stat_exposure="true"
+                                           target="_blank">京ICP备10046444号</a>
+                                        <a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=11010802020134"
                                            rel="nofollow"
-                                           target="_blank"><img alt="TRUSTe Privacy Certification" rel="nofollow"
-                                                                src="../我的购物车-小米商城_files/truste.png"></a> <a
-                        href="https://search.szfw.org/cert/l/CX20120926001783002010" rel="nofollow" target="_blank"><img
-                        alt="诚信网站" rel="nofollow" src="../我的购物车-小米商城_files/v-logo-2.png"></a> <a href="https://ss.knet.cn/verifyseal.dll?sn=e12033011010015771301369&amp;ct=df&amp;pa=461082"
-                                                                                                rel="nofollow"
-                                                                                                target="_blank"><img
-                        alt="可信网站" rel="nofollow" src="../我的购物车-小米商城_files/v-logo-1.png"></a> <a href="https://www.mi.com/service/buy/commitment/"
-                                                                                                rel="nofollow"
-                                                                                                target="_blank"><img
-                        alt="诚信经营 放心消费" rel="nofollow"
-                        src="../我的购物车-小米商城_files/ba10428a4f9495ac310fd0b5e0cf8370.png"></a><a class="safe-auth J_safeAuth                     active"
-                                               href="https://webcert.cnmstl.net/cert/grade?sn=3af21034e35011eab3ea00163e068ceb"
-                                               rel="nofollow"><img
-                        class="img1" rel="nofollow" src="../我的购物车-小米商城_files/f1ee261b96ae71e845efba398efeca02.png"><img
-                        class="img2" rel="nofollow" src="../我的购物车-小米商城_files/ec9d32c500ad8a1f456a4c2a67b163e8.png"></a>
+                                           stat_exposure="true" target="_blank">京公网安备11010802020134号</a> <a
+                                            href="https://www.mi.com/culture-license/" stat_exposure="true"
+                                            target="_blank">京网文[2020]0276-042号</a>
+                                        <br> <a href="https://www.mi.com/medical/record/" target="_blank">（京）网械平台备字（2018）第00005号</a>
+                                        <a
+                                                href="https://www.mi.com/medical/qualification/" target="_blank">互联网药品信息服务资格证
+                                            (京)-非经营性-2014-0090</a> <a href="https://www.mi.com/business-license/"
+                                                                      target="_blank">营业执照</a>
+                                        <a href="https://www.mi.com/medical/list/" target="_blank">医疗器械质量公告</a> <br>
+                                        <a
+                                                href="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/e0c7d4cf3b7cd88de10196e30c92e020.png"
+                                                target="_blank">增值电信业务许可证</a>&nbsp;网络食品经营备案 京食药网食备202010048 &nbsp;
+                                        <a href="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/c6859168166651511897f54fa1047fe3.png"
+                                           target="_blank">食品经营许可证</a> <br>
+                                        违法和不良信息举报电话：171-5104-4404&nbsp;<a href="https://www.mi.com/intellectual"
+                                                                          target="_blank">知识产权侵权投诉</a>&nbsp;本网站所列数据，除特殊说明，所有数据均出自我司实验室测试
+                                    </p></div>
+                                <div class="info-links"><a
+                                        href="https://privacy.truste.com/privacy-seal/validation?rid=4fc28a8c-6822-4980-9c4b-9fdc69b94eb8&amp;lang=zh-cn"
+                                        rel="nofollow"
+                                        target="_blank"><img alt="TRUSTe Privacy Certification" rel="nofollow"
+                                                             src="../我的购物车-小米商城_files/truste.png"></a> <a
+                                        href="https://search.szfw.org/cert/l/CX20120926001783002010" rel="nofollow"
+                                        target="_blank"><img
+                                        alt="诚信网站" rel="nofollow" src="../我的购物车-小米商城_files/v-logo-2.png"></a> <a
+                                        href="https://ss.knet.cn/verifyseal.dll?sn=e12033011010015771301369&amp;ct=df&amp;pa=461082"
+                                        rel="nofollow"
+                                        target="_blank"><img
+                                        alt="可信网站" rel="nofollow" src="../我的购物车-小米商城_files/v-logo-1.png"></a> <a
+                                        href="https://www.mi.com/service/buy/commitment/"
+                                        rel="nofollow"
+                                        target="_blank"><img
+                                        alt="诚信经营 放心消费" rel="nofollow"
+                                        src="../我的购物车-小米商城_files/ba10428a4f9495ac310fd0b5e0cf8370.png"></a><a
+                                        class="safe-auth J_safeAuth                     active"
+                                        href="https://webcert.cnmstl.net/cert/grade?sn=3af21034e35011eab3ea00163e068ceb"
+                                        rel="nofollow"><img
+                                        class="img1" rel="nofollow"
+                                        src="../我的购物车-小米商城_files/f1ee261b96ae71e845efba398efeca02.png"><img
+                                        class="img2" rel="nofollow"
+                                        src="../我的购物车-小米商城_files/ec9d32c500ad8a1f456a4c2a67b163e8.png"></a>
+                                </div>
+                            </div>
+                            <div class="slogan ir">探索黑科技，小米为发烧而生</div>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div class="slogan ir">探索黑科技，小米为发烧而生</div>
-        </div>
-    </div>
-</div>
-<script async="" src="../我的购物车-小米商城_files/mstr.js.下载" type="text/javascript"></script>
-<script src="../我的购物车-小米商城_files/hm.js.下载"></script>
-<script async="" src="../我的购物车-小米商城_files/xmst.js.下载" type="text/javascript"></script>
-<script src="../我的购物车-小米商城_files/chunk-vendors.50ac3731.js.下载" type="text/javascript"></script>
-<script src="../我的购物车-小米商城_files/cart.51503133.js.下载" type="text/javascript"></script><!---->
-<script>
-    window._msq = window._msq || [];
-    _msq.push(['setDomainId', 100]);
-    _msq.push(['trackPageView']);
-    (function () {
-        var ms = document.createElement('script');
-        ms.type = 'text/javascript';
-        ms.async = true;
-        ms.src = '//s1.mi.com/stat/20/xmst.js';
-        var s = document.getElementsByTagName('script')[0];
-        s.parentNode.insertBefore(ms, s);
+                <script async="" src="../我的购物车-小米商城_files/mstr.js.下载" type="text/javascript"></script>
+                <script src="../我的购物车-小米商城_files/hm.js.下载"></script>
+                <script async="" src="../我的购物车-小米商城_files/xmst.js.下载" type="text/javascript"></script>
+                <script src="../我的购物车-小米商城_files/chunk-vendors.50ac3731.js.下载" type="text/javascript"></script>
+                <script src="../我的购物车-小米商城_files/cart.51503133.js.下载" type="text/javascript"></script><!---->
+                <script type="text/javascript" src="/mi/js/jquery-1.12.4.js"></script>
+                <script type="text/javascript" src="/mi/js/jquery-1.4.2.min.js"></script>
+                <script type="text/javascript" src="/js/jquery-1.9.1.min.js"></script>
+                <script>
+                    window._msq = window._msq || [];
+                    _msq.push(['setDomainId', 100]);
+                    _msq.push(['trackPageView']);
+                    (function () {
+                        var ms = document.createElement('script');
+                        ms.type = 'text/javascript';
+                        ms.async = true;
+                        ms.src = '//s1.mi.com/stat/20/xmst.js';
+                        var s = document.getElementsByTagName('script')[0];
+                        s.parentNode.insertBefore(ms, s);
 
-        window.statInit = function () {
-            if (window.xmstLittle && xmstLittle.isFunction(xmstLittle.fn.linkSign)) {
-                xmstLittle('body').linkSign();
-            }
-        }
-    })();
+                        window.statInit = function () {
+                            if (window.xmstLittle && xmstLittle.isFunction(xmstLittle.fn.linkSign)) {
+                                xmstLittle('body').linkSign();
+                            }
+                        }
+                    })();
 
 
-    var _hmt = _hmt || [];
-    (function () {
-        var hm = document.createElement("script");
-        hm.src = "//hm.baidu.com/hm.js?c3e3e8b3ea48955284516b186acf0f4e";
-        var s = document.getElementsByTagName("script")[0];
-        s.parentNode.insertBefore(hm, s);
-    })();
-</script>
+                    var _hmt = _hmt || [];
+                    (function () {
+                        var hm = document.createElement("script");
+                        hm.src = "//hm.baidu.com/hm.js?c3e3e8b3ea48955284516b186acf0f4e";
+                        var s = document.getElementsByTagName("script")[0];
+                        s.parentNode.insertBefore(hm, s);
+                    })();
+
+                    $(function () {
+                        queryCart();
+                        findlog();
+                    })
 
 
-<script async="" src="../我的购物车-小米商城_files/gettimestamp" type="text/javascript"></script>
+                    userid = "";
+
+                    function findlog() {
+                        $.ajax({
+
+                            url: "../user/findLoginStatus",
+                            success: function (data) {
+
+                                userid = data.userId;
+                            }
+                        })
+                    }
+
+                    function queryCart() {
+                        var cart = "";
+                        $.ajax({
+                            url: '../insertCart',
+                            type: 'post',
+                            dataType: 'json',
+                            data: '',
+                            success: function (data) {
+                                for (var i = 0; i < data.length; i++) {
+
+                                    cart += ' <div class="item-box" data-v-562c5445="">';
+                                    cart += '  <div class="item-table" data-v-562c5445="" >';
+                                    cart += ' <div class="item-row clearfix" data-v-562c5445="">';
+                                    cart += '  <div class="col col-check" data-v-562c5445=""><input type="checkbox" onclick="ck(' + i + ',' + data[i].goodsPrice + ')" name="ck">';
+                                    cart += '     </div>';
+                                    cart += '    <div class="col col-img" data-v-562c5445="">';
+                                    cart += '    <a data-v-562c5445="" href="javascript:void(0)">';
+                                    cart += '    <img alt="" data-v-562c5445=""height="80"';
+                                    cart += '     src="../我的购物车-小米商城_files/pms_1581494045.31058391.jpg"';
+                                    cart += '     width="80"></a>';
+                                    cart += '     </div>';
+
+                                    cart += '      <div class="col col-name" data-v-562c5445="">';
+                                    cart += '       <h3 class="name" data-v-562c5445="">';
+                                    cart += '    <a data-v-562c5445=""   href="javascript:void(0)">' + data[i].goodsName + '' + data[i].verisonByName + '' + data[i].colorByName + '</a>';
+                                    cart += '    </h3>';
+                                    cart += '     </div>';
+
+                                    cart += '     <div class="col col-price" data-v-562c5445="">' + data[i].goodsPrice + '元<p class="pre-info"  data-v-562c5445="">';
+                                    cart += '      </p></div>';
+
+                                    cart += '    <div class="col col-num" data-v-562c5445="">';
+                                    cart += '  <div class="change-goods-num clearfix" data-v-562c5445="">';
+                                    cart += '  <a data-v-562c5445="" onclick=jian(' + data[i].goodsPrice + ',' + i + ')>';
+                                    cart += '  <i class="iconfont" data-v-562c5445=""></i></a>';
+                                    cart += '  <input autocomplete="off" id="a' + i + '" value=' + data[i].goodsNum + ' class="goods-num" data-v-562c5445=""type="text">';
+                                    cart += '  <a data-v-562c5445="" onclick=jia(' + data[i].goodsPrice + ',' + i + ')>';
+                                    cart += '  <i class="iconfont" data-v-562c5445=""></i>';
+                                    cart += '  </a><!----></div>';
+                                    cart += '  </div>';
+                                    cart += '  <div class="col col-total" data-v-562c5445=""><span id="sp' + i + '">' + data[i].goodsPrice + '</span>元<p class="pre-info" data-v-562c5445="">';
+                                    cart += '  </p></div>';
+
+                                    cart += '   <div class="col col-action" data-v-562c5445="">';
+                                    cart += '   <a data-v-562c5445="" onclick=deleteUp(' + data[i].id + ')>';
+                                    cart += '   <i class="iconfont" data-v-562c5445=""></i>';
+                                    cart += '    </a>';
+                                    cart += '   </div></div></div>';
+
+                                    //class="del" data-v-562c5445=""
+                                    //  <a  ';
+                                }
+                                $("#table").html(cart)
+                            }
+                        })
+                    }
+
+
+                    function deleteUp(id) {
+                        $.ajax({
+                            url: "../deletegoods",
+                            type: 'post',
+                            data: {id: id, userId: userid},
+                            success: function () {
+                                alert("删除成功");
+                                queryCart();
+                            }
+                        })
+                    }
+
+
+                    function ck(id, price) {
+                        //  alert($("#zong").html())
+                        var sum = 0;
+                        var check = document.getElementsByName("ck");
+                        for (var i = 0; i < check.length; i++) {
+                            if (check[i].checked == true) {
+                                var str = $('#sp' + i + '').html() - 0;
+                                sum += str;
+                                // alert(sum)
+                            }
+                            $("#jie").html(' <span class="total-price" data-v-562c5445="">合计： <em data-v-562c5445="" id="zong">' + sum + '</em>元 <a class="btn btn-a btn-primary" data-v-562c5445="" onclick="jiesuan()">去结算</a> </span>');
+                        }
+                    }
+
+                    function jiesuan() {
+                        location.href = "../orderList";
+                    }
+
+
+                    //减值
+                    function jian(jg, id) {
+                        /* 获取每个input的值 */
+                        var old = $("#a" + id).val();
+                        if (old <= 1) {
+                            alert("已是最小")
+                            return;
+                        }
+                        /* 每次减一 */
+                        old--;
+                        /* 计算总价格 并替换 */
+                        var sum = jg * old
+
+                        var check = document.getElementsByName("ck");
+                        if (check[id].checked == true) {
+                            var zong = $("#zong").html() - 0;
+                            $("#zong").html(zong - sum);
+                            // alert($("#zong").html())
+                        }
+                        /* 替换值 */
+                        old = $("#a" + id).val(old);
+                        $('#sp' + id + '').html(sum)
+                    }
+
+                    //加值
+                    function jia(jg, id) {
+                        var old = $("#a" + id).val();
+                        if (old >= 2) {
+                            alert("已是最大")
+                            return;
+                        }
+                        old++;
+                        var sum = jg * old
+
+                        var check = document.getElementsByName("ck");
+                        if (check[id].checked == true) {
+                            var zong = $("#zong").html() - 0;
+                            $("#zong").html(zong + sum - jg);
+                        }
+
+                        old = $("#a" + id).val(old);
+                        $('#sp' + id + '').html(sum)
+                    }
+
+                </script>
+
+
+                <script async="" src="../我的购物车-小米商城_files/gettimestamp" type="text/javascript"></script>
 </body>
 </html>

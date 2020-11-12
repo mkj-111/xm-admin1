@@ -24,14 +24,14 @@ public class MkjVersionController {
 
     @RequestMapping("findversion")
     @ResponseBody
-    public List<VersionsBean>findversion(Integer colorid){
+    public List<VersionsBean> findversion(Integer colorid) {
         return mkjVersionService.findversion(colorid);
     }
 
     @RequestMapping("findversionsId")
     @ResponseBody
-    public VersionsBean findversionsId(Integer versionsId){
-        return  mkjVersionService.findversionsId(versionsId);
+    public VersionsBean findversionsId(Integer versionsId) {
+        return mkjVersionService.findversionsId(versionsId);
     }
 
 }

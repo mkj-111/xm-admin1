@@ -1,8 +1,9 @@
 package com.jk.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Goods {
+public class Goods implements Serializable {
     private Integer id;
 
     private String goodsName;
@@ -11,7 +12,7 @@ public class Goods {
 
     private String goodsCaption;
 
-    private Integer goodsTypeId;
+    private Integer goodsVersionId;
 
     private String goodsImg;
 
@@ -28,13 +29,9 @@ public class Goods {
     //价格
     private Long goodsPrice;
 
-    public Long getGoodsPrice() {
-        return goodsPrice;
-    }
+    private String colorByName;
 
-    public void setGoodsPrice(Long goodsPrice) {
-        this.goodsPrice = goodsPrice;
-    }
+    private String verisonByName;
 
     public Integer getId() {
         return id;
@@ -49,7 +46,7 @@ public class Goods {
     }
 
     public void setGoodsName(String goodsName) {
-        this.goodsName = goodsName == null ? null : goodsName.trim();
+        this.goodsName = goodsName;
     }
 
     public String getGoodsStatus() {
@@ -57,7 +54,7 @@ public class Goods {
     }
 
     public void setGoodsStatus(String goodsStatus) {
-        this.goodsStatus = goodsStatus == null ? null : goodsStatus.trim();
+        this.goodsStatus = goodsStatus;
     }
 
     public String getGoodsCaption() {
@@ -65,15 +62,15 @@ public class Goods {
     }
 
     public void setGoodsCaption(String goodsCaption) {
-        this.goodsCaption = goodsCaption == null ? null : goodsCaption.trim();
+        this.goodsCaption = goodsCaption;
     }
 
-    public Integer getGoodsTypeId() {
-        return goodsTypeId;
+    public Integer getGoodsVersionId() {
+        return goodsVersionId;
     }
 
-    public void setGoodsTypeId(Integer goodsTypeId) {
-        this.goodsTypeId = goodsTypeId;
+    public void setGoodsVersionId(Integer goodsVersionId) {
+        this.goodsVersionId = goodsVersionId;
     }
 
     public String getGoodsImg() {
@@ -81,7 +78,7 @@ public class Goods {
     }
 
     public void setGoodsImg(String goodsImg) {
-        this.goodsImg = goodsImg == null ? null : goodsImg.trim();
+        this.goodsImg = goodsImg;
     }
 
     public String getGoodsColorId() {
@@ -89,7 +86,7 @@ public class Goods {
     }
 
     public void setGoodsColorId(String goodsColorId) {
-        this.goodsColorId = goodsColorId == null ? null : goodsColorId.trim();
+        this.goodsColorId = goodsColorId;
     }
 
     public String getGoodsImgAll() {
@@ -97,7 +94,7 @@ public class Goods {
     }
 
     public void setGoodsImgAll(String goodsImgAll) {
-        this.goodsImgAll = goodsImgAll == null ? null : goodsImgAll.trim();
+        this.goodsImgAll = goodsImgAll;
     }
 
     public String getGoodsInfo() {
@@ -105,7 +102,7 @@ public class Goods {
     }
 
     public void setGoodsInfo(String goodsInfo) {
-        this.goodsInfo = goodsInfo == null ? null : goodsInfo.trim();
+        this.goodsInfo = goodsInfo;
     }
 
     public Integer getGoodsNum() {
@@ -124,6 +121,31 @@ public class Goods {
         this.goodsDate = goodsDate;
     }
 
+    public Long getGoodsPrice() {
+        return goodsPrice;
+    }
+
+    public void setGoodsPrice(Long goodsPrice) {
+        this.goodsPrice = goodsPrice;
+    }
+
+    public String getColorByName() {
+        return colorByName;
+    }
+
+    public void setColorByName(String colorByName) {
+        this.colorByName = colorByName;
+    }
+
+    public String getVerisonByName() {
+        return verisonByName;
+    }
+
+    public void setVerisonByName(String verisonByName) {
+        this.verisonByName = verisonByName;
+    }
+
+
     @Override
     public String toString() {
         return "Goods{" +
@@ -131,7 +153,7 @@ public class Goods {
                 ", goodsName='" + goodsName + '\'' +
                 ", goodsStatus='" + goodsStatus + '\'' +
                 ", goodsCaption='" + goodsCaption + '\'' +
-                ", goodsTypeId=" + goodsTypeId +
+                ", goodsVersionId=" + goodsVersionId +
                 ", goodsImg='" + goodsImg + '\'' +
                 ", goodsColorId='" + goodsColorId + '\'' +
                 ", goodsImgAll='" + goodsImgAll + '\'' +
@@ -139,6 +161,8 @@ public class Goods {
                 ", goodsNum=" + goodsNum +
                 ", goodsDate=" + goodsDate +
                 ", goodsPrice=" + goodsPrice +
+                ", colorByName='" + colorByName + '\'' +
+                ", verisonByName='" + verisonByName + '\'' +
                 '}';
     }
 }

@@ -16,7 +16,7 @@ public class usercontroller {
     private UserService UserService;
 
     @RequestMapping("login")
-    public xmuser login(@RequestBody xmuser user){
+    public xmuser login(@RequestBody xmuser user) {
         return UserService.login(user);
     }
 }

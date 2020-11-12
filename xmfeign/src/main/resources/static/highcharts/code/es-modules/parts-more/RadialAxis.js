@@ -10,15 +10,18 @@
 'use strict';
 import H from '../parts/Globals.js';
 import U from '../parts/Utilities.js';
+
 var extend = U.extend, pick = U.pick, pInt = U.pInt;
 import '../parts/Axis.js';
 import '../parts/Tick.js';
 import './Pane.js';
-var addEvent = H.addEvent, Axis = H.Axis, merge = H.merge, noop = H.noop, Tick = H.Tick, wrap = H.wrap, correctFloat = H.correctFloat, 
+
+var addEvent = H.addEvent, Axis = H.Axis, merge = H.merge, noop = H.noop, Tick = H.Tick, wrap = H.wrap,
+    correctFloat = H.correctFloat,
 // @todo Extract this to a new file:
-hiddenAxisMixin, 
+    hiddenAxisMixin,
 // @todo Extract this to a new file
-radialAxisMixin, axisProto = Axis.prototype, tickProto = Tick.prototype;
+    radialAxisMixin, axisProto = Axis.prototype, tickProto = Tick.prototype;
 // Augmented methods for the x axis in order to hide it completely, used for
 // the X axis in gauges
 hiddenAxisMixin = {
@@ -134,8 +137,7 @@ radialAxisMixin = {
             // (#7117)
             path.xBounds = [this.left + center[0]];
             path.yBounds = [this.top + center[1] - r];
-        }
-        else {
+        } else {
             end = this.postTranslate(this.angleRad, r);
             path = [
                 'M',
@@ -162,15 +164,13 @@ radialAxisMixin = {
             if (this.isCircular) {
                 this.transA = (this.endAngleRad - this.startAngleRad) /
                     ((this.max - this.min) || 1);
-            }
-            else {
+            } else {
                 this.transA = ((this.center[2] / 2) /
                     ((this.max - this.min) || 1));
             }
             if (this.isXAxis) {
                 this.minPixelPadding = this.transA * this.minPointOffset;
-            }
-            else {
+            } else {
                 // This is a workaround for regression #2593, but categories
                 // still don't position correctly.
                 this.minPixelPadding = 0;
@@ -190,7 +190,7 @@ radialAxisMixin = {
         this.autoConnect = (this.isCircular &&
             pick(this.userMax, this.options.max) === undefined &&
             correctFloat(this.endAngleRad - this.startAngleRad) ===
-                correctFloat(2 * Math.PI));
+            correctFloat(2 * Math.PI));
         if (this.autoConnect) {
             this.max += ((this.categories && 1) ||
                 this.pointRange ||
@@ -228,7 +228,7 @@ radialAxisMixin = {
         return this.postTranslate(this.isCircular ?
             this.translate(value) :
             this.angleRad, // #2848
-        pick(this.isCircular ? length : this.translate(value), this.center[2] / 2) - this.offset);
+            pick(this.isCircular ? length : this.translate(value), this.center[2] / 2) - this.offset);
     },
     /**
      * Translate from intermediate plotX (angle), plotY (axis.len - radius)
@@ -249,17 +249,17 @@ radialAxisMixin = {
      */
     getPlotBandPath: function (from, to, options) {
         var center = this.center, startAngleRad = this.startAngleRad, fullRadius = center[2] / 2, radii = [
-            pick(options.outerRadius, '100%'),
-            options.innerRadius,
-            pick(options.thickness, 10)
-        ], offset = Math.min(this.offset, 0), percentRegex = /%$/, start, end, angle, xOnPerimeter, open, isCircular = this.isCircular, // X axis in a polar chart
-        ret;
+                pick(options.outerRadius, '100%'),
+                options.innerRadius,
+                pick(options.thickness, 10)
+            ], offset = Math.min(this.offset, 0), percentRegex = /%$/, start, end, angle, xOnPerimeter, open,
+            isCircular = this.isCircular, // X axis in a polar chart
+            ret;
         // Polygonal plot bands
         if (this.options.gridLineInterpolation === 'polygon') {
-            ret = this.getPlotLinePath({ value: from }).concat(this.getPlotLinePath({ value: to, reverse: true }));
+            ret = this.getPlotLinePath({value: from}).concat(this.getPlotLinePath({value: to, reverse: true}));
             // Circular grid bands
-        }
-        else {
+        } else {
             // Keep within bounds
             from = Math.max(from, this.min);
             to = Math.min(to, this.max);
@@ -281,8 +281,7 @@ radialAxisMixin = {
                 start = -Math.PI / 2;
                 end = Math.PI * 1.5;
                 open = true;
-            }
-            else {
+            } else {
                 start = startAngleRad + this.translate(from);
                 end = startAngleRad + this.translate(to);
             }
@@ -320,18 +319,21 @@ radialAxisMixin = {
      * Find the path for plot lines perpendicular to the radial axis.
      */
     getPlotLinePath: function (options) {
-        var axis = this, center = axis.center, chart = axis.chart, value = options.value, reverse = options.reverse, end = axis.getPosition(value), background = axis.pane.options.background ?
+        var axis = this, center = axis.center, chart = axis.chart, value = options.value, reverse = options.reverse,
+            end = axis.getPosition(value), background = axis.pane.options.background ?
             (axis.pane.options.background[0] ||
                 axis.pane.options.background) :
-            {}, innerRadius = background.innerRadius || '0%', outerRadius = background.outerRadius || '100%', x1 = center[0] + chart.plotLeft, y1 = center[1] + chart.plotTop, x2 = end.x, y2 = end.y, a, b, xAxis, xy, tickPositions, ret;
+            {}, innerRadius = background.innerRadius || '0%', outerRadius = background.outerRadius || '100%',
+            x1 = center[0] + chart.plotLeft, y1 = center[1] + chart.plotTop, x2 = end.x, y2 = end.y, a, b, xAxis, xy,
+            tickPositions, ret;
         // Spokes
         if (axis.isCircular) {
             a = (typeof innerRadius === 'string') ?
                 H.relativeLength(innerRadius, 1) : (innerRadius /
-                Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2)));
+                    Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2)));
             b = (typeof outerRadius === 'string') ?
                 H.relativeLength(outerRadius, 1) : (outerRadius /
-                Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2)));
+                    Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2)));
             ret = [
                 'M',
                 x1 + a * (x2 - x1),
@@ -341,15 +343,13 @@ radialAxisMixin = {
                 y2 + (1 - b) * (y1 - y2)
             ];
             // Concentric circles
-        }
-        else if (axis.options.gridLineInterpolation === 'circle') {
+        } else if (axis.options.gridLineInterpolation === 'circle') {
             value = axis.translate(value);
             // a value of 0 is in the center, so it won't be visible,
             // but draw it anyway for update and animation (#2366)
             ret = axis.getLinePath(0, value);
             // Concentric polygons
-        }
-        else {
+        } else {
             // Find the X axis in the same pane
             chart.xAxis.forEach(function (a) {
                 if (a.pane === axis.pane) {
@@ -384,10 +384,10 @@ radialAxisMixin = {
             y: (chart.plotTop +
                 center[1] -
                 ({
-                    high: 0.5,
-                    middle: 0.25,
-                    low: 0
-                }[titleOptions.align] *
+                        high: 0.5,
+                        middle: 0.25,
+                        low: 0
+                    }[titleOptions.align] *
                     center[2]) +
                 (titleOptions.y || 0))
         };
@@ -405,11 +405,11 @@ radialAxisMixin = {
                 axis.options.labels.allowOverlap !== true) {
                 return axis.tickPositions
                     .map(function (pos) {
-                    return axis.ticks[pos] && axis.ticks[pos].label;
-                })
+                        return axis.ticks[pos] && axis.ticks[pos].label;
+                    })
                     .filter(function (label) {
-                    return Boolean(label);
-                });
+                        return Boolean(label);
+                    });
             }
         };
     }
@@ -418,7 +418,8 @@ radialAxisMixin = {
 /* eslint-disable no-invalid-this */
 // Actions before axis init.
 addEvent(Axis, 'init', function (e) {
-    var chart = this.chart, angular = chart.angular, polar = chart.polar, isX = this.isXAxis, isHidden = angular && isX, isCircular, chartOptions = chart.options, paneIndex = e.userOptions.pane || 0, pane = this.pane =
+    var chart = this.chart, angular = chart.angular, polar = chart.polar, isX = this.isXAxis, isHidden = angular && isX,
+        isCircular, chartOptions = chart.options, paneIndex = e.userOptions.pane || 0, pane = this.pane =
         chart.pane && chart.pane[paneIndex];
     // Prevent changes for colorAxis
     if (this.coll === 'colorAxis') {
@@ -433,8 +434,7 @@ addEvent(Axis, 'init', function (e) {
             this.defaultRadialOptions =
                 this.defaultRadialGaugeOptions;
         }
-    }
-    else if (polar) {
+    } else if (polar) {
         extend(this, radialAxisMixin);
         isCircular = isX;
         this.defaultRadialOptions = isX ?
@@ -453,8 +453,7 @@ addEvent(Axis, 'init', function (e) {
             // Prevent overlapping axis labels (#9761)
             chart.labelCollectors.push(this.labelCollector);
         }
-    }
-    else {
+    } else {
         this.isRadial = false;
     }
     // A pointer back to this axis to borrow geometry
@@ -464,7 +463,8 @@ addEvent(Axis, 'init', function (e) {
     this.isCircular = isCircular;
 });
 addEvent(Axis, 'afterInit', function () {
-    var chart = this.chart, options = this.options, isHidden = chart.angular && this.isXAxis, pane = this.pane, paneOptions = pane && pane.options;
+    var chart = this.chart, options = this.options, isHidden = chart.angular && this.isXAxis, pane = this.pane,
+        paneOptions = pane && pane.options;
     if (!isHidden && pane && (chart.angular || chart.polar)) {
         // Start and end angle options are
         // given in degrees relative to top, while internal computations are
@@ -503,11 +503,13 @@ addEvent(Tick, 'afterGetPosition', function (e) {
 });
 // Find the center position of the label based on the distance option.
 addEvent(Tick, 'afterGetLabelPosition', function (e) {
-    var axis = this.axis, label = this.label, labelBBox = label.getBBox(), labelOptions = axis.options.labels, optionsY = labelOptions.y, ret, centerSlot = 20, // 20 degrees to each side at the top and bottom
-    align = labelOptions.align, angle = ((axis.translate(this.pos) + axis.startAngleRad +
+    var axis = this.axis, label = this.label, labelBBox = label.getBBox(), labelOptions = axis.options.labels,
+        optionsY = labelOptions.y, ret, centerSlot = 20, // 20 degrees to each side at the top and bottom
+        align = labelOptions.align, angle = ((axis.translate(this.pos) + axis.startAngleRad +
         Math.PI / 2) / Math.PI * 180) % 360, correctAngle = Math.round(angle), labelDir = 'end', // Direction of the label 'start' or 'end'
-    reducedAngle1 = correctAngle < 0 ?
-        correctAngle + 360 : correctAngle, reducedAngle2 = reducedAngle1, translateY = 0, translateX = 0, labelYPosCorrection = labelOptions.y === null ? -labelBBox.height * 0.3 : 0;
+        reducedAngle1 = correctAngle < 0 ?
+            correctAngle + 360 : correctAngle, reducedAngle2 = reducedAngle1, translateY = 0, translateX = 0,
+        labelYPosCorrection = labelOptions.y === null ? -labelBBox.height * 0.3 : 0;
     if (axis.isRadial) { // Both X and Y axes in a polar chart
         ret = axis.getPosition(this.pos, (axis.center[2] / 2) +
             H.relativeLength(pick(labelOptions.distance, -25), axis.center[2] / 2, -axis.center[2] / 2));
@@ -517,10 +519,9 @@ addEvent(Tick, 'afterGetLabelPosition', function (e) {
                 rotation: angle
             });
             // Vertically centered
-        }
-        else if (optionsY === null) {
+        } else if (optionsY === null) {
             optionsY = (axis.chart.renderer
-                .fontMetrics(label.styles && label.styles.fontSize).b -
+                    .fontMetrics(label.styles && label.styles.fontSize).b -
                 labelBBox.height / 2);
         }
         // Automatic alignment
@@ -532,16 +533,13 @@ addEvent(Tick, 'afterGetLabelPosition', function (e) {
                 }
                 if (angle > centerSlot && angle < 180 - centerSlot) {
                     align = 'left'; // right hemisphere
-                }
-                else if (angle > 180 + centerSlot &&
+                } else if (angle > 180 + centerSlot &&
                     angle < 360 - centerSlot) {
                     align = 'right'; // left hemisphere
-                }
-                else {
+                } else {
                     align = 'center'; // top or bottom
                 }
-            }
-            else {
+            } else {
                 align = 'center';
             }
             label.attr({
@@ -555,8 +553,7 @@ addEvent(Tick, 'afterGetLabelPosition', function (e) {
             // Angles reduced to 0 - 90 or 180 - 270
             if (reducedAngle1 > 90 && reducedAngle1 < 180) {
                 reducedAngle1 = 180 - reducedAngle1;
-            }
-            else if (reducedAngle1 > 270 && reducedAngle1 <= 360) {
+            } else if (reducedAngle1 > 270 && reducedAngle1 <= 360) {
                 reducedAngle1 = 540 - reducedAngle1;
             }
             // Angles reduced to 0 - 180
@@ -572,8 +569,7 @@ addEvent(Tick, 'afterGetLabelPosition', function (e) {
                 (correctAngle >= -360 && correctAngle <= -270) ||
                 (correctAngle >= 270 && correctAngle <= 360)) {
                 align = (labelDir === 'start') ? 'right' : 'left';
-            }
-            else {
+            } else {
                 align = (labelDir === 'start') ? 'left' : 'right';
             }
             // For angles beetwen (90 + n * 180) +- 20
@@ -584,20 +580,16 @@ addEvent(Tick, 'afterGetLabelPosition', function (e) {
             if (reducedAngle1 < 15 ||
                 (reducedAngle1 >= 180 && reducedAngle1 < 195)) {
                 translateY = labelBBox.height * 0.3;
-            }
-            else if (reducedAngle1 >= 15 && reducedAngle1 <= 35) {
+            } else if (reducedAngle1 >= 15 && reducedAngle1 <= 35) {
                 translateY = labelDir === 'start' ?
                     0 : labelBBox.height * 0.75;
-            }
-            else if (reducedAngle1 >= 195 && reducedAngle1 <= 215) {
+            } else if (reducedAngle1 >= 195 && reducedAngle1 <= 215) {
                 translateY = labelDir === 'start' ?
                     labelBBox.height * 0.75 : 0;
-            }
-            else if (reducedAngle1 > 35 && reducedAngle1 <= 90) {
+            } else if (reducedAngle1 > 35 && reducedAngle1 <= 90) {
                 translateY = labelDir === 'start' ?
                     -labelBBox.height * 0.25 : labelBBox.height;
-            }
-            else if (reducedAngle1 > 215 && reducedAngle1 <= 270) {
+            } else if (reducedAngle1 > 215 && reducedAngle1 <= 270) {
                 translateY = labelDir === 'start' ?
                     labelBBox.height : -labelBBox.height * 0.25;
             }
@@ -605,12 +597,11 @@ addEvent(Tick, 'afterGetLabelPosition', function (e) {
             if (reducedAngle2 < 15) {
                 translateX = labelDir === 'start' ?
                     -labelBBox.height * 0.15 : labelBBox.height * 0.15;
-            }
-            else if (reducedAngle2 > 165 && reducedAngle2 <= 180) {
+            } else if (reducedAngle2 > 165 && reducedAngle2 <= 180) {
                 translateX = labelDir === 'start' ?
                     labelBBox.height * 0.15 : -labelBBox.height * 0.15;
             }
-            label.attr({ align: align });
+            label.attr({align: align});
             label.translate(translateX, translateY + labelYPosCorrection);
         }
         e.pos.x = ret.x + labelOptions.x;
@@ -630,8 +621,7 @@ wrap(tickProto, 'getMarkPath', function (proceed, x, y, tickLength, tickWidth, h
             endPoint.x,
             endPoint.y
         ];
-    }
-    else {
+    } else {
         ret = proceed.call(this, x, y, tickLength, tickWidth, horiz, renderer);
     }
     return ret;

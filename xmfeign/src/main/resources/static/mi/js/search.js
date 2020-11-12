@@ -19,12 +19,12 @@
 ////	})
 //	
 //})
-function fun(){
-	if ($('#ulliul').css('display')=='none') {
-		$("#top2right ul li button").hide();
-		$('#ulliul').css('display','block');
-	} else{
-		$('#ulliul').css('display','none');
-	$("#top2right ul li button").show();
-	}
+function fun() {
+    if ($('#ulliul').css('display') == 'none') {
+        $("#top2right ul li button").hide();
+        $('#ulliul').css('display', 'block');
+    } else {
+        $('#ulliul').css('display', 'none');
+        $("#top2right ul li button").show();
+    }
 }

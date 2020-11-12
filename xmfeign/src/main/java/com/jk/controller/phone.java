@@ -14,7 +14,7 @@ public class phone {
 
 
     @RequestMapping("tophone")
-    public String phone(String id){
-        return "phone/"+id;
+    public String phone(String id) {
+        return "phone/" + id;
     }
 }

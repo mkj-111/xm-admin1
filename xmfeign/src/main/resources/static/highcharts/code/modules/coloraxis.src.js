@@ -23,11 +23,13 @@
     }
 }(function (Highcharts) {
     var _modules = Highcharts ? Highcharts._modules : {};
+
     function _registerModule(obj, path, args, fn) {
         if (!obj.hasOwnProperty(path)) {
             obj[path] = fn.apply(null, args);
         }
     }
+
     _registerModule(_modules, 'parts-map/ColorSeriesMixin.js', [_modules['parts/Globals.js']], function (H) {
         /* *
          *
@@ -81,7 +83,8 @@
              * @return {void}
              */
             translateColors: function () {
-                var series = this, points = this.data.length ? this.data : this.points, nullColor = this.options.nullColor, colorAxis = this.colorAxis, colorKey = this.colorKey;
+                var series = this, points = this.data.length ? this.data : this.points,
+                    nullColor = this.options.nullColor, colorAxis = this.colorAxis, colorKey = this.colorKey;
                 points.forEach(function (point) {
                     var value = point[colorKey], color;
                     color = point.options.color ||
@@ -115,7 +118,9 @@
          * @typedef {"linear"|"logarithmic"} Highcharts.ColorAxisTypeValue
          */
         var erase = U.erase, extend = U.extend, isNumber = U.isNumber, pick = U.pick, splat = U.splat;
-        var addEvent = H.addEvent, Axis = H.Axis, Chart = H.Chart, Series = H.Series, Point = H.Point, color = H.color, ColorAxis, Legend = H.Legend, LegendSymbolMixin = H.LegendSymbolMixin, colorPointMixin = H.colorPointMixin, colorSeriesMixin = H.colorSeriesMixin, noop = H.noop, merge = H.merge;
+        var addEvent = H.addEvent, Axis = H.Axis, Chart = H.Chart, Series = H.Series, Point = H.Point, color = H.color,
+            ColorAxis, Legend = H.Legend, LegendSymbolMixin = H.LegendSymbolMixin, colorPointMixin = H.colorPointMixin,
+            colorSeriesMixin = H.colorSeriesMixin, noop = H.noop, merge = H.merge;
         extend(Series.prototype, colorSeriesMixin);
         extend(Point.prototype, colorPointMixin);
         /* eslint-disable no-invalid-this, valid-jsdoc */
@@ -596,7 +601,8 @@
              * @private
              */
             initDataClasses: function (userOptions) {
-                var chart = this.chart, dataClasses, colorCounter = 0, colorCount = chart.options.chart.colorCount, options = this.options, len = userOptions.dataClasses.length;
+                var chart = this.chart, dataClasses, colorCounter = 0, colorCount = chart.options.chart.colorCount,
+                    options = this.options, len = userOptions.dataClasses.length;
                 this.dataClasses = dataClasses =
                     [];
                 this.legendItems = [];
@@ -619,8 +625,7 @@
                         if (colorCounter === colorCount) {
                             colorCounter = 0;
                         }
-                    }
-                    else {
+                    } else {
                         dataClass.color = color(options.minColor).tweenTo(color(options.maxColor), len < 2 ? 0.5 : i / (len - 1) // #3219
                         );
                     }
@@ -701,7 +706,8 @@
              * @private
              */
             setAxisSize: function () {
-                var symbol = this.legendSymbol, chart = this.chart, legendOptions = chart.options.legend || {}, x, y, width, height;
+                var symbol = this.legendSymbol, chart = this.chart, legendOptions = chart.options.legend || {}, x, y,
+                    width, height;
                 if (symbol) {
                     this.left = x = symbol.attr('x');
                     this.top = y = symbol.attr('y');
@@ -711,8 +717,7 @@
                     this.bottom = chart.chartHeight - y - height;
                     this.len = this.horiz ? width : height;
                     this.pos = this.horiz ? x : y;
-                }
-                else {
+                } else {
                     // Fake length for disabled legend to avoid tick issues
                     // and such (#5205)
                     this.len = (this.horiz ?
@@ -757,8 +762,7 @@
                             break;
                         }
                     }
-                }
-                else {
+                } else {
                     pos = this.normalizedValue(value);
                     i = stops.length;
                     while (i--) {
@@ -830,7 +834,11 @@
              * @return {void}
              */
             drawLegendSymbol: function (legend, item) {
-                var padding = legend.padding, legendOptions = legend.options, horiz = this.horiz, width = pick(legendOptions.symbolWidth, horiz ? this.defaultLegendLength : 12), height = pick(legendOptions.symbolHeight, horiz ? 12 : this.defaultLegendLength), labelPadding = pick(legendOptions.labelPadding, horiz ? 16 : 30), itemDistance = pick(legendOptions.itemDistance, 10);
+                var padding = legend.padding, legendOptions = legend.options, horiz = this.horiz,
+                    width = pick(legendOptions.symbolWidth, horiz ? this.defaultLegendLength : 12),
+                    height = pick(legendOptions.symbolHeight, horiz ? 12 : this.defaultLegendLength),
+                    labelPadding = pick(legendOptions.labelPadding, horiz ? 16 : 30),
+                    itemDistance = pick(legendOptions.itemDistance, 10);
                 this.setLegendColor();
                 // Create the gradient
                 item.legendSymbol = this.chart.renderer.rect(0, legend.baseline - 11, width, height).attr({
@@ -861,7 +869,8 @@
              * @private
              */
             getSeriesExtremes: function () {
-                var series = this.series, colorValArray, colorKey, colorValIndex, pointArrayMap, calculatedExtremes, cSeries, i = series.length, yData, j;
+                var series = this.series, colorValArray, colorKey, colorValIndex, pointArrayMap, calculatedExtremes,
+                    cSeries, i = series.length, yData, j;
                 this.dataMin = Infinity;
                 this.dataMax = -Infinity;
                 while (i--) { // x, y, value, other
@@ -872,12 +881,10 @@
                         cSeries[colorKey + 'Max'];
                     if (cSeries[colorKey + 'Data']) {
                         colorValArray = cSeries[colorKey + 'Data'];
-                    }
-                    else {
+                    } else {
                         if (!pointArrayMap) {
                             colorValArray = cSeries.yData;
-                        }
-                        else {
+                        } else {
                             colorValArray = [];
                             colorValIndex = pointArrayMap.indexOf(colorKey);
                             yData = cSeries.yData;
@@ -892,8 +899,7 @@
                     if (calculatedExtremes) {
                         cSeries.minColorValue = cSeries[colorKey + 'Min'];
                         cSeries.maxColorValue = cSeries[colorKey + 'Max'];
-                    }
-                    else {
+                    } else {
                         Series.prototype.getExtremes.call(cSeries, colorValArray);
                         cSeries.minColorValue = cSeries.dataMin;
                         cSeries.maxColorValue = cSeries.dataMax;
@@ -927,13 +933,13 @@
              * @fires Highcharts.ColorAxis#event:drawCrosshair
              */
             drawCrosshair: function (e, point) {
-                var plotX = point && point.plotX, plotY = point && point.plotY, crossPos, axisPos = this.pos, axisLen = this.len;
+                var plotX = point && point.plotX, plotY = point && point.plotY, crossPos, axisPos = this.pos,
+                    axisLen = this.len;
                 if (point) {
                     crossPos = this.toPixels(point[point.series.colorKey]);
                     if (crossPos < axisPos) {
                         crossPos = axisPos - 2;
-                    }
-                    else if (crossPos > axisPos + axisLen) {
+                    } else if (crossPos > axisPos + axisLen) {
                         crossPos = axisPos + axisLen + 2;
                     }
                     point.plotX = crossPos;
@@ -999,7 +1005,8 @@
              * @return {void}
              */
             update: function (newOptions, redraw) {
-                var chart = this.chart, legend = chart.legend, updatedOptions = this.buildOptions.call(chart, {}, newOptions);
+                var chart = this.chart, legend = chart.legend,
+                    updatedOptions = this.buildOptions.call(chart, {}, newOptions);
                 this.series.forEach(function (series) {
                     // Needed for Axis.update when choropleth colors change
                     series.isDirtyData = true;
@@ -1030,8 +1037,7 @@
                 var chart = this.chart;
                 if (this.legendItem) {
                     chart.legend.destroyItem(this);
-                }
-                else if (this.legendItems) {
+                } else if (this.legendItems) {
                     this.legendItems.forEach(function (item) {
                         chart.legend.destroyItem(item);
                     });
@@ -1060,7 +1066,9 @@
              * @return {Array<Highcharts.ColorAxisLegendItemObject>}
              */
             getDataClassLegendSymbols: function () {
-                var axis = this, chart = this.chart, legendItems = this.legendItems, legendOptions = chart.options.legend, valueDecimals = legendOptions.valueDecimals, valueSuffix = legendOptions.valueSuffix || '', name;
+                var axis = this, chart = this.chart, legendItems = this.legendItems,
+                    legendOptions = chart.options.legend, valueDecimals = legendOptions.valueDecimals,
+                    valueSuffix = legendOptions.valueSuffix || '', name;
                 if (!legendItems.length) {
                     this.dataClasses.forEach(function (dataClass, i) {
                         var vis = true, from = dataClass.from, to = dataClass.to;
@@ -1069,8 +1077,7 @@
                         name = '';
                         if (from === undefined) {
                             name = '< ';
-                        }
-                        else if (to === undefined) {
+                        } else if (to === undefined) {
                             name = '> ';
                         }
                         if (from !== undefined) {
@@ -1116,12 +1123,13 @@
          *
          * @private
          * @function Highcharts.Fx#fillSetter
-         */ /**
-        * Handle animation of the color attributes directly
-        *
-        * @private
-        * @function Highcharts.Fx#strokeSetter
-        */
+         */
+        /**
+         * Handle animation of the color attributes directly
+         *
+         * @private
+         * @function Highcharts.Fx#strokeSetter
+         */
         ['fill', 'stroke'].forEach(function (prop) {
             H.Fx.prototype[prop + 'Setter'] = function () {
                 this.elem.attr(prop, color(this.start).tweenTo(color(this.end), this.pos), null, true);
@@ -1144,8 +1152,7 @@
             var axisTypes = this.axisTypes;
             if (!axisTypes) {
                 this.axisTypes = ['colorAxis'];
-            }
-            else if (axisTypes.indexOf('colorAxis') === -1) {
+            } else if (axisTypes.indexOf('colorAxis') === -1) {
                 axisTypes.push('colorAxis');
             }
         });
@@ -1160,8 +1167,7 @@
                     if (options.dataClasses && options.visible) {
                         colorAxisItems = colorAxisItems.concat(colorAxis.getDataClassLegendSymbols());
                         // Gradient legend
-                    }
-                    else if (options.visible) {
+                    } else if (options.visible) {
                         // Add this axis on top
                         colorAxisItems.push(colorAxis);
                     }
@@ -1173,8 +1179,7 @@
                                 series.points.forEach(function (point) {
                                     erase(e.allItems, point);
                                 });
-                            }
-                            else {
+                            } else {
                                 erase(e.allItems, series);
                             }
                         }

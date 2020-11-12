@@ -12,8 +12,10 @@
 'use strict';
 import H from '../parts/Globals.js';
 import U from '../parts/Utilities.js';
+
 var isNumber = U.isNumber, pick = U.pick;
 import '../parts/AreaSeries.js';
+
 var addEvent = H.addEvent, seriesType = H.seriesType, seriesTypes = H.seriesTypes;
 /**
  * @private
@@ -23,160 +25,163 @@ var addEvent = H.addEvent, seriesType = H.seriesType, seriesTypes = H.seriesType
  * @augments Highcharts.Series
  */
 seriesType('variwide', 'column'
-/**
- * A variwide chart (related to marimekko chart) is a column chart with a
- * variable width expressing a third dimension.
- *
- * @sample {highcharts} highcharts/demo/variwide/
- *         Variwide chart
- * @sample {highcharts} highcharts/series-variwide/inverted/
- *         Inverted variwide chart
- * @sample {highcharts} highcharts/series-variwide/datetime/
- *         Variwide columns on a datetime axis
- *
- * @extends      plotOptions.column
- * @since        6.0.0
- * @product      highcharts
- * @excluding    boostThreshold, crisp, depth, edgeColor, edgeWidth,
- *               groupZPadding
- * @requires     modules/variwide
- * @optionparent plotOptions.variwide
- */
-, {
     /**
-     * In a variwide chart, the point padding is 0 in order to express the
-     * horizontal stacking of items.
+     * A variwide chart (related to marimekko chart) is a column chart with a
+     * variable width expressing a third dimension.
+     *
+     * @sample {highcharts} highcharts/demo/variwide/
+     *         Variwide chart
+     * @sample {highcharts} highcharts/series-variwide/inverted/
+     *         Inverted variwide chart
+     * @sample {highcharts} highcharts/series-variwide/datetime/
+     *         Variwide columns on a datetime axis
+     *
+     * @extends      plotOptions.column
+     * @since        6.0.0
+     * @product      highcharts
+     * @excluding    boostThreshold, crisp, depth, edgeColor, edgeWidth,
+     *               groupZPadding
+     * @requires     modules/variwide
+     * @optionparent plotOptions.variwide
      */
-    pointPadding: 0,
-    /**
-     * In a variwide chart, the group padding is 0 in order to express the
-     * horizontal stacking of items.
-     */
-    groupPadding: 0
-}, {
-    irregularWidths: true,
-    pointArrayMap: ['y', 'z'],
-    parallelArrays: ['x', 'y', 'z'],
-    processData: function (force) {
-        this.totalZ = 0;
-        this.relZ = [];
-        seriesTypes.column.prototype.processData.call(this, force);
-        (this.xAxis.reversed ?
-            this.zData.slice().reverse() :
-            this.zData).forEach(function (z, i) {
-            this.relZ[i] = this.totalZ;
-            this.totalZ += z;
-        }, this);
-        if (this.xAxis.categories) {
-            this.xAxis.variwide = true;
-            this.xAxis.zData = this.zData; // Used for label rank
-        }
-        return;
-    },
-    /* eslint-disable valid-jsdoc */
-    /**
-     * Translate an x value inside a given category index into the distorted
-     * axis translation.
-     *
-     * @private
-     * @function Highcharts.Series#postTranslate
-     *
-     * @param {number} index
-     *        The category index
-     *
-     * @param {number} x
-     *        The X pixel position in undistorted axis pixels
-     *
-     * @param {Highcharts.Point} point
-     *        For crosshairWidth for every point
-     *
-     * @return {number}
-     *         Distorted X position
-     */
-    postTranslate: function (index, x, point) {
-        var axis = this.xAxis, relZ = this.relZ, i = axis.reversed ? relZ.length - index : index, goRight = axis.reversed ? -1 : 1, len = axis.len, totalZ = this.totalZ, linearSlotLeft = i / relZ.length * len, linearSlotRight = (i + goRight) / relZ.length * len, slotLeft = (pick(relZ[i], totalZ) / totalZ) * len, slotRight = (pick(relZ[i + goRight], totalZ) / totalZ) * len, xInsideLinearSlot = x - linearSlotLeft, ret;
-        // Set crosshairWidth for every point (#8173)
-        if (point) {
-            point.crosshairWidth = slotRight - slotLeft;
-        }
-        ret = slotLeft +
-            xInsideLinearSlot * (slotRight - slotLeft) /
+    , {
+        /**
+         * In a variwide chart, the point padding is 0 in order to express the
+         * horizontal stacking of items.
+         */
+        pointPadding: 0,
+        /**
+         * In a variwide chart, the group padding is 0 in order to express the
+         * horizontal stacking of items.
+         */
+        groupPadding: 0
+    }, {
+        irregularWidths: true,
+        pointArrayMap: ['y', 'z'],
+        parallelArrays: ['x', 'y', 'z'],
+        processData: function (force) {
+            this.totalZ = 0;
+            this.relZ = [];
+            seriesTypes.column.prototype.processData.call(this, force);
+            (this.xAxis.reversed ?
+                this.zData.slice().reverse() :
+                this.zData).forEach(function (z, i) {
+                this.relZ[i] = this.totalZ;
+                this.totalZ += z;
+            }, this);
+            if (this.xAxis.categories) {
+                this.xAxis.variwide = true;
+                this.xAxis.zData = this.zData; // Used for label rank
+            }
+            return;
+        },
+        /* eslint-disable valid-jsdoc */
+        /**
+         * Translate an x value inside a given category index into the distorted
+         * axis translation.
+         *
+         * @private
+         * @function Highcharts.Series#postTranslate
+         *
+         * @param {number} index
+         *        The category index
+         *
+         * @param {number} x
+         *        The X pixel position in undistorted axis pixels
+         *
+         * @param {Highcharts.Point} point
+         *        For crosshairWidth for every point
+         *
+         * @return {number}
+         *         Distorted X position
+         */
+        postTranslate: function (index, x, point) {
+            var axis = this.xAxis, relZ = this.relZ, i = axis.reversed ? relZ.length - index : index,
+                goRight = axis.reversed ? -1 : 1, len = axis.len, totalZ = this.totalZ,
+                linearSlotLeft = i / relZ.length * len, linearSlotRight = (i + goRight) / relZ.length * len,
+                slotLeft = (pick(relZ[i], totalZ) / totalZ) * len,
+                slotRight = (pick(relZ[i + goRight], totalZ) / totalZ) * len, xInsideLinearSlot = x - linearSlotLeft,
+                ret;
+            // Set crosshairWidth for every point (#8173)
+            if (point) {
+                point.crosshairWidth = slotRight - slotLeft;
+            }
+            ret = slotLeft +
+                xInsideLinearSlot * (slotRight - slotLeft) /
                 (linearSlotRight - linearSlotLeft);
-        return ret;
-    },
-    /* eslint-enable valid-jsdoc */
-    // Extend translation by distoring X position based on Z.
-    translate: function () {
-        // Temporarily disable crisping when computing original shapeArgs
-        var crispOption = this.options.crisp, xAxis = this.xAxis;
-        this.options.crisp = false;
-        seriesTypes.column.prototype.translate.call(this);
-        // Reset option
-        this.options.crisp = crispOption;
-        var inverted = this.chart.inverted, crisp = this.borderWidth % 2 / 2;
-        // Distort the points to reflect z dimension
-        this.points.forEach(function (point, i) {
-            var left, right;
-            if (xAxis.variwide) {
-                left = this.postTranslate(i, point.shapeArgs.x, point);
-                right = this.postTranslate(i, point.shapeArgs.x +
-                    point.shapeArgs.width);
-                // For linear or datetime axes, the variwide column should
-                // start with X and extend Z units, without modifying the
-                // axis.
-            }
-            else {
-                left = point.plotX;
-                right = xAxis.translate(point.x + point.z, 0, 0, 0, 1);
-            }
-            if (this.options.crisp) {
-                left = Math.round(left) - crisp;
-                right = Math.round(right) - crisp;
-            }
-            point.shapeArgs.x = left;
-            point.shapeArgs.width = Math.max(right - left, 1);
-            // Crosshair position (#8083)
-            point.plotX = (left + right) / 2;
-            // Adjust the tooltip position
-            if (!inverted) {
-                point.tooltipPos[0] =
-                    point.shapeArgs.x +
+            return ret;
+        },
+        /* eslint-enable valid-jsdoc */
+        // Extend translation by distoring X position based on Z.
+        translate: function () {
+            // Temporarily disable crisping when computing original shapeArgs
+            var crispOption = this.options.crisp, xAxis = this.xAxis;
+            this.options.crisp = false;
+            seriesTypes.column.prototype.translate.call(this);
+            // Reset option
+            this.options.crisp = crispOption;
+            var inverted = this.chart.inverted, crisp = this.borderWidth % 2 / 2;
+            // Distort the points to reflect z dimension
+            this.points.forEach(function (point, i) {
+                var left, right;
+                if (xAxis.variwide) {
+                    left = this.postTranslate(i, point.shapeArgs.x, point);
+                    right = this.postTranslate(i, point.shapeArgs.x +
+                        point.shapeArgs.width);
+                    // For linear or datetime axes, the variwide column should
+                    // start with X and extend Z units, without modifying the
+                    // axis.
+                } else {
+                    left = point.plotX;
+                    right = xAxis.translate(point.x + point.z, 0, 0, 0, 1);
+                }
+                if (this.options.crisp) {
+                    left = Math.round(left) - crisp;
+                    right = Math.round(right) - crisp;
+                }
+                point.shapeArgs.x = left;
+                point.shapeArgs.width = Math.max(right - left, 1);
+                // Crosshair position (#8083)
+                point.plotX = (left + right) / 2;
+                // Adjust the tooltip position
+                if (!inverted) {
+                    point.tooltipPos[0] =
+                        point.shapeArgs.x +
                         point.shapeArgs.width / 2;
-            }
-            else {
-                point.tooltipPos[1] =
-                    xAxis.len - point.shapeArgs.x -
+                } else {
+                    point.tooltipPos[1] =
+                        xAxis.len - point.shapeArgs.x -
                         point.shapeArgs.width / 2;
+                }
+            }, this);
+            if (this.options.stacking) {
+                this.correctStackLabels();
             }
-        }, this);
-        if (this.options.stacking) {
-            this.correctStackLabels();
-        }
-    },
-    // Function that corrects stack labels positions
-    correctStackLabels: function () {
-        var series = this, options = series.options, yAxis = series.yAxis, pointStack, pointWidth, stack, xValue;
-        series.points.forEach(function (point) {
-            xValue = point.x;
-            pointWidth = point.shapeArgs.width;
-            stack = yAxis.stacks[(series.negStacks &&
+        },
+        // Function that corrects stack labels positions
+        correctStackLabels: function () {
+            var series = this, options = series.options, yAxis = series.yAxis, pointStack, pointWidth, stack, xValue;
+            series.points.forEach(function (point) {
+                xValue = point.x;
+                pointWidth = point.shapeArgs.width;
+                stack = yAxis.stacks[(series.negStacks &&
                 point.y < (options.startFromThreshold ?
                     0 :
                     options.threshold) ?
-                '-' :
-                '') + series.stackKey];
-            pointStack = stack[xValue];
-            if (stack && pointStack && !point.isNull) {
-                pointStack.setOffset(-(pointWidth / 2) || 0, pointWidth || 0, undefined, undefined, point.plotX);
-            }
-        });
-    }
-    // Point functions
-}, {
-    isValid: function () {
-        return isNumber(this.y) && isNumber(this.z);
-    }
-});
+                    '-' :
+                    '') + series.stackKey];
+                pointStack = stack[xValue];
+                if (stack && pointStack && !point.isNull) {
+                    pointStack.setOffset(-(pointWidth / 2) || 0, pointWidth || 0, undefined, undefined, point.plotX);
+                }
+            });
+        }
+        // Point functions
+    }, {
+        isValid: function () {
+            return isNumber(this.y) && isNumber(this.z);
+        }
+    });
 H.Tick.prototype.postTranslate = function (xy, xOrY, index) {
     var axis = this.axis, pos = xy[xOrY] - axis.pos;
     if (!axis.horiz) {
@@ -202,13 +207,13 @@ addEvent(H.Axis, 'afterRender', function () {
         this.chart.labelCollectors.push(function () {
             return axis.tickPositions
                 .filter(function (pos) {
-                return axis.ticks[pos].label;
-            })
+                    return axis.ticks[pos].label;
+                })
                 .map(function (pos, i) {
-                var label = axis.ticks[pos].label;
-                label.labelrank = axis.zData[i];
-                return label;
-            });
+                    var label = axis.ticks[pos].label;
+                    label.labelrank = axis.zData[i];
+                    return label;
+                });
         });
     }
 });

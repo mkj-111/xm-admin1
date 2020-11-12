@@ -12,18 +12,22 @@
 'use strict';
 import H from '../parts/Globals.js';
 import U from '../parts/Utilities.js';
+
 var defined = U.defined, extend = U.extend, objectEach = U.objectEach, pick = U.pick;
 import '../parts/Color.js';
 import '../parts/SvgRenderer.js';
+
 var cos = Math.cos, PI = Math.PI, sin = Math.sin;
-var animObject = H.animObject, charts = H.charts, color = H.color, deg2rad = H.deg2rad, merge = H.merge, perspective = H.perspective, SVGElement = H.SVGElement, SVGRenderer = H.SVGRenderer, 
+var animObject = H.animObject, charts = H.charts, color = H.color, deg2rad = H.deg2rad, merge = H.merge,
+    perspective = H.perspective, SVGElement = H.SVGElement, SVGRenderer = H.SVGRenderer,
 // internal:
-dFactor, element3dMethods, cuboidMethods;
+    dFactor, element3dMethods, cuboidMethods;
 /*
     EXTENSION TO THE SVG-RENDERER TO ENABLE 3D SHAPES
 */
 // HELPER METHODS
 dFactor = (4 * (Math.sqrt(2) - 1) / 3) / (PI / 2);
+
 /* eslint-disable no-invalid-this, valid-jsdoc */
 /**
  * Method to construct a curved path. Can 'wrap' around more then 180 degrees.
@@ -44,17 +48,18 @@ function curveTo(cx, cy, rx, ry, start, end, dx, dy) {
     return [
         'C',
         cx + (rx * Math.cos(start)) -
-            ((rx * dFactor * arcAngle) * Math.sin(start)) + dx,
+        ((rx * dFactor * arcAngle) * Math.sin(start)) + dx,
         cy + (ry * Math.sin(start)) +
-            ((ry * dFactor * arcAngle) * Math.cos(start)) + dy,
+        ((ry * dFactor * arcAngle) * Math.cos(start)) + dy,
         cx + (rx * Math.cos(end)) +
-            ((rx * dFactor * arcAngle) * Math.sin(end)) + dx,
+        ((rx * dFactor * arcAngle) * Math.sin(end)) + dx,
         cy + (ry * Math.sin(end)) -
-            ((ry * dFactor * arcAngle) * Math.cos(end)) + dy,
+        ((ry * dFactor * arcAngle) * Math.cos(end)) + dy,
         cx + (rx * Math.cos(end)) + dx,
         cy + (ry * Math.sin(end)) + dy
     ];
 }
+
 SVGRenderer.prototype.toLinePath = function (points, closed) {
     var result = [];
     // Put "L x y" for each point
@@ -98,7 +103,10 @@ SVGRenderer.prototype.face3d = function (args) {
             delete hash.enabled;
             delete hash.vertexes;
             delete hash.insidePlotArea;
-            var chart = charts[renderer.chartIndex], vertexes2d = perspective(this.vertexes, chart, this.insidePlotArea), path = renderer.toLinePath(vertexes2d, true), area = H.shapeArea(vertexes2d), visibility = (this.enabled && area > 0) ? 'visible' : 'hidden';
+            var chart = charts[renderer.chartIndex],
+                vertexes2d = perspective(this.vertexes, chart, this.insidePlotArea),
+                path = renderer.toLinePath(vertexes2d, true), area = H.shapeArea(vertexes2d),
+                visibility = (this.enabled && area > 0) ? 'visible' : 'hidden';
             hash.d = path;
             hash.visibility = visibility;
         }
@@ -115,7 +123,10 @@ SVGRenderer.prototype.face3d = function (args) {
             delete params.enabled;
             delete params.vertexes;
             delete params.insidePlotArea;
-            var chart = charts[renderer.chartIndex], vertexes2d = perspective(this.vertexes, chart, this.insidePlotArea), path = renderer.toLinePath(vertexes2d, true), area = H.shapeArea(vertexes2d), visibility = (this.enabled && area > 0) ? 'visible' : 'hidden';
+            var chart = charts[renderer.chartIndex],
+                vertexes2d = perspective(this.vertexes, chart, this.insidePlotArea),
+                path = renderer.toLinePath(vertexes2d, true), area = H.shapeArea(vertexes2d),
+                visibility = (this.enabled && area > 0) ? 'visible' : 'hidden';
             params.d = path;
             this.attr('visibility', visibility);
         }
@@ -183,7 +194,8 @@ element3dMethods = {
      * @private
      */
     initArgs: function (args) {
-        var elem3d = this, renderer = elem3d.renderer, paths = renderer[elem3d.pathType + 'Path'](args), zIndexes = paths.zIndexes;
+        var elem3d = this, renderer = elem3d.renderer, paths = renderer[elem3d.pathType + 'Path'](args),
+            zIndexes = paths.zIndexes;
         // build parts
         elem3d.parts.forEach(function (part) {
             elem3d[part] = renderer.path(paths[part]).attr({
@@ -204,12 +216,12 @@ element3dMethods = {
      * @private
      */
     singleSetterForParts: function (prop, val, values, verb, duration, complete) {
-        var elem3d = this, newAttr = {}, optionsToApply = [null, null, (verb || 'attr'), duration, complete], hasZIndexes = values && values.zIndexes;
+        var elem3d = this, newAttr = {}, optionsToApply = [null, null, (verb || 'attr'), duration, complete],
+            hasZIndexes = values && values.zIndexes;
         if (!values) {
             newAttr[prop] = val;
             optionsToApply[0] = newAttr;
-        }
-        else {
+        } else {
             objectEach(values, function (partVal, part) {
                 newAttr[part] = {};
                 newAttr[part][prop] = partVal;
@@ -272,8 +284,7 @@ cuboidMethods = H.merge(element3dMethods, {
             this.attr({
                 zIndex: paths.zIndexes.group
             });
-        }
-        else {
+        } else {
             SVGElement.prototype.animate.call(this, args, duration, complete);
         }
         return this;
@@ -315,15 +326,17 @@ SVGRenderer.prototype.cuboid = function (shapeArgs) {
 };
 // Generates a cuboid path and zIndexes
 H.SVGRenderer.prototype.cuboidPath = function (shapeArgs) {
-    var x = shapeArgs.x, y = shapeArgs.y, z = shapeArgs.z, h = shapeArgs.height, w = shapeArgs.width, d = shapeArgs.depth, chart = charts[this.chartIndex], front, back, top, bottom, left, right, shape, path1, path2, path3, isFront, isTop, isRight, options3d = chart.options.chart.options3d, alpha = options3d.alpha, 
-    // Priority for x axis is the biggest,
-    // because of x direction has biggest influence on zIndex
-    incrementX = 10000, 
-    // y axis has the smallest priority in case of our charts
-    // (needs to be set because of stacking)
-    incrementY = 10, incrementZ = 100, zIndex = 0, 
-    // The 8 corners of the cube
-    pArr = [{
+    var x = shapeArgs.x, y = shapeArgs.y, z = shapeArgs.z, h = shapeArgs.height, w = shapeArgs.width,
+        d = shapeArgs.depth, chart = charts[this.chartIndex], front, back, top, bottom, left, right, shape, path1,
+        path2, path3, isFront, isTop, isRight, options3d = chart.options.chart.options3d, alpha = options3d.alpha,
+        // Priority for x axis is the biggest,
+        // because of x direction has biggest influence on zIndex
+        incrementX = 10000,
+        // y axis has the smallest priority in case of our charts
+        // (needs to be set because of stacking)
+        incrementY = 10, incrementZ = 100, zIndex = 0,
+        // The 8 corners of the cube
+        pArr = [{
             x: x,
             y: y,
             z: z
@@ -358,6 +371,7 @@ H.SVGRenderer.prototype.cuboidPath = function (shapeArgs) {
         }], pickShape;
     // apply perspective
     pArr = perspective(pArr, chart, shapeArgs.insidePlotArea);
+
     /**
      * helper method to decide which side is visible
      * @private
@@ -365,6 +379,7 @@ H.SVGRenderer.prototype.cuboidPath = function (shapeArgs) {
     function mapPath(i) {
         return pArr[i];
     }
+
     /**
      * First value - path with specific side
      * Second  value - added information about side for later calculations.
@@ -378,8 +393,7 @@ H.SVGRenderer.prototype.cuboidPath = function (shapeArgs) {
         path2 = path2.map(mapPath);
         if (H.shapeArea(path1) < 0) {
             ret = [path1, 0];
-        }
-        else if (H.shapeArea(path2) < 0) {
+        } else if (H.shapeArea(path2) < 0) {
             ret = [path2, 1];
         }
         return ret;
@@ -412,18 +426,16 @@ H.SVGRenderer.prototype.cuboidPath = function (shapeArgs) {
        correctly. */
     if (isRight === 1) {
         zIndex += incrementX * (1000 - x);
-    }
-    else if (!isRight) {
+    } else if (!isRight) {
         zIndex += incrementX * x;
     }
     zIndex += incrementY * (!isTop ||
-        // Numbers checked empirically
-        (alpha >= 0 && alpha <= 180 || alpha < 360 && alpha > 357.5) ?
+    // Numbers checked empirically
+    (alpha >= 0 && alpha <= 180 || alpha < 360 && alpha > 357.5) ?
         chart.plotHeight - y : 10 + y);
     if (isFront === 1) {
         zIndex += incrementZ * (z);
-    }
-    else if (!isFront) {
+    } else if (!isFront) {
         zIndex += incrementZ * (1000 - z);
     }
     return {
@@ -441,6 +453,7 @@ H.SVGRenderer.prototype.cuboidPath = function (shapeArgs) {
 // SECTORS //
 H.SVGRenderer.prototype.arc3d = function (attribs) {
     var wrapper = this.g(), renderer = wrapper.renderer, customAttribs = ['x', 'y', 'r', 'innerR', 'start', 'end'];
+
     /**
      * Get custom attributes. Don't mutate the original object and return an
      * object with only custom attr.
@@ -458,6 +471,7 @@ H.SVGRenderer.prototype.arc3d = function (attribs) {
         }
         return hasCA ? ca : false;
     }
+
     attribs = merge(attribs);
     attribs.alpha = (attribs.alpha || 0) * deg2rad;
     attribs.beta = (attribs.beta || 0) * deg2rad;
@@ -476,8 +490,8 @@ H.SVGRenderer.prototype.arc3d = function (attribs) {
         ['out', 'inn', 'side1', 'side2'].forEach(function (face) {
             wrapper[face]
                 .attr({
-                'class': className + ' highcharts-3d-side'
-            })
+                    'class': className + ' highcharts-3d-side'
+                })
                 .add(parent);
         });
     };
@@ -497,14 +511,14 @@ H.SVGRenderer.prototype.arc3d = function (attribs) {
     wrapper.setPaths = function (attribs) {
         var paths = wrapper.renderer.arc3dPath(attribs), zIndex = paths.zTop * 100;
         wrapper.attribs = attribs;
-        wrapper.top.attr({ d: paths.top, zIndex: paths.zTop });
-        wrapper.inn.attr({ d: paths.inn, zIndex: paths.zInn });
-        wrapper.out.attr({ d: paths.out, zIndex: paths.zOut });
-        wrapper.side1.attr({ d: paths.side1, zIndex: paths.zSide1 });
-        wrapper.side2.attr({ d: paths.side2, zIndex: paths.zSide2 });
+        wrapper.top.attr({d: paths.top, zIndex: paths.zTop});
+        wrapper.inn.attr({d: paths.inn, zIndex: paths.zInn});
+        wrapper.out.attr({d: paths.out, zIndex: paths.zOut});
+        wrapper.side1.attr({d: paths.side1, zIndex: paths.zSide1});
+        wrapper.side2.attr({d: paths.side2, zIndex: paths.zSide2});
         // show all children
         wrapper.zIndex = zIndex;
-        wrapper.attr({ zIndex: zIndex });
+        wrapper.attr({zIndex: zIndex});
         // Set the radial gradient center the first time
         if (attribs.center) {
             wrapper.top.setRadialReference(attribs.center);
@@ -519,11 +533,11 @@ H.SVGRenderer.prototype.arc3d = function (attribs) {
     wrapper.fillSetter = function (value) {
         var darker = color(value).brighten(-0.1).get();
         this.fill = value;
-        this.side1.attr({ fill: darker });
-        this.side2.attr({ fill: darker });
-        this.inn.attr({ fill: darker });
-        this.out.attr({ fill: darker });
-        this.top.attr({ fill: value });
+        this.side1.attr({fill: darker});
+        this.side2.attr({fill: darker});
+        this.inn.attr({fill: darker});
+        this.out.attr({fill: darker});
+        this.top.attr({fill: value});
         return this;
     };
     // Apply the same value to all. These properties cascade down to the
@@ -577,6 +591,7 @@ H.SVGRenderer.prototype.arc3d = function (attribs) {
                         return from[key] + (pick(to[key], from[key]) -
                             from[key]) * fx.pos;
                     }
+
                     if (fx.prop === randomProp) {
                         fx.elem.setPaths(merge(from, {
                             x: interpolate('x'),
@@ -622,25 +637,25 @@ H.SVGRenderer.prototype.arc3d = function (attribs) {
 // Generate the paths required to draw a 3D arc
 SVGRenderer.prototype.arc3dPath = function (shapeArgs) {
     var cx = shapeArgs.x, // x coordinate of the center
-    cy = shapeArgs.y, // y coordinate of the center
-    start = shapeArgs.start, // start angle
-    end = shapeArgs.end - 0.00001, // end angle
-    r = shapeArgs.r, // radius
-    ir = shapeArgs.innerR || 0, // inner radius
-    d = shapeArgs.depth || 0, // depth
-    alpha = shapeArgs.alpha, // alpha rotation of the chart
-    beta = shapeArgs.beta; // beta rotation of the chart
+        cy = shapeArgs.y, // y coordinate of the center
+        start = shapeArgs.start, // start angle
+        end = shapeArgs.end - 0.00001, // end angle
+        r = shapeArgs.r, // radius
+        ir = shapeArgs.innerR || 0, // inner radius
+        d = shapeArgs.depth || 0, // depth
+        alpha = shapeArgs.alpha, // alpha rotation of the chart
+        beta = shapeArgs.beta; // beta rotation of the chart
     // Derived Variables
     var cs = Math.cos(start), // cosinus of the start angle
-    ss = Math.sin(start), // sinus of the start angle
-    ce = Math.cos(end), // cosinus of the end angle
-    se = Math.sin(end), // sinus of the end angle
-    rx = r * Math.cos(beta), // x-radius
-    ry = r * Math.cos(alpha), // y-radius
-    irx = ir * Math.cos(beta), // x-radius (inner)
-    iry = ir * Math.cos(alpha), // y-radius (inner)
-    dx = d * Math.sin(beta), // distance between top and bottom in x
-    dy = d * Math.sin(alpha); // distance between top and bottom in y
+        ss = Math.sin(start), // sinus of the start angle
+        ce = Math.cos(end), // cosinus of the end angle
+        se = Math.sin(end), // sinus of the end angle
+        rx = r * Math.cos(beta), // x-radius
+        ry = r * Math.cos(alpha), // y-radius
+        irx = ir * Math.cos(beta), // x-radius (inner)
+        iry = ir * Math.cos(alpha), // y-radius (inner)
+        dx = d * Math.sin(beta), // distance between top and bottom in x
+        dy = d * Math.sin(alpha); // distance between top and bottom in y
     // TOP
     var top = ['M', cx + (rx * cs), cy + (ry * ss)];
     top = top.concat(curveTo(cx, cy, rx, ry, start, end, 0, 0));
@@ -651,7 +666,8 @@ SVGRenderer.prototype.arc3dPath = function (shapeArgs) {
     top = top.concat(['Z']);
     // OUTSIDE
     var b = (beta > 0 ? Math.PI / 2 : 0), a = (alpha > 0 ? 0 : Math.PI / 2);
-    var start2 = start > -b ? start : (end > -b ? -b : start), end2 = end < PI - a ? end : (start < PI - a ? PI - a : end), midEnd = 2 * PI - a;
+    var start2 = start > -b ? start : (end > -b ? -b : start),
+        end2 = end < PI - a ? end : (start < PI - a ? PI - a : end), midEnd = 2 * PI - a;
     // When slice goes over bottom middle, need to add both, left and right
     // outer side. Additionally, when we cross right hand edge, create sharp
     // edge. Outer shape/wall:
@@ -704,8 +720,7 @@ SVGRenderer.prototype.arc3dPath = function (shapeArgs) {
         // Go back to the left edge
         out = out.concat(curveTo(cx, cy, rx, ry, midEnd, end2, 0, 0));
         // But shape can cross also only (c) edge:
-    }
-    else if (end > PI - a && start < PI - a) {
+    } else if (end > PI - a && start < PI - a) {
         // Go to outer side
         out = out.concat([
             'L',
@@ -751,7 +766,9 @@ SVGRenderer.prototype.arc3dPath = function (shapeArgs) {
     ];
     // correction for changed position of vanishing point caused by alpha and
     // beta rotations
-    var angleCorr = Math.atan2(dy, -dx), angleEnd = Math.abs(end + angleCorr), angleStart = Math.abs(start + angleCorr), angleMid = Math.abs((start + end) / 2 + angleCorr);
+    var angleCorr = Math.atan2(dy, -dx), angleEnd = Math.abs(end + angleCorr), angleStart = Math.abs(start + angleCorr),
+        angleMid = Math.abs((start + end) / 2 + angleCorr);
+
     /**
      * set to 0-PI range
      * @private
@@ -763,6 +780,7 @@ SVGRenderer.prototype.arc3dPath = function (shapeArgs) {
         }
         return angle;
     }
+
     angleEnd = toZeroPIRange(angleEnd);
     angleStart = toZeroPIRange(angleStart);
     angleMid = toZeroPIRange(angleMid);

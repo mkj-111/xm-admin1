@@ -10,13 +10,15 @@
 'use strict';
 import H from '../parts/Globals.js';
 import U from '../parts/Utilities.js';
+
 var pick = U.pick, splat = U.splat;
 import '../parts/Pointer.js';
 import '../parts/Series.js';
 import '../parts/Pointer.js';
 // Extensions for polar charts. Additionally, much of the geometry required for
 // polar charts is gathered in RadialAxes.js.
-var Pointer = H.Pointer, Series = H.Series, seriesTypes = H.seriesTypes, wrap = H.wrap, seriesProto = Series.prototype, pointerProto = Pointer.prototype, colProto;
+var Pointer = H.Pointer, Series = H.Series, seriesTypes = H.seriesTypes, wrap = H.wrap, seriesProto = Series.prototype,
+    pointerProto = Pointer.prototype, colProto;
 /* eslint-disable no-invalid-this, valid-jsdoc */
 /**
  * Search a k-d tree by the point angle, used for shared tooltips in polar
@@ -24,7 +26,8 @@ var Pointer = H.Pointer, Series = H.Series, seriesTypes = H.seriesTypes, wrap = 
  * @private
  */
 seriesProto.searchPointByAngle = function (e) {
-    var series = this, chart = series.chart, xAxis = series.xAxis, center = xAxis.pane.center, plotX = e.chartX - center[0] - chart.plotLeft, plotY = e.chartY - center[1] - chart.plotTop;
+    var series = this, chart = series.chart, xAxis = series.xAxis, center = xAxis.pane.center,
+        plotX = e.chartX - center[0] - chart.plotLeft, plotY = e.chartY - center[1] - chart.plotTop;
     return this.searchKDTree({
         clientX: 180 + (Math.atan2(plotX, plotY) * (-180 / Math.PI))
     });
@@ -37,21 +40,19 @@ seriesProto.searchPointByAngle = function (e) {
  *        well allows short recurence
  */
 seriesProto.getConnectors = function (segment, index, calculateNeighbours, connectEnds) {
-    var i, prevPointInd, nextPointInd, previousPoint, nextPoint, previousX, previousY, nextX, nextY, plotX, plotY, ret, 
-    // 1 means control points midway between points, 2 means 1/3 from
-    // the point, 3 is 1/4 etc;
-    smoothing = 1.5, denom = smoothing + 1, leftContX, leftContY, rightContX, rightContY, dLControlPoint, // distance left control point
-    dRControlPoint, leftContAngle, rightContAngle, jointAngle, addedNumber = connectEnds ? 1 : 0;
+    var i, prevPointInd, nextPointInd, previousPoint, nextPoint, previousX, previousY, nextX, nextY, plotX, plotY, ret,
+        // 1 means control points midway between points, 2 means 1/3 from
+        // the point, 3 is 1/4 etc;
+        smoothing = 1.5, denom = smoothing + 1, leftContX, leftContY, rightContX, rightContY, dLControlPoint, // distance left control point
+        dRControlPoint, leftContAngle, rightContAngle, jointAngle, addedNumber = connectEnds ? 1 : 0;
     // Calculate final index of points depending on the initial index value.
     // Because of calculating neighbours, index may be outisde segment
     // array.
     if (index >= 0 && index <= segment.length - 1) {
         i = index;
-    }
-    else if (index < 0) {
+    } else if (index < 0) {
         i = segment.length - 1 + index;
-    }
-    else {
+    } else {
         i = 0;
     }
     prevPointInd = (i - 1 < 0) ? segment.length - (1 + addedNumber) : i - 1;
@@ -124,8 +125,7 @@ seriesProto.toXY = function (point) {
             clientX += 360;
         }
         point.clientX = clientX;
-    }
-    else {
+    } else {
         point.clientX = point.plotX;
     }
 };
@@ -140,8 +140,7 @@ if (seriesTypes.spline) {
             // moveTo or lineTo
             if (!i) {
                 ret = ['M', point.plotX, point.plotY];
-            }
-            else { // curve from last point to this
+            } else { // curve from last point to this
                 connectors = this.getConnectors(segment, i, true, this.connectEnds);
                 ret = [
                     'C',
@@ -153,8 +152,7 @@ if (seriesTypes.spline) {
                     connectors.plotY
                 ];
             }
-        }
-        else {
+        } else {
             ret = proceed.call(this, segment, point, i);
         }
         return ret;
@@ -181,8 +179,7 @@ H.addEvent(Series, 'afterTranslate', function () {
         this.kdByAngle = chart.tooltip && chart.tooltip.shared;
         if (this.kdByAngle) {
             this.searchPoint = this.searchPointByAngle;
-        }
-        else {
+        } else {
             this.options.findNearestPointBy = 'xy';
         }
         // Postprocess plot coordinates
@@ -213,7 +210,7 @@ H.addEvent(Series, 'afterTranslate', function () {
             }));
         }
     }
-}, { order: 2 }); // Run after translation of ||-coords
+}, {order: 2}); // Run after translation of ||-coords
 /**
  * Extend getSegmentPath to allow connecting ends across 0 to provide a
  * closed circle in line-like series.
@@ -269,7 +266,8 @@ wrap(seriesProto, 'getGraphPath', function (proceed, points) {
     return ret;
 });
 var polarAnimate = function (proceed, init) {
-    var chart = this.chart, animation = this.options.animation, group = this.group, markerGroup = this.markerGroup, center = this.xAxis.center, plotLeft = chart.plotLeft, plotTop = chart.plotTop, attribs;
+    var chart = this.chart, animation = this.options.animation, group = this.group, markerGroup = this.markerGroup,
+        center = this.xAxis.center, plotLeft = chart.plotLeft, plotTop = chart.plotTop, attribs;
     // Specific animation for polar charts
     if (chart.polar) {
         // Enable animation on polar charts only in SVG. In VML, the scaling
@@ -292,8 +290,7 @@ var polarAnimate = function (proceed, init) {
                     markerGroup.attr(attribs);
                 }
                 // Run the animation
-            }
-            else {
+            } else {
                 attribs = {
                     translateX: plotLeft,
                     translateY: plotTop,
@@ -309,8 +306,7 @@ var polarAnimate = function (proceed, init) {
             }
         }
         // For non-polar charts, revert to the basic animation
-    }
-    else {
+    } else {
         proceed.call(this, init);
     }
 };
@@ -369,11 +365,9 @@ if (seriesTypes.column) {
             if (options.align === null) {
                 if (angle > 20 && angle < 160) {
                     align = 'left'; // right hemisphere
-                }
-                else if (angle > 200 && angle < 340) {
+                } else if (angle > 200 && angle < 340) {
                     align = 'right'; // left hemisphere
-                }
-                else {
+                } else {
                     align = 'center'; // top or bottom
                 }
                 options.align = align;
@@ -381,18 +375,15 @@ if (seriesTypes.column) {
             if (options.verticalAlign === null) {
                 if (angle < 45 || angle > 315) {
                     verticalAlign = 'bottom'; // top part
-                }
-                else if (angle > 135 && angle < 225) {
+                } else if (angle > 135 && angle < 225) {
                     verticalAlign = 'top'; // bottom part
-                }
-                else {
+                } else {
                     verticalAlign = 'middle'; // left or right
                 }
                 options.verticalAlign = verticalAlign;
             }
             seriesProto.alignDataLabel.call(this, point, dataLabel, options, alignTo, isNew);
-        }
-        else {
+        } else {
             proceed.call(this, point, dataLabel, options, alignTo, isNew);
         }
     });
@@ -423,8 +414,7 @@ wrap(pointerProto, 'getCoordinates', function (proceed, e) {
                     Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2)), true)
             });
         });
-    }
-    else {
+    } else {
         ret = proceed.call(this, e);
     }
     return ret;
@@ -444,7 +434,7 @@ H.addEvent(H.Chart, 'getAxes', function () {
     }
     splat(this.options.pane).forEach(function (paneOptions) {
         new H.Pane(// eslint-disable-line no-new
-        paneOptions, this);
+            paneOptions, this);
     }, this);
 });
 H.addEvent(H.Chart, 'afterDrawChartBox', function () {

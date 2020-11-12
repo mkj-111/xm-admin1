@@ -14,14 +14,10 @@ import org.springframework.web.bind.annotation.RestController;
 @Controller
 public class HigCharts {
     @RequestMapping("/hchars")
-    public  String Hchars(){
+    public String Hchars() {
 
-        return  "admin/highcharts";
+        return "admin/highcharts";
     }
-
-
-
-
 
 
 }

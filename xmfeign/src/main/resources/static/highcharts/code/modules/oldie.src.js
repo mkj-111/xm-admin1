@@ -24,11 +24,13 @@
     }
 }(function (Highcharts) {
     var _modules = Highcharts ? Highcharts._modules : {};
+
     function _registerModule(obj, path, args, fn) {
         if (!obj.hasOwnProperty(path)) {
             obj[path] = fn.apply(null, args);
         }
     }
+
     _registerModule(_modules, 'modules/oldie.src.js', [_modules['parts/Globals.js'], _modules['parts/Utilities.js']], function (H, U) {
         /* *
          *
@@ -41,8 +43,11 @@
          *  !!!!!!! SOURCE GETS TRANSPILED BY TYPESCRIPT. EDIT TS FILE ONLY. !!!!!!!
          *
          * */
-        var defined = U.defined, discardElement = U.discardElement, erase = U.erase, extend = U.extend, isArray = U.isArray, isNumber = U.isNumber, isObject = U.isObject, pick = U.pick, pInt = U.pInt;
-        var VMLRenderer, VMLRendererExtension, VMLElement, Chart = H.Chart, createElement = H.createElement, css = H.css, deg2rad = H.deg2rad, doc = H.doc, extendClass = H.extendClass, merge = H.merge, noop = H.noop, svg = H.svg, SVGElement = H.SVGElement, SVGRenderer = H.SVGRenderer, win = H.win;
+        var defined = U.defined, discardElement = U.discardElement, erase = U.erase, extend = U.extend,
+            isArray = U.isArray, isNumber = U.isNumber, isObject = U.isObject, pick = U.pick, pInt = U.pInt;
+        var VMLRenderer, VMLRendererExtension, VMLElement, Chart = H.Chart, createElement = H.createElement,
+            css = H.css, deg2rad = H.deg2rad, doc = H.doc, extendClass = H.extendClass, merge = H.merge, noop = H.noop,
+            svg = H.svg, SVGElement = H.SVGElement, SVGRenderer = H.SVGRenderer, win = H.win;
         /**
          * Path to the pattern image required by VML browsers in order to
          * draw radial gradients.
@@ -142,8 +147,8 @@
                     .replace(/ transform /g, ' ')
                     .replace(/:(path|rect)/g, '$1')
                     .replace(/style="([^"]+)"/g, function (s) {
-                    return s.toLowerCase();
-                });
+                        return s.toLowerCase();
+                    });
                 return svg;
             };
             /**
@@ -188,6 +193,7 @@
              */
             H.addEventListenerPolyfill = function (type, fn) {
                 var el = this;
+
                 /**
                  * @private
                  */
@@ -195,6 +201,7 @@
                     e.target = e.srcElement || win; // #2820
                     fn.call(el, e);
                 }
+
                 if (el.attachEvent) {
                     if (!el.hcEventsIE) {
                         el.hcEventsIE = {};
@@ -242,7 +249,8 @@
                  * @param {string} nodeName
                  */
                 init: function (renderer, nodeName) {
-                    var wrapper = this, markup = ['<', nodeName, ' filled="f" stroked="f"'], style = ['position: ', 'absolute', ';'], isDiv = nodeName === 'div';
+                    var wrapper = this, markup = ['<', nodeName, ' filled="f" stroked="f"'],
+                        style = ['position: ', 'absolute', ';'], isDiv = nodeName === 'div';
                     // divs and shapes need size
                     if (nodeName === 'shape' || isDiv) {
                         style.push('left:0;top:0;width:1px;height:1px;');
@@ -266,11 +274,12 @@
                  * @return {Highcharts.VMLElement}
                  */
                 add: function (parent) {
-                    var wrapper = this, renderer = wrapper.renderer, element = wrapper.element, box = renderer.box, inverted = parent && parent.inverted, 
-                    // get the parent node
-                    parentNode = parent ?
-                        parent.element || parent :
-                        box;
+                    var wrapper = this, renderer = wrapper.renderer, element = wrapper.element, box = renderer.box,
+                        inverted = parent && parent.inverted,
+                        // get the parent node
+                        parentNode = parent ?
+                            parent.element || parent :
+                            box;
                     if (parent) {
                         this.parentGroup = parent;
                     }
@@ -315,7 +324,8 @@
                     // transform. The getBBox method also needs to be updated to
                     // compensate for the rotation, like it currently does for SVG.
                     // Test case: https://jsfiddle.net/highcharts/Ybt44/
-                    var rotation = this.rotation, costheta = Math.cos(rotation * deg2rad), sintheta = Math.sin(rotation * deg2rad);
+                    var rotation = this.rotation, costheta = Math.cos(rotation * deg2rad),
+                        sintheta = Math.sin(rotation * deg2rad);
                     css(this.element, {
                         filter: rotation ? [
                             'progid:DXImageTransform.Microsoft.Matrix(M11=', costheta,
@@ -330,7 +340,10 @@
                  * @function Highcharts.VMLElement#getSpanCorrection
                  */
                 getSpanCorrection: function (width, baseline, alignCorrection, rotation, align) {
-                    var costheta = rotation ? Math.cos(rotation * deg2rad) : 1, sintheta = rotation ? Math.sin(rotation * deg2rad) : 0, height = pick(this.elemHeight, this.element.offsetHeight), quad, nonLeft = align && align !== 'left';
+                    var costheta = rotation ? Math.cos(rotation * deg2rad) : 1,
+                        sintheta = rotation ? Math.sin(rotation * deg2rad) : 0,
+                        height = pick(this.elemHeight, this.element.offsetHeight), quad,
+                        nonLeft = align && align !== 'left';
                     // correct x and y
                     this.xCorr = (costheta < 0 && -width);
                     this.yCorr = (sintheta < 0 && -height);
@@ -371,11 +384,9 @@
                         // align with SVG, but this hasn't been tested thoroughly
                         if (isNumber(value[i])) {
                             path[i] = Math.round(value[i] * 10) - 5;
-                        }
-                        else if (value[i] === 'Z') { // close the path
+                        } else if (value[i] === 'Z') { // close the path
                             path[i] = 'x';
-                        }
-                        else {
+                        } else {
                             path[i] = value[i];
                             // When the start X and end X coordinates of an arc are too
                             // close, they are rounded to the same value above. In this
@@ -416,8 +427,7 @@
                             erase(clipMembers, wrapper);
                         };
                         cssRet = clipRect.getCSS(wrapper);
-                    }
-                    else {
+                    } else {
                         if (wrapper.destroyClip) {
                             wrapper.destroyClip();
                         }
@@ -511,7 +521,9 @@
                  * @return {Highcharts.VMLElement}
                  */
                 shadow: function (shadowOptions, group, cutOff) {
-                    var shadows = [], i, element = this.element, renderer = this.renderer, shadow, elemStyle = element.style, markup, path = element.path, strokeWidth, modifiedPath, shadowWidth, shadowElementOpacity;
+                    var shadows = [], i, element = this.element, renderer = this.renderer, shadow,
+                        elemStyle = element.style, markup, path = element.path, strokeWidth, modifiedPath, shadowWidth,
+                        shadowElementOpacity;
                     // some times empty paths are not strings
                     if (path && typeof path.value !== 'string') {
                         path = 'x';
@@ -552,8 +564,7 @@
                             // insert it
                             if (group) {
                                 group.element.appendChild(shadow);
-                            }
-                            else {
+                            } else {
                                 element.parentNode
                                     .insertBefore(shadow, element);
                             }
@@ -568,8 +579,7 @@
                 setAttr: function (key, value) {
                     if (this.docMode8) { // IE8 setAttribute bug
                         this.element[key] = value;
-                    }
-                    else {
+                    } else {
                         this.element.setAttribute(key, value);
                     }
                 },
@@ -614,8 +624,7 @@
                     var nodeName = element.nodeName;
                     if (nodeName === 'SPAN') { // text color
                         element.style.color = value;
-                    }
-                    else if (nodeName !== 'IMG') { // #1336
+                    } else if (nodeName !== 'IMG') { // #1336
                         element.filled = value !== 'none';
                         this.setAttr('fillcolor', this.renderer.color(value, element, key, this));
                     }
@@ -680,8 +689,7 @@
                     this[key] = value; // used in getter
                     if (key === 'x') {
                         key = 'left';
-                    }
-                    else if (key === 'y') {
+                    } else if (key === 'y') {
                         key = 'top';
                     }
                     // clipping rectangle special
@@ -689,8 +697,7 @@
                         // the key is now 'left' or 'top' for 'x' and 'y'
                         this[key] = value;
                         this.updateClipping();
-                    }
-                    else {
+                    } else {
                         // normal
                         element.style[key] = value;
                     }
@@ -742,7 +749,7 @@
                     var renderer = this, boxWrapper, box, css;
                     renderer.alignedObjects = [];
                     boxWrapper = renderer.createElement('div')
-                        .css({ position: 'relative' });
+                        .css({position: 'relative'});
                     box = boxWrapper.element;
                     container.appendChild(boxWrapper.element);
                     // generate the containing box
@@ -765,8 +772,7 @@
                             '{ behavior:url(#default#VML); display: inline-block; } ';
                         try {
                             doc.createStyleSheet().cssText = css;
-                        }
-                        catch (e) {
+                        } catch (e) {
                             doc.styleSheets[0].cssText += css;
                         }
                     }
@@ -804,13 +810,16 @@
                         width: (isObj ? x.width : width) - 1,
                         height: (isObj ? x.height : height) - 1,
                         getCSS: function (wrapper) {
-                            var element = wrapper.element, nodeName = element.nodeName, isShape = nodeName === 'shape', inverted = wrapper.inverted, rect = this, top = rect.top - (isShape ? element.offsetTop : 0), left = rect.left, right = left + rect.width, bottom = top + rect.height, ret = {
-                                clip: 'rect(' +
-                                    Math.round(inverted ? left : top) + 'px,' +
-                                    Math.round(inverted ? bottom : right) + 'px,' +
-                                    Math.round(inverted ? right : bottom) + 'px,' +
-                                    Math.round(inverted ? top : left) + 'px)'
-                            };
+                            var element = wrapper.element, nodeName = element.nodeName, isShape = nodeName === 'shape',
+                                inverted = wrapper.inverted, rect = this,
+                                top = rect.top - (isShape ? element.offsetTop : 0), left = rect.left,
+                                right = left + rect.width, bottom = top + rect.height, ret = {
+                                    clip: 'rect(' +
+                                        Math.round(inverted ? left : top) + 'px,' +
+                                        Math.round(inverted ? bottom : right) + 'px,' +
+                                        Math.round(inverted ? right : bottom) + 'px,' +
+                                        Math.round(inverted ? top : left) + 'px)'
+                                };
                             // issue 74 workaround
                             if (!inverted && wrapper.docMode8 && nodeName === 'DIV') {
                                 extend(ret, {
@@ -851,22 +860,22 @@
                     if (color &&
                         color.linearGradient) {
                         fillType = 'gradient';
-                    }
-                    else if (color &&
+                    } else if (color &&
                         color.radialGradient) {
                         fillType = 'pattern';
                     }
                     if (fillType) {
                         var stopColor, stopOpacity, gradient = (color.linearGradient ||
-                            color.radialGradient), x1, y1, x2, y2, opacity1, opacity2, color1, color2, fillAttr = '', stops = color.stops, firstStop, lastStop, colors = [], addFillNode = function () {
-                            // Add the fill subnode. When colors attribute is used,
-                            // the meanings of opacity and o:opacity2 are reversed.
-                            markup = ['<fill colors="' + colors.join(',') +
-                                    '" opacity="', opacity2, '" o:opacity2="',
-                                opacity1, '" type="', fillType, '" ', fillAttr,
-                                'focus="100%" method="any" />'];
-                            createElement(renderer.prepVML(markup), null, null, elem);
-                        };
+                            color.radialGradient), x1, y1, x2, y2, opacity1, opacity2, color1, color2, fillAttr = '',
+                            stops = color.stops, firstStop, lastStop, colors = [], addFillNode = function () {
+                                // Add the fill subnode. When colors attribute is used,
+                                // the meanings of opacity and o:opacity2 are reversed.
+                                markup = ['<fill colors="' + colors.join(',') +
+                                '" opacity="', opacity2, '" o:opacity2="',
+                                    opacity1, '" type="', fillType, '" ', fillAttr,
+                                    'focus="100%" method="any" />'];
+                                createElement(renderer.prepVML(markup), null, null, elem);
+                            };
                         // Extend from 0 to 1
                         firstStop = stops[0];
                         lastStop = stops[stops.length - 1];
@@ -888,8 +897,7 @@
                                 colorObject = H.color(stop[1]);
                                 stopColor = colorObject.get('rgb');
                                 stopOpacity = colorObject.get('a');
-                            }
-                            else {
+                            } else {
                                 stopColor = stop[1];
                                 stopOpacity = 1;
                             }
@@ -900,8 +908,7 @@
                             if (!i) {
                                 opacity1 = stopOpacity;
                                 color2 = stopColor;
-                            }
-                            else {
+                            } else {
                                 opacity2 = stopOpacity;
                                 color1 = stopColor;
                             }
@@ -919,32 +926,31 @@
                                 ) * 180 / Math.PI) + '"';
                                 addFillNode();
                                 // Radial (circular) gradient
-                            }
-                            else {
-                                var r = gradient.r, sizex = r * 2, sizey = r * 2, cx = gradient.cx, cy = gradient.cy, radialReference = elem.radialReference, bBox, applyRadialGradient = function () {
-                                    if (radialReference) {
-                                        bBox = wrapper.getBBox();
-                                        cx += (radialReference[0] - bBox.x) /
-                                            bBox.width - 0.5;
-                                        cy += (radialReference[1] - bBox.y) /
-                                            bBox.height - 0.5;
-                                        sizex *= radialReference[2] / bBox.width;
-                                        sizey *= radialReference[2] / bBox.height;
-                                    }
-                                    fillAttr =
-                                        'src="' + H.getOptions().global.VMLRadialGradientURL +
+                            } else {
+                                var r = gradient.r, sizex = r * 2, sizey = r * 2, cx = gradient.cx, cy = gradient.cy,
+                                    radialReference = elem.radialReference, bBox, applyRadialGradient = function () {
+                                        if (radialReference) {
+                                            bBox = wrapper.getBBox();
+                                            cx += (radialReference[0] - bBox.x) /
+                                                bBox.width - 0.5;
+                                            cy += (radialReference[1] - bBox.y) /
+                                                bBox.height - 0.5;
+                                            sizex *= radialReference[2] / bBox.width;
+                                            sizey *= radialReference[2] / bBox.height;
+                                        }
+                                        fillAttr =
+                                            'src="' + H.getOptions().global.VMLRadialGradientURL +
                                             '" ' +
                                             'size="' + sizex + ',' + sizey + '" ' +
                                             'origin="0.5,0.5" ' +
                                             'position="' + cx + ',' + cy + '" ' +
                                             'color2="' + color2 + '" ';
-                                    addFillNode();
-                                };
+                                        addFillNode();
+                                    };
                                 // Apply radial gradient
                                 if (wrapper.added) {
                                     applyRadialGradient();
-                                }
-                                else {
+                                } else {
                                     // We need to know the bounding box to get the size
                                     // and position right
                                     wrapper.onAdd = applyRadialGradient;
@@ -956,19 +962,16 @@
                             }
                             // Gradients are not supported for VML stroke, return the first
                             // color. #722.
-                        }
-                        else {
+                        } else {
                             ret = stopColor;
                         }
                         // If the color is an rgba color, split it and add a fill node
                         // to hold the opacity component
-                    }
-                    else if (regexRgba.test(color) && elem.tagName !== 'IMG') {
+                    } else if (regexRgba.test(color) && elem.tagName !== 'IMG') {
                         colorObject = H.color(color);
                         wrapper[prop + '-opacitySetter'](colorObject.get('a'), prop, elem);
                         ret = colorObject.get('rgb');
-                    }
-                    else {
+                    } else {
                         // 'stroke' or 'fill' node
                         var propNodes = elem.getElementsByTagName(prop);
                         if (propNodes.length) {
@@ -996,12 +999,10 @@
                         markup = markup.replace('/>', ' xmlns="urn:schemas-microsoft-com:vml" />');
                         if (markup.indexOf('style="') === -1) {
                             markup = markup.replace('/>', ' style="' + vmlStyle + '" />');
-                        }
-                        else {
+                        } else {
                             markup = markup.replace('style="', 'style="' + vmlStyle);
                         }
-                    }
-                    else { // add namespace
+                    } else { // add namespace
                         markup = markup.replace('<', '<hcv:');
                     }
                     return markup;
@@ -1032,8 +1033,7 @@
                     };
                     if (isArray(path)) {
                         attr.d = path;
-                    }
-                    else if (isObject(path)) { // attributes
+                    } else if (isObject(path)) { // attributes
                         extend(attr, path);
                     }
                     // create the shape
@@ -1058,7 +1058,7 @@
                     }
                     circle.isCircle = true; // Causes x and y to mean center (#1682)
                     circle.r = r;
-                    return circle.attr({ x: x, y: y });
+                    return circle.attr({x: x, y: y});
                 },
                 /**
                  * Create a group using an outer div and an inner v:group to allow
@@ -1102,7 +1102,7 @@
                  * @return {Highcharts.VMLElement}
                  */
                 image: function (src, x, y, width, height) {
-                    var obj = this.createElement('img').attr({ src: src });
+                    var obj = this.createElement('img').attr({src: src});
                     if (arguments.length > 1) {
                         obj.attr({
                             x: x,
@@ -1137,7 +1137,8 @@
                  * @param {Highcharts.HTMLDOMElement} parentNode
                  */
                 invertChild: function (element, parentNode) {
-                    var ren = this, parentStyle = parentNode.style, imgStyle = element.tagName === 'IMG' && element.style; // #1111
+                    var ren = this, parentStyle = parentNode.style,
+                        imgStyle = element.tagName === 'IMG' && element.style; // #1111
                     css(element, {
                         flip: 'x',
                         left: pInt(parentStyle.width) -
@@ -1161,7 +1162,9 @@
                 symbols: {
                     // VML specific arc function
                     arc: function (x, y, w, h, options) {
-                        var start = options.start, end = options.end, radius = options.r || w || h, innerRadius = options.innerR, cosStart = Math.cos(start), sinStart = Math.sin(start), cosEnd = Math.cos(end), sinEnd = Math.sin(end), ret;
+                        var start = options.start, end = options.end, radius = options.r || w || h,
+                            innerRadius = options.innerR, cosStart = Math.cos(start), sinStart = Math.sin(start),
+                            cosEnd = Math.cos(end), sinEnd = Math.sin(end), ret;
                         if (end - start === 0) { // no angle, don't show it.
                             return ['x'];
                         }
@@ -1178,20 +1181,20 @@
                         ];
                         if (options.open && !innerRadius) {
                             ret.push('e', 'M', x, // - innerRadius,
-                            y // - innerRadius
+                                y // - innerRadius
                             );
                         }
                         ret.push('at', // anti clockwise arc to
-                        x - innerRadius, // left
-                        y - innerRadius, // top
-                        x + innerRadius, // right
-                        y + innerRadius, // bottom
-                        x + innerRadius * cosEnd, // start x
-                        y + innerRadius * sinEnd, // start y
-                        x + innerRadius * cosStart, // end x
-                        y + innerRadius * sinStart, // end y
-                        'x', // finish path
-                        'e' // close
+                            x - innerRadius, // left
+                            y - innerRadius, // top
+                            x + innerRadius, // right
+                            y + innerRadius, // bottom
+                            x + innerRadius * cosEnd, // start x
+                            y + innerRadius * sinEnd, // start y
+                            x + innerRadius * cosStart, // end x
+                            y + innerRadius * sinStart, // end y
+                            'x', // finish path
+                            'e' // close
                         );
                         ret.isArc = true;
                         return ret;

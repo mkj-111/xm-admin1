@@ -24,11 +24,13 @@
     }
 }(function (Highcharts) {
     var _modules = Highcharts ? Highcharts._modules : {};
+
     function _registerModule(obj, path, args, fn) {
         if (!obj.hasOwnProperty(path)) {
             obj[path] = fn.apply(null, args);
         }
     }
+
     _registerModule(_modules, 'modules/full-screen.src.js', [_modules['parts/Globals.js']], function (H) {
         /* *
          *
@@ -69,14 +71,11 @@
                 var promise;
                 if (container.requestFullscreen) {
                     promise = container.requestFullscreen();
-                }
-                else if (container.mozRequestFullScreen) {
+                } else if (container.mozRequestFullScreen) {
                     promise = container.mozRequestFullScreen();
-                }
-                else if (container.webkitRequestFullscreen) {
+                } else if (container.webkitRequestFullscreen) {
                     promise = container.webkitRequestFullscreen();
-                }
-                else if (container.msRequestFullscreen) {
+                } else if (container.msRequestFullscreen) {
                     promise = container.msRequestFullscreen();
                 }
                 if (promise) {

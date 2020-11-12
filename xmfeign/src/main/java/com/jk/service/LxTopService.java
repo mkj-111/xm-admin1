@@ -11,5 +11,5 @@ import java.util.List;
 public interface LxTopService {
 
     @RequestMapping("queryTopList")
-    public List<GoodsBeab> queryTopList(@RequestParam String topName,@RequestParam Integer type);
+    public List<GoodsBeab> queryTopList(@RequestParam String topName, @RequestParam Integer type);
 }

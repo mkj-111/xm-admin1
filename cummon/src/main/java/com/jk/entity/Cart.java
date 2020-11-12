@@ -4,19 +4,19 @@ import java.math.BigDecimal;
 
 public class Cart {
 
-      private Long productId;
+    private Long productId;
 
-      private String fullName;
+    private String fullName;
 
-      private String specificationValueIds;
+    private String specificationValueIds;
 
-      private String specificationValueNames;
+    private String specificationValueNames;
 
-      private Integer number;
+    private Integer number;
 
-      private String image;
+    private String image;
 
-      private BigDecimal price;
+    private BigDecimal price;
 
 
     public Long getProductId() {

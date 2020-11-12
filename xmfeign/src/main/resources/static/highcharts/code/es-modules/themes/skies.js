@@ -11,6 +11,7 @@
  * */
 'use strict';
 import Highcharts from '../parts/Globals.js';
+
 Highcharts.theme = {
     colors: ['#514F78', '#42A07B', '#9B5E4A', '#72727F', '#1F949A',
         '#82914E', '#86777F', '#42A07B'],
@@ -20,7 +21,7 @@ Highcharts.theme = {
         plotShadow: true,
         plotBackgroundImage: 'https://www.highcharts.com/demo/gfx/skies.jpg',
         plotBackgroundColor: {
-            linearGradient: { x1: 0, y1: 0, x2: 1, y2: 1 },
+            linearGradient: {x1: 0, y1: 0, x2: 1, y2: 1},
             stops: [
                 [0, 'rgba(255, 255, 255, 1)'],
                 [1, 'rgba(255, 255, 255, 0)']

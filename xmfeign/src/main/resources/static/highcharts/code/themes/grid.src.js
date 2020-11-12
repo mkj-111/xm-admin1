@@ -21,11 +21,13 @@
     }
 }(function (Highcharts) {
     var _modules = Highcharts ? Highcharts._modules : {};
+
     function _registerModule(obj, path, args, fn) {
         if (!obj.hasOwnProperty(path)) {
             obj[path] = fn.apply(null, args);
         }
     }
+
     _registerModule(_modules, 'themes/grid.js', [_modules['parts/Globals.js']], function (Highcharts) {
         /* *
          *
@@ -43,7 +45,7 @@
                 '#FF9655', '#FFF263', '#6AF9C4'],
             chart: {
                 backgroundColor: {
-                    linearGradient: { x1: 0, y1: 0, x2: 1, y2: 1 },
+                    linearGradient: {x1: 0, y1: 0, x2: 1, y2: 1},
                     stops: [
                         [0, 'rgb(255, 255, 255)'],
                         [1, 'rgb(240, 240, 255)']

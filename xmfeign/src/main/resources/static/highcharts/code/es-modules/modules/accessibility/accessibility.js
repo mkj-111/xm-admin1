@@ -38,6 +38,7 @@
 
 import H from '../../parts/Globals.js';
 import U from '../../parts/Utilities.js';
+
 var extend = U.extend,
     pick = U.pick;
 
@@ -164,7 +165,8 @@ H.Chart.prototype.setFocusToElement = function (svgElement, focusElement) {
             browserFocusElement.hcEvents &&
             browserFocusElement.hcEvents.focusin
         )) {
-            addEvent(browserFocusElement, 'focusin', function () {});
+            addEvent(browserFocusElement, 'focusin', function () {
+            });
         }
 
         browserFocusElement.focus();
@@ -200,7 +202,7 @@ H.Chart.prototype.setFocusToElement = function (svgElement, focusElement) {
 H.Axis.prototype.getDescription = function () {
     return (
         this.userOptions && this.userOptions.accessibility &&
-            this.userOptions.accessibility.description ||
+        this.userOptions.accessibility.description ||
         this.axisTitle && this.axisTitle.textStr ||
         this.options.id ||
         this.categories && 'categories' ||

@@ -16,14 +16,16 @@ import H from '../parts/Globals.js';
  *
  * @interface Highcharts.SymbolOptionsObject
  */ /**
-* Whether to draw rounded edges.
-* @name Highcharts.SymbolOptionsObject#rounded
-* @type {boolean|undefined}
-*/
+ * Whether to draw rounded edges.
+ * @name Highcharts.SymbolOptionsObject#rounded
+ * @type {boolean|undefined}
+ */
 import U from '../parts/Utilities.js';
+
 var extend = U.extend, isNumber = U.isNumber, pick = U.pick, pInt = U.pInt;
 import '../parts/Options.js';
 import '../parts-more/GaugeSeries.js';
+
 var wrap = H.wrap, Renderer = H.Renderer, colorAxisMethods;
 /**
  * Symbol definition of an arc with round edges.
@@ -52,7 +54,9 @@ var wrap = H.wrap, Renderer = H.Renderer, colorAxisMethods;
 wrap(Renderer.prototype.symbols, 'arc', function (proceed, x, y, w, h, options) {
     var arc = proceed, path = arc(x, y, w, h, options);
     if (options.rounded) {
-        var r = options.r || w, smallR = (r - options.innerR) / 2, x1 = path[1], y1 = path[2], x2 = path[12], y2 = path[13], roundStart = ['A', smallR, smallR, 0, 1, 1, x1, y1], roundEnd = ['A', smallR, smallR, 0, 1, 1, x2, y2];
+        var r = options.r || w, smallR = (r - options.innerR) / 2, x1 = path[1], y1 = path[2], x2 = path[12],
+            y2 = path[13], roundStart = ['A', smallR, smallR, 0, 1, 1, x1, y1],
+            roundEnd = ['A', smallR, smallR, 0, 1, 1, x2, y2];
         // Insert rounded edge on end, and remove line.
         path.splice.apply(path, [path.length - 1, 0].concat(roundStart));
         // Insert rounded edge on end, and remove line.
@@ -78,8 +82,7 @@ colorAxisMethods = {
                     if (colorCounter === colors.length) {
                         colorCounter = 0;
                     }
-                }
-                else {
+                } else {
                     dataClass.color = H.color(options.minColor).tweenTo(H.color(options.maxColor), i / (userOptions.dataClasses.length - 1));
                 }
             }
@@ -112,8 +115,7 @@ colorAxisMethods = {
                     break;
                 }
             }
-        }
-        else {
+        } else {
             if (this.isLog) {
                 value = this.val2lin(value);
             }
@@ -249,7 +251,8 @@ H.seriesType('solidgauge', 'gauge', solidGaugeOptions, {
     },
     // Draw the points where each point is one needle.
     drawPoints: function () {
-        var series = this, yAxis = series.yAxis, center = yAxis.center, options = series.options, renderer = series.chart.renderer, overshoot = options.overshoot, overshootVal = isNumber(overshoot) ?
+        var series = this, yAxis = series.yAxis, center = yAxis.center, options = series.options,
+            renderer = series.chart.renderer, overshoot = options.overshoot, overshootVal = isNumber(overshoot) ?
             overshoot / 180 * Math.PI :
             0, thresholdAngleRad;
         // Handle the threshold option
@@ -261,7 +264,12 @@ H.seriesType('solidgauge', 'gauge', solidGaugeOptions, {
             // #10630 null point should not be draw
             if (!point.isNull) { // condition like in pie chart
                 var graphic = point.graphic, rotation = (yAxis.startAngleRad +
-                    yAxis.translate(point.y, null, null, null, true)), radius = ((pInt(pick(point.options.radius, options.radius, 100)) * center[2]) / 200), innerRadius = ((pInt(pick(point.options.innerRadius, options.innerRadius, 60)) * center[2]) / 200), shapeArgs, d, toColor = yAxis.toColor(point.y, point), axisMinAngle = Math.min(yAxis.startAngleRad, yAxis.endAngleRad), axisMaxAngle = Math.max(yAxis.startAngleRad, yAxis.endAngleRad), minAngle, maxAngle;
+                    yAxis.translate(point.y, null, null, null, true)),
+                    radius = ((pInt(pick(point.options.radius, options.radius, 100)) * center[2]) / 200),
+                    innerRadius = ((pInt(pick(point.options.innerRadius, options.innerRadius, 60)) * center[2]) / 200),
+                    shapeArgs, d, toColor = yAxis.toColor(point.y, point),
+                    axisMinAngle = Math.min(yAxis.startAngleRad, yAxis.endAngleRad),
+                    axisMaxAngle = Math.max(yAxis.startAngleRad, yAxis.endAngleRad), minAngle, maxAngle;
                 if (toColor === 'none') { // #3708
                     toColor = point.color || series.color || 'none';
                 }
@@ -291,17 +299,16 @@ H.seriesType('solidgauge', 'gauge', solidGaugeOptions, {
                 point.startR = radius; // For PieSeries.animate
                 if (graphic) {
                     d = shapeArgs.d;
-                    graphic.animate(extend({ fill: toColor }, shapeArgs));
+                    graphic.animate(extend({fill: toColor}, shapeArgs));
                     if (d) {
                         shapeArgs.d = d; // animate alters it
                     }
-                }
-                else {
+                } else {
                     point.graphic = graphic = renderer.arc(shapeArgs)
                         .attr({
-                        fill: toColor,
-                        'sweep-flag': 0
-                    })
+                            fill: toColor,
+                            'sweep-flag': 0
+                        })
                         .add(series.group);
                     if (!series.chart.styledMode) {
                         if (options.linecap !== 'square') {

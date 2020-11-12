@@ -9,6 +9,7 @@
 'use strict';
 import Highcharts from '../parts/Globals.js';
 import U from '../parts/Utilities.js';
+
 var extend = U.extend;
 
 import '../parts/SvgRenderer.js';

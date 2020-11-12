@@ -2,6 +2,7 @@
 import H from '../../parts/Globals.js';
 
 import U from '../../parts/Utilities.js';
+
 var extend = U.extend,
     isNumber = U.isNumber;
 
@@ -138,7 +139,7 @@ H.extendAnnotation(Measure, null,
 
             if (this.labels.length > 0) {
                 this.labels[0].text = (formatter && formatter.call(this)) ||
-                            this.calculations.defaultFormatter.call(this);
+                    this.calculations.defaultFormatter.call(this);
 
             } else {
                 this.initLabel(extend({
@@ -890,7 +891,7 @@ H.extendAnnotation(Measure, null,
 
                 if (selectType === 'y') {
                     targetX = ext.xAxisMin +
-                                        ((ext.xAxisMax - ext.xAxisMin) / 2);
+                        ((ext.xAxisMax - ext.xAxisMin) / 2);
 
                     // first control point
                     if (cpIndex === 0) {

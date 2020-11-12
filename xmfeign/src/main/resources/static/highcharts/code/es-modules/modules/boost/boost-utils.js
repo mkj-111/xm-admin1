@@ -16,9 +16,11 @@ import H from '../../parts/Globals.js';
 import '../../parts/Series.js';
 import boostableMap from './boostable-map.js';
 import createAndAttachRenderer from './boost-attach.js';
+
 var win = H.win, doc = win.document, pick = H.pick;
 // This should be a const.
 var CHUNK_SIZE = 3000;
+
 /**
  * Tolerant max() function.
  *
@@ -50,6 +52,7 @@ function patientMax() {
     });
     return r;
 }
+
 /**
  * Return true if ths boost.enabled option is true
  *
@@ -68,6 +71,7 @@ function boostEnabled(chart) {
         chart.options.boost &&
         chart.options.boost.enabled), true);
 }
+
 /**
  * Returns true if we should force boosting the chart
  * @private
@@ -82,7 +86,8 @@ function boostEnabled(chart) {
 function shouldForceChartSeriesBoosting(chart) {
     // If there are more than five series currently boosting,
     // we should boost the whole chart to avoid running out of webgl contexts.
-    var sboostCount = 0, canBoostCount = 0, allowBoostForce = pick(chart.options.boost && chart.options.boost.allowForce, true), series;
+    var sboostCount = 0, canBoostCount = 0,
+        allowBoostForce = pick(chart.options.boost && chart.options.boost.allowForce, true), series;
     if (typeof chart.boostForceChartBoost !== 'undefined') {
         return chart.boostForceChartBoost;
     }
@@ -106,9 +111,9 @@ function shouldForceChartSeriesBoosting(chart) {
             if (boostableMap[series.type]) {
                 ++canBoostCount;
             }
-            if (patientMax(series.processedXData, series.options.data, 
-            // series.xData,
-            series.points) >= (series.options.boostThreshold || Number.MAX_VALUE)) {
+            if (patientMax(series.processedXData, series.options.data,
+                // series.xData,
+                series.points) >= (series.options.boostThreshold || Number.MAX_VALUE)) {
                 ++sboostCount;
             }
         }
@@ -118,6 +123,7 @@ function shouldForceChartSeriesBoosting(chart) {
         sboostCount > 5);
     return chart.boostForceChartBoost;
 }
+
 /* eslint-disable valid-jsdoc */
 /**
  * Performs the actual render if the renderer is
@@ -134,6 +140,7 @@ function renderIfNotSeriesBoosting(renderer, series, chart) {
         renderer.render(chart || series.chart);
     }
 }
+
 /**
  * @private
  */
@@ -145,6 +152,7 @@ function allocateIfNotSeriesBoosting(renderer, series) {
         renderer.allocateBufferForSingleSeries(series);
     }
 }
+
 /**
  * An "async" foreach loop. Uses a setTimeout to keep the loop from blocking the
  * UI thread.
@@ -170,24 +178,22 @@ function eachAsync(arr, fn, finalFunc, chunkSize, i, noTimeout) {
         if (i < arr.length) {
             if (noTimeout) {
                 eachAsync(arr, fn, finalFunc, chunkSize, i, noTimeout);
-            }
-            else if (win.requestAnimationFrame) {
+            } else if (win.requestAnimationFrame) {
                 // If available, do requestAnimationFrame - shaves off a few ms
                 win.requestAnimationFrame(function () {
                     eachAsync(arr, fn, finalFunc, chunkSize, i);
                 });
-            }
-            else {
+            } else {
                 setTimeout(function () {
                     eachAsync(arr, fn, finalFunc, chunkSize, i);
                 });
             }
-        }
-        else if (finalFunc) {
+        } else if (finalFunc) {
             finalFunc();
         }
     }
 }
+
 /**
  * Returns true if the current browser supports webgl
  *
@@ -206,14 +212,14 @@ function hasWebGLSupport() {
                 if (typeof context !== 'undefined' && context !== null) {
                     return true;
                 }
-            }
-            catch (e) {
+            } catch (e) {
                 // silent error
             }
         }
     }
     return false;
 }
+
 /* eslint-disable no-invalid-this */
 /**
  * Used for treemap|heatmap.drawPoints
@@ -244,6 +250,7 @@ function pointDrawHandler(proceed) {
     }
     renderIfNotSeriesBoosting(renderer, this);
 }
+
 /* eslint-enable no-invalid-this, valid-jsdoc */
 var funs = {
     patientMax: patientMax,

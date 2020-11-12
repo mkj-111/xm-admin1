@@ -22,13 +22,13 @@ public class MkjVersionController {
 
 
     @RequestMapping("findversion")
-    public List<VersionsBean>findversion(@RequestParam Integer colorid){
+    public List<VersionsBean> findversion(@RequestParam Integer colorid) {
         return mkjVersionService.findversion(colorid);
     }
 
     @RequestMapping("findversionsId")
-    public VersionsBean findversionsId(@RequestParam Integer versionsId){
-        return  mkjVersionService.findversionsId(versionsId);
+    public VersionsBean findversionsId(@RequestParam Integer versionsId) {
+        return mkjVersionService.findversionsId(versionsId);
     }
 
 }

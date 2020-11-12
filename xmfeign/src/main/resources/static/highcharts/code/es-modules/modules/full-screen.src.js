@@ -38,14 +38,11 @@ FullScreen.prototype = {
         var promise;
         if (container.requestFullscreen) {
             promise = container.requestFullscreen();
-        }
-        else if (container.mozRequestFullScreen) {
+        } else if (container.mozRequestFullScreen) {
             promise = container.mozRequestFullScreen();
-        }
-        else if (container.webkitRequestFullscreen) {
+        } else if (container.webkitRequestFullscreen) {
             promise = container.webkitRequestFullscreen();
-        }
-        else if (container.msRequestFullscreen) {
+        } else if (container.msRequestFullscreen) {
             promise = container.msRequestFullscreen();
         }
         if (promise) {

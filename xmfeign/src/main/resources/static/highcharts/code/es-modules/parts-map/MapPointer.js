@@ -10,8 +10,10 @@
 'use strict';
 import H from '../parts/Globals.js';
 import U from '../parts/Utilities.js';
+
 var extend = U.extend, pick = U.pick;
 import '../parts/Pointer.js';
+
 var Pointer = H.Pointer, wrap = H.wrap;
 /* eslint-disable no-invalid-this */
 // Extend the Pointer
@@ -25,8 +27,7 @@ extend(Pointer.prototype, {
                 chart.hoverPoint) {
                 chart.hoverPoint.zoomTo();
             }
-        }
-        else if (chart.isInsidePlot(e.chartX - chart.plotLeft, e.chartY - chart.plotTop)) {
+        } else if (chart.isInsidePlot(e.chartX - chart.plotLeft, e.chartY - chart.plotTop)) {
             chart.mapZoom(0.5, chart.xAxis[0].toValue(e.chartX), chart.yAxis[0].toValue(e.chartY), e.chartX, e.chartY);
         }
     },

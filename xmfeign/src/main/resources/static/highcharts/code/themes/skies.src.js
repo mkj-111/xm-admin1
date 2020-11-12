@@ -21,11 +21,13 @@
     }
 }(function (Highcharts) {
     var _modules = Highcharts ? Highcharts._modules : {};
+
     function _registerModule(obj, path, args, fn) {
         if (!obj.hasOwnProperty(path)) {
             obj[path] = fn.apply(null, args);
         }
     }
+
     _registerModule(_modules, 'themes/skies.js', [_modules['parts/Globals.js']], function (Highcharts) {
         /* *
          *
@@ -47,7 +49,7 @@
                 plotShadow: true,
                 plotBackgroundImage: 'https://www.highcharts.com/demo/gfx/skies.jpg',
                 plotBackgroundColor: {
-                    linearGradient: { x1: 0, y1: 0, x2: 1, y2: 1 },
+                    linearGradient: {x1: 0, y1: 0, x2: 1, y2: 1},
                     stops: [
                         [0, 'rgba(255, 255, 255, 1)'],
                         [1, 'rgba(255, 255, 255, 0)']

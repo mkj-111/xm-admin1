@@ -10,6 +10,7 @@
  *
  * */
 import H from '../../parts/Globals.js';
+
 var Chart = H.Chart, addEvent = H.addEvent;
 /* eslint-disable no-invalid-this, valid-jsdoc */
 H.dragNodesMixin = {
@@ -43,7 +44,9 @@ H.dragNodesMixin = {
      */
     onMouseMove: function (point, event) {
         if (point.fixedPosition && point.inDragMode) {
-            var series = this, chart = series.chart, normalizedEvent = chart.pointer.normalize(event), diffX = point.fixedPosition.chartX - normalizedEvent.chartX, diffY = point.fixedPosition.chartY - normalizedEvent.chartY, newPlotX, newPlotY;
+            var series = this, chart = series.chart, normalizedEvent = chart.pointer.normalize(event),
+                diffX = point.fixedPosition.chartX - normalizedEvent.chartX,
+                diffY = point.fixedPosition.chartY - normalizedEvent.chartY, newPlotX, newPlotY;
             // At least 5px to apply change (avoids simple click):
             if (Math.abs(diffX) > 5 || Math.abs(diffY) > 5) {
                 newPlotX = point.fixedPosition.plotX - diffX;
@@ -61,15 +64,13 @@ H.dragNodesMixin = {
                         if (!series.layout.enableSimulation) {
                             // Run only one iteration to speed things up:
                             series.layout.setMaxIterations(1);
-                        }
-                        else {
+                        } else {
                             series.layout.start();
                         }
                         series.chart.redraw();
                         // Restore defaults:
                         series.layout.setInitialRendering(true);
-                    }
-                    else {
+                    } else {
                         // Extend current simulation:
                         series.layout.resetSimulation();
                     }
@@ -88,8 +89,7 @@ H.dragNodesMixin = {
         if (point.fixedPosition && point.hasDragged) {
             if (this.layout.enableSimulation) {
                 this.layout.start();
-            }
-            else {
+            } else {
                 this.chart.redraw();
             }
             point.inDragMode = point.hasDragged = false;

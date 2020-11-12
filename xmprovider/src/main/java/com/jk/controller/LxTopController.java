@@ -18,13 +18,14 @@ public class LxTopController {
 
     @RequestMapping("queryTopList")
     @ResponseBody
-    public List<GoodsBeab> queryTopList(@RequestParam String topName, @RequestParam Integer type){
-        return lxTopService.queryTopList(topName,type);
+    public List<GoodsBeab> queryTopList(@RequestParam String topName, @RequestParam Integer type) {
+        return lxTopService.queryTopList(topName, type);
     }
+
     @RequestMapping("toList")
     @ResponseBody
-    public String toList(Integer id){
-        System.out.println(id+"奥力给");
+    public String toList(Integer id) {
+        System.out.println(id + "奥力给");
         return "";
     }
 }

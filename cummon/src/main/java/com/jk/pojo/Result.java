@@ -3,7 +3,7 @@ package com.jk.pojo;
 import java.io.Serializable;
 import java.util.List;
 
-public class Result implements Serializable{
+public class Result implements Serializable {
 
     private boolean success;
 

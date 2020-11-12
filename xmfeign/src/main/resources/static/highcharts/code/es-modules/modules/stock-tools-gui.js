@@ -9,6 +9,7 @@
 import H from '../parts/Globals.js';
 
 import U from '../parts/Utilities.js';
+
 var extend = U.extend,
     isArray = U.isArray,
     pick = U.pick;
@@ -959,7 +960,7 @@ H.Toolbar.prototype = {
                     submenuWrapper.style.display = 'block';
 
                     topMargin = submenuWrapper.offsetHeight -
-                                buttonWrapper.offsetHeight - 3;
+                        buttonWrapper.offsetHeight - 3;
 
                     // calculate position of submenu in the box
                     // if submenu is inside, reset top margin
@@ -967,9 +968,9 @@ H.Toolbar.prototype = {
                         // cut on the bottom
                         !(submenuWrapper.offsetHeight +
                             buttonWrapper.offsetTop >
-                        wrapper.offsetHeight &&
-                        // cut on the top
-                        buttonWrapper.offsetTop > topMargin)
+                            wrapper.offsetHeight &&
+                            // cut on the top
+                            buttonWrapper.offsetTop > topMargin)
                     ) {
                         topMargin = 0;
                     }
@@ -983,8 +984,8 @@ H.Toolbar.prototype = {
                     buttonWrapper.className += ' ' + PREFIX + 'current';
                     menuWrapper.startWidth = wrapper.offsetWidth;
                     menuWrapper.style.width = menuWrapper.startWidth +
-                                    H.getStyle(menuWrapper, 'padding-left') +
-                                    submenuWrapper.offsetWidth + 3 + 'px';
+                        H.getStyle(menuWrapper, 'padding-left') +
+                        submenuWrapper.offsetWidth + 3 + 'px';
                 }
             });
         });
@@ -1198,7 +1199,7 @@ H.Toolbar.prototype = {
         // toolbar
         stockToolbar.toolbar = toolbar = createElement(UL, {
             className: PREFIX + 'stocktools-toolbar ' +
-                    guiOptions.toolbarClassName
+                guiOptions.toolbarClassName
         });
 
         // add container for list of buttons

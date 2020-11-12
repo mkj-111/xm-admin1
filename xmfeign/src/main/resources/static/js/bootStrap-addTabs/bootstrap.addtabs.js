@@ -270,8 +270,8 @@
         $('body').on('dragstart.h5s', '.nav-tabs li', function (e) {
             el = $(this);
             //清除拖动操作携带的数据，否者在部分浏览器上会打开新页面
-            if(e.originalEvent && e.originalEvent.dataTransfer
-                && 'function' == typeof e.originalEvent.dataTransfer.clearData){
+            if (e.originalEvent && e.originalEvent.dataTransfer
+                && 'function' == typeof e.originalEvent.dataTransfer.clearData) {
                 e.originalEvent.dataTransfer.clearData();
             }
         }).on('dragover.h5s dragenter.h5s drop.h5s', '.nav-tabs li', function (e) {
@@ -292,17 +292,17 @@
             var id = $(this).parent('li').attr('id');
             id = id ? id.substring(8) : '';
             if (settings.store) {
-                var tabs = $.parseJSON(_store('addtabs'+settings.storeName));
+                var tabs = $.parseJSON(_store('addtabs' + settings.storeName));
                 $.each(tabs, function (k, t) {
-                    (t.id == id) ?(t.active = 'true'):(delete t.active);
+                    (t.id == id) ? (t.active = 'true') : (delete t.active);
                 });
                 tabs = JSON.stringify(tabs);
-                _store('addtabs'+settings.storeName, tabs);
+                _store('addtabs' + settings.storeName, tabs);
             }
         });
 
         //浏览器大小改变时自动收放tab
-        $(window).on('resize', function() {
+        $(window).on('resize', function () {
             $.addtabs.drop();
         });
     };
@@ -311,17 +311,17 @@
         $.addtabs.set(options);
         _listen();
         if (settings.store) {
-            var tabs = _store('addtabs'+settings.storeName) ? $.parseJSON(_store('addtabs'+settings.storeName)) : {};
+            var tabs = _store('addtabs' + settings.storeName) ? $.parseJSON(_store('addtabs' + settings.storeName)) : {};
             var active;
             $.each(tabs, function (k, t) {
                 if (t.active) active = k;
                 $.addtabs.add(t);
             });
             if (active) {
-              target.children('.active').removeClass('active');
-              $('#tab_' + active).addClass('active');
-              target.next('.tab-content').children('.active').removeClass('active');
-              $('#' + active).addClass('active');
+                target.children('.active').removeClass('active');
+                $('#tab_' + active).addClass('active');
+                target.next('.tab-content').children('.active').removeClass('active');
+                $('#' + active).addClass('active');
             }
         }
     };
@@ -356,7 +356,7 @@
         var tab_li = a_target;
         //写入cookie
         if (settings.store) {
-          var tabs = _store('addtabs'+settings.storeName) ? $.parseJSON(_store('addtabs'+settings.storeName)) : {};
+            var tabs = _store('addtabs' + settings.storeName) ? $.parseJSON(_store('addtabs' + settings.storeName)) : {};
             tabs[id] = opts;
             tabs[id].target = (typeof tabs[id].target == 'object') ? settings.target : tabs[id].target;
             $.each(tabs, function (k, t) {
@@ -364,7 +364,7 @@
             });
             tabs[id].active = 'true';
             tabs = JSON.stringify(tabs);
-            _store('addtabs'+settings.storeName, tabs);
+            _store('addtabs' + settings.storeName, tabs);
         }
 
         var tab_content = tab_li.next('.tab-content');
@@ -452,7 +452,9 @@
         } else {
             var ajaxOption = $.extend(settings.ajax, opts.ajax || {});
             ajaxOption.url = opts.url;
-            ajaxOption.error = function(XMLHttpRequest, textStatus) { content.html(XMLHttpRequest.responseText); };
+            ajaxOption.error = function (XMLHttpRequest, textStatus) {
+                content.html(XMLHttpRequest.responseText);
+            };
             ajaxOption.success = function (result) {
                 content.html(result);
             }
@@ -481,10 +483,10 @@
         $("#tab_" + opts.id).remove();
         $("#" + opts.id).remove();
         if (settings.store) {
-            var tabs = $.parseJSON(_store('addtabs'+settings.storeName));
+            var tabs = $.parseJSON(_store('addtabs' + settings.storeName));
             delete tabs[opts.id];
             tabs = JSON.stringify(tabs);
-            _store('addtabs'+settings.storeName, tabs);
+            _store('addtabs' + settings.storeName, tabs);
         }
         $.addtabs.drop();
         settings.callback();

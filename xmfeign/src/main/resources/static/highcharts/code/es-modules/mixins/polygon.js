@@ -8,21 +8,22 @@ import H from '../parts/Globals.js';
  * @private
  * @interface Highcharts.PolygonPointObject
  */ /**
-* @name Highcharts.PolygonPointObject#0
-* @type {number}
-*/ /**
-* @name Highcharts.PolygonPointObject#1
-* @type {number}
-*/
+ * @name Highcharts.PolygonPointObject#0
+ * @type {number}
+ */ /**
+ * @name Highcharts.PolygonPointObject#1
+ * @type {number}
+ */
 /**
  * @private
  * @interface Highcharts.PolygonObject
  * @extends Array<Highcharts.PolygonPointObject>
  */ /**
-* @name Highcharts.PolygonObject#axes
-* @type {Array<PolygonPointObject>}
-*/
+ * @name Highcharts.PolygonObject#axes
+ * @type {Array<PolygonPointObject>}
+ */
 import U from '../parts/Utilities.js';
+
 var isArray = U.isArray, isNumber = U.isNumber;
 var deg2rad = H.deg2rad, find = H.find;
 /* eslint-disable no-invalid-this, valid-jsdoc */
@@ -54,7 +55,7 @@ var correctFloat = function (number, precision) {
  */
 var getNormals = function getNormal(p1, p2) {
     var dx = p2[0] - p1[0], // x2 - x1
-    dy = p2[1] - p1[1]; // y2 - y1
+        dy = p2[1] - p1[1]; // y2 - y1
     return [
         [-dy, dx],
         [dy, -dx]
@@ -180,12 +181,13 @@ var getAxes = function (polygon1, polygon2) {
  * @private
  */
 var getPolygon = function (x, y, width, height, rotation) {
-    var origin = [x, y], left = x - (width / 2), right = x + (width / 2), top = y - (height / 2), bottom = y + (height / 2), polygon = [
-        [left, top],
-        [right, top],
-        [right, bottom],
-        [left, bottom]
-    ];
+    var origin = [x, y], left = x - (width / 2), right = x + (width / 2), top = y - (height / 2),
+        bottom = y + (height / 2), polygon = [
+            [left, top],
+            [right, top],
+            [right, bottom],
+            [left, bottom]
+        ];
     return polygon.map(function (point) {
         return rotate2DToPoint(point, origin, -rotation);
     });
@@ -212,8 +214,9 @@ var getBoundingBoxFromPolygon = function (points) {
  * @private
  */
 var isPolygonsOverlappingOnAxis = function (axis, polygon1, polygon2) {
-    var projection1 = project(polygon1, axis), projection2 = project(polygon2, axis), isOverlapping = !(projection2.min > projection1.max ||
-        projection2.max < projection1.min);
+    var projection1 = project(polygon1, axis), projection2 = project(polygon2, axis),
+        isOverlapping = !(projection2.min > projection1.max ||
+            projection2.max < projection1.min);
     return !isOverlapping;
 };
 /**

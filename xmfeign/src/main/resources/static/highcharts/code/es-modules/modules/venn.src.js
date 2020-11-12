@@ -23,9 +23,20 @@ import NelderMeadModule from '../mixins/nelder-mead.js';
 // TODO: replace with individual imports
 var nelderMead = NelderMeadModule.nelderMead;
 import U from '../parts/Utilities.js';
+
 var isArray = U.isArray, isNumber = U.isNumber, isObject = U.isObject, isString = U.isString;
 import '../parts/Series.js';
-var addEvent = H.addEvent, color = H.Color, extend = H.extend, getAreaOfCircle = geometryCircles.getAreaOfCircle, getAreaOfIntersectionBetweenCircles = geometryCircles.getAreaOfIntersectionBetweenCircles, getCirclesIntersectionPolygon = geometryCircles.getCirclesIntersectionPolygon, getCircleCircleIntersection = geometryCircles.getCircleCircleIntersection, getCenterOfPoints = geometry.getCenterOfPoints, getDistanceBetweenPoints = geometry.getDistanceBetweenPoints, getOverlapBetweenCirclesByDistance = geometryCircles.getOverlapBetweenCircles, isPointInsideAllCircles = geometryCircles.isPointInsideAllCircles, isPointInsideCircle = geometryCircles.isPointInsideCircle, isPointOutsideAllCircles = geometryCircles.isPointOutsideAllCircles, merge = H.merge, seriesType = H.seriesType, seriesTypes = H.seriesTypes;
+
+var addEvent = H.addEvent, color = H.Color, extend = H.extend, getAreaOfCircle = geometryCircles.getAreaOfCircle,
+    getAreaOfIntersectionBetweenCircles = geometryCircles.getAreaOfIntersectionBetweenCircles,
+    getCirclesIntersectionPolygon = geometryCircles.getCirclesIntersectionPolygon,
+    getCircleCircleIntersection = geometryCircles.getCircleCircleIntersection,
+    getCenterOfPoints = geometry.getCenterOfPoints, getDistanceBetweenPoints = geometry.getDistanceBetweenPoints,
+    getOverlapBetweenCirclesByDistance = geometryCircles.getOverlapBetweenCircles,
+    isPointInsideAllCircles = geometryCircles.isPointInsideAllCircles,
+    isPointInsideCircle = geometryCircles.isPointInsideCircle,
+    isPointOutsideAllCircles = geometryCircles.isPointOutsideAllCircles, merge = H.merge, seriesType = H.seriesType,
+    seriesTypes = H.seriesTypes;
 var objectValues = function objectValues(obj) {
     return Object.keys(obj).map(function (x) {
         return obj[x];
@@ -71,10 +82,10 @@ var loss = function loss(mapOfIdToCircle, relations) {
             var wantedOverlap = relation.value;
             // Calculate the actual overlap between the sets.
             var actualOverlap = getOverlapBetweenCircles(
-            // Get the circles for the given sets.
-            relation.sets.map(function (set) {
-                return mapOfIdToCircle[set];
-            }));
+                // Get the circles for the given sets.
+                relation.sets.map(function (set) {
+                    return mapOfIdToCircle[set];
+                }));
             var diff = wantedOverlap - actualOverlap;
             loss = Math.round((diff * diff) * precision) / precision;
         }
@@ -107,17 +118,14 @@ var bisect = function bisect(f, a, b, tolerance, maxIterations) {
     var fA = f(a), fB = f(b), nMax = maxIterations || 100, tol = tolerance || 1e-10, delta = b - a, n = 1, x, fX;
     if (a >= b) {
         throw new Error('a must be smaller than b.');
-    }
-    else if (fA * fB > 0) {
+    } else if (fA * fB > 0) {
         throw new Error('f(a) and f(b) must have opposite signs.');
     }
     if (fA === 0) {
         x = a;
-    }
-    else if (fB === 0) {
+    } else if (fB === 0) {
         x = b;
-    }
-    else {
+    } else {
         while (n++ <= nMax && fX !== 0 && delta > tol) {
             delta = (b - a) / 2;
             x = a + delta;
@@ -125,8 +133,7 @@ var bisect = function bisect(f, a, b, tolerance, maxIterations) {
             // Update low and high for next search interval.
             if (fA * fX > 0) {
                 a = x;
-            }
-            else {
+            } else {
                 b = x;
             }
         }
@@ -154,13 +161,11 @@ var getDistanceBetweenCirclesByOverlap = function getDistanceBetweenCirclesByOve
     if (overlap <= 0) {
         // If overlap is below or equal to zero, then there is no overlap.
         distance = maxDistance;
-    }
-    else if (getAreaOfCircle(r1 < r2 ? r1 : r2) <= overlap) {
+    } else if (getAreaOfCircle(r1 < r2 ? r1 : r2) <= overlap) {
         // When area of overlap is larger than the area of the smallest circle,
         // then it is completely overlapping.
         distance = 0;
-    }
-    else {
+    } else {
         distance = bisect(function (x) {
             var actualOverlap = getOverlapBetweenCirclesByDistance(r1, r2, x);
             // Return the differance between wanted and actual overlap.
@@ -219,30 +224,30 @@ var getLabelPosition = function getLabelPosition(internal, external) {
         // Give a set of points with the circle to evaluate as the best label
         // position.
         return [
-            { x: circle.x, y: circle.y },
-            { x: circle.x + d, y: circle.y },
-            { x: circle.x - d, y: circle.y },
-            { x: circle.x, y: circle.y + d },
-            { x: circle.x, y: circle.y - d }
+            {x: circle.x, y: circle.y},
+            {x: circle.x + d, y: circle.y},
+            {x: circle.x - d, y: circle.y},
+            {x: circle.x, y: circle.y + d},
+            {x: circle.x, y: circle.y - d}
         ]
             // Iterate the given points and return the one with the largest
             // margin.
             .reduce(function (best, point) {
-            var margin = getMarginFromCircles(point, internal, external);
-            // If the margin better than the current best, then update best.
-            if (best.margin < margin) {
-                best.point = point;
-                best.margin = margin;
-            }
-            return best;
-        }, best);
+                var margin = getMarginFromCircles(point, internal, external);
+                // If the margin better than the current best, then update best.
+                if (best.margin < margin) {
+                    best.point = point;
+                    best.margin = margin;
+                }
+                return best;
+            }, best);
     }, {
         point: undefined,
         margin: -Number.MAX_VALUE
     }).point;
     // Use nelder mead to optimize the initial label position.
     var optimal = nelderMead(function (p) {
-        return -(getMarginFromCircles({ x: p[0], y: p[1] }, internal, external));
+        return -(getMarginFromCircles({x: p[0], y: p[1]}, internal, external));
     }, [best.x, best.y]);
     // Update best to be the point which was found to have the best margin.
     best = {
@@ -255,8 +260,7 @@ var getLabelPosition = function getLabelPosition(internal, external) {
         // external, then it was invalid and should use a fallback.
         if (internal.length > 1) {
             best = getCenterOfPoints(getCirclesIntersectionPolygon(internal));
-        }
-        else {
+        } else {
             best = {
                 x: internal[0].x,
                 y: internal[0].y
@@ -283,12 +287,12 @@ var getLabelPosition = function getLabelPosition(internal, external) {
  */
 var getLabelWidth = function getLabelWidth(pos, internal, external) {
     var radius = internal.reduce(function (min, circle) {
-        return Math.min(circle.r, min);
-    }, Infinity), 
-    // Filter out external circles that are completely overlapping.
-    filteredExternals = external.filter(function (circle) {
-        return !isPointInsideCircle(pos, circle);
-    });
+            return Math.min(circle.r, min);
+        }, Infinity),
+        // Filter out external circles that are completely overlapping.
+        filteredExternals = external.filter(function (circle) {
+            return !isPointInsideCircle(pos, circle);
+        });
     var findDistance = function (maxDistance, direction) {
         return bisect(function (x) {
             var testPos = {
@@ -318,23 +322,23 @@ var getLabelValues = function getLabelValues(relations) {
     var singleSets = relations.filter(isSet);
     return relations.reduce(function (map, relation) {
         if (relation.value) {
-            var sets = relation.sets, id = sets.join(), 
-            // Create a list of internal and external circles.
-            data = singleSets.reduce(function (data, set) {
-                // If the set exists in this relation, then it is internal,
-                // otherwise it will be external.
-                var isInternal = sets.indexOf(set.sets[0]) > -1, property = isInternal ? 'internal' : 'external';
-                // Add the circle to the list.
-                data[property].push(set.circle);
-                return data;
-            }, {
-                internal: [],
-                external: []
-            }), 
-            // Calulate the label position.
-            position = getLabelPosition(data.internal, data.external), 
-            // Calculate the label width
-            width = getLabelWidth(position, data.internal, data.external);
+            var sets = relation.sets, id = sets.join(),
+                // Create a list of internal and external circles.
+                data = singleSets.reduce(function (data, set) {
+                    // If the set exists in this relation, then it is internal,
+                    // otherwise it will be external.
+                    var isInternal = sets.indexOf(set.sets[0]) > -1, property = isInternal ? 'internal' : 'external';
+                    // Add the circle to the list.
+                    data[property].push(set.circle);
+                    return data;
+                }, {
+                    internal: [],
+                    external: []
+                }),
+                // Calulate the label position.
+                position = getLabelPosition(data.internal, data.external),
+                // Calculate the label width
+                width = getLabelWidth(position, data.internal, data.external);
             map[id] = {
                 position: position,
                 width: width
@@ -361,31 +365,31 @@ var addOverlapToSets = function addOverlapToSets(relations) {
     var mapOfIdToProps = relations
         // Filter out relations consisting of 2 sets.
         .filter(function (relation) {
-        return relation.sets.length === 2;
-    })
+            return relation.sets.length === 2;
+        })
         // Sum up the amount of overlap for each set.
         .reduce(function (map, relation) {
-        var sets = relation.sets;
-        sets.forEach(function (set, i, arr) {
-            if (!isObject(map[set])) {
-                map[set] = {
-                    overlapping: {},
-                    totalOverlap: 0
-                };
-            }
-            map[set].totalOverlap += relation.value;
-            map[set].overlapping[arr[1 - i]] = relation.value;
-        });
-        return map;
-    }, {});
+            var sets = relation.sets;
+            sets.forEach(function (set, i, arr) {
+                if (!isObject(map[set])) {
+                    map[set] = {
+                        overlapping: {},
+                        totalOverlap: 0
+                    };
+                }
+                map[set].totalOverlap += relation.value;
+                map[set].overlapping[arr[1 - i]] = relation.value;
+            });
+            return map;
+        }, {});
     relations
         // Filter out single sets
         .filter(isSet)
         // Extend the set with the calculated properties.
         .forEach(function (set) {
-        var properties = mapOfIdToProps[set.sets[0]];
-        extend(set, properties);
-    });
+            var properties = mapOfIdToProps[set.sets[0]];
+            extend(set, properties);
+        });
     // Returns the modified relations.
     return relations;
 };
@@ -413,8 +417,8 @@ var layoutGreedyVenn = function layoutGreedyVenn(relations) {
     // Define a circle for each set.
     relations
         .filter(function (relation) {
-        return relation.sets.length === 1;
-    }).forEach(function (relation) {
+            return relation.sets.length === 1;
+        }).forEach(function (relation) {
         mapOfIdToCircles[relation.sets[0]] = relation.circle = {
             x: Number.MAX_VALUE,
             y: Number.MAX_VALUE,
@@ -444,7 +448,7 @@ var layoutGreedyVenn = function layoutGreedyVenn(relations) {
         .filter(isSet)
         .sort(sortByTotalOverlap);
     // Position the most overlapped set at 0,0.
-    positionSet(sortedByOverlap.shift(), { x: 0, y: 0 });
+    positionSet(sortedByOverlap.shift(), {x: 0, y: 0});
     var relationsWithTwoSets = relations.filter(function (x) {
         return x.sets.length === 2;
     });
@@ -453,51 +457,52 @@ var layoutGreedyVenn = function layoutGreedyVenn(relations) {
         var circle = set.circle, radius = circle.r, overlapping = set.overlapping;
         var bestPosition = positionedSets
             .reduce(function (best, positionedSet, i) {
-            var positionedCircle = positionedSet.circle, overlap = overlapping[positionedSet.sets[0]];
-            // Calculate the distance between the sets to get the correct
-            // overlap
-            var distance = getDistanceBetweenCirclesByOverlap(radius, positionedCircle.r, overlap);
-            // Create a list of possible coordinates calculated from
-            // distance.
-            var possibleCoordinates = [
-                { x: positionedCircle.x + distance, y: positionedCircle.y },
-                { x: positionedCircle.x - distance, y: positionedCircle.y },
-                { x: positionedCircle.x, y: positionedCircle.y + distance },
-                { x: positionedCircle.x, y: positionedCircle.y - distance }
-            ];
-            // If there are more circles overlapping, then add the
-            // intersection points as possible positions.
-            positionedSets.slice(i + 1).forEach(function (positionedSet2) {
-                var positionedCircle2 = positionedSet2.circle, overlap2 = overlapping[positionedSet2.sets[0]], distance2 = getDistanceBetweenCirclesByOverlap(radius, positionedCircle2.r, overlap2);
-                // Add intersections to list of coordinates.
-                possibleCoordinates = possibleCoordinates.concat(getCircleCircleIntersection({
-                    x: positionedCircle.x,
-                    y: positionedCircle.y,
-                    r: distance
-                }, {
-                    x: positionedCircle2.x,
-                    y: positionedCircle2.y,
-                    r: distance2
-                }));
+                var positionedCircle = positionedSet.circle, overlap = overlapping[positionedSet.sets[0]];
+                // Calculate the distance between the sets to get the correct
+                // overlap
+                var distance = getDistanceBetweenCirclesByOverlap(radius, positionedCircle.r, overlap);
+                // Create a list of possible coordinates calculated from
+                // distance.
+                var possibleCoordinates = [
+                    {x: positionedCircle.x + distance, y: positionedCircle.y},
+                    {x: positionedCircle.x - distance, y: positionedCircle.y},
+                    {x: positionedCircle.x, y: positionedCircle.y + distance},
+                    {x: positionedCircle.x, y: positionedCircle.y - distance}
+                ];
+                // If there are more circles overlapping, then add the
+                // intersection points as possible positions.
+                positionedSets.slice(i + 1).forEach(function (positionedSet2) {
+                    var positionedCircle2 = positionedSet2.circle, overlap2 = overlapping[positionedSet2.sets[0]],
+                        distance2 = getDistanceBetweenCirclesByOverlap(radius, positionedCircle2.r, overlap2);
+                    // Add intersections to list of coordinates.
+                    possibleCoordinates = possibleCoordinates.concat(getCircleCircleIntersection({
+                        x: positionedCircle.x,
+                        y: positionedCircle.y,
+                        r: distance
+                    }, {
+                        x: positionedCircle2.x,
+                        y: positionedCircle2.y,
+                        r: distance2
+                    }));
+                });
+                // Iterate all suggested coordinates and find the best one.
+                possibleCoordinates.forEach(function (coordinates) {
+                    circle.x = coordinates.x;
+                    circle.y = coordinates.y;
+                    // Calculate loss for the suggested coordinates.
+                    var currentLoss = loss(mapOfIdToCircles, relationsWithTwoSets);
+                    // If the loss is better, then use these new coordinates.
+                    if (currentLoss < best.loss) {
+                        best.loss = currentLoss;
+                        best.coordinates = coordinates;
+                    }
+                });
+                // Return resulting coordinates.
+                return best;
+            }, {
+                loss: Number.MAX_VALUE,
+                coordinates: undefined
             });
-            // Iterate all suggested coordinates and find the best one.
-            possibleCoordinates.forEach(function (coordinates) {
-                circle.x = coordinates.x;
-                circle.y = coordinates.y;
-                // Calculate loss for the suggested coordinates.
-                var currentLoss = loss(mapOfIdToCircles, relationsWithTwoSets);
-                // If the loss is better, then use these new coordinates.
-                if (currentLoss < best.loss) {
-                    best.loss = currentLoss;
-                    best.coordinates = coordinates;
-                }
-            });
-            // Return resulting coordinates.
-            return best;
-        }, {
-            loss: Number.MAX_VALUE,
-            coordinates: undefined
-        });
         // Add the set to its final position.
         positionSet(set, bestPosition.coordinates);
     });
@@ -520,16 +525,16 @@ var layout = function (relations) {
         mapOfIdToShape = layoutGreedyVenn(relations);
         relations
             .filter(function (x) {
-            return !isSet(x);
-        })
+                return !isSet(x);
+            })
             .forEach(function (relation) {
-            var sets = relation.sets, id = sets.join(), circles = sets.map(function (set) {
-                return mapOfIdToShape[set];
+                var sets = relation.sets, id = sets.join(), circles = sets.map(function (set) {
+                    return mapOfIdToShape[set];
+                });
+                // Add intersection shape to map
+                mapOfIdToShape[id] =
+                    getAreaOfIntersectionBetweenCircles(circles);
             });
-            // Add intersection shape to map
-            mapOfIdToShape[id] =
-                getAreaOfIntersectionBetweenCircles(circles);
-        });
     }
     return mapOfIdToShape;
 };
@@ -542,8 +547,7 @@ var isValidRelation = function (x) {
             var invalid = false;
             if (!map[set] && isString(set)) {
                 map[set] = true;
-            }
-            else {
+            } else {
                 invalid = true;
             }
             return invalid;
@@ -565,12 +569,12 @@ var processVennData = function processVennData(data) {
     var d = isArray(data) ? data : [];
     var validSets = d
         .reduce(function (arr, x) {
-        // Check if x is a valid set, and that it is not an duplicate.
-        if (isValidSet(x) && arr.indexOf(x.sets[0]) === -1) {
-            arr.push(x.sets[0]);
-        }
-        return arr;
-    }, [])
+            // Check if x is a valid set, and that it is not an duplicate.
+            if (isValidSet(x) && arr.indexOf(x.sets[0]) === -1) {
+                arr.push(x.sets[0]);
+            }
+            return arr;
+        }, [])
         .sort();
     var mapOfIdToRelation = d.reduce(function (mapOfIdToRelation, relation) {
         if (isValidRelation(relation) &&
@@ -616,7 +620,9 @@ var processVennData = function processVennData(data) {
  */
 var getScale = function getScale(targetWidth, targetHeight, field) {
     var height = field.bottom - field.top, // top is smaller than bottom
-    width = field.right - field.left, scaleX = width > 0 ? 1 / width * targetWidth : 1, scaleY = height > 0 ? 1 / height * targetHeight : 1, adjustX = (field.right + field.left) / 2, adjustY = (field.top + field.bottom) / 2, scale = Math.min(scaleX, scaleY);
+        width = field.right - field.left, scaleX = width > 0 ? 1 / width * targetWidth : 1,
+        scaleY = height > 0 ? 1 / height * targetHeight : 1, adjustX = (field.right + field.left) / 2,
+        adjustY = (field.top + field.bottom) / 2, scale = Math.min(scaleX, scaleY);
     return {
         scale: scale,
         centerX: targetWidth / 2 - adjustX * scale,
@@ -637,7 +643,8 @@ var getScale = function getScale(targetWidth, targetHeight, field) {
  * Returns a modified field object.
  */
 var updateFieldBoundaries = function updateFieldBoundaries(field, circle) {
-    var left = circle.x - circle.r, right = circle.x + circle.r, bottom = circle.y + circle.r, top = circle.y - circle.r;
+    var left = circle.x - circle.r, right = circle.x + circle.r, bottom = circle.y + circle.r,
+        top = circle.y - circle.r;
     // TODO improve type checking.
     if (!isNumber(field.left) || field.left > left) {
         field.left = left;
@@ -739,16 +746,19 @@ var vennSeries = {
         var mapOfIdToLabelValues = getLabelValues(relations);
         // Calculate the scale, and center of the plot area.
         var field = Object.keys(mapOfIdToShape)
-            .filter(function (key) {
-            var shape = mapOfIdToShape[key];
-            return shape && isNumber(shape.r);
-        })
-            .reduce(function (field, key) {
-            return updateFieldBoundaries(field, mapOfIdToShape[key]);
-        }, { top: 0, bottom: 0, left: 0, right: 0 }), scaling = getScale(chart.plotWidth, chart.plotHeight, field), scale = scaling.scale, centerX = scaling.centerX, centerY = scaling.centerY;
+                .filter(function (key) {
+                    var shape = mapOfIdToShape[key];
+                    return shape && isNumber(shape.r);
+                })
+                .reduce(function (field, key) {
+                    return updateFieldBoundaries(field, mapOfIdToShape[key]);
+                }, {top: 0, bottom: 0, left: 0, right: 0}), scaling = getScale(chart.plotWidth, chart.plotHeight, field),
+            scale = scaling.scale, centerX = scaling.centerX, centerY = scaling.centerY;
         // Iterate all points and calculate and draw their graphics.
         this.points.forEach(function (point) {
-            var sets = isArray(point.sets) ? point.sets : [], id = sets.join(), shape = mapOfIdToShape[id], shapeArgs, dataLabelValues = mapOfIdToLabelValues[id] || {}, dataLabelWidth = dataLabelValues.width, dataLabelPosition = dataLabelValues.position, dlOptions = point.options && point.options.dataLabels;
+            var sets = isArray(point.sets) ? point.sets : [], id = sets.join(), shape = mapOfIdToShape[id], shapeArgs,
+                dataLabelValues = mapOfIdToLabelValues[id] || {}, dataLabelWidth = dataLabelValues.width,
+                dataLabelPosition = dataLabelValues.position, dlOptions = point.options && point.options.dataLabels;
             if (shape) {
                 if (shape.r) {
                     shapeArgs = {
@@ -756,15 +766,13 @@ var vennSeries = {
                         y: centerY + shape.y * scale,
                         r: shape.r * scale
                     };
-                }
-                else if (shape.d) {
+                } else if (shape.d) {
                     // TODO: find a better way to handle scaling of a path.
                     var d = shape.d.reduce(function (path, arr) {
                         if (arr[0] === 'M') {
                             arr[1] = centerX + arr[1] * scale;
                             arr[2] = centerY + arr[2] * scale;
-                        }
-                        else if (arr[0] === 'A') {
+                        } else if (arr[0] === 'A') {
                             arr[1] = arr[1] * scale;
                             arr[2] = arr[2] * scale;
                             arr[6] = centerX + arr[6] * scale;
@@ -781,8 +789,7 @@ var vennSeries = {
                 if (dataLabelPosition) {
                     dataLabelPosition.x = centerX + dataLabelPosition.x * scale;
                     dataLabelPosition.y = centerY + dataLabelPosition.y * scale;
-                }
-                else {
+                } else {
                     dataLabelPosition = {};
                 }
                 if (isNumber(dataLabelWidth)) {
@@ -813,11 +820,11 @@ var vennSeries = {
      * @private
      */
     drawPoints: function () {
-        var series = this, 
-        // Series properties
-        chart = series.chart, group = series.group, points = series.points || [], 
-        // Chart properties
-        renderer = chart.renderer;
+        var series = this,
+            // Series properties
+            chart = series.chart, group = series.group, points = series.points || [],
+            // Chart properties
+            renderer = chart.renderer;
         // Iterate all points and calculate and draw their graphics.
         points.forEach(function (point) {
             var attribs = {
@@ -850,7 +857,9 @@ var vennSeries = {
      * Returns the calculated attributes.
      */
     pointAttribs: function (point, state) {
-        var series = this, seriesOptions = series.options || {}, pointOptions = point && point.options || {}, stateOptions = (state && seriesOptions.states[state]) || {}, options = merge(seriesOptions, { color: point && point.color }, pointOptions, stateOptions);
+        var series = this, seriesOptions = series.options || {}, pointOptions = point && point.options || {},
+            stateOptions = (state && seriesOptions.states[state]) || {},
+            options = merge(seriesOptions, {color: point && point.color}, pointOptions, stateOptions);
         // Return resulting values for the attributes.
         return {
             'fill': color(options.color)
@@ -873,8 +882,7 @@ var vennSeries = {
                     if (args.d) {
                         // If shape is a path, then animate opacity.
                         attr.opacity = 0.001;
-                    }
-                    else {
+                    } else {
                         // If shape is a circle, then animate radius.
                         attr.r = 0;
                         animate.r = args.r;

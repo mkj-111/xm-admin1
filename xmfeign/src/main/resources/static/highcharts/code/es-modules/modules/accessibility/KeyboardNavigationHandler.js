@@ -11,6 +11,7 @@
 'use strict';
 
 import H from '../../parts/Globals.js';
+
 var find = H.find;
 
 
@@ -60,6 +61,7 @@ function KeyboardNavigationHandler(chart, options) {
         fail: 5 // Handler failed
     };
 }
+
 KeyboardNavigationHandler.prototype = {
 
     /**

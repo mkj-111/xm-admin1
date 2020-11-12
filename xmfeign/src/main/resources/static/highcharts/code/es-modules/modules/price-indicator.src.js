@@ -10,6 +10,7 @@
 'use strict';
 import H from '../parts/Globals.js';
 import U from '../parts/Utilities.js';
+
 var isArray = U.isArray;
 var addEvent = H.addEvent, merge = H.merge;
 /**
@@ -68,10 +69,13 @@ var addEvent = H.addEvent, merge = H.merge;
  */
 /* eslint-disable no-invalid-this */
 addEvent(H.Series, 'afterRender', function () {
-    var serie = this, seriesOptions = serie.options, pointRange = seriesOptions.pointRange, lastVisiblePrice = seriesOptions.lastVisiblePrice, lastPrice = seriesOptions.lastPrice;
+    var serie = this, seriesOptions = serie.options, pointRange = seriesOptions.pointRange,
+        lastVisiblePrice = seriesOptions.lastVisiblePrice, lastPrice = seriesOptions.lastPrice;
     if ((lastVisiblePrice || lastPrice) &&
         seriesOptions.id !== 'highcharts-navigator-series') {
-        var xAxis = serie.xAxis, yAxis = serie.yAxis, origOptions = yAxis.crosshair, origGraphic = yAxis.cross, origLabel = yAxis.crossLabel, points = serie.points, yLength = serie.yData.length, pLength = points.length, x = serie.xData[serie.xData.length - 1], y = serie.yData[yLength - 1], lastPoint, yValue, crop;
+        var xAxis = serie.xAxis, yAxis = serie.yAxis, origOptions = yAxis.crosshair, origGraphic = yAxis.cross,
+            origLabel = yAxis.crossLabel, points = serie.points, yLength = serie.yData.length, pLength = points.length,
+            x = serie.xData[serie.xData.length - 1], y = serie.yData[yLength - 1], lastPoint, yValue, crop;
         if (lastPrice && lastPrice.enabled) {
             yAxis.crosshair = yAxis.options.crosshair = seriesOptions.lastPrice;
             yAxis.cross = serie.lastPrice;

@@ -24,7 +24,7 @@ public class MkjColorController {
 
     @RequestMapping("findcolor")
     @ResponseBody
-    public List<ColorBean>findcolor(String goodsname){
+    public List<ColorBean> findcolor(String goodsname) {
         return mkjColorService.findcolor(goodsname);
     }
 }

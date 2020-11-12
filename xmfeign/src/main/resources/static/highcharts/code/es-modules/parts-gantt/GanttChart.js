@@ -12,8 +12,10 @@
 'use strict';
 import H from '../parts/Globals.js';
 import U from '../parts/Utilities.js';
+
 var isArray = U.isArray, splat = U.splat;
 import './GanttSeries.js';
+
 var merge = H.merge, Chart = H.Chart;
 /**
  * Factory function for Gantt charts.
@@ -47,7 +49,8 @@ var merge = H.merge, Chart = H.Chart;
  *         Returns the Chart object.
  */
 H.ganttChart = function (renderTo, options, callback) {
-    var hasRenderToArg = typeof renderTo === 'string' || renderTo.nodeName, seriesOptions = options.series, defaultOptions = H.getOptions(), defaultLinkedTo, userOptions = options;
+    var hasRenderToArg = typeof renderTo === 'string' || renderTo.nodeName, seriesOptions = options.series,
+        defaultOptions = H.getOptions(), defaultLinkedTo, userOptions = options;
     options = arguments[hasRenderToArg ? 1 : 0];
     // If user hasn't defined axes as array, make it into an array and add a
     // second axis by default.
@@ -60,47 +63,47 @@ H.ganttChart = function (renderTo, options, callback) {
             defaultLinkedTo = 0;
         }
         return merge(defaultOptions.xAxis, {
-            grid: {
-                enabled: true
-            },
-            opposite: true,
-            linkedTo: defaultLinkedTo
-        }, xAxisOptions, // user options
-        {
-            type: 'datetime'
-        });
+                grid: {
+                    enabled: true
+                },
+                opposite: true,
+                linkedTo: defaultLinkedTo
+            }, xAxisOptions, // user options
+            {
+                type: 'datetime'
+            });
     });
     // apply Y axis options to both single and multi y axes
     options.yAxis = (splat(options.yAxis || {})).map(function (yAxisOptions) {
         return merge(defaultOptions.yAxis, // #3802
-        {
-            grid: {
-                enabled: true
-            },
-            staticScale: 50,
-            reversed: true,
-            // Set default type treegrid, but only if 'categories' is
-            // undefined
-            type: yAxisOptions.categories ? yAxisOptions.type : 'treegrid'
-        }, yAxisOptions // user options
+            {
+                grid: {
+                    enabled: true
+                },
+                staticScale: 50,
+                reversed: true,
+                // Set default type treegrid, but only if 'categories' is
+                // undefined
+                type: yAxisOptions.categories ? yAxisOptions.type : 'treegrid'
+            }, yAxisOptions // user options
         );
     });
     options.series = null;
     options = merge(true, {
-        chart: {
-            type: 'gantt'
-        },
-        title: {
-            text: null
-        },
-        legend: {
-            enabled: false
-        }
-    }, options, // user's options
-    // forced options
-    {
-        isGantt: true
-    });
+            chart: {
+                type: 'gantt'
+            },
+            title: {
+                text: null
+            },
+            legend: {
+                enabled: false
+            }
+        }, options, // user's options
+        // forced options
+        {
+            isGantt: true
+        });
     options.series = userOptions.series = seriesOptions;
     options.series.forEach(function (series) {
         series.data.forEach(function (point) {

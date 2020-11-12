@@ -1,4 +1,4 @@
-.afterbody{
+.afterbody {
     width: 1226px;
     height: 600px;
     /*background-color: lightgoldenrodyellow;*/
@@ -7,58 +7,68 @@
     right: 0;
     margin: 0 auto;
 }
-.centre_service{
-	text-align: center;
-	width: 1226px;
+
+.centre_service {
+    text-align: center;
+    width: 1226px;
     padding: 27px 0;
     height: 25px;
     background-color: #ffffff;
     border-bottom: 1px solid #e0e0e0;
 }
-.centre_service ul li{
-	float: left;
+
+.centre_service ul li {
+    float: left;
     width: 239px;
     height: 25px;
     line-height: 25px;
     text-align: center;
     font-size: 16px;
-     background-color: #ffffff;
+    background-color: #ffffff;
 }
-.centre_service ul li a{
+
+.centre_service ul li a {
     color: #616161;
     display: block;
 }
-.centre_service ul li a:hover{
+
+.centre_service ul li a:hover {
     color: #ff6700;
     text-decoration: none;
 }
-.centre-service-link{
+
+.centre-service-link {
     width: 1226px;
     height: 112px;
-    padding: 40px 0 ;
+    padding: 40px 0;
     text-align: center;
 }
-.centre-service-link ul li{
+
+.centre-service-link ul li {
     width: 160px;
     height: 112px;
     float: left;
 }
-.service-a{
+
+.service-a {
     color: #757575;
     font-size: 12px;
     display: block;
     margin-bottom: 20px;
 }
-.service-a:hover{
+
+.service-a:hover {
     color: #ff6700;
     text-decoration: none;
 }
-.callme{
+
+.callme {
     width: 252px;
     height: 112px;
     float: right;
 }
-.relation{
+
+.relation {
     height: 29px;
     width: 120px;
     margin-top: 20px;
@@ -67,64 +77,75 @@
     line-height: 29px;
     border: 1px solid #ff6700;
 }
-.relation a{
+
+.relation a {
     width: 120px;
     height: 29px;
     color: #ff6700;
     display: block;
 
 }
-.relation a:hover{
+
+.relation a:hover {
     background-color: #ff6700;
     color: #ffffff;
     text-decoration: none;
 }
-.firm{
+
+.firm {
     width: 100%;
     padding: 30px 0;
     height: 220px;
     background-color: #fafafa;
 }
-.below-1{
-	width: 1156px;
-	height: 50px;
+
+.below-1 {
+    width: 1156px;
+    height: 50px;
     float: left;
     font-size: 8px;
     /*border: 1px solid yellow;*/
 }
-.below-1 a{
+
+.below-1 a {
     color: #757575;
 
 }
-.below-2{
+
+.below-2 {
     width: 1156px;
     height: 130px;
     /*border: 1px solid yellow;*/
     margin-left: 56px;
 }
-.below-2 a{
+
+.below-2 a {
     color: #b0b0b0;
     font-size: 14px;
     height: 54px;
     line-height: 18px;
 }
-.make-img img{
+
+.make-img img {
     width: 85px;
     height: 28px;
 }
-.make-img{
+
+.make-img {
     width: 1156px;
     height: 38px;
     margin-left: 56px;
 }
-.spn-new{
+
+.spn-new {
     margin-left: 3px;
     margin-right: 3px;
     color: #b0b0b0;
     font-size: 12px;
     font-family: sans-serif;
 }
-.xiaomi{
+
+.xiaomi {
     width: 1226px;
     font-size: 20px;
     color: #b0b0b0;
@@ -132,11 +153,13 @@
     margin-bottom: 5px;
     height: 19px;
 }
-.below-1 a:hover{
+
+.below-1 a:hover {
     text-decoration: none;
     color: #ff532e;
 }
-.below-2 a:hover{
+
+.below-2 a:hover {
     text-decoration: none;
     color: #ff532e;
 }

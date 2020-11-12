@@ -18,7 +18,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public xmuser login(xmuser user) {
 
-        xmuser user1=UserMapper.findUserByName(user.getUserAccount());
+        xmuser user1 = UserMapper.findUserByName(user.getUserAccount());
 
         return user1;
     }

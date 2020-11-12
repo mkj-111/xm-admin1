@@ -5,6 +5,7 @@
  * */
 import H from '../parts/Globals.js';
 import U from '../parts/Utilities.js';
+
 var defined = U.defined, extend = U.extend, pick = U.pick;
 var Point = H.Point;
 H.NodesMixin = {
@@ -23,6 +24,7 @@ H.NodesMixin = {
                 return node.id === id;
             });
         }
+
         var node = findById(this.nodes, id), PointClass = this.pointClass, options;
         if (!node) {
             options = this.options.nodes && findById(this.options.nodes, id);
@@ -38,12 +40,12 @@ H.NodesMixin = {
             node.name = node.name || node.options.id; // for use in formats
             // Mass is used in networkgraph:
             node.mass = pick(
-            // Node:
-            node.options.mass, node.options.marker && node.options.marker.radius, 
-            // Series:
-            this.options.marker && this.options.marker.radius, 
-            // Default:
-            4);
+                // Node:
+                node.options.mass, node.options.marker && node.options.marker.radius,
+                // Series:
+                this.options.marker && this.options.marker.radius,
+                // Default:
+                4);
             /**
              * Return the largest sum of either the incoming or outgoing links.
              * @private
@@ -115,8 +117,7 @@ H.NodesMixin = {
                 // Point color defaults to the fromNode's color
                 if (chart.styledMode) {
                     point.colorIndex = pick(point.options.colorIndex, nodeLookup[point.from].colorIndex);
-                }
-                else {
+                } else {
                     point.color =
                         point.options.color || nodeLookup[point.from].color;
                 }

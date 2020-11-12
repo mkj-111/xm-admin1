@@ -23,6 +23,7 @@ import H from './Globals.js';
  */
 import './Chart.js';
 import U from './Utilities.js';
+
 var isArray = U.isArray, isObject = U.isObject, objectEach = U.objectEach, pick = U.pick, splat = U.splat;
 var Chart = H.Chart;
 /**
@@ -146,7 +147,8 @@ var Chart = H.Chart;
  * @return {void}
  */
 Chart.prototype.setResponsive = function (redraw, reset) {
-    var options = this.options.responsive, ruleIds = [], currentResponsive = this.currentResponsive, currentRuleIds, undoOptions;
+    var options = this.options.responsive, ruleIds = [], currentResponsive = this.currentResponsive, currentRuleIds,
+        undoOptions;
     if (!reset && options && options.rules) {
         options.rules.forEach(function (rule) {
             if (rule._id === undefined) {
@@ -182,8 +184,7 @@ Chart.prototype.setResponsive = function (redraw, reset) {
                 undoOptions: undoOptions
             };
             this.update(mergedOptions, redraw, true);
-        }
-        else {
+        } else {
             this.currentResponsive = undefined;
         }
     }
@@ -201,7 +202,7 @@ Chart.prototype.matchResponsiveRule = function (rule, matches) {
     var condition = rule.condition, fn = condition.callback || function () {
         return (this.chartWidth <= pick(condition.maxWidth, Number.MAX_VALUE) &&
             this.chartHeight <=
-                pick(condition.maxHeight, Number.MAX_VALUE) &&
+            pick(condition.maxHeight, Number.MAX_VALUE) &&
             this.chartWidth >= pick(condition.minWidth, 0) &&
             this.chartHeight >= pick(condition.minHeight, 0));
     };
@@ -221,6 +222,7 @@ Chart.prototype.matchResponsiveRule = function (rule, matches) {
  */
 Chart.prototype.currentOptions = function (options) {
     var chart = this, ret = {};
+
     /**
      * Recurse over a set of options and its current values,
      * and store the current values in the ret object.
@@ -240,19 +242,17 @@ Chart.prototype.currentOptions = function (options) {
                         getCurrent(val[i], curr[key][i], ret[key][i], depth + 1);
                     }
                 }
-            }
-            else if (isObject(val)) {
+            } else if (isObject(val)) {
                 ret[key] = isArray(val) ? [] : {};
                 getCurrent(val, curr[key] || {}, ret[key], depth + 1);
-            }
-            else if (curr[key] === undefined) { // #10286
+            } else if (curr[key] === undefined) { // #10286
                 ret[key] = null;
-            }
-            else {
+            } else {
                 ret[key] = curr[key];
             }
         });
     }
+
     getCurrent(options, this.options, ret, 0);
     return ret;
 };

@@ -24,11 +24,13 @@
     }
 }(function (Highcharts) {
     var _modules = Highcharts ? Highcharts._modules : {};
+
     function _registerModule(obj, path, args, fn) {
         if (!obj.hasOwnProperty(path)) {
             obj[path] = fn.apply(null, args);
         }
     }
+
     _registerModule(_modules, 'modules/accessibility/KeyboardNavigationHandler.js', [_modules['parts/Globals.js']], function (H) {
         /* *
          *
@@ -90,6 +92,7 @@
                 fail: 5 // Handler failed
             };
         }
+
         KeyboardNavigationHandler.prototype = {
 
             /**
@@ -153,29 +156,34 @@
             /**
              * Called on component initialization.
              */
-            init: function () {},
+            init: function () {
+            },
 
             /**
              * Get keyboard navigation handler for this component.
              * @return {Highcharts.KeyboardNavigationHandler}
              */
-            getKeyboardNavigation: function () {},
+            getKeyboardNavigation: function () {
+            },
 
             /**
              * Called on updates to the chart, including options changes.
              * Note that this is also called on first render of chart.
              */
-            onChartUpdate: function () {},
+            onChartUpdate: function () {
+            },
 
             /**
              * Called on every chart render.
              */
-            onChartRender: function () {},
+            onChartRender: function () {
+            },
 
             /**
              * Called when accessibility is disabled or chart is destroyed.
              */
-            destroy: function () {}
+            destroy: function () {
+            }
         };
 
 
@@ -195,7 +203,9 @@
          * @class
          * @name Highcharts.AccessibilityComponent
          */
-        function AccessibilityComponent() {}
+        function AccessibilityComponent() {
+        }
+
         /**
          * @lends Highcharts.AccessibilityComponent
          */
@@ -397,7 +407,7 @@
                         height: rectEl.bottom - rectEl.top
                     };
                 }
-                return { x: 0, y: 0, width: 1, height: 1 };
+                return {x: 0, y: 0, width: 1, height: 1};
             },
 
 
@@ -603,6 +613,7 @@
         function KeyboardNavigation(chart, components, order) {
             this.init(chart, components, order);
         }
+
         KeyboardNavigation.prototype = {
 
             /**
@@ -826,7 +837,7 @@
                     exitAnchor = this.exitAnchor = doc.createElement('h6'),
                     keyboardNavigation = this,
                     exitAnchorLabel = chart.langFormat(
-                        'accessibility.svgContainerEnd', { chart: chart }
+                        'accessibility.svgContainerEnd', {chart: chart}
                     );
 
                 exitAnchor.innerHTML = exitAnchorLabel;
@@ -885,7 +896,7 @@
                                     keyboardNavigation.modules.length - 1;
                                 curModule = keyboardNavigation.modules[
                                     keyboardNavigation.currentModuleIx
-                                ];
+                                    ];
 
                                 // Validate the module
                                 if (
@@ -1078,7 +1089,8 @@
          * @class
          * @name Highcharts.LegendComponent
          */
-        var LegendComponent = function () {};
+        var LegendComponent = function () {
+        };
         LegendComponent.prototype = new AccessibilityComponent();
         extend(LegendComponent.prototype, /** @lends Highcharts.LegendComponent */ {
 
@@ -1199,7 +1211,7 @@
                         ], function () {
                             var legendItem = chart.legend.allItems[
                                 component.highlightedLegendItemIx
-                            ];
+                                ];
                             if (legendItem && legendItem.a11yProxyElement) {
                                 H.fireEvent(legendItem.a11yProxyElement, 'click');
                             }
@@ -1250,7 +1262,6 @@
 
 
         var extend = U.extend;
-
 
 
         /**
@@ -1380,7 +1391,8 @@
          * @class
          * @name Highcharts.MenuComponent
          */
-        var MenuComponent = function () {};
+        var MenuComponent = function () {
+        };
         MenuComponent.prototype = new AccessibilityComponent();
         extend(MenuComponent.prototype, /** @lends Highcharts.MenuComponent */ {
 
@@ -1458,7 +1470,7 @@
                         a11yOptions.landmarkVerbosity === 'all' ? {
                             'aria-label': chart.langFormat(
                                 'accessibility.exporting.exportRegionLabel',
-                                { chart: chart }
+                                {chart: chart}
                             ),
                             'role': 'region'
                         } : null
@@ -1471,7 +1483,7 @@
                         {
                             'aria-label': chart.langFormat(
                                 'accessibility.exporting.menuButtonLabel',
-                                { chart: chart }
+                                {chart: chart}
                             ),
                             'aria-expanded': 'false'
                         }
@@ -1507,7 +1519,7 @@
                     parentDiv.setAttribute(
                         'aria-label',
                         chart.langFormat(
-                            'accessibility.exporting.chartMenuLabel', { chart: chart }
+                            'accessibility.exporting.chartMenuLabel', {chart: chart}
                         )
                     );
                 }
@@ -1614,7 +1626,7 @@
 
                 // Try to highlight next item in list. Highlighting e.g.
                 // separators will fail.
-                for (;i < chart.exportDivElements.length; ++i) {
+                for (; i < chart.exportDivElements.length; ++i) {
                     if (chart.highlightExportItem(i)) {
                         return response.success;
                     }
@@ -1657,7 +1669,6 @@
          *  License: www.highcharts.com/license
          *
          * */
-
 
 
         var extend = U.extend,
@@ -1842,7 +1853,7 @@
                 // Skip all points in a series where pointNavigationThreshold is
                 // reached
                 (a11yOptions.pointNavigationThreshold &&
-                a11yOptions.pointNavigationThreshold <= series.points.length);
+                    a11yOptions.pointNavigationThreshold <= series.points.length);
         }
 
 
@@ -1895,9 +1906,9 @@
                     continue;
                 }
                 distance = (point.plotX - dPoint.plotX) *
-                        (point.plotX - dPoint.plotX) * (xWeight || 1) +
-                        (point.plotY - dPoint.plotY) *
-                        (point.plotY - dPoint.plotY) * (yWeight || 1);
+                    (point.plotX - dPoint.plotX) * (xWeight || 1) +
+                    (point.plotY - dPoint.plotY) *
+                    (point.plotY - dPoint.plotY) * (yWeight || 1);
                 if (distance < minDistance) {
                     minDistance = distance;
                     minIx = i;
@@ -1960,7 +1971,7 @@
                 curPoints = curPoint && curPoint.series.points,
                 lastSeries = chart.series && chart.series[chart.series.length - 1],
                 lastPoint = lastSeries && lastSeries.points &&
-                            lastSeries.points[lastSeries.points.length - 1],
+                    lastSeries.points[lastSeries.points.length - 1],
                 newSeries,
                 newPoint;
 
@@ -2064,7 +2075,7 @@
                 curPoint = chart.highlightedPoint,
                 lastSeries = chart.series && chart.series[chart.series.length - 1],
                 lastPoint = lastSeries && lastSeries.points &&
-                            lastSeries.points[lastSeries.points.length - 1];
+                    lastSeries.points[lastSeries.points.length - 1];
 
             // If no point is highlighted, highlight the first/last point
             if (!chart.highlightedPoint) {
@@ -2205,7 +2216,8 @@
          * @class
          * @name Highcharts.SeriesComponent
          */
-        var SeriesComponent = function () {};
+        var SeriesComponent = function () {
+        };
         SeriesComponent.prototype = new AccessibilityComponent();
         extend(SeriesComponent.prototype, /** @lends Highcharts.SeriesComponent */ {
 
@@ -2265,10 +2277,10 @@
                 chart.series.forEach(function (series) {
                     component[
                         (series.options.accessibility &&
-                        series.options.accessibility.enabled) !== false &&
+                            series.options.accessibility.enabled) !== false &&
                         series.visible ?
                             'addSeriesDescription' : 'hideSeriesFromScreenReader'
-                    ](series);
+                        ](series);
                 });
             },
 
@@ -2323,7 +2335,7 @@
 
                             // Normal mode, move between series
                             var highlightMethod = chart.highlightedPoint &&
-                                    chart.highlightedPoint.series.keyboardMoveVertical ?
+                            chart.highlightedPoint.series.keyboardMoveVertical ?
                                 'highlightAdjacentPointVertical' :
                                 'highlightAdjacentSeries';
 
@@ -2361,8 +2373,8 @@
                             // Find last valid point to highlight
                             while (i--) {
                                 chart.highlightedPoint = chart.series[i].points[
-                                    chart.series[i].points.length - 1
-                                ];
+                                chart.series[i].points.length - 1
+                                    ];
                                 // Highlight first valid point in the series will also
                                 // look backwards. It always starts from currently
                                 // highlighted point.
@@ -2472,7 +2484,7 @@
                         component.dirty.allSeries[series.name + series.index] = series;
                         // Add it to newSeries storage unless we already have one
                         component.dirty.newSeries = component.dirty.newSeries ===
-                            undefined ? series : null;
+                        undefined ? series : null;
                     }
                 });
                 // New point
@@ -2481,7 +2493,7 @@
                         this.chart.options.accessibility.announceNewData.enabled) {
                         // Add it to newPoint storage unless we already have one
                         component.dirty.newPoint = component.dirty.newPoint ===
-                            undefined ? e.point : null;
+                        undefined ? e.point : null;
                     }
                 });
                 // On redraw: compile what we know about new data, and build
@@ -2591,7 +2603,7 @@
                                     function () {
                                         component.announceRegion.innerHTML = '';
                                         delete
-                                        component.clearAnnouncementContainerTimer;
+                                            component.clearAnnouncementContainerTimer;
                                     }, 1000
                                 );
                                 delete component.queuedAnnouncement;
@@ -2637,7 +2649,7 @@
                     'accessibility.announceNewData.' + langKey, {
                         chartTitle: stripHTMLTags(
                             chart.options.title.text || chart.langFormat(
-                                'accessibility.defaultChartTitle', { chart: chart }
+                            'accessibility.defaultChartTitle', {chart: chart}
                             )
                         ),
                         seriesDesc: newSeries ?
@@ -2724,13 +2736,13 @@
                     seriesEl = component.getSeriesElement(series),
                     setScreenReaderProps = series.points && (
                         series.points.length <
-                            a11yOptions.pointDescriptionThreshold ||
-                            a11yOptions.pointDescriptionThreshold === false
+                        a11yOptions.pointDescriptionThreshold ||
+                        a11yOptions.pointDescriptionThreshold === false
                     ) && !seriesA11yOptions.exposeAsGroupOnly,
                     setKeyboardProps = series.points && (
                         series.points.length <
-                            a11yOptions.pointNavigationThreshold ||
-                            a11yOptions.pointNavigationThreshold === false
+                        a11yOptions.pointNavigationThreshold ||
+                        a11yOptions.pointNavigationThreshold === false
                     );
 
                 if (seriesEl) {
@@ -2879,10 +2891,10 @@
                             return H.numberFormat(
                                 value,
                                 a11yOptions.pointValueDecimals ||
-                                    tooltipOptions.valueDecimals || -1,
+                                tooltipOptions.valueDecimals || -1,
                                 lang.decimalPoint,
                                 lang.accessibility.thousandsSep ||
-                                    lang.thousandsSep
+                                lang.thousandsSep
                             );
                         }
                         return value;
@@ -2894,7 +2906,7 @@
                         !chart.angular
                     ),
                     pointCategory = series.xAxis && series.xAxis.categories &&
-                            point.category !== undefined && '' + point.category;
+                        point.category !== undefined && '' + point.category;
 
                 // Pick and choose properties for a succint label
                 var xDesc = point.name || timeDesc ||
@@ -2905,9 +2917,9 @@
                     valueDesc = point.series.pointArrayMap ?
                         point.series.pointArrayMap.reduce(function (desc, key) {
                             return desc + (desc.length ? ', ' : '') + key + ': ' +
-                            valuePrefix + numberFormat(
-                                pick(point[key], point.options[key])
-                            ) + valueSuffix;
+                                valuePrefix + numberFormat(
+                                    pick(point[key], point.options[key])
+                                ) + valueSuffix;
                         }, '') :
                         (
                             point.value !== undefined ?
@@ -2939,7 +2951,6 @@
 
 
         var extend = U.extend;
-
 
 
         /**
@@ -2978,7 +2989,8 @@
          * @class
          * @name Highcharts.ZoomComponent
          */
-        var ZoomComponent = function () {};
+        var ZoomComponent = function () {
+        };
         ZoomComponent.prototype = new AccessibilityComponent();
         extend(ZoomComponent.prototype, /** @lends Highcharts.ZoomComponent */ {
 
@@ -3015,7 +3027,7 @@
                             'aria-label',
                             chart.langFormat(
                                 'accessibility.mapZoom' + (i ? 'Out' : 'In'),
-                                { chart: chart }
+                                {chart: chart}
                             )
                         );
                     });
@@ -3060,7 +3072,7 @@
                         chart.resetZoomButton, 'resetZoomProxyButton',
                         'resetZoomProxyGroup', chart.langFormat(
                             'accessibility.resetZoomButton',
-                            { chart: chart }
+                            {chart: chart}
                         )
                     );
                 }
@@ -3099,7 +3111,7 @@
                             chart[
                                 keyCode === keys.up || keyCode === keys.down ?
                                     'yAxis' : 'xAxis'
-                            ][0].panStep(
+                                ][0].panStep(
                                 keyCode === keys.left || keyCode === keys.up ? -1 : 1
                             );
                             return this.response.success;
@@ -3114,7 +3126,7 @@
                             // Deselect old
                             chart.mapNavButtons[
                                 component.focusedMapNavButtonIx
-                            ].setState(0);
+                                ].setState(0);
 
                             // Trying to go somewhere we can't?
                             if (
@@ -3130,7 +3142,7 @@
                             component.focusedMapNavButtonIx += e.shiftKey ? -1 : 1;
                             button = chart.mapNavButtons[
                                 component.focusedMapNavButtonIx
-                            ];
+                                ];
                             chart.setFocusToElement(button.box, button.element);
                             button.setState(2);
 
@@ -3144,7 +3156,7 @@
                             component.fakeClickEvent(
                                 chart.mapNavButtons[
                                     component.focusedMapNavButtonIx
-                                ].element
+                                    ].element
                             );
                             return this.response.success;
                         }]
@@ -3197,7 +3209,7 @@
                                 keyCode === this.tab && e.shiftKey ||
                                 keyCode === keys.left || keyCode === keys.up ?
                                     'prev' : 'next'
-                            ];
+                                ];
                         }],
 
                         // Select to click
@@ -3270,7 +3282,6 @@
         var extend = U.extend;
 
 
-
         /**
          * Highlight range selector button by index.
          *
@@ -3309,7 +3320,8 @@
          * @class
          * @name Highcharts.RangeSelectorComponent
          */
-        var RangeSelectorComponent = function () {};
+        var RangeSelectorComponent = function () {
+        };
         RangeSelectorComponent.prototype = new AccessibilityComponent();
         extend(RangeSelectorComponent.prototype, /** @lends Highcharts.RangeSelectorComponent */ { // eslint-disable-line
 
@@ -3357,7 +3369,7 @@
                                 'aria-label',
                                 chart.langFormat(
                                     'accessibility.rangeSelector' +
-                                        (i ? 'MaxInput' : 'MinInput'), { chart: chart }
+                                    (i ? 'MaxInput' : 'MinInput'), {chart: chart}
                                 )
                             );
                         }
@@ -3411,7 +3423,7 @@
                                 component.fakeClickEvent(
                                     chart.rangeSelector.buttons[
                                         chart.highlightedRangeSelectorItemIx
-                                    ].element
+                                        ].element
                                 );
                             }
                         }]
@@ -3463,7 +3475,7 @@
                             }
                             chart.rangeSelector[
                                 newIx ? 'maxInput' : 'minInput'
-                            ].focus();
+                                ].focus();
                             return this.response.success;
                         }]
                     ],
@@ -3490,7 +3502,7 @@
                         chart.highlightedInputRangeIx = direction > 0 ? 0 : 1;
                         chart.rangeSelector[
                             chart.highlightedInputRangeIx ? 'maxInput' : 'minInput'
-                        ].focus();
+                            ].focus();
                     },
 
                     // Hide HTML element when leaving boxes
@@ -3588,22 +3600,22 @@
             }
 
             var typeDesc = this.langFormat(
-                    'accessibility.seriesTypeDescriptions.' + firstType,
-                    { chart: this }
+                'accessibility.seriesTypeDescriptions.' + firstType,
+                {chart: this}
                 ),
                 multi = this.series && this.series.length === 1 ? 'Single' : 'Multiple';
 
             return (
-                this.langFormat(
-                    'accessibility.chartTypes.' + firstType + multi,
-                    formatContext
-                ) ||
-                this.langFormat(
-                    'accessibility.chartTypes.default' + multi,
-                    formatContext
-                )
-            ) +
-            (typeDesc ? ' ' + typeDesc : '');
+                    this.langFormat(
+                        'accessibility.chartTypes.' + firstType + multi,
+                        formatContext
+                    ) ||
+                    this.langFormat(
+                        'accessibility.chartTypes.default' + multi,
+                        formatContext
+                    )
+                ) +
+                (typeDesc ? ' ' + typeDesc : '');
         };
 
 
@@ -3614,7 +3626,8 @@
          * @class
          * @name Highcharts.InfoRegionComponent
          */
-        var InfoRegionComponent = function () {};
+        var InfoRegionComponent = function () {
+        };
         InfoRegionComponent.prototype = new AccessibilityComponent();
         extend(InfoRegionComponent.prototype, /** @lends Highcharts.InfoRegionComponent */ { // eslint-disable-line
 
@@ -3633,7 +3646,7 @@
                             .replace(
                                 '<table ',
                                 '<table tabindex="0" summary="' + chart.langFormat(
-                                    'accessibility.tableSummary', { chart: chart }
+                                'accessibility.tableSummary', {chart: chart}
                                 ) + '"'
                             );
                     }
@@ -3677,7 +3690,7 @@
                 hiddenSection.setAttribute(
                     'aria-label',
                     chart.langFormat(
-                        'accessibility.screenReaderRegionLabel', { chart: chart }
+                        'accessibility.screenReaderRegionLabel', {chart: chart}
                     )
                 );
 
@@ -3689,7 +3702,7 @@
                 if (chart.getCSV && chart.options.accessibility.addTableShortcut) {
                     var tableId = 'highcharts-data-table-' + chart.index;
                     tableShortcutAnchor.innerHTML = chart.langFormat(
-                        'accessibility.viewAsDataTable', { chart: chart }
+                        'accessibility.viewAsDataTable', {chart: chart}
                     );
                     tableShortcutAnchor.href = '#' + tableId;
                     // Make this unreachable by user tabbing
@@ -3707,7 +3720,7 @@
                 // Note: JAWS seems to refuse to read aria-label on the container, so
                 // add an h6 element as title for the chart.
                 chartHeading.innerHTML = chart.langFormat(
-                    'accessibility.chartHeading', { chart: chart }
+                    'accessibility.chartHeading', {chart: chart}
                 );
                 chartHeading.setAttribute('aria-hidden', false);
                 chart.renderTo.insertBefore(chartHeading, chart.renderTo.firstChild);
@@ -3771,7 +3784,7 @@
                     makeHTMLTagFromText(
                         'h5',
                         chart.options.accessibility.typeDescription ||
-                            chart.getTypeDescription(chart.types)
+                        chart.getTypeDescription(chart.types)
                     ) : '';
             },
 
@@ -3964,7 +3977,8 @@
          * @class
          * @name Highcharts.ContainerComponent
          */
-        var ContainerComponent = function () {};
+        var ContainerComponent = function () {
+        };
         ContainerComponent.prototype = new AccessibilityComponent();
         extend(ContainerComponent.prototype, /** @lends Highcharts.ContainerComponent */ { // eslint-disable-line
 
@@ -3977,7 +3991,7 @@
                     titleElement,
                     titleId = 'highcharts-title-' + chart.index,
                     chartTitle = chart.options.title.text || chart.langFormat(
-                        'accessibility.defaultChartTitle', { chart: chart }
+                        'accessibility.defaultChartTitle', {chart: chart}
                     ),
                     svgContainerTitle = stripHTMLTags(chart.langFormat(
                         'accessibility.svgContainerTitle', {
@@ -3994,8 +4008,8 @@
                 if (svgContainerTitle.length) {
                     titleElement = this.svgTitleElement =
                         this.svgTitleElement || doc.createElementNS(
-                            'http://www.w3.org/2000/svg',
-                            'title'
+                        'http://www.w3.org/2000/svg',
+                        'title'
                         );
                     titleElement.textContent = svgContainerTitle;
                     titleElement.id = titleId;
@@ -4067,7 +4081,6 @@
          *  License: www.highcharts.com/license
          *
          * */
-
 
 
         var isMS = H.isMS,
@@ -5057,7 +5070,7 @@
             var opt = root,
                 prop,
                 i = 0;
-            for (;i < optionAsArray.length - 1; ++i) {
+            for (; i < optionAsArray.length - 1; ++i) {
                 prop = optionAsArray[i];
                 opt = opt[prop] = pick(opt[prop], {});
             }
@@ -5252,17 +5265,17 @@
                     num = Number(ctx[pluralArguments[0]]);
 
                 switch (num) {
-                case 0:
-                    result = pick(pluralArguments[4], pluralArguments[1]);
-                    break;
-                case 1:
-                    result = pick(pluralArguments[2], pluralArguments[1]);
-                    break;
-                case 2:
-                    result = pick(pluralArguments[3], pluralArguments[1]);
-                    break;
-                default:
-                    result = pluralArguments[1];
+                    case 0:
+                        result = pick(pluralArguments[4], pluralArguments[1]);
+                        break;
+                    case 1:
+                        result = pick(pluralArguments[2], pluralArguments[1]);
+                        break;
+                    case 2:
+                        result = pick(pluralArguments[3], pluralArguments[1]);
+                        break;
+                    default:
+                        result = pluralArguments[1];
                 }
                 return result ? stringTrim(result) : '';
             }
@@ -5560,26 +5573,26 @@
                      */
                     seriesTypeDescriptions: {
                         boxplot: 'Box plot charts are typically used to display ' +
-                        'groups of statistical data. Each data point in the ' +
-                        'chart can have up to 5 values: minimum, lower quartile, ' +
-                        'median, upper quartile, and maximum.',
+                            'groups of statistical data. Each data point in the ' +
+                            'chart can have up to 5 values: minimum, lower quartile, ' +
+                            'median, upper quartile, and maximum.',
                         arearange: 'Arearange charts are line charts displaying a ' +
-                        'range between a lower and higher value for each point.',
+                            'range between a lower and higher value for each point.',
                         areasplinerange: 'These charts are line charts displaying a ' +
-                        'range between a lower and higher value for each point.',
+                            'range between a lower and higher value for each point.',
                         bubble: 'Bubble charts are scatter charts where each data ' +
-                        'point also has a size value.',
+                            'point also has a size value.',
                         columnrange: 'Columnrange charts are column charts ' +
-                        'displaying a range between a lower and higher value for ' +
-                        'each point.',
+                            'displaying a range between a lower and higher value for ' +
+                            'each point.',
                         errorbar: 'Errorbar series are used to display the ' +
-                        'variability of the data.',
+                            'variability of the data.',
                         funnel: 'Funnel charts are used to display reduction of data ' +
-                        'in stages.',
+                            'in stages.',
                         pyramid: 'Pyramid charts consist of a single pyramid with ' +
-                        'item heights corresponding to each point value.',
+                            'item heights corresponding to each point value.',
                         waterfall: 'A waterfall chart is a column chart where each ' +
-                        'column contributes towards a total end value.'
+                            'column contributes towards a total end value.'
                     },
 
                     /**
@@ -5626,7 +5639,7 @@
                      * @since 6.0.6
                      */
                     axis: {
-                    /* eslint-disable max-len */
+                        /* eslint-disable max-len */
                         xAxisDescriptionSingular: 'The chart has 1 X axis displaying {names[0]}. {ranges[0]}',
                         xAxisDescriptionPlural: 'The chart has {numAxes} X axes displaying {#each(names, -1) }and {names[-1]}.',
                         yAxisDescriptionSingular: 'The chart has 1 Y axis displaying {names[0]}. {ranges[0]}',
@@ -5760,7 +5773,8 @@
          * @type {Highcharts.PointAccessibilityOptionsObject|undefined}
          * @requires modules/accessibility
          * @since 7.1.0
-         *//**
+         */
+        /**
          * A description of the point to add to the screen reader information about the
          * point. Requires the Accessibility module.
          * @name Highcharts.PointOptionsObject#description
@@ -5881,7 +5895,8 @@
                     browserFocusElement.hcEvents &&
                     browserFocusElement.hcEvents.focusin
                 )) {
-                    addEvent(browserFocusElement, 'focusin', function () {});
+                    addEvent(browserFocusElement, 'focusin', function () {
+                    });
                 }
 
                 browserFocusElement.focus();
@@ -5917,7 +5932,7 @@
         H.Axis.prototype.getDescription = function () {
             return (
                 this.userOptions && this.userOptions.accessibility &&
-                    this.userOptions.accessibility.description ||
+                this.userOptions.accessibility.description ||
                 this.axisTitle && this.axisTitle.textStr ||
                 this.options.id ||
                 this.categories && 'categories' ||
@@ -6178,7 +6193,6 @@
 
     });
     _registerModule(_modules, 'masters/modules/accessibility.src.js', [], function () {
-
 
 
     });

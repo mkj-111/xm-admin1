@@ -183,6 +183,7 @@
 
 import H from '../../parts/Globals.js';
 import U from '../../parts/Utilities.js';
+
 var pick = U.pick;
 
 import utilities from './utilities.js';
@@ -270,7 +271,7 @@ function pointSonify(options) {
         new utilities.SignalHandler(['onEnd']);
 
     signalHandler.clearSignalCallbacks();
-    signalHandler.registerSignalCallbacks({ onEnd: options.onEnd });
+    signalHandler.registerSignalCallbacks({onEnd: options.onEnd});
 
     // If we have a null point or invisible point, just return
     if (point.isNull || !point.visible || !point.series.visible) {
@@ -281,8 +282,8 @@ function pointSonify(options) {
     // Go through instruments and play them
     options.instruments.forEach(function (instrumentDefinition) {
         var instrument = typeof instrumentDefinition.instrument === 'string' ?
-                H.sonification.instruments[instrumentDefinition.instrument] :
-                instrumentDefinition.instrument,
+            H.sonification.instruments[instrumentDefinition.instrument] :
+            instrumentDefinition.instrument,
             mapping = instrumentDefinition.instrumentMapping || {},
             extremes = H.merge(
                 defaultInstrumentOptions,
@@ -327,22 +328,22 @@ function pointSonify(options) {
                 frequency: getMappingValue(
                     mapping.frequency,
                     true,
-                    { min: extremes.minFrequency, max: extremes.maxFrequency }
+                    {min: extremes.minFrequency, max: extremes.maxFrequency}
                 ),
                 duration: getMappingValue(
                     mapping.duration,
                     false,
-                    { min: extremes.minDuration, max: extremes.maxDuration }
+                    {min: extremes.minDuration, max: extremes.maxDuration}
                 ),
                 pan: getMappingValue(
                     mapping.pan,
                     true,
-                    { min: extremes.minPan, max: extremes.maxPan }
+                    {min: extremes.minPan, max: extremes.maxPan}
                 ),
                 volume: getMappingValue(
                     mapping.volume,
                     true,
-                    { min: extremes.minVolume, max: extremes.maxVolume }
+                    {min: extremes.minVolume, max: extremes.maxVolume}
                 ),
                 onEnd: onEnd,
                 minFrequency: extremes.minFrequency,

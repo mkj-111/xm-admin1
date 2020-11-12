@@ -12,6 +12,7 @@
 
 import H from '../../../parts/Globals.js';
 import U from '../../../parts/Utilities.js';
+
 var extend = U.extend;
 
 import AccessibilityComponent from '../AccessibilityComponent.js';
@@ -56,7 +57,8 @@ H.Chart.prototype.highlightRangeSelectorButton = function (ix) {
  * @class
  * @name Highcharts.RangeSelectorComponent
  */
-var RangeSelectorComponent = function () {};
+var RangeSelectorComponent = function () {
+};
 RangeSelectorComponent.prototype = new AccessibilityComponent();
 extend(RangeSelectorComponent.prototype, /** @lends Highcharts.RangeSelectorComponent */ { // eslint-disable-line
 
@@ -104,7 +106,7 @@ extend(RangeSelectorComponent.prototype, /** @lends Highcharts.RangeSelectorComp
                         'aria-label',
                         chart.langFormat(
                             'accessibility.rangeSelector' +
-                                (i ? 'MaxInput' : 'MinInput'), { chart: chart }
+                            (i ? 'MaxInput' : 'MinInput'), {chart: chart}
                         )
                     );
                 }
@@ -158,7 +160,7 @@ extend(RangeSelectorComponent.prototype, /** @lends Highcharts.RangeSelectorComp
                         component.fakeClickEvent(
                             chart.rangeSelector.buttons[
                                 chart.highlightedRangeSelectorItemIx
-                            ].element
+                                ].element
                         );
                     }
                 }]
@@ -210,7 +212,7 @@ extend(RangeSelectorComponent.prototype, /** @lends Highcharts.RangeSelectorComp
                     }
                     chart.rangeSelector[
                         newIx ? 'maxInput' : 'minInput'
-                    ].focus();
+                        ].focus();
                     return this.response.success;
                 }]
             ],
@@ -237,7 +239,7 @@ extend(RangeSelectorComponent.prototype, /** @lends Highcharts.RangeSelectorComp
                 chart.highlightedInputRangeIx = direction > 0 ? 0 : 1;
                 chart.rangeSelector[
                     chart.highlightedInputRangeIx ? 'maxInput' : 'minInput'
-                ].focus();
+                    ].focus();
             },
 
             // Hide HTML element when leaving boxes

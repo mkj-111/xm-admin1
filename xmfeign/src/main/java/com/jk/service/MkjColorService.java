@@ -17,5 +17,5 @@ public interface MkjColorService {
 
 
     @RequestMapping("findcolor")
-    public List<ColorBean>findcolor(@RequestParam String goodsname);
+    public List<ColorBean> findcolor(@RequestParam String goodsname);
 }

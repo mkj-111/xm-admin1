@@ -12,6 +12,7 @@
 
 import H from '../../../parts/Globals.js';
 import U from '../../../parts/Utilities.js';
+
 var extend = U.extend,
     pick = U.pick;
 
@@ -68,22 +69,22 @@ H.Chart.prototype.getTypeDescription = function (types) {
     }
 
     var typeDesc = this.langFormat(
-            'accessibility.seriesTypeDescriptions.' + firstType,
-            { chart: this }
+        'accessibility.seriesTypeDescriptions.' + firstType,
+        {chart: this}
         ),
         multi = this.series && this.series.length === 1 ? 'Single' : 'Multiple';
 
     return (
-        this.langFormat(
-            'accessibility.chartTypes.' + firstType + multi,
-            formatContext
-        ) ||
-        this.langFormat(
-            'accessibility.chartTypes.default' + multi,
-            formatContext
-        )
-    ) +
-    (typeDesc ? ' ' + typeDesc : '');
+            this.langFormat(
+                'accessibility.chartTypes.' + firstType + multi,
+                formatContext
+            ) ||
+            this.langFormat(
+                'accessibility.chartTypes.default' + multi,
+                formatContext
+            )
+        ) +
+        (typeDesc ? ' ' + typeDesc : '');
 };
 
 
@@ -94,7 +95,8 @@ H.Chart.prototype.getTypeDescription = function (types) {
  * @class
  * @name Highcharts.InfoRegionComponent
  */
-var InfoRegionComponent = function () {};
+var InfoRegionComponent = function () {
+};
 InfoRegionComponent.prototype = new AccessibilityComponent();
 extend(InfoRegionComponent.prototype, /** @lends Highcharts.InfoRegionComponent */ { // eslint-disable-line
 
@@ -113,7 +115,7 @@ extend(InfoRegionComponent.prototype, /** @lends Highcharts.InfoRegionComponent 
                     .replace(
                         '<table ',
                         '<table tabindex="0" summary="' + chart.langFormat(
-                            'accessibility.tableSummary', { chart: chart }
+                        'accessibility.tableSummary', {chart: chart}
                         ) + '"'
                     );
             }
@@ -157,7 +159,7 @@ extend(InfoRegionComponent.prototype, /** @lends Highcharts.InfoRegionComponent 
         hiddenSection.setAttribute(
             'aria-label',
             chart.langFormat(
-                'accessibility.screenReaderRegionLabel', { chart: chart }
+                'accessibility.screenReaderRegionLabel', {chart: chart}
             )
         );
 
@@ -169,7 +171,7 @@ extend(InfoRegionComponent.prototype, /** @lends Highcharts.InfoRegionComponent 
         if (chart.getCSV && chart.options.accessibility.addTableShortcut) {
             var tableId = 'highcharts-data-table-' + chart.index;
             tableShortcutAnchor.innerHTML = chart.langFormat(
-                'accessibility.viewAsDataTable', { chart: chart }
+                'accessibility.viewAsDataTable', {chart: chart}
             );
             tableShortcutAnchor.href = '#' + tableId;
             // Make this unreachable by user tabbing
@@ -187,7 +189,7 @@ extend(InfoRegionComponent.prototype, /** @lends Highcharts.InfoRegionComponent 
         // Note: JAWS seems to refuse to read aria-label on the container, so
         // add an h6 element as title for the chart.
         chartHeading.innerHTML = chart.langFormat(
-            'accessibility.chartHeading', { chart: chart }
+            'accessibility.chartHeading', {chart: chart}
         );
         chartHeading.setAttribute('aria-hidden', false);
         chart.renderTo.insertBefore(chartHeading, chart.renderTo.firstChild);
@@ -251,7 +253,7 @@ extend(InfoRegionComponent.prototype, /** @lends Highcharts.InfoRegionComponent 
             makeHTMLTagFromText(
                 'h5',
                 chart.options.accessibility.typeDescription ||
-                    chart.getTypeDescription(chart.types)
+                chart.getTypeDescription(chart.types)
             ) : '';
     },
 

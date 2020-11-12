@@ -19,6 +19,7 @@ WIP on vertical scrollable plot area (#9378). To do:
 'use strict';
 import H from './Globals.js';
 import U from './Utilities.js';
+
 var pick = U.pick;
 var addEvent = H.addEvent, Chart = H.Chart;
 /**
@@ -87,7 +88,10 @@ var addEvent = H.addEvent, Chart = H.Chart;
 ''; // detach API doclets
 /* eslint-disable no-invalid-this, valid-jsdoc */
 addEvent(Chart, 'afterSetChartSize', function (e) {
-    var scrollablePlotArea = this.options.chart.scrollablePlotArea, scrollableMinWidth = scrollablePlotArea && scrollablePlotArea.minWidth, scrollableMinHeight = scrollablePlotArea && scrollablePlotArea.minHeight, scrollablePixelsX, scrollablePixelsY, corrections;
+    var scrollablePlotArea = this.options.chart.scrollablePlotArea,
+        scrollableMinWidth = scrollablePlotArea && scrollablePlotArea.minWidth,
+        scrollableMinHeight = scrollablePlotArea && scrollablePlotArea.minHeight, scrollablePixelsX, scrollablePixelsY,
+        corrections;
     if (!this.renderer.forExport) {
         // The amount of pixels to scroll, the difference between chart
         // width and scrollable width
@@ -98,32 +102,29 @@ addEvent(Chart, 'afterSetChartSize', function (e) {
                 if (this.inverted) {
                     this.clipBox.height += scrollablePixelsX;
                     this.plotBox.height += scrollablePixelsX;
-                }
-                else {
+                } else {
                     this.clipBox.width += scrollablePixelsX;
                     this.plotBox.width += scrollablePixelsX;
                 }
                 corrections = {
                     // Corrections for right side
-                    1: { name: 'right', value: scrollablePixelsX }
+                    1: {name: 'right', value: scrollablePixelsX}
                 };
             }
             // Currently we can only do either X or Y
-        }
-        else if (scrollableMinHeight) {
+        } else if (scrollableMinHeight) {
             this.scrollablePixelsY = scrollablePixelsY = Math.max(0, scrollableMinHeight - this.chartHeight);
             if (scrollablePixelsY) {
                 this.plotHeight += scrollablePixelsY;
                 if (this.inverted) {
                     this.clipBox.width += scrollablePixelsY;
                     this.plotBox.width += scrollablePixelsY;
-                }
-                else {
+                } else {
                     this.clipBox.height += scrollablePixelsY;
                     this.plotBox.height += scrollablePixelsY;
                 }
                 corrections = {
-                    2: { name: 'bottom', value: scrollablePixelsY }
+                    2: {name: 'bottom', value: scrollablePixelsY}
                 };
             }
         }
@@ -134,9 +135,9 @@ addEvent(Chart, 'afterSetChartSize', function (e) {
                     // Get the plot lines right in getPlotLinePath,
                     // temporarily set it to the adjusted plot width.
                     axis.getPlotLinePath = function () {
-                        var marginName = corrections[axis.side].name, correctionValue = corrections[axis.side].value, 
-                        // axis.right or axis.bottom
-                        margin = this[marginName], path;
+                        var marginName = corrections[axis.side].name, correctionValue = corrections[axis.side].value,
+                            // axis.right or axis.bottom
+                            margin = this[marginName], path;
                         // Temporarily adjust
                         this[marginName] = margin - correctionValue;
                         path = H.Axis.prototype.getPlotLinePath.apply(this, arguments);
@@ -144,8 +145,7 @@ addEvent(Chart, 'afterSetChartSize', function (e) {
                         this[marginName] = margin;
                         return path;
                     };
-                }
-                else {
+                } else {
                     // Apply the corrected plotWidth
                     axis.setAxisSize();
                     axis.setAxisTranslation();
@@ -160,8 +160,7 @@ addEvent(Chart, 'render', function () {
             this.setUpScrolling();
         }
         this.applyFixed();
-    }
-    else if (this.fixedDiv) { // Has been in scrollable mode
+    } else if (this.fixedDiv) { // Has been in scrollable mode
         this.applyFixed();
     }
 });
@@ -216,14 +215,11 @@ Chart.prototype.moveFixedElements = function () {
     ], axisClass;
     if (this.scrollablePixelsX && !this.inverted) {
         axisClass = '.highcharts-yaxis';
-    }
-    else if (this.scrollablePixelsX && this.inverted) {
+    } else if (this.scrollablePixelsX && this.inverted) {
         axisClass = '.highcharts-xaxis';
-    }
-    else if (this.scrollablePixelsY && !this.inverted) {
+    } else if (this.scrollablePixelsY && !this.inverted) {
         axisClass = '.highcharts-xaxis';
-    }
-    else if (this.scrollablePixelsY && this.inverted) {
+    } else if (this.scrollablePixelsY && this.inverted) {
         axisClass = '.highcharts-yaxis';
     }
     fixedSelectors.push(axisClass, axisClass + '-labels');
@@ -242,7 +238,8 @@ Chart.prototype.moveFixedElements = function () {
  * @return {void}
  */
 Chart.prototype.applyFixed = function () {
-    var fixedRenderer, scrollableWidth, scrollableHeight, firstTime = !this.fixedDiv, scrollableOptions = this.options.chart.scrollablePlotArea;
+    var fixedRenderer, scrollableWidth, scrollableHeight, firstTime = !this.fixedDiv,
+        scrollableOptions = this.options.chart.scrollablePlotArea;
     // First render
     if (firstTime) {
         this.fixedDiv = H.createElement('div', {
@@ -260,16 +257,15 @@ Chart.prototype.applyFixed = function () {
         this.scrollableMask = fixedRenderer
             .path()
             .attr({
-            fill: H.color(this.options.chart.backgroundColor || '#fff').setOpacity(pick(scrollableOptions.opacity, 0.85)).get(),
-            zIndex: -1
-        })
+                fill: H.color(this.options.chart.backgroundColor || '#fff').setOpacity(pick(scrollableOptions.opacity, 0.85)).get(),
+                zIndex: -1
+            })
             .addClass('highcharts-scrollable-mask')
             .add();
         this.moveFixedElements();
         addEvent(this, 'afterShowResetZoom', this.moveFixedElements);
         addEvent(this, 'afterLayOutTitles', this.moveFixedElements);
-    }
-    else {
+    } else {
         // Set the size of the fixed renderer to the visible width
         this.fixedRenderer.setSize(this.chartWidth, this.chartHeight);
     }
@@ -296,16 +292,18 @@ Chart.prototype.applyFixed = function () {
         if (scrollableOptions.scrollPositionX) {
             this.scrollingContainer.scrollLeft =
                 this.scrollablePixelsX *
-                    scrollableOptions.scrollPositionX;
+                scrollableOptions.scrollPositionX;
         }
         if (scrollableOptions.scrollPositionY) {
             this.scrollingContainer.scrollTop =
                 this.scrollablePixelsY *
-                    scrollableOptions.scrollPositionY;
+                scrollableOptions.scrollPositionY;
         }
     }
     // Mask behind the left and right side
-    var axisOffset = this.axisOffset, maskTop = this.plotTop - axisOffset[0] - 1, maskLeft = this.plotLeft - axisOffset[3] - 1, maskBottom = this.plotTop + this.plotHeight + axisOffset[2] + 1, maskRight = this.plotLeft + this.plotWidth + axisOffset[1] + 1, maskPlotRight = this.plotLeft + this.plotWidth -
+    var axisOffset = this.axisOffset, maskTop = this.plotTop - axisOffset[0] - 1,
+        maskLeft = this.plotLeft - axisOffset[3] - 1, maskBottom = this.plotTop + this.plotHeight + axisOffset[2] + 1,
+        maskRight = this.plotLeft + this.plotWidth + axisOffset[1] + 1, maskPlotRight = this.plotLeft + this.plotWidth -
         (this.scrollablePixelsX || 0), maskPlotBottom = this.plotTop + this.plotHeight -
         (this.scrollablePixelsY || 0), d;
     if (this.scrollablePixelsX) {
@@ -323,8 +321,7 @@ Chart.prototype.applyFixed = function () {
             'L', maskPlotRight, maskBottom,
             'Z'
         ];
-    }
-    else if (this.scrollablePixelsY) {
+    } else if (this.scrollablePixelsY) {
         d = [
             // Top side
             'M', maskLeft, 0,
@@ -339,8 +336,7 @@ Chart.prototype.applyFixed = function () {
             'L', maskRight, maskPlotBottom,
             'Z'
         ];
-    }
-    else {
+    } else {
         d = ['M', 0, 0];
     }
     if (this.redrawTrigger !== 'adjustHeight') {

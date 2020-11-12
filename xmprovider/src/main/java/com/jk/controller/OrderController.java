@@ -17,12 +17,12 @@ import java.util.Map;
 @RestController
 public class OrderController {
     @Autowired
-    private TorderSrevice torderSrevice ;
+    private TorderSrevice torderSrevice;
     //highcharts报表
 
     @RequestMapping("/highcharts")
-    public List<TorderVo> highcharts(){
-        List<TorderVo> list=torderSrevice.highcharts();
+    public List<TorderVo> highcharts() {
+        List<TorderVo> list = torderSrevice.highcharts();
 
         return list;
     }

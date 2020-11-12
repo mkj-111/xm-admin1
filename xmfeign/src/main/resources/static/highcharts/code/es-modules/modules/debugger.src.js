@@ -10,6 +10,7 @@
 'use strict';
 import H from '../parts/Globals.js';
 import U from '../parts/Utilities.js';
+
 var isNumber = U.isNumber;
 var addEvent = H.addEvent, setOptions = H.setOptions, each = H.each;
 setOptions({
@@ -32,7 +33,8 @@ setOptions({
 });
 /* eslint-disable no-invalid-this */
 addEvent(H.Chart, 'displayError', function (e) {
-    var chart = this, code = e.code, msg, options = chart.options.chart, renderer = chart.renderer, chartWidth, chartHeight;
+    var chart = this, code = e.code, msg, options = chart.options.chart, renderer = chart.renderer, chartWidth,
+        chartHeight;
     if (chart.errorElements) {
         each(chart.errorElements, function (el) {
             if (el) {

@@ -10,9 +10,11 @@
 'use strict';
 import H from '../parts/Globals.js';
 import U from '../parts/Utilities.js';
+
 var extend = U.extend, isArray = U.isArray, pick = U.pick;
 import '../parts/Axis.js';
 import '../parts/Series.js';
+
 var addEvent = H.addEvent, find = H.find, fireEvent = H.fireEvent, Axis = H.Axis, Series = H.Series;
 /**
  * Returns the first break found where the x is larger then break.from and
@@ -38,8 +40,7 @@ extend(Axis.prototype, {
             repeat - ((from - val) % repeat));
         if (!brk.inclusive) {
             ret = test < length && test !== 0;
-        }
-        else {
+        } else {
             ret = test <= length;
         }
         return ret;
@@ -57,8 +58,7 @@ extend(Axis.prototype, {
             }
             if (inbrk && testKeep) {
                 ret = inbrk && !keep;
-            }
-            else {
+            } else {
                 ret = inbrk;
             }
         }
@@ -106,6 +106,7 @@ addEvent(Axis, 'afterSetOptions', function () {
  */
 Axis.prototype.setBreaks = function (breaks, redraw) {
     var axis = this, isBroken = (isArray(breaks) && !!breaks.length);
+
     /* eslint-disable valid-jsdoc */
     /**
      * @private
@@ -116,17 +117,16 @@ Axis.prototype.setBreaks = function (breaks, redraw) {
             brk = axis.breakArray[i];
             if (brk.to <= val) {
                 nval -= brk.len;
-            }
-            else if (brk.from >= val) {
+            } else if (brk.from >= val) {
                 break;
-            }
-            else if (axis.isInBreak(brk, val)) {
+            } else if (axis.isInBreak(brk, val)) {
                 nval -= (val - brk.from);
                 break;
             }
         }
         return nval;
     }
+
     /**
      * @private
      */
@@ -136,16 +136,15 @@ Axis.prototype.setBreaks = function (breaks, redraw) {
             brk = axis.breakArray[i];
             if (brk.from >= nval) {
                 break;
-            }
-            else if (brk.to < nval) {
+            } else if (brk.to < nval) {
                 nval += brk.len;
-            }
-            else if (axis.isInBreak(brk, nval)) {
+            } else if (axis.isInBreak(brk, nval)) {
                 nval += brk.len;
             }
         }
         return nval;
     }
+
     /* eslint-enable valid-jsdoc */
     axis.isDirty = axis.isBroken !== isBroken;
     axis.isBroken = isBroken;
@@ -182,21 +181,22 @@ Axis.prototype.setBreaks = function (breaks, redraw) {
             Axis.prototype.setAxisTranslation.call(this, saveOld);
             this.unitLength = null;
             if (this.isBroken) {
-                var breaks = axis.options.breaks, 
-                // Temporary one:
-                breakArrayT = [], breakArray = [], length = 0, inBrk, repeat, min = axis.userMin || axis.min, max = axis.userMax || axis.max, pointRangePadding = pick(axis.pointRangePadding, 0), start, i;
+                var breaks = axis.options.breaks,
+                    // Temporary one:
+                    breakArrayT = [], breakArray = [], length = 0, inBrk, repeat, min = axis.userMin || axis.min,
+                    max = axis.userMax || axis.max, pointRangePadding = pick(axis.pointRangePadding, 0), start, i;
                 // Min & max check (#4247)
                 breaks.forEach(function (brk) {
                     repeat = brk.repeat || Infinity;
                     if (axis.isInBreak(brk, min)) {
                         min +=
                             (brk.to % repeat) -
-                                (min % repeat);
+                            (min % repeat);
                     }
                     if (axis.isInBreak(brk, max)) {
                         max -=
                             (max % repeat) -
-                                (brk.from % repeat);
+                            (brk.from % repeat);
                     }
                 });
                 // Construct an array holding all breaks in the axis
@@ -252,11 +252,10 @@ Axis.prototype.setBreaks = function (breaks, redraw) {
                 fireEvent(axis, 'afterBreaks');
                 if (axis.staticScale) {
                     axis.transA = axis.staticScale;
-                }
-                else if (axis.unitLength) {
+                } else if (axis.unitLength) {
                     axis.transA *=
                         (max - axis.min + pointRangePadding) /
-                            axis.unitLength;
+                        axis.unitLength;
                 }
                 if (pointRangePadding) {
                     axis.minPixelPadding =
@@ -272,7 +271,8 @@ Axis.prototype.setBreaks = function (breaks, redraw) {
     }
 };
 addEvent(Series, 'afterGeneratePoints', function () {
-    var series = this, xAxis = series.xAxis, yAxis = series.yAxis, points = series.points, point, i = points.length, connectNulls = series.options.connectNulls, nullGap;
+    var series = this, xAxis = series.xAxis, yAxis = series.yAxis, points = series.points, point, i = points.length,
+        connectNulls = series.options.connectNulls, nullGap;
     if (xAxis && yAxis && (xAxis.options.breaks || yAxis.options.breaks)) {
         while (i--) {
             point = points[i];
@@ -314,8 +314,7 @@ H.Series.prototype.drawBreaks = function (axis, keys) {
                     (threshold > brk.from &&
                         y < brk.from)) {
                     eventName = 'pointBreak';
-                }
-                else if ((threshold < brk.from &&
+                } else if ((threshold < brk.from &&
                     y > brk.from &&
                     y < brk.to) ||
                     (threshold > brk.from &&
@@ -324,7 +323,7 @@ H.Series.prototype.drawBreaks = function (axis, keys) {
                     eventName = 'pointInBreak';
                 }
                 if (eventName) {
-                    fireEvent(axis, eventName, { point: point, brk: brk });
+                    fireEvent(axis, eventName, {point: point, brk: brk});
                 }
             });
         });
@@ -342,7 +341,9 @@ H.Series.prototype.drawBreaks = function (axis, keys) {
  *         Gapped path
  */
 H.Series.prototype.gappedPath = function () {
-    var currentDataGrouping = this.currentDataGrouping, groupingSize = currentDataGrouping && currentDataGrouping.gapSize, gapSize = this.options.gapSize, points = this.points.slice(), i = points.length - 1, yAxis = this.yAxis, xRange, stack;
+    var currentDataGrouping = this.currentDataGrouping,
+        groupingSize = currentDataGrouping && currentDataGrouping.gapSize, gapSize = this.options.gapSize,
+        points = this.points.slice(), i = points.length - 1, yAxis = this.yAxis, xRange, stack;
     /**
      * Defines when to display a gap in the graph, together with the
      * [gapUnit](plotOptions.series.gapUnit) option.
@@ -411,10 +412,10 @@ H.Series.prototype.gappedPath = function () {
             if (points[i + 1].x - points[i].x > gapSize) {
                 xRange = (points[i].x + points[i + 1].x) / 2;
                 points.splice(// insert after this one
-                i + 1, 0, {
-                    isNull: true,
-                    x: xRange
-                });
+                    i + 1, 0, {
+                        isNull: true,
+                        x: xRange
+                    });
                 // For stacked chart generate empty stack items, #6546
                 if (this.options.stacking) {
                     stack = yAxis.stacks[this.stackKey][xRange] =

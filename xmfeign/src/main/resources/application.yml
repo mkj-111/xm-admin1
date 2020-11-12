@@ -1,9 +1,9 @@
 server:
   port: 8762
+
 spring:
+  application:
+    name: xmfeign
+
   main:
     allow-bean-definition-overriding: true
-  application:
-    name: xmfegin
-
-

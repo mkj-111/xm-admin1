@@ -1,6 +1,7 @@
 'use strict';
 import H from './../../parts/Globals.js';
 import U from './../../parts/Utilities.js';
+
 var extend = U.extend;
 
 import controllableMixin from './controllableMixin.js';
@@ -160,11 +161,11 @@ H.merge(
                 action = animation ? 'animate' : 'attr';
 
             if (d) {
-                this.graphic[action]({ d: d });
-                this.tracker[action]({ d: d });
+                this.graphic[action]({d: d});
+                this.tracker[action]({d: d});
             } else {
-                this.graphic.attr({ d: 'M 0 ' + -9e9 });
-                this.tracker.attr({ d: 'M 0 ' + -9e9 });
+                this.graphic.attr({d: 'M 0 ' + -9e9});
+                this.tracker.attr({d: 'M 0 ' + -9e9});
             }
 
             this.graphic.placed = this.tracker.placed = Boolean(d);

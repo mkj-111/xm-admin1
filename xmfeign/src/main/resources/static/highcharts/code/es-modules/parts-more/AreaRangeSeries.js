@@ -12,14 +12,14 @@ import H from '../parts/Globals.js';
 /* *
  * @interface Highcharts.PointOptionsObject in parts/Point.ts
  */ /**
-* Range series only. The high or maximum value for each data point.
-* @name Highcharts.PointOptionsObject#high
-* @type {number|undefined}
-*/ /**
-* Range series only. The low or minimum value for each data point.
-* @name Highcharts.PointOptionsObject#low
-* @type {number|undefined}
-*/
+ * Range series only. The high or maximum value for each data point.
+ * @name Highcharts.PointOptionsObject#high
+ * @type {number|undefined}
+ */ /**
+ * Range series only. The low or minimum value for each data point.
+ * @name Highcharts.PointOptionsObject#low
+ * @type {number|undefined}
+ */
 /**
  * Extended data labels for range series types. Range series data labels use no
  * `x` and `y` options. Instead, they have `xLow`, `xHigh`, `yLow` and `yHigh`
@@ -30,57 +30,60 @@ import H from '../parts/Globals.js';
  * @since 2.3.0
  * @product highcharts highstock
  */ /**
-* X offset of the higher data labels relative to the point value.
-*
-* @see {@link https://jsfiddle.net/gh/get/library/pure/highcharts/highcharts/tree/master/samples/highcharts/plotoptions/arearange-datalabels/|Highcharts-Demo:}
-*      Data labels on range series
-*
-* @name Highcharts.SeriesAreaRangeDataLabelsOptionsObject#xHigh
-* @type {number|undefined}
-* @default 0
-* @since 2.3.0
-* @product highcharts highstock
-*/ /**
-* X offset of the lower data labels relative to the point value.
-*
-* @see {@link https://jsfiddle.net/gh/get/library/pure/highcharts/highcharts/tree/master/samples/highcharts/plotoptions/arearange-datalabels/|Highcharts-Demo:}
-*      Data labels on range series
-* @see {@link https://jsfiddle.net/gh/get/library/pure/highcharts/highcharts/tree/master/samples/highcharts/plotoptions/arearange-datalabels/|Highcharts-Demo:}
-*      Data labels on range series
-*
-* @name Highcharts.SeriesAreaRangeDataLabelsOptionsObject#xLow
-* @type {number|undefined}
-* @default 0
-* @since 2.3.0
-* @product highcharts highstock
-*/ /**
-* Y offset of the higher data labels relative to the point value.
-*
-* @see {@link https://jsfiddle.net/gh/get/library/pure/highcharts/highcharts/tree/master/samples/highcharts/plotoptions/arearange-datalabels/|Highcharts-Demo:}
-*      Data labels on range series
-*
-* @name Highcharts.SeriesAreaRangeDataLabelsOptionsObject#yHigh
-* @type {number|undefined}
-* @default 0
-* @since 2.3.0
-* @product highcharts highstock
-*/ /**
-* Y offset of the lower data labels relative to the point value.
-*
-* @see {@link https://jsfiddle.net/gh/get/library/pure/highcharts/highcharts/tree/master/samples/highcharts/plotoptions/arearange-datalabels/|Highcharts-Demo:}
-*      Data labels on range series
-*
-* @name Highcharts.SeriesAreaRangeDataLabelsOptionsObject#yLow
-* @type {number|undefined}
-* @default 0
-* @since 2.3.0
-* @product highcharts highstock
-*/
+ * X offset of the higher data labels relative to the point value.
+ *
+ * @see {@link https://jsfiddle.net/gh/get/library/pure/highcharts/highcharts/tree/master/samples/highcharts/plotoptions/arearange-datalabels/|Highcharts-Demo:}
+ *      Data labels on range series
+ *
+ * @name Highcharts.SeriesAreaRangeDataLabelsOptionsObject#xHigh
+ * @type {number|undefined}
+ * @default 0
+ * @since 2.3.0
+ * @product highcharts highstock
+ */ /**
+ * X offset of the lower data labels relative to the point value.
+ *
+ * @see {@link https://jsfiddle.net/gh/get/library/pure/highcharts/highcharts/tree/master/samples/highcharts/plotoptions/arearange-datalabels/|Highcharts-Demo:}
+ *      Data labels on range series
+ * @see {@link https://jsfiddle.net/gh/get/library/pure/highcharts/highcharts/tree/master/samples/highcharts/plotoptions/arearange-datalabels/|Highcharts-Demo:}
+ *      Data labels on range series
+ *
+ * @name Highcharts.SeriesAreaRangeDataLabelsOptionsObject#xLow
+ * @type {number|undefined}
+ * @default 0
+ * @since 2.3.0
+ * @product highcharts highstock
+ */ /**
+ * Y offset of the higher data labels relative to the point value.
+ *
+ * @see {@link https://jsfiddle.net/gh/get/library/pure/highcharts/highcharts/tree/master/samples/highcharts/plotoptions/arearange-datalabels/|Highcharts-Demo:}
+ *      Data labels on range series
+ *
+ * @name Highcharts.SeriesAreaRangeDataLabelsOptionsObject#yHigh
+ * @type {number|undefined}
+ * @default 0
+ * @since 2.3.0
+ * @product highcharts highstock
+ */ /**
+ * Y offset of the lower data labels relative to the point value.
+ *
+ * @see {@link https://jsfiddle.net/gh/get/library/pure/highcharts/highcharts/tree/master/samples/highcharts/plotoptions/arearange-datalabels/|Highcharts-Demo:}
+ *      Data labels on range series
+ *
+ * @name Highcharts.SeriesAreaRangeDataLabelsOptionsObject#yLow
+ * @type {number|undefined}
+ * @default 0
+ * @since 2.3.0
+ * @product highcharts highstock
+ */
 import U from '../parts/Utilities.js';
+
 var defined = U.defined, extend = U.extend, isArray = U.isArray, isNumber = U.isNumber, pick = U.pick;
 import '../parts/Options.js';
 import '../parts/Series.js';
-var noop = H.noop, Series = H.Series, seriesType = H.seriesType, seriesTypes = H.seriesTypes, seriesProto = Series.prototype, pointProto = H.Point.prototype;
+
+var noop = H.noop, Series = H.Series, seriesType = H.seriesType, seriesTypes = H.seriesTypes,
+    seriesProto = Series.prototype, pointProto = H.Point.prototype;
 /**
  * The area range series is a carteseian series with higher and lower values for
  * each point along an X axis, where the area between the values is shaded.
@@ -190,8 +193,7 @@ seriesType('arearange', 'area', {
             var high = point.high, plotY = point.plotY;
             if (point.isNull) {
                 point.plotY = null;
-            }
-            else {
+            } else {
                 point.plotLow = plotY;
                 point.plotHigh = yAxis.translate(hasModifyValue ?
                     series.modifyValue(high, point) :
@@ -218,7 +220,10 @@ seriesType('arearange', 'area', {
      * @private
      */
     getGraphPath: function (points) {
-        var highPoints = [], highAreaPoints = [], i, getGraphPath = seriesTypes.area.prototype.getGraphPath, point, pointShim, linePath, lowerPath, options = this.options, connectEnds = this.chart.polar && options.connectEnds !== false, connectNulls = options.connectNulls, step = options.step, higherPath, higherAreaPath;
+        var highPoints = [], highAreaPoints = [], i, getGraphPath = seriesTypes.area.prototype.getGraphPath, point,
+            pointShim, linePath, lowerPath, options = this.options,
+            connectEnds = this.chart.polar && options.connectEnds !== false, connectNulls = options.connectNulls,
+            step = options.step, higherPath, higherAreaPath;
         points = points || this.points;
         i = points.length;
         // Create the top line and the top part of the area fill. The area fill
@@ -296,7 +301,9 @@ seriesType('arearange', 'area', {
      * @private
      */
     drawDataLabels: function () {
-        var data = this.points, length = data.length, i, originalDataLabels = [], dataLabelOptions = this.options.dataLabels, point, up, inverted = this.chart.inverted, upperDataLabelOptions, lowerDataLabelOptions;
+        var data = this.points, length = data.length, i, originalDataLabels = [],
+            dataLabelOptions = this.options.dataLabels, point, up, inverted = this.chart.inverted,
+            upperDataLabelOptions, lowerDataLabelOptions;
         // Split into upper and lower options. If data labels is an array, the
         // first element is the upper label, the second is the lower.
         //
@@ -310,13 +317,11 @@ seriesType('arearange', 'area', {
             if (dataLabelOptions.length > 1) {
                 upperDataLabelOptions = dataLabelOptions[0];
                 lowerDataLabelOptions = dataLabelOptions[1];
-            }
-            else {
+            } else {
                 upperDataLabelOptions = dataLabelOptions[0];
-                lowerDataLabelOptions = { enabled: false };
+                lowerDataLabelOptions = {enabled: false};
             }
-        }
-        else {
+        } else {
             // Make copies
             upperDataLabelOptions = extend({}, dataLabelOptions);
             upperDataLabelOptions.x = dataLabelOptions.xHigh;
@@ -349,8 +354,7 @@ seriesType('arearange', 'area', {
                         if (!upperDataLabelOptions.align) {
                             upperDataLabelOptions.align = up ? 'right' : 'left';
                         }
-                    }
-                    else {
+                    } else {
                         if (!upperDataLabelOptions.verticalAlign) {
                             upperDataLabelOptions.verticalAlign = up ?
                                 'top' :
@@ -394,8 +398,7 @@ seriesType('arearange', 'area', {
                         if (!lowerDataLabelOptions.align) {
                             lowerDataLabelOptions.align = up ? 'left' : 'right';
                         }
-                    }
-                    else {
+                    } else {
                         if (!lowerDataLabelOptions.verticalAlign) {
                             lowerDataLabelOptions.verticalAlign = up ?
                                 'bottom' :

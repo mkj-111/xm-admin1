@@ -12,11 +12,14 @@
 'use strict';
 import H from '../parts/Globals.js';
 import U from '../parts/Utilities.js';
+
 var extend = U.extend, pick = U.pick, splat = U.splat;
 import '../parts/Axis.js';
 import '../parts/Chart.js';
 import '../parts/Tick.js';
-var ZAxis, addEvent = H.addEvent, Axis = H.Axis, Chart = H.Chart, deg2rad = H.deg2rad, merge = H.merge, perspective = H.perspective, perspective3D = H.perspective3D, shapeArea = H.shapeArea, Tick = H.Tick, wrap = H.wrap;
+
+var ZAxis, addEvent = H.addEvent, Axis = H.Axis, Chart = H.Chart, deg2rad = H.deg2rad, merge = H.merge,
+    perspective = H.perspective, perspective3D = H.perspective3D, shapeArea = H.shapeArea, Tick = H.Tick, wrap = H.wrap;
 /**
  * @optionparent xAxis
  */
@@ -141,12 +144,13 @@ wrap(Axis.prototype, 'getPlotLinePath', function (proceed) {
     if (path === null) {
         return path;
     }
-    var chart = this.chart, options3d = chart.options.chart.options3d, d = this.isZAxis ? chart.plotWidth : options3d.depth, frame = chart.frame3d;
+    var chart = this.chart, options3d = chart.options.chart.options3d,
+        d = this.isZAxis ? chart.plotWidth : options3d.depth, frame = chart.frame3d;
     var pArr = [
-        this.swapZ({ x: path[1], y: path[2], z: 0 }),
-        this.swapZ({ x: path[1], y: path[2], z: d }),
-        this.swapZ({ x: path[4], y: path[5], z: 0 }),
-        this.swapZ({ x: path[4], y: path[5], z: d })
+        this.swapZ({x: path[1], y: path[2], z: 0}),
+        this.swapZ({x: path[1], y: path[2], z: d}),
+        this.swapZ({x: path[4], y: path[5], z: 0}),
+        this.swapZ({x: path[4], y: path[5], z: d})
     ];
     var pathSegments = [];
     if (!this.horiz) { // Y-Axis
@@ -162,8 +166,7 @@ wrap(Axis.prototype, 'getPlotLinePath', function (proceed) {
         if (frame.right.visible) {
             pathSegments.push(pArr[2], pArr[3]);
         }
-    }
-    else if (this.isZAxis) { // Z-Axis
+    } else if (this.isZAxis) { // Z-Axis
         if (frame.left.visible) {
             pathSegments.push(pArr[0], pArr[2]);
         }
@@ -176,8 +179,7 @@ wrap(Axis.prototype, 'getPlotLinePath', function (proceed) {
         if (frame.bottom.visible) {
             pathSegments.push(pArr[2], pArr[3]);
         }
-    }
-    else { // X-Axis
+    } else { // X-Axis
         if (frame.front.visible) {
             pathSegments.push(pArr[0], pArr[2]);
         }
@@ -207,7 +209,8 @@ wrap(Axis.prototype, 'getPlotBandPath', function (proceed) {
     if (!this.chart.is3d() || this.coll === 'colorAxis') {
         return proceed.apply(this, [].slice.call(arguments, 1));
     }
-    var args = arguments, from = args[1], to = args[2], path = [], fromPath = this.getPlotLinePath({ value: from }), toPath = this.getPlotLinePath({ value: to });
+    var args = arguments, from = args[1], to = args[2], path = [], fromPath = this.getPlotLinePath({value: from}),
+        toPath = this.getPlotLinePath({value: to});
     if (fromPath && toPath) {
         for (var i = 0; i < fromPath.length; i += 6) {
             path.push('M', fromPath[i + 1], fromPath[i + 2], 'L', fromPath[i + 4], fromPath[i + 5], 'L', toPath[i + 4], toPath[i + 5], 'L', toPath[i + 1], toPath[i + 2], 'Z');
@@ -215,6 +218,7 @@ wrap(Axis.prototype, 'getPlotBandPath', function (proceed) {
     }
     return path;
 });
+
 /**
  * @private
  * @param {Highcharts.Axis} axis
@@ -231,10 +235,15 @@ function fix3dPosition(axis, pos, isTitle) {
     if (!axis.chart.is3d() || axis.coll === 'colorAxis') {
         return pos;
     }
-    var chart = axis.chart, alpha = deg2rad * chart.options.chart.options3d.alpha, beta = deg2rad * chart.options.chart.options3d.beta, positionMode = pick(isTitle && axis.options.title.position3d, axis.options.labels.position3d), skew = pick(isTitle && axis.options.title.skew3d, axis.options.labels.skew3d), frame = chart.frame3d, plotLeft = chart.plotLeft, plotRight = chart.plotWidth + plotLeft, plotTop = chart.plotTop, plotBottom = chart.plotHeight + plotTop, 
-    // Indicates we are labelling an X or Z axis on the "back" of the chart
-    reverseFlap = false, offsetX = 0, offsetY = 0, vecX, vecY = { x: 0, y: 1, z: 0 };
-    pos = axis.swapZ({ x: pos.x, y: pos.y, z: 0 });
+    var chart = axis.chart, alpha = deg2rad * chart.options.chart.options3d.alpha,
+        beta = deg2rad * chart.options.chart.options3d.beta,
+        positionMode = pick(isTitle && axis.options.title.position3d, axis.options.labels.position3d),
+        skew = pick(isTitle && axis.options.title.skew3d, axis.options.labels.skew3d), frame = chart.frame3d,
+        plotLeft = chart.plotLeft, plotRight = chart.plotWidth + plotLeft, plotTop = chart.plotTop,
+        plotBottom = chart.plotHeight + plotTop,
+        // Indicates we are labelling an X or Z axis on the "back" of the chart
+        reverseFlap = false, offsetX = 0, offsetY = 0, vecX, vecY = {x: 0, y: 1, z: 0};
+    pos = axis.swapZ({x: pos.x, y: pos.y, z: 0});
     if (axis.isZAxis) { // Z Axis
         if (axis.opposite) {
             if (frame.axes.z.top === null) {
@@ -245,8 +254,7 @@ function fix3dPosition(axis, pos, isTitle) {
             pos.y = frame.axes.z.top.y;
             vecX = frame.axes.z.top.xDir;
             reverseFlap = !frame.top.frontFacing;
-        }
-        else {
+        } else {
             if (frame.axes.z.bottom === null) {
                 return {};
             }
@@ -256,8 +264,7 @@ function fix3dPosition(axis, pos, isTitle) {
             vecX = frame.axes.z.bottom.xDir;
             reverseFlap = !frame.bottom.frontFacing;
         }
-    }
-    else if (axis.horiz) { // X Axis
+    } else if (axis.horiz) { // X Axis
         if (axis.opposite) {
             if (frame.axes.x.top === null) {
                 return {};
@@ -267,8 +274,7 @@ function fix3dPosition(axis, pos, isTitle) {
             pos.z = frame.axes.x.top.z;
             vecX = frame.axes.x.top.xDir;
             reverseFlap = !frame.top.frontFacing;
-        }
-        else {
+        } else {
             if (frame.axes.x.bottom === null) {
                 return {};
             }
@@ -278,8 +284,7 @@ function fix3dPosition(axis, pos, isTitle) {
             vecX = frame.axes.x.bottom.xDir;
             reverseFlap = !frame.bottom.frontFacing;
         }
-    }
-    else { // Y Axis
+    } else { // Y Axis
         if (axis.opposite) {
             if (frame.axes.y.right === null) {
                 return {};
@@ -289,9 +294,8 @@ function fix3dPosition(axis, pos, isTitle) {
             pos.z = frame.axes.y.right.z;
             vecX = frame.axes.y.right.xDir;
             // Rotate 90º on opposite edge
-            vecX = { x: vecX.z, y: vecX.y, z: -vecX.x };
-        }
-        else {
+            vecX = {x: vecX.z, y: vecX.y, z: -vecX.x};
+        } else {
             if (frame.axes.y.left === null) {
                 return {};
             }
@@ -304,13 +308,11 @@ function fix3dPosition(axis, pos, isTitle) {
     if (positionMode === 'chart') {
         // Labels preserve their direction relative to the chart
         // nothing to do
-    }
-    else if (positionMode === 'flap') {
+    } else if (positionMode === 'flap') {
         // Labels are be rotated around the axis direction to face the screen
         if (!axis.horiz) { // Y Axis
-            vecX = { x: Math.cos(beta), y: 0, z: Math.sin(beta) };
-        }
-        else { // X and Z Axis
+            vecX = {x: Math.cos(beta), y: 0, z: Math.sin(beta)};
+        } else { // X and Z Axis
             var sin = Math.sin(alpha);
             var cos = Math.cos(alpha);
             if (axis.opposite) {
@@ -319,20 +321,18 @@ function fix3dPosition(axis, pos, isTitle) {
             if (reverseFlap) {
                 sin = -sin;
             }
-            vecY = { x: vecX.z * sin, y: cos, z: -vecX.x * sin };
+            vecY = {x: vecX.z * sin, y: cos, z: -vecX.x * sin};
         }
-    }
-    else if (positionMode === 'ortho') {
+    } else if (positionMode === 'ortho') {
         // Labels will be rotated to be ortogonal to the axis
         if (!axis.horiz) { // Y Axis
-            vecX = { x: Math.cos(beta), y: 0, z: Math.sin(beta) };
-        }
-        else { // X and Z Axis
+            vecX = {x: Math.cos(beta), y: 0, z: Math.sin(beta)};
+        } else { // X and Z Axis
             var sina = Math.sin(alpha);
             var cosa = Math.cos(alpha);
             var sinb = Math.sin(beta);
             var cosb = Math.cos(beta);
-            var vecZ = { x: sinb * cosa, y: -sina, z: -cosa * cosb };
+            var vecZ = {x: sinb * cosa, y: -sina, z: -cosa * cosb};
             vecY = {
                 x: vecX.y * vecZ.z - vecX.z * vecZ.y,
                 y: vecX.z * vecZ.x - vecX.x * vecZ.z,
@@ -342,16 +342,14 @@ function fix3dPosition(axis, pos, isTitle) {
             if (reverseFlap) {
                 scale = -scale;
             }
-            vecY = { x: scale * vecY.x, y: scale * vecY.y, z: scale * vecY.z };
+            vecY = {x: scale * vecY.x, y: scale * vecY.y, z: scale * vecY.z};
         }
-    }
-    else { // positionMode  == 'offset'
+    } else { // positionMode  == 'offset'
         // Labels will be skewd to maintain vertical / horizontal offsets from
         // axis
         if (!axis.horiz) { // Y Axis
-            vecX = { x: Math.cos(beta), y: 0, z: Math.sin(beta) };
-        }
-        else { // X and Z Axis
+            vecX = {x: Math.cos(beta), y: 0, z: Math.sin(beta)};
+        } else { // X and Z Axis
             vecY = {
                 x: Math.sin(beta) * Math.sin(alpha),
                 y: Math.cos(alpha),
@@ -367,16 +365,16 @@ function fix3dPosition(axis, pos, isTitle) {
         // Check if the label text would be mirrored
         var isMirrored = shapeArea(perspective([
             pos,
-            { x: pos.x + vecX.x, y: pos.y + vecX.y, z: pos.z + vecX.z },
-            { x: pos.x + vecY.x, y: pos.y + vecY.y, z: pos.z + vecY.z }
+            {x: pos.x + vecX.x, y: pos.y + vecX.y, z: pos.z + vecX.z},
+            {x: pos.x + vecY.x, y: pos.y + vecY.y, z: pos.z + vecY.z}
         ], axis.chart)) < 0;
         if (isMirrored) {
-            vecX = { x: -vecX.x, y: -vecX.y, z: -vecX.z };
+            vecX = {x: -vecX.x, y: -vecX.y, z: -vecX.z};
         }
         var pointsProjected = perspective([
-            { x: pos.x, y: pos.y, z: pos.z },
-            { x: pos.x + vecX.x, y: pos.y + vecX.y, z: pos.z + vecX.z },
-            { x: pos.x + vecY.x, y: pos.y + vecY.y, z: pos.z + vecY.z }
+            {x: pos.x, y: pos.y, z: pos.z},
+            {x: pos.x + vecX.x, y: pos.y + vecX.y, z: pos.z + vecX.z},
+            {x: pos.x + vecY.x, y: pos.y + vecY.y, z: pos.z + vecY.z}
         ], axis.chart);
         projected.matrix = [
             pointsProjected[1].x - pointsProjected[0].x,
@@ -393,14 +391,15 @@ function fix3dPosition(axis, pos, isTitle) {
     }
     return projected;
 }
+
 /*
 Tick extensions
  */
 wrap(Tick.prototype, 'getMarkPath', function (proceed) {
     var path = proceed.apply(this, [].slice.call(arguments, 1));
     var pArr = [
-        fix3dPosition(this.axis, { x: path[1], y: path[2], z: 0 }),
-        fix3dPosition(this.axis, { x: path[4], y: path[5], z: 0 })
+        fix3dPosition(this.axis, {x: path[1], y: path[2], z: 0}),
+        fix3dPosition(this.axis, {x: path[4], y: path[5], z: 0})
     ];
     return this.axis.chart.renderer.toLineSegments(pArr);
 });
@@ -514,12 +513,15 @@ wrap(Axis.prototype, 'getSlotWidth', function (proceed, tick) {
         tick.label &&
         this.categories &&
         this.chart.frameShapes) {
-        var chart = this.chart, ticks = this.ticks, gridGroup = this.gridGroup.element.childNodes, firstGridLine = gridGroup[0].getBBox(), frame3DLeft = chart.frameShapes.left.getBBox(), options3d = chart.options.chart.options3d, origin = {
-            x: chart.plotWidth / 2,
-            y: chart.plotHeight / 2,
-            z: options3d.depth / 2,
-            vd: pick(options3d.depth, 1) * pick(options3d.viewDistance, 0)
-        }, labelPos, prevLabelPos, nextLabelPos, slotWidth, tickId = tick.pos, prevTick = ticks[tickId - 1], nextTick = ticks[tickId + 1];
+        var chart = this.chart, ticks = this.ticks, gridGroup = this.gridGroup.element.childNodes,
+            firstGridLine = gridGroup[0].getBBox(), frame3DLeft = chart.frameShapes.left.getBBox(),
+            options3d = chart.options.chart.options3d, origin = {
+                x: chart.plotWidth / 2,
+                y: chart.plotHeight / 2,
+                z: options3d.depth / 2,
+                vd: pick(options3d.depth, 1) * pick(options3d.viewDistance, 0)
+            }, labelPos, prevLabelPos, nextLabelPos, slotWidth, tickId = tick.pos, prevTick = ticks[tickId - 1],
+            nextTick = ticks[tickId + 1];
         // Check whether the tick is not the first one and previous tick exists,
         // then calculate position of previous label.
         if (tickId !== 0 && prevTick && prevTick.label.xy) { // #8621
@@ -550,8 +552,8 @@ wrap(Axis.prototype, 'getSlotWidth', function (proceed, tick) {
         // difference between the first grid line and left 3d frame.
         slotWidth = Math.abs(prevLabelPos ?
             labelPos.x - prevLabelPos.x : nextLabelPos ?
-            nextLabelPos.x - labelPos.x :
-            firstGridLine.x - frame3DLeft.x);
+                nextLabelPos.x - labelPos.x :
+                firstGridLine.x - frame3DLeft.x);
         return slotWidth;
     }
     return proceed.apply(this, [].slice.call(arguments, 1));

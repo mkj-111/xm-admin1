@@ -12,6 +12,7 @@
 /* eslint no-console: 0 */
 'use strict';
 import U from '../parts/Utilities.js';
+
 var extend = U.extend, isNumber = U.isNumber, pick = U.pick;
 var isFunction = function (x) {
     return typeof x === 'function';
@@ -67,9 +68,10 @@ var getNode = function (id, parent, level, data, mapOfIdToChildren, options) {
     // Call getNode recursively on the children. Calulate the height of the
     // node, and the number of descendants.
     children = ((mapOfIdToChildren[id] || [])).map(function (child) {
-        var node = getNode(child.id, id, (level + 1), child, mapOfIdToChildren, options), childStart = child.start, childEnd = (child.milestone === true ?
-            childStart :
-            child.end);
+        var node = getNode(child.id, id, (level + 1), child, mapOfIdToChildren, options), childStart = child.start,
+            childEnd = (child.milestone === true ?
+                childStart :
+                child.end);
         // Start should be the lowest child.start.
         start = ((!isNumber(start) || childStart < start) ?
             childStart :

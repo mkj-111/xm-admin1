@@ -10,7 +10,7 @@ var getCentroid = function (simplex) {
         return data;
     };
     for (var i = 0; i < length; i++) {
-        result[i] = arr.reduce(sum, { sum: 0, i: i }).sum / length;
+        result[i] = arr.reduce(sum, {sum: 0, i: i}).sum / length;
     }
     return result;
 };
@@ -28,12 +28,12 @@ var getCentroid = function (simplex) {
  */
 var nelderMead = function nelderMead(fn, initial) {
     var maxIterations = 100, sortByFx = function (a, b) {
-        return a.fx - b.fx;
-    }, pRef = 1, // Reflection parameter
-    pExp = 2, // Expansion parameter
-    pCon = -0.5, // Contraction parameter
-    pOCon = pCon * pRef, // Outwards contraction parameter
-    pShrink = 0.5; // Shrink parameter
+            return a.fx - b.fx;
+        }, pRef = 1, // Reflection parameter
+        pExp = 2, // Expansion parameter
+        pCon = -0.5, // Contraction parameter
+        pOCon = pCon * pRef, // Outwards contraction parameter
+        pShrink = 0.5; // Shrink parameter
     /**
      * @private
      */
@@ -92,8 +92,7 @@ var nelderMead = function nelderMead(fn, initial) {
             // If reflected point is the best, then possibly expand.
             var expanded = getPoint(centroid, worst, 1 + pExp, -pExp);
             simplex = updateSimplex(simplex, (expanded.fx < reflected.fx) ? expanded : reflected);
-        }
-        else if (reflected.fx >= simplex[simplex.length - 2].fx) {
+        } else if (reflected.fx >= simplex[simplex.length - 2].fx) {
             // If the reflected point is worse than the second worse, then
             // contract.
             var contracted;
@@ -103,23 +102,19 @@ var nelderMead = function nelderMead(fn, initial) {
                 contracted = getPoint(centroid, worst, 1 + pCon, -pCon);
                 if (contracted.fx < worst.fx) {
                     simplex = updateSimplex(simplex, contracted);
-                }
-                else {
+                } else {
                     simplex = shrinkSimplex(simplex);
                 }
-            }
-            else {
+            } else {
                 // Otherwise do an outwards contraction
                 contracted = getPoint(centroid, worst, 1 - pOCon, pOCon);
                 if (contracted.fx < reflected.fx) {
                     simplex = updateSimplex(simplex, contracted);
-                }
-                else {
+                } else {
                     simplex = shrinkSimplex(simplex);
                 }
             }
-        }
-        else {
+        } else {
             simplex = updateSimplex(simplex, reflected);
         }
     }

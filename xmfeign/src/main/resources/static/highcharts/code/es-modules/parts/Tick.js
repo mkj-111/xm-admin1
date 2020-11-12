@@ -14,19 +14,21 @@ import H from './Globals.js';
  * @private
  * @interface Highcharts.TickParametersObject
  */ /**
-* Set category for the tick.
-* @name Highcharts.TickParametersObject#category
-* @type {string|undefined}
-*/ /**
-* @name Highcharts.TickParametersObject#options
-* @type {Highcharts.Dictionary<any>|undefined}
-*/ /**
-* Set tickmarkOffset for the tick.
-* @name Highcharts.TickParametersObject#tickmarkOffset
-* @type {number|undefined}
-*/
+ * Set category for the tick.
+ * @name Highcharts.TickParametersObject#category
+ * @type {string|undefined}
+ */ /**
+ * @name Highcharts.TickParametersObject#options
+ * @type {Highcharts.Dictionary<any>|undefined}
+ */ /**
+ * Set tickmarkOffset for the tick.
+ * @name Highcharts.TickParametersObject#tickmarkOffset
+ * @type {number|undefined}
+ */
 import U from './Utilities.js';
-var defined = U.defined, destroyObjectProperties = U.destroyObjectProperties, extend = U.extend, isNumber = U.isNumber, pick = U.pick;
+
+var defined = U.defined, destroyObjectProperties = U.destroyObjectProperties, extend = U.extend, isNumber = U.isNumber,
+    pick = U.pick;
 var correctFloat = H.correctFloat, fireEvent = H.fireEvent, merge = H.merge, deg2rad = H.deg2rad;
 /* eslint-disable no-invalid-this, valid-jsdoc */
 /**
@@ -94,15 +96,20 @@ H.Tick.prototype = {
      * @return {void}
      */
     addLabel: function () {
-        var tick = this, axis = tick.axis, options = axis.options, chart = axis.chart, categories = axis.categories, names = axis.names, pos = tick.pos, labelOptions = pick(tick.options && tick.options.labels, options.labels), str, tickPositions = axis.tickPositions, isFirst = pos === tickPositions[0], isLast = pos === tickPositions[tickPositions.length - 1], value = this.parameters.category || (categories ?
+        var tick = this, axis = tick.axis, options = axis.options, chart = axis.chart, categories = axis.categories,
+            names = axis.names, pos = tick.pos,
+            labelOptions = pick(tick.options && tick.options.labels, options.labels), str,
+            tickPositions = axis.tickPositions, isFirst = pos === tickPositions[0],
+            isLast = pos === tickPositions[tickPositions.length - 1], value = this.parameters.category || (categories ?
             pick(categories[pos], names[pos], pos) :
-            pos), label = tick.label, tickPositionInfo = tickPositions.info, dateTimeLabelFormat, dateTimeLabelFormats, i, list;
+            pos), label = tick.label, tickPositionInfo = tickPositions.info, dateTimeLabelFormat, dateTimeLabelFormats,
+            i, list;
         // Set the datetime label format. If a higher rank is set for this
         // position, use that. If not, use the general format.
         if (axis.isDatetimeAxis && tickPositionInfo) {
             dateTimeLabelFormats = chart.time.resolveDTLFormat(options.dateTimeLabelFormats[(!options.grid &&
                 tickPositionInfo.higherRanks[pos]) ||
-                tickPositionInfo.unitName]);
+            tickPositionInfo.unitName]);
             dateTimeLabelFormat = dateTimeLabelFormats.main;
         }
         // set properties for access in render method
@@ -138,11 +145,11 @@ H.Tick.prototype = {
             tick.shortenLabel = function () {
                 for (i = 0; i < list.length; i++) {
                     label.attr({
-                        text: axis.labelFormatter.call(extend(tick.formatCtx, { dateTimeLabelFormat: list[i] }))
+                        text: axis.labelFormatter.call(extend(tick.formatCtx, {dateTimeLabelFormat: list[i]}))
                     });
                     if (label.getBBox().width <
                         axis.getSlotWidth(tick) - 2 *
-                            pick(labelOptions.padding, 5)) {
+                        pick(labelOptions.padding, 5)) {
                         return;
                     }
                 }
@@ -175,16 +182,15 @@ H.Tick.prototype = {
             // Base value to detect change for new calls to getBBox
             tick.rotation = 0;
             // update
-        }
-        else if (label && label.textStr !== str) {
+        } else if (label && label.textStr !== str) {
             // When resetting text, also reset the width if dynamically set
             // (#8809)
             if (label.textWidth &&
                 !(labelOptions.style && labelOptions.style.width) &&
                 !label.styles.width) {
-                label.css({ width: null });
+                label.css({width: null});
             }
-            label.attr({ text: str });
+            label.attr({text: str});
             label.textPxLength = label.getBBox().width;
         }
     },
@@ -210,11 +216,17 @@ H.Tick.prototype = {
      * @return {void}
      */
     handleOverflow: function (xy) {
-        var tick = this, axis = this.axis, labelOptions = axis.options.labels, pxPos = xy.x, chartWidth = axis.chart.chartWidth, spacing = axis.chart.spacing, leftBound = pick(axis.labelLeft, Math.min(axis.pos, spacing[3])), rightBound = pick(axis.labelRight, Math.max(!axis.isRadial ? axis.pos + axis.len : 0, chartWidth - spacing[1])), label = this.label, rotation = this.rotation, factor = {
-            left: 0,
-            center: 0.5,
-            right: 1
-        }[axis.labelAlign || label.attr('align')], labelWidth = label.getBBox().width, slotWidth = axis.getSlotWidth(tick), modifiedSlotWidth = slotWidth, xCorrection = factor, goRight = 1, leftPos, rightPos, textWidth, css = {};
+        var tick = this, axis = this.axis, labelOptions = axis.options.labels, pxPos = xy.x,
+            chartWidth = axis.chart.chartWidth, spacing = axis.chart.spacing,
+            leftBound = pick(axis.labelLeft, Math.min(axis.pos, spacing[3])),
+            rightBound = pick(axis.labelRight, Math.max(!axis.isRadial ? axis.pos + axis.len : 0, chartWidth - spacing[1])),
+            label = this.label, rotation = this.rotation, factor = {
+                left: 0,
+                center: 0.5,
+                right: 1
+            }[axis.labelAlign || label.attr('align')], labelWidth = label.getBBox().width,
+            slotWidth = axis.getSlotWidth(tick), modifiedSlotWidth = slotWidth, xCorrection = factor, goRight = 1,
+            leftPos, rightPos, textWidth, css = {};
         // Check if the label overshoots the chart spacing box. If it does, move
         // it. If it now overshoots the slotWidth, add ellipsis.
         if (!rotation &&
@@ -224,8 +236,7 @@ H.Tick.prototype = {
             if (leftPos < leftBound) {
                 modifiedSlotWidth =
                     xy.x + modifiedSlotWidth * (1 - factor) - leftBound;
-            }
-            else if (rightPos > rightBound) {
+            } else if (rightPos > rightBound) {
                 modifiedSlotWidth =
                     rightBound - xy.x + modifiedSlotWidth * factor;
                 goRight = -1;
@@ -247,12 +258,10 @@ H.Tick.prototype = {
             }
             // Add ellipsis to prevent rotated labels to be clipped against the edge
             // of the chart
-        }
-        else if (rotation < 0 &&
+        } else if (rotation < 0 &&
             pxPos - factor * labelWidth < leftBound) {
             textWidth = Math.round(pxPos / Math.cos(rotation * deg2rad) - leftBound);
-        }
-        else if (rotation > 0 &&
+        } else if (rotation > 0 &&
             pxPos + factor * labelWidth > rightBound) {
             textWidth = Math.round((chartWidth - pxPos) /
                 Math.cos(rotation * deg2rad));
@@ -260,8 +269,7 @@ H.Tick.prototype = {
         if (textWidth) {
             if (tick.shortenLabel) {
                 tick.shortenLabel();
-            }
-            else {
+            } else {
                 css.width = Math.floor(textWidth);
                 if (!(labelOptions.style || {}).textOverflow) {
                     css.textOverflow = 'ellipsis';
@@ -318,7 +326,7 @@ H.Tick.prototype = {
         };
         // Chrome workaround for #10516
         pos.y = Math.max(Math.min(pos.y, 1e5), -1e5);
-        fireEvent(this, 'afterGetPosition', { pos: pos });
+        fireEvent(this, 'afterGetPosition', {pos: pos});
         return pos;
     },
     /**
@@ -329,21 +337,20 @@ H.Tick.prototype = {
      */
     getLabelPosition: function (x, y, label, horiz, labelOptions, tickmarkOffset, index, step) {
         var axis = this.axis, transA = axis.transA, reversed = ( // #7911
-        axis.isLinked && axis.linkedParent ?
-            axis.linkedParent.reversed :
-            axis.reversed), staggerLines = axis.staggerLines, rotCorr = axis.tickRotCorr || { x: 0, y: 0 }, yOffset = labelOptions.y, 
-        // Adjust for label alignment if we use reserveSpace: true (#5286)
-        labelOffsetCorrection = (!horiz && !axis.reserveSpaceDefault ?
-            -axis.labelOffset * (axis.labelAlign === 'center' ? 0.5 : 1) :
-            0), line, pos = {};
+                axis.isLinked && axis.linkedParent ?
+                    axis.linkedParent.reversed :
+                    axis.reversed), staggerLines = axis.staggerLines, rotCorr = axis.tickRotCorr || {x: 0, y: 0},
+            yOffset = labelOptions.y,
+            // Adjust for label alignment if we use reserveSpace: true (#5286)
+            labelOffsetCorrection = (!horiz && !axis.reserveSpaceDefault ?
+                -axis.labelOffset * (axis.labelAlign === 'center' ? 0.5 : 1) :
+                0), line, pos = {};
         if (!defined(yOffset)) {
             if (axis.side === 0) {
                 yOffset = label.rotation ? -8 : -label.getBBox().height;
-            }
-            else if (axis.side === 2) {
+            } else if (axis.side === 2) {
                 yOffset = rotCorr.y + 8;
-            }
-            else {
+            } else {
                 // #3140, #3140
                 yOffset = Math.cos(label.rotation * deg2rad) *
                     (rotCorr.y - label.getBBox(false, 0).height / 2);
@@ -368,7 +375,7 @@ H.Tick.prototype = {
         }
         pos.x = x;
         pos.y = Math.round(y);
-        fireEvent(this, 'afterGetLabelPosition', { pos: pos, tickmarkOffset: tickmarkOffset, index: index });
+        fireEvent(this, 'afterGetLabelPosition', {pos: pos, tickmarkOffset: tickmarkOffset, index: index});
         return pos;
     },
     /**
@@ -397,7 +404,11 @@ H.Tick.prototype = {
      * @return {void}
      */
     renderGridLine: function (old, opacity, reverseCrisp) {
-        var tick = this, axis = tick.axis, options = axis.options, gridLine = tick.gridLine, gridLinePath, attribs = {}, pos = tick.pos, type = tick.type, tickmarkOffset = pick(tick.tickmarkOffset, axis.tickmarkOffset), renderer = axis.chart.renderer, gridPrefix = type ? type + 'Grid' : 'grid', gridLineWidth = options[gridPrefix + 'LineWidth'], gridLineColor = options[gridPrefix + 'LineColor'], dashStyle = options[gridPrefix + 'LineDashStyle'];
+        var tick = this, axis = tick.axis, options = axis.options, gridLine = tick.gridLine, gridLinePath, attribs = {},
+            pos = tick.pos, type = tick.type, tickmarkOffset = pick(tick.tickmarkOffset, axis.tickmarkOffset),
+            renderer = axis.chart.renderer, gridPrefix = type ? type + 'Grid' : 'grid',
+            gridLineWidth = options[gridPrefix + 'LineWidth'], gridLineColor = options[gridPrefix + 'LineColor'],
+            dashStyle = options[gridPrefix + 'LineDashStyle'];
         if (!gridLine) {
             if (!axis.chart.styledMode) {
                 attribs.stroke = gridLineColor;
@@ -449,8 +460,11 @@ H.Tick.prototype = {
      * @return {void}
      */
     renderMark: function (xy, opacity, reverseCrisp) {
-        var tick = this, axis = tick.axis, options = axis.options, renderer = axis.chart.renderer, type = tick.type, tickPrefix = type ? type + 'Tick' : 'tick', tickSize = axis.tickSize(tickPrefix), mark = tick.mark, isNewMark = !mark, x = xy.x, y = xy.y, tickWidth = pick(options[tickPrefix + 'Width'], !type && axis.isXAxis ? 1 : 0), // X axis defaults to 1
-        tickColor = options[tickPrefix + 'Color'];
+        var tick = this, axis = tick.axis, options = axis.options, renderer = axis.chart.renderer, type = tick.type,
+            tickPrefix = type ? type + 'Tick' : 'tick', tickSize = axis.tickSize(tickPrefix), mark = tick.mark,
+            isNewMark = !mark, x = xy.x, y = xy.y,
+            tickWidth = pick(options[tickPrefix + 'Width'], !type && axis.isXAxis ? 1 : 0), // X axis defaults to 1
+            tickColor = options[tickPrefix + 'Color'];
         if (tickSize) {
             // negate the length
             if (axis.opposite) {
@@ -492,7 +506,9 @@ H.Tick.prototype = {
      * @return {void}
      */
     renderLabel: function (xy, old, opacity, index) {
-        var tick = this, axis = tick.axis, horiz = axis.horiz, options = axis.options, label = tick.label, labelOptions = options.labels, step = labelOptions.step, tickmarkOffset = pick(tick.tickmarkOffset, axis.tickmarkOffset), show = true, x = xy.x, y = xy.y;
+        var tick = this, axis = tick.axis, horiz = axis.horiz, options = axis.options, label = tick.label,
+            labelOptions = options.labels, step = labelOptions.step,
+            tickmarkOffset = pick(tick.tickmarkOffset, axis.tickmarkOffset), show = true, x = xy.x, y = xy.y;
         if (label && isNumber(x)) {
             label.xy = xy = tick.getLabelPosition(x, y, label, horiz, labelOptions, tickmarkOffset, index, step);
             // Apply show first and show last. If the tick is both first and
@@ -506,8 +522,7 @@ H.Tick.prototype = {
                     !pick(options.showLastLabel, 1))) {
                 show = false;
                 // Handle label overflow and show or hide accordingly
-            }
-            else if (horiz &&
+            } else if (horiz &&
                 !labelOptions.step &&
                 !labelOptions.rotation &&
                 !old &&
@@ -524,8 +539,7 @@ H.Tick.prototype = {
                 xy.opacity = opacity;
                 label[tick.isNewLabel ? 'attr' : 'animate'](xy);
                 tick.isNewLabel = false;
-            }
-            else {
+            } else {
                 label.attr('y', -9999); // #1338
                 tick.isNewLabel = true;
             }
@@ -542,8 +556,11 @@ H.Tick.prototype = {
      * @return {voids}
      */
     render: function (index, old, opacity) {
-        var tick = this, axis = tick.axis, horiz = axis.horiz, pos = tick.pos, tickmarkOffset = pick(tick.tickmarkOffset, axis.tickmarkOffset), xy = tick.getPosition(horiz, pos, tickmarkOffset, old), x = xy.x, y = xy.y, reverseCrisp = ((horiz && x === axis.pos + axis.len) ||
-            (!horiz && y === axis.pos)) ? -1 : 1; // #1480, #1687
+        var tick = this, axis = tick.axis, horiz = axis.horiz, pos = tick.pos,
+            tickmarkOffset = pick(tick.tickmarkOffset, axis.tickmarkOffset),
+            xy = tick.getPosition(horiz, pos, tickmarkOffset, old), x = xy.x, y = xy.y,
+            reverseCrisp = ((horiz && x === axis.pos + axis.len) ||
+                (!horiz && y === axis.pos)) ? -1 : 1; // #1480, #1687
         opacity = pick(opacity, 1);
         this.isActive = true;
         // Create the grid line

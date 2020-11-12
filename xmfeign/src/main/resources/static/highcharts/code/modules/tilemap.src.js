@@ -23,11 +23,13 @@
     }
 }(function (Highcharts) {
     var _modules = Highcharts ? Highcharts._modules : {};
+
     function _registerModule(obj, path, args, fn) {
         if (!obj.hasOwnProperty(path)) {
             obj[path] = fn.apply(null, args);
         }
     }
+
     _registerModule(_modules, 'modules/tilemap.src.js', [_modules['parts/Globals.js'], _modules['parts/Utilities.js']], function (H, U) {
         /* *
          *
@@ -45,19 +47,19 @@
         /**
          * @typedef {"circle"|"diamond"|"hexagon"|"square"} Highcharts.TilemapShapeValue
          */
-        var seriesType = H.seriesType, 
-        // Utility func to get the middle number of 3
-        between = function (x, a, b) {
-            return Math.min(Math.max(a, x), b);
-        }, 
-        // Utility func to get padding definition from tile size division
-        tilePaddingFromTileSize = function (series, xDiv, yDiv) {
-            var options = series.options;
-            return {
-                xPad: (options.colsize || 1) / -xDiv,
-                yPad: (options.rowsize || 1) / -yDiv
+        var seriesType = H.seriesType,
+            // Utility func to get the middle number of 3
+            between = function (x, a, b) {
+                return Math.min(Math.max(a, x), b);
+            },
+            // Utility func to get padding definition from tile size division
+            tilePaddingFromTileSize = function (series, xDiv, yDiv) {
+                var options = series.options;
+                return {
+                    xPad: (options.colsize || 1) / -xDiv,
+                    yPad: (options.rowsize || 1) / -yDiv
+                };
             };
-        };
         // Map of shape types.
         H.tileShapeTypes = {
             // Hexagon shape type.
@@ -82,18 +84,27 @@
                     ];
                 },
                 translate: function () {
-                    var series = this, options = series.options, xAxis = series.xAxis, yAxis = series.yAxis, seriesPointPadding = options.pointPadding || 0, xPad = (options.colsize || 1) / 3, yPad = (options.rowsize || 1) / 2, yShift;
+                    var series = this, options = series.options, xAxis = series.xAxis, yAxis = series.yAxis,
+                        seriesPointPadding = options.pointPadding || 0, xPad = (options.colsize || 1) / 3,
+                        yPad = (options.rowsize || 1) / 2, yShift;
                     series.generatePoints();
                     series.points.forEach(function (point) {
                         var x1 = between(Math.floor(xAxis.len -
-                            xAxis.translate(point.x - xPad * 2, 0, 1, 0, 1)), -xAxis.len, 2 * xAxis.len), x2 = between(Math.floor(xAxis.len -
-                            xAxis.translate(point.x - xPad, 0, 1, 0, 1)), -xAxis.len, 2 * xAxis.len), x3 = between(Math.floor(xAxis.len -
-                            xAxis.translate(point.x + xPad, 0, 1, 0, 1)), -xAxis.len, 2 * xAxis.len), x4 = between(Math.floor(xAxis.len -
-                            xAxis.translate(point.x + xPad * 2, 0, 1, 0, 1)), -xAxis.len, 2 * xAxis.len), y1 = between(Math.floor(yAxis.translate(point.y - yPad, 0, 1, 0, 1)), -yAxis.len, 2 * yAxis.len), y2 = between(Math.floor(yAxis.translate(point.y, 0, 1, 0, 1)), -yAxis.len, 2 * yAxis.len), y3 = between(Math.floor(yAxis.translate(point.y + yPad, 0, 1, 0, 1)), -yAxis.len, 2 * yAxis.len), pointPadding = pick(point.pointPadding, seriesPointPadding), 
-                        // We calculate the point padding of the midpoints to
-                        // preserve the angles of the shape.
-                        midPointPadding = pointPadding *
-                            Math.abs(x2 - x1) / Math.abs(y3 - y2), xMidPadding = xAxis.reversed ?
+                            xAxis.translate(point.x - xPad * 2, 0, 1, 0, 1)), -xAxis.len, 2 * xAxis.len),
+                            x2 = between(Math.floor(xAxis.len -
+                                xAxis.translate(point.x - xPad, 0, 1, 0, 1)), -xAxis.len, 2 * xAxis.len),
+                            x3 = between(Math.floor(xAxis.len -
+                                xAxis.translate(point.x + xPad, 0, 1, 0, 1)), -xAxis.len, 2 * xAxis.len),
+                            x4 = between(Math.floor(xAxis.len -
+                                xAxis.translate(point.x + xPad * 2, 0, 1, 0, 1)), -xAxis.len, 2 * xAxis.len),
+                            y1 = between(Math.floor(yAxis.translate(point.y - yPad, 0, 1, 0, 1)), -yAxis.len, 2 * yAxis.len),
+                            y2 = between(Math.floor(yAxis.translate(point.y, 0, 1, 0, 1)), -yAxis.len, 2 * yAxis.len),
+                            y3 = between(Math.floor(yAxis.translate(point.y + yPad, 0, 1, 0, 1)), -yAxis.len, 2 * yAxis.len),
+                            pointPadding = pick(point.pointPadding, seriesPointPadding),
+                            // We calculate the point padding of the midpoints to
+                            // preserve the angles of the shape.
+                            midPointPadding = pointPadding *
+                                Math.abs(x2 - x1) / Math.abs(y3 - y2), xMidPadding = xAxis.reversed ?
                             -midPointPadding : midPointPadding, xPointPadding = xAxis.reversed ?
                             -pointPadding : pointPadding, yPointPadding = yAxis.reversed ?
                             -pointPadding : pointPadding;
@@ -157,17 +168,25 @@
                     ];
                 },
                 translate: function () {
-                    var series = this, options = series.options, xAxis = series.xAxis, yAxis = series.yAxis, seriesPointPadding = options.pointPadding || 0, xPad = (options.colsize || 1), yPad = (options.rowsize || 1) / 2, yShift;
+                    var series = this, options = series.options, xAxis = series.xAxis, yAxis = series.yAxis,
+                        seriesPointPadding = options.pointPadding || 0, xPad = (options.colsize || 1),
+                        yPad = (options.rowsize || 1) / 2, yShift;
                     series.generatePoints();
                     series.points.forEach(function (point) {
                         var x1 = between(Math.round(xAxis.len -
-                            xAxis.translate(point.x - xPad, 0, 1, 0, 0)), -xAxis.len, 2 * xAxis.len), x2 = between(Math.round(xAxis.len -
-                            xAxis.translate(point.x, 0, 1, 0, 0)), -xAxis.len, 2 * xAxis.len), x3 = between(Math.round(xAxis.len -
-                            xAxis.translate(point.x + xPad, 0, 1, 0, 0)), -xAxis.len, 2 * xAxis.len), y1 = between(Math.round(yAxis.translate(point.y - yPad, 0, 1, 0, 0)), -yAxis.len, 2 * yAxis.len), y2 = between(Math.round(yAxis.translate(point.y, 0, 1, 0, 0)), -yAxis.len, 2 * yAxis.len), y3 = between(Math.round(yAxis.translate(point.y + yPad, 0, 1, 0, 0)), -yAxis.len, 2 * yAxis.len), pointPadding = pick(point.pointPadding, seriesPointPadding), 
-                        // We calculate the point padding of the midpoints to
-                        // preserve the angles of the shape.
-                        midPointPadding = pointPadding *
-                            Math.abs(x2 - x1) / Math.abs(y3 - y2), xPointPadding = xAxis.reversed ?
+                            xAxis.translate(point.x - xPad, 0, 1, 0, 0)), -xAxis.len, 2 * xAxis.len),
+                            x2 = between(Math.round(xAxis.len -
+                                xAxis.translate(point.x, 0, 1, 0, 0)), -xAxis.len, 2 * xAxis.len),
+                            x3 = between(Math.round(xAxis.len -
+                                xAxis.translate(point.x + xPad, 0, 1, 0, 0)), -xAxis.len, 2 * xAxis.len),
+                            y1 = between(Math.round(yAxis.translate(point.y - yPad, 0, 1, 0, 0)), -yAxis.len, 2 * yAxis.len),
+                            y2 = between(Math.round(yAxis.translate(point.y, 0, 1, 0, 0)), -yAxis.len, 2 * yAxis.len),
+                            y3 = between(Math.round(yAxis.translate(point.y + yPad, 0, 1, 0, 0)), -yAxis.len, 2 * yAxis.len),
+                            pointPadding = pick(point.pointPadding, seriesPointPadding),
+                            // We calculate the point padding of the midpoints to
+                            // preserve the angles of the shape.
+                            midPointPadding = pointPadding *
+                                Math.abs(x2 - x1) / Math.abs(y3 - y2), xPointPadding = xAxis.reversed ?
                             -midPointPadding : midPointPadding, yPointPadding = yAxis.reversed ?
                             -pointPadding : pointPadding;
                         // Shift y-values for every second grid column
@@ -216,11 +235,16 @@
                         .call(this, size + (size && this.radius));
                 },
                 translate: function () {
-                    var series = this, options = series.options, xAxis = series.xAxis, yAxis = series.yAxis, seriesPointPadding = options.pointPadding || 0, yRadius = (options.rowsize || 1) / 2, colsize = (options.colsize || 1), colsizePx, yRadiusPx, xRadiusPx, radius, forceNextRadiusCompute = false;
+                    var series = this, options = series.options, xAxis = series.xAxis, yAxis = series.yAxis,
+                        seriesPointPadding = options.pointPadding || 0, yRadius = (options.rowsize || 1) / 2,
+                        colsize = (options.colsize || 1), colsizePx, yRadiusPx, xRadiusPx, radius,
+                        forceNextRadiusCompute = false;
                     series.generatePoints();
                     series.points.forEach(function (point) {
                         var x = between(Math.round(xAxis.len -
-                            xAxis.translate(point.x, 0, 1, 0, 0)), -xAxis.len, 2 * xAxis.len), y = between(Math.round(yAxis.translate(point.y, 0, 1, 0, 0)), -yAxis.len, 2 * yAxis.len), pointPadding = seriesPointPadding, hasPerPointPadding = false;
+                            xAxis.translate(point.x, 0, 1, 0, 0)), -xAxis.len, 2 * xAxis.len),
+                            y = between(Math.round(yAxis.translate(point.y, 0, 1, 0, 0)), -yAxis.len, 2 * yAxis.len),
+                            pointPadding = seriesPointPadding, hasPerPointPadding = false;
                         // If there is point padding defined on a single point, add it
                         if (point.pointPadding !== undefined) {
                             pointPadding = point.pointPadding;
@@ -298,22 +322,22 @@
             if (this.recomputingForTilemap || this.coll === 'colorAxis') {
                 return;
             }
-            var axis = this, 
-            // Find which series' padding to use
-            seriesPadding = axis.series
-                .map(function (series) {
-                return series.getSeriesPixelPadding &&
-                    series.getSeriesPixelPadding(axis);
-            })
-                .reduce(function (a, b) {
-                return (a && a.padding) > (b && b.padding) ?
-                    a :
-                    b;
-            }, undefined) ||
-                {
-                    padding: 0,
-                    axisLengthFactor: 1
-                }, lengthPadding = Math.round(seriesPadding.padding * seriesPadding.axisLengthFactor);
+            var axis = this,
+                // Find which series' padding to use
+                seriesPadding = axis.series
+                        .map(function (series) {
+                            return series.getSeriesPixelPadding &&
+                                series.getSeriesPixelPadding(axis);
+                        })
+                        .reduce(function (a, b) {
+                            return (a && a.padding) > (b && b.padding) ?
+                                a :
+                                b;
+                        }, undefined) ||
+                    {
+                        padding: 0,
+                        axisLengthFactor: 1
+                    }, lengthPadding = Math.round(seriesPadding.padding * seriesPadding.axisLengthFactor);
             // Don't waste time on this if we're not adding extra padding
             if (seriesPadding.padding) {
                 // Recompute translation with new axis length now (minus padding)
@@ -333,145 +357,145 @@
          * @augments Highcharts.Series
          */
         seriesType('tilemap', 'heatmap'
-        /**
-         * A tilemap series is a type of heatmap where the tile shapes are
-         * configurable.
-         *
-         * @sample highcharts/demo/honeycomb-usa/
-         *         Honeycomb tilemap, USA
-         * @sample maps/plotoptions/honeycomb-brazil/
-         *         Honeycomb tilemap, Brazil
-         * @sample maps/plotoptions/honeycomb-china/
-         *         Honeycomb tilemap, China
-         * @sample maps/plotoptions/honeycomb-europe/
-         *         Honeycomb tilemap, Europe
-         * @sample maps/demo/circlemap-africa/
-         *         Circlemap tilemap, Africa
-         * @sample maps/demo/diamondmap
-         *         Diamondmap tilemap
-         *
-         * @extends      plotOptions.heatmap
-         * @since        6.0.0
-         * @excluding    jitter, joinBy, shadow, allAreas, mapData, data
-         * @product      highcharts highmaps
-         * @requires     modules/tilemap.js
-         * @optionparent plotOptions.tilemap
-         */
-        , {
-            states: {
-                hover: {
-                    halo: {
-                        enabled: true,
-                        size: 2,
-                        opacity: 0.5,
-                        attributes: {
-                            zIndex: 3
+            /**
+             * A tilemap series is a type of heatmap where the tile shapes are
+             * configurable.
+             *
+             * @sample highcharts/demo/honeycomb-usa/
+             *         Honeycomb tilemap, USA
+             * @sample maps/plotoptions/honeycomb-brazil/
+             *         Honeycomb tilemap, Brazil
+             * @sample maps/plotoptions/honeycomb-china/
+             *         Honeycomb tilemap, China
+             * @sample maps/plotoptions/honeycomb-europe/
+             *         Honeycomb tilemap, Europe
+             * @sample maps/demo/circlemap-africa/
+             *         Circlemap tilemap, Africa
+             * @sample maps/demo/diamondmap
+             *         Diamondmap tilemap
+             *
+             * @extends      plotOptions.heatmap
+             * @since        6.0.0
+             * @excluding    jitter, joinBy, shadow, allAreas, mapData, data
+             * @product      highcharts highmaps
+             * @requires     modules/tilemap.js
+             * @optionparent plotOptions.tilemap
+             */
+            , {
+                states: {
+                    hover: {
+                        halo: {
+                            enabled: true,
+                            size: 2,
+                            opacity: 0.5,
+                            attributes: {
+                                zIndex: 3
+                            }
                         }
                     }
-                }
-            },
-            /**
-             * The padding between points in the tilemap.
-             *
-             * @sample maps/plotoptions/tilemap-pointpadding
-             *         Point padding on tiles
-             */
-            pointPadding: 2,
-            /**
-             * The column size - how many X axis units each column in the tilemap
-             * should span. Works as in [Heatmaps](#plotOptions.heatmap.colsize).
-             *
-             * @sample {highcharts} maps/demo/heatmap/
-             *         One day
-             * @sample {highmaps} maps/demo/heatmap/
-             *         One day
-             *
-             * @type      {number}
-             * @default   1
-             * @product   highcharts highmaps
-             * @apioption plotOptions.tilemap.colsize
-             */
-            /**
-             * The row size - how many Y axis units each tilemap row should span.
-             * Analogous to [colsize](#plotOptions.tilemap.colsize).
-             *
-             * @sample {highcharts} maps/demo/heatmap/
-             *         1 by default
-             * @sample {highmaps} maps/demo/heatmap/
-             *         1 by default
-             *
-             * @type      {number}
-             * @default   1
-             * @product   highcharts highmaps
-             * @apioption plotOptions.tilemap.rowsize
-             */
-            /**
-             * The shape of the tiles in the tilemap. Possible values are `hexagon`,
-             * `circle`, `diamond`, and `square`.
-             *
-             * @sample maps/demo/circlemap-africa
-             *         Circular tile shapes
-             * @sample maps/demo/diamondmap
-             *         Diamond tile shapes
-             *
-             * @type {Highcharts.TilemapShapeValue}
-             */
-            tileShape: 'hexagon'
-        }, {
-            // Set tile shape object on series
-            setOptions: function () {
-                // Call original function
-                var ret = H.seriesTypes.heatmap.prototype.setOptions.apply(this, Array.prototype.slice.call(arguments));
-                this.tileShape = H.tileShapeTypes[ret.tileShape];
-                return ret;
-            },
-            // Use the shape's defined data label alignment function
-            alignDataLabel: function () {
-                return this.tileShape.alignDataLabel.apply(this, Array.prototype.slice.call(arguments));
-            },
-            // Get metrics for padding of axis for this series
-            getSeriesPixelPadding: function (axis) {
-                var isX = axis.isXAxis, padding = this.tileShape.getSeriesPadding(this), coord1, coord2;
-                // If the shape type does not require padding, return no-op padding
-                if (!padding) {
+                },
+                /**
+                 * The padding between points in the tilemap.
+                 *
+                 * @sample maps/plotoptions/tilemap-pointpadding
+                 *         Point padding on tiles
+                 */
+                pointPadding: 2,
+                /**
+                 * The column size - how many X axis units each column in the tilemap
+                 * should span. Works as in [Heatmaps](#plotOptions.heatmap.colsize).
+                 *
+                 * @sample {highcharts} maps/demo/heatmap/
+                 *         One day
+                 * @sample {highmaps} maps/demo/heatmap/
+                 *         One day
+                 *
+                 * @type      {number}
+                 * @default   1
+                 * @product   highcharts highmaps
+                 * @apioption plotOptions.tilemap.colsize
+                 */
+                /**
+                 * The row size - how many Y axis units each tilemap row should span.
+                 * Analogous to [colsize](#plotOptions.tilemap.colsize).
+                 *
+                 * @sample {highcharts} maps/demo/heatmap/
+                 *         1 by default
+                 * @sample {highmaps} maps/demo/heatmap/
+                 *         1 by default
+                 *
+                 * @type      {number}
+                 * @default   1
+                 * @product   highcharts highmaps
+                 * @apioption plotOptions.tilemap.rowsize
+                 */
+                /**
+                 * The shape of the tiles in the tilemap. Possible values are `hexagon`,
+                 * `circle`, `diamond`, and `square`.
+                 *
+                 * @sample maps/demo/circlemap-africa
+                 *         Circular tile shapes
+                 * @sample maps/demo/diamondmap
+                 *         Diamond tile shapes
+                 *
+                 * @type {Highcharts.TilemapShapeValue}
+                 */
+                tileShape: 'hexagon'
+            }, {
+                // Set tile shape object on series
+                setOptions: function () {
+                    // Call original function
+                    var ret = H.seriesTypes.heatmap.prototype.setOptions.apply(this, Array.prototype.slice.call(arguments));
+                    this.tileShape = H.tileShapeTypes[ret.tileShape];
+                    return ret;
+                },
+                // Use the shape's defined data label alignment function
+                alignDataLabel: function () {
+                    return this.tileShape.alignDataLabel.apply(this, Array.prototype.slice.call(arguments));
+                },
+                // Get metrics for padding of axis for this series
+                getSeriesPixelPadding: function (axis) {
+                    var isX = axis.isXAxis, padding = this.tileShape.getSeriesPadding(this), coord1, coord2;
+                    // If the shape type does not require padding, return no-op padding
+                    if (!padding) {
+                        return {
+                            padding: 0,
+                            axisLengthFactor: 1
+                        };
+                    }
+                    // Use translate to compute how far outside the points we
+                    // draw, and use this difference as padding.
+                    coord1 = Math.round(axis.translate(isX ?
+                        padding.xPad * 2 :
+                        padding.yPad, 0, 1, 0, 1));
+                    coord2 = Math.round(axis.translate(isX ? padding.xPad : 0, 0, 1, 0, 1));
                     return {
-                        padding: 0,
-                        axisLengthFactor: 1
+                        padding: Math.abs(coord1 - coord2) || 0,
+                        // Offset the yAxis length to compensate for shift. Setting the
+                        // length factor to 2 would add the same margin to max as min.
+                        // Now we only add a slight bit of the min margin to max, as we
+                        // don't actually draw outside the max bounds. For the xAxis we
+                        // draw outside on both sides so we add the same margin to min
+                        // and max.
+                        axisLengthFactor: isX ? 2 : 1.1
                     };
+                },
+                // Use translate from tileShape
+                translate: function () {
+                    return this.tileShape.translate.apply(this, Array.prototype.slice.call(arguments));
                 }
-                // Use translate to compute how far outside the points we
-                // draw, and use this difference as padding.
-                coord1 = Math.round(axis.translate(isX ?
-                    padding.xPad * 2 :
-                    padding.yPad, 0, 1, 0, 1));
-                coord2 = Math.round(axis.translate(isX ? padding.xPad : 0, 0, 1, 0, 1));
-                return {
-                    padding: Math.abs(coord1 - coord2) || 0,
-                    // Offset the yAxis length to compensate for shift. Setting the
-                    // length factor to 2 would add the same margin to max as min.
-                    // Now we only add a slight bit of the min margin to max, as we
-                    // don't actually draw outside the max bounds. For the xAxis we
-                    // draw outside on both sides so we add the same margin to min
-                    // and max.
-                    axisLengthFactor: isX ? 2 : 1.1
-                };
-            },
-            // Use translate from tileShape
-            translate: function () {
-                return this.tileShape.translate.apply(this, Array.prototype.slice.call(arguments));
-            }
-        }, extend({
-            // eslint-disable-next-line valid-jsdoc
-            /**
-             * @private
-             * @function Highcharts.Point#haloPath
-             *
-             * @return {Highcharts.SVGElement|Highcharts.SVGPathArray|Array<Highcharts.SVGElement>}
-             */
-            haloPath: function () {
-                return this.series.tileShape.haloPath.apply(this, Array.prototype.slice.call(arguments));
-            }
-        }, H.colorPointMixin));
+            }, extend({
+                // eslint-disable-next-line valid-jsdoc
+                /**
+                 * @private
+                 * @function Highcharts.Point#haloPath
+                 *
+                 * @return {Highcharts.SVGElement|Highcharts.SVGPathArray|Array<Highcharts.SVGElement>}
+                 */
+                haloPath: function () {
+                    return this.series.tileShape.haloPath.apply(this, Array.prototype.slice.call(arguments));
+                }
+            }, H.colorPointMixin));
         /**
          * A `tilemap` series. If the [type](#series.tilemap.type) option is
          * not specified, it is inherited from [chart.type](#chart.type).

@@ -34,21 +34,21 @@ import H from './Globals.js';
  * @since 6.0.3
  * @interface Highcharts.DataLabelsFilterOptionsObject
  */ /**
-* The operator to compare by. Can be one of `>`, `<`, `>=`, `<=`, `==`, and
-* `===`.
-* @name Highcharts.DataLabelsFilterOptionsObject#operator
-* @type {Highcharts.DataLabelsFilterOperatorValue}
-*/ /**
-* The point property to filter by. Point options are passed directly to
-* properties, additionally there are `y` value, `percentage` and others listed
-* under {@link Highcharts.Point} members.
-* @name Highcharts.DataLabelsFilterOptionsObject#property
-* @type {string}
-*/ /**
-* The value to compare against.
-* @name Highcharts.DataLabelsFilterOptionsObject#value
-* @type {number|null}
-*/
+ * The operator to compare by. Can be one of `>`, `<`, `>=`, `<=`, `==`, and
+ * `===`.
+ * @name Highcharts.DataLabelsFilterOptionsObject#operator
+ * @type {Highcharts.DataLabelsFilterOperatorValue}
+ */ /**
+ * The point property to filter by. Point options are passed directly to
+ * properties, additionally there are `y` value, `percentage` and others listed
+ * under {@link Highcharts.Point} members.
+ * @name Highcharts.DataLabelsFilterOptionsObject#property
+ * @type {string}
+ */ /**
+ * The value to compare against.
+ * @name Highcharts.DataLabelsFilterOptionsObject#value
+ * @type {number|null}
+ */
 /**
  * Callback JavaScript function to format the data label as a string. Note that
  * if a `format` is defined, the format takes precedence and the formatter is
@@ -67,31 +67,31 @@ import H from './Globals.js';
  *
  * @interface Highcharts.DataLabelsFormatterContextObject
  */ /**
-* Stacked series and pies only. The point's percentage of the total.
-* @name Highcharts.DataLabelsFormatterContextObject#percentage
-* @type {number|undefined}
-*/ /**
-* The point object. The point name, if defined, is available through
-* `this.point.name`.
-* @name Highcharts.DataLabelsFormatterContextObject#point
-* @type {Highcharts.Point}
-*/ /**
-* The series object. The series name is available through `this.series.name`.
-* @name Highcharts.DataLabelsFormatterContextObject#series
-* @type {Highcharts.Series}
-*/ /**
-* Stacked series only. The total value at this point's x value.
-* @name Highcharts.DataLabelsFormatterContextObject#total
-* @type {number|undefined}
-*/ /**
-* The x value.
-* @name Highcharts.DataLabelsFormatterContextObject#x
-* @type {number}
-*/ /**
-* The y value.
-* @name Highcharts.DataLabelsFormatterContextObject#y
-* @type {number|null}
-*/
+ * Stacked series and pies only. The point's percentage of the total.
+ * @name Highcharts.DataLabelsFormatterContextObject#percentage
+ * @type {number|undefined}
+ */ /**
+ * The point object. The point name, if defined, is available through
+ * `this.point.name`.
+ * @name Highcharts.DataLabelsFormatterContextObject#point
+ * @type {Highcharts.Point}
+ */ /**
+ * The series object. The series name is available through `this.series.name`.
+ * @name Highcharts.DataLabelsFormatterContextObject#series
+ * @type {Highcharts.Series}
+ */ /**
+ * Stacked series only. The total value at this point's x value.
+ * @name Highcharts.DataLabelsFormatterContextObject#total
+ * @type {number|undefined}
+ */ /**
+ * The x value.
+ * @name Highcharts.DataLabelsFormatterContextObject#x
+ * @type {number}
+ */ /**
+ * The y value.
+ * @name Highcharts.DataLabelsFormatterContextObject#y
+ * @type {number|null}
+ */
 /**
  * Options for the series data labels, appearing next to each data point.
  *
@@ -110,353 +110,353 @@ import H from './Globals.js';
  *
  * @interface Highcharts.DataLabelsOptionsObject
  */ /**
-* The alignment of the data label compared to the point. If `right`, the right
-* side of the label should be touching the point. For points with an extent,
-* like columns, the alignments also dictates how to align it inside the box, as
-* given with the
-* [inside](/highcharts/plotOptions.column.dataLabels.inside)
-* option. Can be one of `left`, `center` or `right`.
-*
-* @see {@link https://jsfiddle.net/gh/get/library/pure/highcharts/highcharts/tree/master/samples/highcharts/plotoptions/series-datalabels-align-left/|Highcharts-Demo:}
-*      Left aligned
-* @see {@link https://jsfiddle.net/gh/get/library/pure/highcharts/highcharts/tree/master/samples/highcharts/plotoptions/bar-datalabels-align-inside-bar/|Highcharts-Demo:}
-*      Data labels inside the bar
-*
-* @name Highcharts.DataLabelsOptionsObject#align
-* @type {Highcharts.AlignValue|null|undefined}
-* @default center
-*/ /**
-* Whether to allow data labels to overlap. To make the labels less sensitive
-* for overlapping, the
-* [dataLabels.padding](/highcharts/#plotOptions.series.dataLabels.padding) can
-* be set to 0.
-*
-* @see {@link https://jsfiddle.net/gh/get/library/pure/highcharts/highcharts/tree/master/samples/highcharts/plotoptions/series-datalabels-allowoverlap-false/|Highcharts-Demo:}
-*      Don't allow overlap
-*
-* @name Highcharts.DataLabelsOptionsObject#allowOverlap
-* @type {boolean|undefined}
-* @since 4.1.0
-* @default false
-*/ /**
-* The background color or gradient for the data label.
-*
-* @see {@link https://jsfiddle.net/gh/get/library/pure/highcharts/highcharts/tree/master/samples/highcharts/plotoptions/series-datalabels-box/|Highcharts-Demo:}
-*      Data labels box options
-* @see {@link https://jsfiddle.net/gh/get/library/pure/highcharts/highcharts/tree/master/samples/maps/plotoptions/series-datalabels-box/|Highmaps-Demo:}
-*      Data labels box options
-*
-* @name Highcharts.DataLabelsOptionsObject#backgroundColor
-* @type {Highcharts.ColorString|Highcharts.GradientColorObject|Highcharts.PatternObject|undefined}
-* @since 2.2.1
-*/ /**
-* The border color for the data label. Defaults to `undefined`.
-*
-* @see {@link https://jsfiddle.net/gh/get/library/pure/highcharts/highcharts/tree/master/samples/highcharts/plotoptions/series-datalabels-box/|Highcharts-Demo:}
-*      Data labels box options
-*
-* @name Highcharts.DataLabelsOptionsObject#borderColor
-* @type {Highcharts.ColorString|Highcharts.GradientColorObject|Highcharts.PatternObject|undefined}
-* @since 2.2.1
-*/ /**
-* The border radius in pixels for the data label.
-*
-* @see {@link https://jsfiddle.net/gh/get/library/pure/highcharts/highcharts/tree/master/samples/highcharts/plotoptions/series-datalabels-box/|Highcharts-Demo:}
-*      Data labels box options
-* @see {@link https://jsfiddle.net/gh/get/library/pure/highcharts/highcharts/tree/master/samples/maps/plotoptions/series-datalabels-box/|Highmaps-Demo:}
-*      Data labels box options
-*
-* @name Highcharts.DataLabelsOptionsObject#borderRadius
-* @type {number|undefined}
-* @since 2.2.1
-* @default 0
-*/ /**
-* The border width in pixels for the data label.
-*
-* @see {@link https://jsfiddle.net/gh/get/library/pure/highcharts/highcharts/tree/master/samples/highcharts/plotoptions/series-datalabels-box/|Highcharts-Demo:}
-*      Data labels box options
-*
-* @name Highcharts.DataLabelsOptionsObject#borderWidth
-* @type {number|undefined}
-* @since 2.2.1
-* @default 0
-*/ /**
-* A class name for the data label. Particularly in styled mode, this can be
-* used to give each series' or point's data label unique styling. In addition
-* to this option, a default color class name is added so that we can give the
-* labels a contrast text shadow.
-*
-* @see {@link https://jsfiddle.net/gh/get/library/pure/highcharts/highcharts/tree/master/samples/highcharts/css/data-label-contrast/|Highcharts-Demo:}
-*      Contrast text shadow
-* @see {@link https://jsfiddle.net/gh/get/library/pure/highcharts/highcharts/tree/master/samples/highcharts/css/series-datalabels/|Highcharts-Demo:}
-*      Styling by CSS
-*
-* @name Highcharts.DataLabelsOptionsObject#className
-* @type {string|undefined}
-* @since 5.0.0
-*/ /**
-* The text color for the data labels. Defaults to `undefined`. For certain
-* series types, like column or map, the data labels can be drawn inside the
-* points. In this case the data label will be drawn with maximum contrast by
-* default. Additionally, it will be given a `text-outline` style with the
-* opposite color, to further increase the contrast. This can be overridden by
-* setting the `text-outline` style to `none` in the `dataLabels.style` option.
-*
-* @see {@link https://jsfiddle.net/gh/get/library/pure/highcharts/highcharts/tree/master/samples/highcharts/plotoptions/series-datalabels-color/|Highcharts-Demo:}
-*      Red data labels
-* @see {@link https://jsfiddle.net/gh/get/library/pure/highcharts/highcharts/tree/master/samples/maps/demo/color-axis/|Highmaps-Demo:}
-*      White data labels
-*
-* @name Highcharts.DataLabelsOptionsObject#color
-* @type {Highcharts.ColorString|Highcharts.GradientColorObject|Highcharts.PatternObject|undefined}
-*/ /**
-* Whether to hide data labels that are outside the plot area. By default, the
-* data label is moved inside the plot area according to the
-* [overflow](/highcharts/#plotOptions.series.dataLabels.overflow) option.
-*
-* @name Highcharts.DataLabelsOptionsObject#crop
-* @type {boolean|undefined}
-* @default true
-* @since 2.3.3
-*/ /**
-* Whether to defer displaying the data labels until the initial series
-* animation has finished.
-*
-* @name Highcharts.DataLabelsOptionsObject#defer
-* @type {boolean|undefined}
-* @default true
-* @since 4.0.0
-* @product highcharts highstock gantt
-*/ /**
-* Enable or disable the data labels.
-*
-* @see {@link https://jsfiddle.net/gh/get/library/pure/highcharts/highcharts/tree/master/samples/highcharts/plotoptions/series-datalabels-enabled/|Highcharts-Demo:}
-*      Data labels enabled
-* @see {@link https://jsfiddle.net/gh/get/library/pure/highcharts/highcharts/tree/master/samples/maps/demo/color-axis/|Highmaps-Demo:}
-*      Data labels enabled
-*
-* @name Highcharts.DataLabelsOptionsObject#enabled
-* @type {boolean|undefined}
-* @default false
-*/ /**
-* A declarative filter to control of which data labels to display. The
-* declarative filter is designed for use when callback functions are not
-* available, like when the chart options require a pure JSON structure or for
-* use with graphical editors. For programmatic control, use the `formatter`
-* instead, and return `undefined` to disable a single data label.
-*
-* @example
-* filter: {
-*     property: 'percentage',
-*     operator: '>',
-*     value: 4
-* }
-*
-* @see {@link https://jsfiddle.net/gh/get/library/pure/highcharts/highcharts/tree/master/samples/highcharts/demo/pie-monochrome|Highcharts-Demo:}
-*      Data labels filtered by percentage
-*
-* @name Highcharts.DataLabelsOptionsObject#filter
-* @type {Highcharts.DataLabelsFilterOptionsObject|undefined}
-* @since 6.0.3
-*/ /**
-* Callback JavaScript function to format the data label. Note that if a
-* `format` is defined, the format takes precedence and the formatter is
-* ignored.
-*
-* @see {@link https://jsfiddle.net/gh/get/library/pure/highcharts/highcharts/tree/master/samples/maps/plotoptions/series-datalabels-format/|Highmaps-Demo:}
-*      Formatted value
-*
-* @name Highcharts.DataLabelsOptionsObject#formatter
-* @type {Highcharts.DataLabelsFormatterCallbackFunction|undefined}
-* @default function () { return this.y; }
-*/ /**
-* A
-* [format string](https://www.highcharts.com/docs/chart-concepts/labels-and-string-formatting)
-* for the data label. Available variables are the same as for `formatter`.
-*
-* @see {@link https://jsfiddle.net/gh/get/library/pure/highcharts/highcharts/tree/master/samples/highcharts/plotoptions/series-datalabels-format/|Highcharts-Demo:}
-*      Add a unit
-* @see {@link https://jsfiddle.net/gh/get/library/pure/highcharts/highcharts/tree/master/samples/maps/plotoptions/series-datalabels-format/|Highmaps-Demo:}
-*      Formatted value in the data label
-*
-* @name Highcharts.DataLabelsOptionsObject#format
-* @type {string|undefined}
-* @default y
-* @default point.value
-* @since 3.0
-*/ /**
-* For points with an extent, like columns or map areas, whether to align the
-* data label inside the box or to the actual value point. Defaults to `false`
-* in most cases, `true` in stacked columns.
-*
-* @name Highcharts.DataLabelsOptionsObject#inside
-* @type {boolean|undefined}
-* @since 3.0
-*/ /**
-* Format for points with the value of null. Works analogously to
-* [format](#plotOptions.series.dataLabels.format).
-* `nullFormat` can be applied only to series which support
-* displaying null points.
-*
-* @see {@link https://jsfiddle.net/gh/get/library/pure/highcharts/highcharts/tree/master/samples/highcharts/plotoptions/series-datalabels-format/|Highmaps-Demo:}
-*      Format data label and tooltip for null point.
-*
-* @name Highcharts.DataLabelsOptionsObject#nullFormat
-* @type {string|boolean|undefined}
-* @since 7.1.0
-*/ /**
-* Callback JavaScript function that defines formatting for points
-* with the value of null. Works analogously to
-* [formatter](#plotOptions.series.dataLabels.formatter).
-* `nullPointFormatter` can be applied only to series which support
-* displaying null points.
-*
-* @see {@link https://jsfiddle.net/gh/get/library/pure/highcharts/highcharts/tree/master/samples/highcharts/plotoptions/series-datalabels-format/|Highmaps-Demo:}
-*      Format data label and tooltip for null point.
-*
-* @name Highcharts.DataLabelsOptionsObject#nullFormatter
-* @type {Highcharts.DataLabelsFormatterCallbackFunction|undefined}
-* @since 7.1.0
-*/ /**
-* How to handle data labels that flow outside the plot area. The default is
-* `"justify"`, which aligns them inside the plot area. For columns and bars,
-* this means it will be moved inside the bar. To display data labels outside
-* the plot area, set `crop` to `false` and `overflow` to `"allow"`.
-*
-* @name Highcharts.DataLabelsOptionsObject#overflow
-* @type {Highcharts.DataLabelsOverflowValue|undefined}
-* @default justify
-* @since 3.0.6
-*/ /**
-* When either the `borderWidth` or the `backgroundColor` is set, this is the
-* padding within the box.
-*
-* @see {@link https://jsfiddle.net/gh/get/library/pure/highcharts/highcharts/tree/master/samples/highcharts/plotoptions/series-datalabels-box/|Highcharts-Demo:}
-*      Data labels box options
-* @see {@link https://jsfiddle.net/gh/get/library/pure/highcharts/highcharts/tree/master/samples/maps/plotoptions/series-datalabels-box/|Highmaps-Demo:}
-*      Data labels box options
-*
-* @name Highcharts.DataLabelsOptionsObject#padding
-* @type {number|undefined}
-* @since 2.2.1
-*/ /**
-* Text rotation in degrees. Note that due to a more complex structure,
-* backgrounds, borders and padding will be lost on a rotated data label.
-*
-* @see {@link https://jsfiddle.net/gh/get/library/pure/highcharts/highcharts/tree/master/samples/highcharts/plotoptions/series-datalabels-rotation/|Highcharts-Demo:}
-*      Vertical labels
-*
-* @name Highcharts.DataLabelsOptionsObject#rotation
-* @type {number|undefined}
-* @default 0
-*/ /**
-* The shadow of the box. Works best with `borderWidth` or
-* `backgroundColor`. Since 2.3 the shadow can be an object
-* configuration containing `color`, `offsetX`, `offsetY`, `opacity`
-* and `width`.
-*
-* @see {@link https://jsfiddle.net/gh/get/library/pure/highcharts/highcharts/tree/master/samples/highcharts/plotoptions/series-datalabels-box/|Highcharts-Demo:}
-*      Data labels box options
-*
-* @name Highcharts.DataLabelsOptionsObject#shadow
-* @type {boolean|Highcharts.ShadowOptionsObject|undefined}
-* @default false
-* @since 2.2.1
-*/ /**
-* The name of a symbol to use for the border around the label.
-* Symbols are predefined functions on the Renderer object.
-*
-* @see {@link https://jsfiddle.net/gh/get/library/pure/highcharts/highcharts/tree/master/samples/highcharts/plotoptions/series-datalabels-shape/|Highcharts-Demo:}
-*      A callout for annotations
-*
-* @name Highcharts.DataLabelsOptionsObject#shape
-* @type {string|undefined}
-* @default   square
-* @since     4.1.2
-*/ /**
-* Styles for the label. The default `color` setting is `"contrast"`, which is a
-* pseudo color that Highcharts picks up and applies the maximum contrast to the
-* underlying point item, for example the bar in a bar chart.
-*
-* The `textOutline` is a pseudo property that applies an outline of the given
-* width with the given color, which by default is the maximum contrast to the
-* text. So a bright text color will result in a black text outline for maximum
-* readability on a mixed background. In some cases, especially with grayscale
-* text, the text outline doesn't work well, in which cases it can be disabled
-* by setting it to `"none"`. When `useHTML` is true, the `textOutline` will not
-* be picked up. In this, case, the same effect can be acheived through the
-* `text-shadow` CSS property.
-*
-* For some series types, where each point has an extent, like for example tree
-* maps, the data label may overflow the point. There are two strategies for
-* handling overflow. By default, the text will wrap to multiple lines. The
-* other strategy is to set `style.textOverflow` to `ellipsis`, which will keep
-* the text on one line plus it will break inside long words.
-*
-* @see {@link https://jsfiddle.net/gh/get/library/pure/highcharts/highcharts/tree/master/samples/highcharts/plotoptions/series-datalabels-style/|Highcharts-Demo:}
-*      Bold labels
-* @see {@link https://jsfiddle.net/gh/get/library/pure/highcharts/highcharts/tree/master/samples/highcharts/plotOptions/pie-datalabels-overflow|Highcharts-Demo:}
-*      Long labels truncated with an ellipsis in a pie
-* @see {@link https://jsfiddle.net/gh/get/library/pure/highcharts/highcharts/tree/master/samples/highcharts/plotOptions/pie-datalabels-overflow-wrap|Highcharts-Demo:}
-*      Long labels are wrapped in a pie
-* @see {@link https://jsfiddle.net/gh/get/library/pure/highcharts/highcharts/tree/master/samples/maps/demo/color-axis/|Highmaps-Demo:}
-*      Bold labels
-*
-* @name Highcharts.DataLabelsOptionsObject#style
-* @type {Highcharts.CSSObject|undefined}
-* @default {"color": "contrast", "fontSize": "11px", "fontWeight": "bold", "textOutline": "1px contrast" }
-* @since 4.1.0
-*/ /**
-* Options for a label text which should follow marker's shape. Border and
-* background are disabled for a label that follows a path.
-* **Note:** Only SVG-based renderer supports this option. Setting `useHTML` to
-* true will disable this option.
-* @name Highcharts.DataLabelsOptionsObject#textPath
-* @type {Highcharts.DataLabelsTextPathOptionsObject|undefined}
-* @since 7.1.0
-*/ /**
-* Whether to
-* [use HTML](https://www.highcharts.com/docs/chart-concepts/labels-and-string-formatting#html)
-* to render the labels.
-*
-* @name Highcharts.DataLabelsOptionsObject#useHTML
-* @type {boolean|undefined}
-* @default false
-*/ /**
-* The vertical alignment of a data label. Can be one of `top`, `middle` or
-* `bottom`. The default value depends on the data, for instance in a column
-* chart, the label is above positive values and below negative values.
-*
-* @name Highcharts.DataLabelsOptionsObject#verticalAlign
-* @type {Highcharts.VerticalAlignValue|null|undefined}
-* @since 2.3.3
-*/ /**
-* The x position offset of the label relative to the point in pixels.
-*
-* @see {@link https://jsfiddle.net/gh/get/library/pure/highcharts/highcharts/tree/master/samples/highcharts/plotoptions/series-datalabels-rotation/|Highcharts-Demo:}
-*      Vertical and positioned
-* @see {@link https://jsfiddle.net/gh/get/library/pure/highcharts/highcharts/tree/master/samples/highcharts/plotoptions/bar-datalabels-align-inside-bar/|Highcharts-Demo:}
-*      Data labels inside the bar
-*
-* @name Highcharts.DataLabelsOptionsObject#x
-* @type {number|undefined}
-*/ /**
-* The y position offset of the label relative to the point in pixels.
-*
-* @see {@link https://jsfiddle.net/gh/get/library/pure/highcharts/highcharts/tree/master/samples/highcharts/plotoptions/series-datalabels-rotation/|Highcharts-Demo:}
-*      Vertical and positioned
-*
-* @name Highcharts.DataLabelsOptionsObject#y
-* @type {number|undefined}
-*/ /**
-* The Z index of the data labels. The default Z index puts it above
-* the series. Use a Z index of 2 to display it behind the series.
-*
-* @name Highcharts.DataLabelsOptionsObject#zIndex
-* @type {number|undefined}
-* @default 6
-* @since 2.3.5
-*/
+ * The alignment of the data label compared to the point. If `right`, the right
+ * side of the label should be touching the point. For points with an extent,
+ * like columns, the alignments also dictates how to align it inside the box, as
+ * given with the
+ * [inside](/highcharts/plotOptions.column.dataLabels.inside)
+ * option. Can be one of `left`, `center` or `right`.
+ *
+ * @see {@link https://jsfiddle.net/gh/get/library/pure/highcharts/highcharts/tree/master/samples/highcharts/plotoptions/series-datalabels-align-left/|Highcharts-Demo:}
+ *      Left aligned
+ * @see {@link https://jsfiddle.net/gh/get/library/pure/highcharts/highcharts/tree/master/samples/highcharts/plotoptions/bar-datalabels-align-inside-bar/|Highcharts-Demo:}
+ *      Data labels inside the bar
+ *
+ * @name Highcharts.DataLabelsOptionsObject#align
+ * @type {Highcharts.AlignValue|null|undefined}
+ * @default center
+ */ /**
+ * Whether to allow data labels to overlap. To make the labels less sensitive
+ * for overlapping, the
+ * [dataLabels.padding](/highcharts/#plotOptions.series.dataLabels.padding) can
+ * be set to 0.
+ *
+ * @see {@link https://jsfiddle.net/gh/get/library/pure/highcharts/highcharts/tree/master/samples/highcharts/plotoptions/series-datalabels-allowoverlap-false/|Highcharts-Demo:}
+ *      Don't allow overlap
+ *
+ * @name Highcharts.DataLabelsOptionsObject#allowOverlap
+ * @type {boolean|undefined}
+ * @since 4.1.0
+ * @default false
+ */ /**
+ * The background color or gradient for the data label.
+ *
+ * @see {@link https://jsfiddle.net/gh/get/library/pure/highcharts/highcharts/tree/master/samples/highcharts/plotoptions/series-datalabels-box/|Highcharts-Demo:}
+ *      Data labels box options
+ * @see {@link https://jsfiddle.net/gh/get/library/pure/highcharts/highcharts/tree/master/samples/maps/plotoptions/series-datalabels-box/|Highmaps-Demo:}
+ *      Data labels box options
+ *
+ * @name Highcharts.DataLabelsOptionsObject#backgroundColor
+ * @type {Highcharts.ColorString|Highcharts.GradientColorObject|Highcharts.PatternObject|undefined}
+ * @since 2.2.1
+ */ /**
+ * The border color for the data label. Defaults to `undefined`.
+ *
+ * @see {@link https://jsfiddle.net/gh/get/library/pure/highcharts/highcharts/tree/master/samples/highcharts/plotoptions/series-datalabels-box/|Highcharts-Demo:}
+ *      Data labels box options
+ *
+ * @name Highcharts.DataLabelsOptionsObject#borderColor
+ * @type {Highcharts.ColorString|Highcharts.GradientColorObject|Highcharts.PatternObject|undefined}
+ * @since 2.2.1
+ */ /**
+ * The border radius in pixels for the data label.
+ *
+ * @see {@link https://jsfiddle.net/gh/get/library/pure/highcharts/highcharts/tree/master/samples/highcharts/plotoptions/series-datalabels-box/|Highcharts-Demo:}
+ *      Data labels box options
+ * @see {@link https://jsfiddle.net/gh/get/library/pure/highcharts/highcharts/tree/master/samples/maps/plotoptions/series-datalabels-box/|Highmaps-Demo:}
+ *      Data labels box options
+ *
+ * @name Highcharts.DataLabelsOptionsObject#borderRadius
+ * @type {number|undefined}
+ * @since 2.2.1
+ * @default 0
+ */ /**
+ * The border width in pixels for the data label.
+ *
+ * @see {@link https://jsfiddle.net/gh/get/library/pure/highcharts/highcharts/tree/master/samples/highcharts/plotoptions/series-datalabels-box/|Highcharts-Demo:}
+ *      Data labels box options
+ *
+ * @name Highcharts.DataLabelsOptionsObject#borderWidth
+ * @type {number|undefined}
+ * @since 2.2.1
+ * @default 0
+ */ /**
+ * A class name for the data label. Particularly in styled mode, this can be
+ * used to give each series' or point's data label unique styling. In addition
+ * to this option, a default color class name is added so that we can give the
+ * labels a contrast text shadow.
+ *
+ * @see {@link https://jsfiddle.net/gh/get/library/pure/highcharts/highcharts/tree/master/samples/highcharts/css/data-label-contrast/|Highcharts-Demo:}
+ *      Contrast text shadow
+ * @see {@link https://jsfiddle.net/gh/get/library/pure/highcharts/highcharts/tree/master/samples/highcharts/css/series-datalabels/|Highcharts-Demo:}
+ *      Styling by CSS
+ *
+ * @name Highcharts.DataLabelsOptionsObject#className
+ * @type {string|undefined}
+ * @since 5.0.0
+ */ /**
+ * The text color for the data labels. Defaults to `undefined`. For certain
+ * series types, like column or map, the data labels can be drawn inside the
+ * points. In this case the data label will be drawn with maximum contrast by
+ * default. Additionally, it will be given a `text-outline` style with the
+ * opposite color, to further increase the contrast. This can be overridden by
+ * setting the `text-outline` style to `none` in the `dataLabels.style` option.
+ *
+ * @see {@link https://jsfiddle.net/gh/get/library/pure/highcharts/highcharts/tree/master/samples/highcharts/plotoptions/series-datalabels-color/|Highcharts-Demo:}
+ *      Red data labels
+ * @see {@link https://jsfiddle.net/gh/get/library/pure/highcharts/highcharts/tree/master/samples/maps/demo/color-axis/|Highmaps-Demo:}
+ *      White data labels
+ *
+ * @name Highcharts.DataLabelsOptionsObject#color
+ * @type {Highcharts.ColorString|Highcharts.GradientColorObject|Highcharts.PatternObject|undefined}
+ */ /**
+ * Whether to hide data labels that are outside the plot area. By default, the
+ * data label is moved inside the plot area according to the
+ * [overflow](/highcharts/#plotOptions.series.dataLabels.overflow) option.
+ *
+ * @name Highcharts.DataLabelsOptionsObject#crop
+ * @type {boolean|undefined}
+ * @default true
+ * @since 2.3.3
+ */ /**
+ * Whether to defer displaying the data labels until the initial series
+ * animation has finished.
+ *
+ * @name Highcharts.DataLabelsOptionsObject#defer
+ * @type {boolean|undefined}
+ * @default true
+ * @since 4.0.0
+ * @product highcharts highstock gantt
+ */ /**
+ * Enable or disable the data labels.
+ *
+ * @see {@link https://jsfiddle.net/gh/get/library/pure/highcharts/highcharts/tree/master/samples/highcharts/plotoptions/series-datalabels-enabled/|Highcharts-Demo:}
+ *      Data labels enabled
+ * @see {@link https://jsfiddle.net/gh/get/library/pure/highcharts/highcharts/tree/master/samples/maps/demo/color-axis/|Highmaps-Demo:}
+ *      Data labels enabled
+ *
+ * @name Highcharts.DataLabelsOptionsObject#enabled
+ * @type {boolean|undefined}
+ * @default false
+ */ /**
+ * A declarative filter to control of which data labels to display. The
+ * declarative filter is designed for use when callback functions are not
+ * available, like when the chart options require a pure JSON structure or for
+ * use with graphical editors. For programmatic control, use the `formatter`
+ * instead, and return `undefined` to disable a single data label.
+ *
+ * @example
+ * filter: {
+ *     property: 'percentage',
+ *     operator: '>',
+ *     value: 4
+ * }
+ *
+ * @see {@link https://jsfiddle.net/gh/get/library/pure/highcharts/highcharts/tree/master/samples/highcharts/demo/pie-monochrome|Highcharts-Demo:}
+ *      Data labels filtered by percentage
+ *
+ * @name Highcharts.DataLabelsOptionsObject#filter
+ * @type {Highcharts.DataLabelsFilterOptionsObject|undefined}
+ * @since 6.0.3
+ */ /**
+ * Callback JavaScript function to format the data label. Note that if a
+ * `format` is defined, the format takes precedence and the formatter is
+ * ignored.
+ *
+ * @see {@link https://jsfiddle.net/gh/get/library/pure/highcharts/highcharts/tree/master/samples/maps/plotoptions/series-datalabels-format/|Highmaps-Demo:}
+ *      Formatted value
+ *
+ * @name Highcharts.DataLabelsOptionsObject#formatter
+ * @type {Highcharts.DataLabelsFormatterCallbackFunction|undefined}
+ * @default function () { return this.y; }
+ */ /**
+ * A
+ * [format string](https://www.highcharts.com/docs/chart-concepts/labels-and-string-formatting)
+ * for the data label. Available variables are the same as for `formatter`.
+ *
+ * @see {@link https://jsfiddle.net/gh/get/library/pure/highcharts/highcharts/tree/master/samples/highcharts/plotoptions/series-datalabels-format/|Highcharts-Demo:}
+ *      Add a unit
+ * @see {@link https://jsfiddle.net/gh/get/library/pure/highcharts/highcharts/tree/master/samples/maps/plotoptions/series-datalabels-format/|Highmaps-Demo:}
+ *      Formatted value in the data label
+ *
+ * @name Highcharts.DataLabelsOptionsObject#format
+ * @type {string|undefined}
+ * @default y
+ * @default point.value
+ * @since 3.0
+ */ /**
+ * For points with an extent, like columns or map areas, whether to align the
+ * data label inside the box or to the actual value point. Defaults to `false`
+ * in most cases, `true` in stacked columns.
+ *
+ * @name Highcharts.DataLabelsOptionsObject#inside
+ * @type {boolean|undefined}
+ * @since 3.0
+ */ /**
+ * Format for points with the value of null. Works analogously to
+ * [format](#plotOptions.series.dataLabels.format).
+ * `nullFormat` can be applied only to series which support
+ * displaying null points.
+ *
+ * @see {@link https://jsfiddle.net/gh/get/library/pure/highcharts/highcharts/tree/master/samples/highcharts/plotoptions/series-datalabels-format/|Highmaps-Demo:}
+ *      Format data label and tooltip for null point.
+ *
+ * @name Highcharts.DataLabelsOptionsObject#nullFormat
+ * @type {string|boolean|undefined}
+ * @since 7.1.0
+ */ /**
+ * Callback JavaScript function that defines formatting for points
+ * with the value of null. Works analogously to
+ * [formatter](#plotOptions.series.dataLabels.formatter).
+ * `nullPointFormatter` can be applied only to series which support
+ * displaying null points.
+ *
+ * @see {@link https://jsfiddle.net/gh/get/library/pure/highcharts/highcharts/tree/master/samples/highcharts/plotoptions/series-datalabels-format/|Highmaps-Demo:}
+ *      Format data label and tooltip for null point.
+ *
+ * @name Highcharts.DataLabelsOptionsObject#nullFormatter
+ * @type {Highcharts.DataLabelsFormatterCallbackFunction|undefined}
+ * @since 7.1.0
+ */ /**
+ * How to handle data labels that flow outside the plot area. The default is
+ * `"justify"`, which aligns them inside the plot area. For columns and bars,
+ * this means it will be moved inside the bar. To display data labels outside
+ * the plot area, set `crop` to `false` and `overflow` to `"allow"`.
+ *
+ * @name Highcharts.DataLabelsOptionsObject#overflow
+ * @type {Highcharts.DataLabelsOverflowValue|undefined}
+ * @default justify
+ * @since 3.0.6
+ */ /**
+ * When either the `borderWidth` or the `backgroundColor` is set, this is the
+ * padding within the box.
+ *
+ * @see {@link https://jsfiddle.net/gh/get/library/pure/highcharts/highcharts/tree/master/samples/highcharts/plotoptions/series-datalabels-box/|Highcharts-Demo:}
+ *      Data labels box options
+ * @see {@link https://jsfiddle.net/gh/get/library/pure/highcharts/highcharts/tree/master/samples/maps/plotoptions/series-datalabels-box/|Highmaps-Demo:}
+ *      Data labels box options
+ *
+ * @name Highcharts.DataLabelsOptionsObject#padding
+ * @type {number|undefined}
+ * @since 2.2.1
+ */ /**
+ * Text rotation in degrees. Note that due to a more complex structure,
+ * backgrounds, borders and padding will be lost on a rotated data label.
+ *
+ * @see {@link https://jsfiddle.net/gh/get/library/pure/highcharts/highcharts/tree/master/samples/highcharts/plotoptions/series-datalabels-rotation/|Highcharts-Demo:}
+ *      Vertical labels
+ *
+ * @name Highcharts.DataLabelsOptionsObject#rotation
+ * @type {number|undefined}
+ * @default 0
+ */ /**
+ * The shadow of the box. Works best with `borderWidth` or
+ * `backgroundColor`. Since 2.3 the shadow can be an object
+ * configuration containing `color`, `offsetX`, `offsetY`, `opacity`
+ * and `width`.
+ *
+ * @see {@link https://jsfiddle.net/gh/get/library/pure/highcharts/highcharts/tree/master/samples/highcharts/plotoptions/series-datalabels-box/|Highcharts-Demo:}
+ *      Data labels box options
+ *
+ * @name Highcharts.DataLabelsOptionsObject#shadow
+ * @type {boolean|Highcharts.ShadowOptionsObject|undefined}
+ * @default false
+ * @since 2.2.1
+ */ /**
+ * The name of a symbol to use for the border around the label.
+ * Symbols are predefined functions on the Renderer object.
+ *
+ * @see {@link https://jsfiddle.net/gh/get/library/pure/highcharts/highcharts/tree/master/samples/highcharts/plotoptions/series-datalabels-shape/|Highcharts-Demo:}
+ *      A callout for annotations
+ *
+ * @name Highcharts.DataLabelsOptionsObject#shape
+ * @type {string|undefined}
+ * @default   square
+ * @since     4.1.2
+ */ /**
+ * Styles for the label. The default `color` setting is `"contrast"`, which is a
+ * pseudo color that Highcharts picks up and applies the maximum contrast to the
+ * underlying point item, for example the bar in a bar chart.
+ *
+ * The `textOutline` is a pseudo property that applies an outline of the given
+ * width with the given color, which by default is the maximum contrast to the
+ * text. So a bright text color will result in a black text outline for maximum
+ * readability on a mixed background. In some cases, especially with grayscale
+ * text, the text outline doesn't work well, in which cases it can be disabled
+ * by setting it to `"none"`. When `useHTML` is true, the `textOutline` will not
+ * be picked up. In this, case, the same effect can be acheived through the
+ * `text-shadow` CSS property.
+ *
+ * For some series types, where each point has an extent, like for example tree
+ * maps, the data label may overflow the point. There are two strategies for
+ * handling overflow. By default, the text will wrap to multiple lines. The
+ * other strategy is to set `style.textOverflow` to `ellipsis`, which will keep
+ * the text on one line plus it will break inside long words.
+ *
+ * @see {@link https://jsfiddle.net/gh/get/library/pure/highcharts/highcharts/tree/master/samples/highcharts/plotoptions/series-datalabels-style/|Highcharts-Demo:}
+ *      Bold labels
+ * @see {@link https://jsfiddle.net/gh/get/library/pure/highcharts/highcharts/tree/master/samples/highcharts/plotOptions/pie-datalabels-overflow|Highcharts-Demo:}
+ *      Long labels truncated with an ellipsis in a pie
+ * @see {@link https://jsfiddle.net/gh/get/library/pure/highcharts/highcharts/tree/master/samples/highcharts/plotOptions/pie-datalabels-overflow-wrap|Highcharts-Demo:}
+ *      Long labels are wrapped in a pie
+ * @see {@link https://jsfiddle.net/gh/get/library/pure/highcharts/highcharts/tree/master/samples/maps/demo/color-axis/|Highmaps-Demo:}
+ *      Bold labels
+ *
+ * @name Highcharts.DataLabelsOptionsObject#style
+ * @type {Highcharts.CSSObject|undefined}
+ * @default {"color": "contrast", "fontSize": "11px", "fontWeight": "bold", "textOutline": "1px contrast" }
+ * @since 4.1.0
+ */ /**
+ * Options for a label text which should follow marker's shape. Border and
+ * background are disabled for a label that follows a path.
+ * **Note:** Only SVG-based renderer supports this option. Setting `useHTML` to
+ * true will disable this option.
+ * @name Highcharts.DataLabelsOptionsObject#textPath
+ * @type {Highcharts.DataLabelsTextPathOptionsObject|undefined}
+ * @since 7.1.0
+ */ /**
+ * Whether to
+ * [use HTML](https://www.highcharts.com/docs/chart-concepts/labels-and-string-formatting#html)
+ * to render the labels.
+ *
+ * @name Highcharts.DataLabelsOptionsObject#useHTML
+ * @type {boolean|undefined}
+ * @default false
+ */ /**
+ * The vertical alignment of a data label. Can be one of `top`, `middle` or
+ * `bottom`. The default value depends on the data, for instance in a column
+ * chart, the label is above positive values and below negative values.
+ *
+ * @name Highcharts.DataLabelsOptionsObject#verticalAlign
+ * @type {Highcharts.VerticalAlignValue|null|undefined}
+ * @since 2.3.3
+ */ /**
+ * The x position offset of the label relative to the point in pixels.
+ *
+ * @see {@link https://jsfiddle.net/gh/get/library/pure/highcharts/highcharts/tree/master/samples/highcharts/plotoptions/series-datalabels-rotation/|Highcharts-Demo:}
+ *      Vertical and positioned
+ * @see {@link https://jsfiddle.net/gh/get/library/pure/highcharts/highcharts/tree/master/samples/highcharts/plotoptions/bar-datalabels-align-inside-bar/|Highcharts-Demo:}
+ *      Data labels inside the bar
+ *
+ * @name Highcharts.DataLabelsOptionsObject#x
+ * @type {number|undefined}
+ */ /**
+ * The y position offset of the label relative to the point in pixels.
+ *
+ * @see {@link https://jsfiddle.net/gh/get/library/pure/highcharts/highcharts/tree/master/samples/highcharts/plotoptions/series-datalabels-rotation/|Highcharts-Demo:}
+ *      Vertical and positioned
+ *
+ * @name Highcharts.DataLabelsOptionsObject#y
+ * @type {number|undefined}
+ */ /**
+ * The Z index of the data labels. The default Z index puts it above
+ * the series. Use a Z index of 2 to display it behind the series.
+ *
+ * @name Highcharts.DataLabelsOptionsObject#zIndex
+ * @type {number|undefined}
+ * @default 6
+ * @since 2.3.5
+ */
 /**
  * Values for handling data labels that flow outside the plot area.
  *
@@ -472,32 +472,36 @@ import H from './Globals.js';
  * @interface Highcharts.DataLabelsTextPathOptionsObject
  * @since 7.1.0
  */ /**
-* Presentation attributes for the text path.
-* @name Highcharts.DataLabelsTextPathOptionsObject#attributes
-* @type {Highcharts.SVGAttributes|undefined}
-* @since 7.1.0
-*/ /**
-* Enable or disable `textPath` option for link's or marker's data labels.
-* @name Highcharts.DataLabelsTextPathOptionsObject#enabled
-* @type {boolean|undefined}
-* @since 7.1.0
-*/
+ * Presentation attributes for the text path.
+ * @name Highcharts.DataLabelsTextPathOptionsObject#attributes
+ * @type {Highcharts.SVGAttributes|undefined}
+ * @since 7.1.0
+ */ /**
+ * Enable or disable `textPath` option for link's or marker's data labels.
+ * @name Highcharts.DataLabelsTextPathOptionsObject#enabled
+ * @type {boolean|undefined}
+ * @since 7.1.0
+ */
 /* *
  * @interface Highcharts.PointOptionsObject in parts/Point.ts
  */ /**
-* Individual data labels for each point.
-* @name Highcharts.PointOptionsObject#dataLabels
-* @type {Highcharts.DataLabelsOptionsObject|Array<Highcharts.DataLabelsOptionsObject>|undefined}
-*/ /**
-* The rank for this point's data label in case of collision. If two data labels
-* are about to overlap, only the one with the highest labelrank will be drawn.
-* @name Highcharts.PointOptionsObject#labelrank
-* @type {number|undefined}
-*/
+ * Individual data labels for each point.
+ * @name Highcharts.PointOptionsObject#dataLabels
+ * @type {Highcharts.DataLabelsOptionsObject|Array<Highcharts.DataLabelsOptionsObject>|undefined}
+ */ /**
+ * The rank for this point's data label in case of collision. If two data labels
+ * are about to overlap, only the one with the highest labelrank will be drawn.
+ * @name Highcharts.PointOptionsObject#labelrank
+ * @type {number|undefined}
+ */
 import U from './Utilities.js';
-var arrayMax = U.arrayMax, defined = U.defined, extend = U.extend, isArray = U.isArray, objectEach = U.objectEach, pick = U.pick, splat = U.splat;
+
+var arrayMax = U.arrayMax, defined = U.defined, extend = U.extend, isArray = U.isArray, objectEach = U.objectEach,
+    pick = U.pick, splat = U.splat;
 import './Series.js';
-var format = H.format, merge = H.merge, noop = H.noop, relativeLength = H.relativeLength, Series = H.Series, seriesTypes = H.seriesTypes, stableSort = H.stableSort;
+
+var format = H.format, merge = H.merge, noop = H.noop, relativeLength = H.relativeLength, Series = H.Series,
+    seriesTypes = H.seriesTypes, stableSort = H.stableSort;
 /* eslint-disable valid-jsdoc */
 /**
  * General distribution algorithm for distributing labels of differing size
@@ -515,14 +519,16 @@ var format = H.format, merge = H.merge, noop = H.noop, relativeLength = H.relati
  */
 H.distribute = function (boxes, len, maxDistance) {
     var i, overlapping = true, origBoxes = boxes, // Original array will be altered with added .pos
-    restBoxes = [], // The outranked overshoot
-    box, target, total = 0, reducedLen = origBoxes.reducedLen || len;
+        restBoxes = [], // The outranked overshoot
+        box, target, total = 0, reducedLen = origBoxes.reducedLen || len;
+
     /**
      * @private
      */
     function sortByTarget(a, b) {
         return a.target - b.target;
     }
+
     // If the total size exceeds the len, remove those boxes with the lowest
     // rank
     i = boxes.length;
@@ -570,7 +576,7 @@ H.distribute = function (boxes, len, maxDistance) {
             // Overlap
             if (i > 0 &&
                 boxes[i - 1].pos + boxes[i - 1].size >
-                    boxes[i].pos) {
+                boxes[i].pos) {
                 // Add this size to the previous box
                 boxes[i - 1].size += boxes[i].size;
                 boxes[i - 1].targets = boxes[i - 1]
@@ -634,7 +640,12 @@ H.distribute = function (boxes, len, maxDistance) {
  * @fires Highcharts.Series#event:afterDrawDataLabels
  */
 Series.prototype.drawDataLabels = function () {
-    var series = this, chart = series.chart, seriesOptions = series.options, seriesDlOptions = seriesOptions.dataLabels, points = series.points, pointOptions, hasRendered = series.hasRendered || 0, dataLabelsGroup, seriesAnimDuration = H.animObject(seriesOptions.animation).duration, fadeInDuration = Math.min(seriesAnimDuration, 200), defer = !chart.renderer.forExport && pick(seriesDlOptions.defer, fadeInDuration > 0), renderer = chart.renderer;
+    var series = this, chart = series.chart, seriesOptions = series.options, seriesDlOptions = seriesOptions.dataLabels,
+        points = series.points, pointOptions, hasRendered = series.hasRendered || 0, dataLabelsGroup,
+        seriesAnimDuration = H.animObject(seriesOptions.animation).duration,
+        fadeInDuration = Math.min(seriesAnimDuration, 200),
+        defer = !chart.renderer.forExport && pick(seriesDlOptions.defer, fadeInDuration > 0), renderer = chart.renderer;
+
     /**
      * Handle the dataLabels.filter option.
      * @private
@@ -657,6 +668,7 @@ Series.prototype.drawDataLabels = function () {
         }
         return true;
     }
+
     /**
      * Merge two objects that can be arrays. If one of them is an array, the
      * other is merged into each element. If both are arrays, each element is
@@ -669,16 +681,13 @@ Series.prototype.drawDataLabels = function () {
             res = one.map(function (el) {
                 return merge(el, two);
             });
-        }
-        else if (isArray(two) && !isArray(one)) {
+        } else if (isArray(two) && !isArray(one)) {
             res = two.map(function (el) {
                 return merge(one, el);
             });
-        }
-        else if (!isArray(one) && !isArray(two)) {
+        } else if (!isArray(one) && !isArray(two)) {
             res = merge(one, two);
-        }
-        else {
+        } else {
             i = Math.max(one.length, two.length);
             while (i--) {
                 res[i] = merge(one[i], two[i]);
@@ -686,6 +695,7 @@ Series.prototype.drawDataLabels = function () {
         }
         return res;
     }
+
     // Merge in plotOptions.dataLabels for series
     seriesDlOptions = mergeArrays(mergeArrays(chart.options.plotOptions &&
         chart.options.plotOptions.series &&
@@ -698,9 +708,9 @@ Series.prototype.drawDataLabels = function () {
         series._hasPointLabels) {
         // Create a separate group for the data labels to avoid rotation
         dataLabelsGroup = series.plotGroup('dataLabelsGroup', 'data-labels', defer && !hasRendered ? 'hidden' : 'inherit', // #5133, #10220
-        seriesDlOptions.zIndex || 6);
+            seriesDlOptions.zIndex || 6);
         if (defer) {
-            dataLabelsGroup.attr({ opacity: +hasRendered }); // #3300
+            dataLabelsGroup.attr({opacity: +hasRendered}); // #3300
             if (!hasRendered) {
                 setTimeout(function () {
                     var group = series.dataLabelsGroup;
@@ -708,7 +718,7 @@ Series.prototype.drawDataLabels = function () {
                         if (series.visible) { // #2597, #3023, #3024
                             dataLabelsGroup.show(true);
                         }
-                        group[seriesOptions.animation ? 'animate' : 'attr']({ opacity: 1 }, { duration: fadeInDuration });
+                        group[seriesOptions.animation ? 'animate' : 'attr']({opacity: 1}, {duration: fadeInDuration});
                     }
                 }, seriesAnimDuration - fadeInDuration);
             }
@@ -726,9 +736,11 @@ Series.prototype.drawDataLabels = function () {
                 var labelEnabled = (labelOptions.enabled &&
                     // #2282, #4641, #7112, #10049
                     (!point.isNull || point.dataLabelOnNull) &&
-                    applyFilter(point, labelOptions)), labelConfig, formatString, labelText, style, rotation, attr, dataLabel = point.dataLabels ? point.dataLabels[i] :
-                    point.dataLabel, connector = point.connectors ? point.connectors[i] :
-                    point.connector, labelDistance = pick(labelOptions.distance, point.labelDistance), isNew = !dataLabel;
+                    applyFilter(point, labelOptions)), labelConfig, formatString, labelText, style, rotation, attr,
+                    dataLabel = point.dataLabels ? point.dataLabels[i] :
+                        point.dataLabel, connector = point.connectors ? point.connectors[i] :
+                    point.connector, labelDistance = pick(labelOptions.distance, point.labelDistance),
+                    isNew = !dataLabel;
                 if (labelEnabled) {
                     // Create individual options structure that can be extended
                     // without affecting others
@@ -748,8 +760,8 @@ Series.prototype.drawDataLabels = function () {
                             point.contrastColor = renderer.getContrast((point.color || series.color));
                             style.color = (!defined(labelDistance) &&
                                 labelOptions.inside) ||
-                                labelDistance < 0 ||
-                                !!seriesOptions.stacking ?
+                            labelDistance < 0 ||
+                            !!seriesOptions.stacking ?
                                 point.contrastColor :
                                 '#000000';
                         }
@@ -783,8 +795,7 @@ Series.prototype.drawDataLabels = function () {
                         // Remove point.dataLabels if this was the last one
                         if (point.dataLabels.length === 1) {
                             delete point.dataLabels;
-                        }
-                        else {
+                        } else {
                             delete point.dataLabels[i];
                         }
                     }
@@ -797,16 +808,14 @@ Series.prototype.drawDataLabels = function () {
                             // Remove point.connectors if this was the last one
                             if (point.connectors.length === 1) {
                                 delete point.connectors;
-                            }
-                            else {
+                            } else {
                                 delete point.connectors[i];
                             }
                         }
                     }
                     // Individual labels are disabled if the are explicitly disabled
                     // in the point options, or if they fall outside the plot area.
-                }
-                else if (labelEnabled && defined(labelText)) {
+                } else if (labelEnabled && defined(labelText)) {
                     if (!dataLabel) {
                         // Create new label element
                         point.dataLabels = point.dataLabels || [];
@@ -823,11 +832,10 @@ Series.prototype.drawDataLabels = function () {
                         dataLabel.addClass(' highcharts-data-label-color-' + point.colorIndex +
                             ' ' + (labelOptions.className || '') +
                             ( // #3398
-                            labelOptions.useHTML ?
-                                ' highcharts-tracker' :
-                                ''));
-                    }
-                    else {
+                                labelOptions.useHTML ?
+                                    ' highcharts-tracker' :
+                                    ''));
+                    } else {
                         // Use old element and just update text
                         attr.text = labelText;
                     }
@@ -868,16 +876,19 @@ Series.prototype.drawDataLabels = function () {
  * @return {void}
  */
 Series.prototype.alignDataLabel = function (point, dataLabel, options, alignTo, isNew) {
-    var chart = this.chart, inverted = this.isCartesian && chart.inverted, plotX = pick(point.dlBox && point.dlBox.centerX, point.plotX, -9999), plotY = pick(point.plotY, -9999), bBox = dataLabel.getBBox(), baseline, rotation = options.rotation, normRotation, negRotation, align = options.align, rotCorr, // rotation correction
-    // Math.round for rounding errors (#2683), alignTo to allow column
-    // labels (#2700)
-    visible = this.visible &&
-        (point.series.forceDL ||
-            chart.isInsidePlot(plotX, Math.round(plotY), inverted) ||
-            (alignTo && chart.isInsidePlot(plotX, inverted ?
-                alignTo.x + 1 :
-                alignTo.y + alignTo.height - 1, inverted))), alignAttr, // the final position;
-    justify = pick(options.overflow, 'justify') === 'justify';
+    var chart = this.chart, inverted = this.isCartesian && chart.inverted,
+        plotX = pick(point.dlBox && point.dlBox.centerX, point.plotX, -9999), plotY = pick(point.plotY, -9999),
+        bBox = dataLabel.getBBox(), baseline, rotation = options.rotation, normRotation, negRotation,
+        align = options.align, rotCorr, // rotation correction
+        // Math.round for rounding errors (#2683), alignTo to allow column
+        // labels (#2700)
+        visible = this.visible &&
+            (point.series.forceDL ||
+                chart.isInsidePlot(plotX, Math.round(plotY), inverted) ||
+                (alignTo && chart.isInsidePlot(plotX, inverted ?
+                    alignTo.x + 1 :
+                    alignTo.y + alignTo.height - 1, inverted))), alignAttr, // the final position;
+        justify = pick(options.overflow, 'justify') === 'justify';
     if (visible) {
         baseline = chart.renderer.fontMetrics(chart.styledMode ? undefined : options.style.fontSize, dataLabel).b;
         // The alignment box is a singular point
@@ -904,31 +915,28 @@ Series.prototype.alignDataLabel = function (point, dataLabel, options, alignTo, 
                     rotCorr.x),
                 y: (alignTo.y +
                     options.y +
-                    { top: 0, middle: 0.5, bottom: 1 }[options.verticalAlign] *
-                        alignTo.height)
+                    {top: 0, middle: 0.5, bottom: 1}[options.verticalAlign] *
+                    alignTo.height)
             };
             dataLabel[isNew ? 'attr' : 'animate'](alignAttr)
                 .attr({
-                align: align
-            });
+                    align: align
+                });
             // Compensate for the rotated label sticking out on the sides
             normRotation = (rotation + 720) % 360;
             negRotation = normRotation > 180 && normRotation < 360;
             if (align === 'left') {
                 alignAttr.y -= negRotation ? bBox.height : 0;
-            }
-            else if (align === 'center') {
+            } else if (align === 'center') {
                 alignAttr.x -= bBox.width / 2;
                 alignAttr.y -= bBox.height / 2;
-            }
-            else if (align === 'right') {
+            } else if (align === 'right') {
                 alignAttr.x -= bBox.width;
                 alignAttr.y -= negRotation ? 0 : bBox.height;
             }
             dataLabel.placed = true;
             dataLabel.alignAttr = alignAttr;
-        }
-        else {
+        } else {
             dataLabel.align(options, null, alignTo);
             alignAttr = dataLabel.alignAttr;
         }
@@ -936,11 +944,10 @@ Series.prototype.alignDataLabel = function (point, dataLabel, options, alignTo, 
         if (justify && alignTo.height >= 0) { // #8830
             this.justifyDataLabel(dataLabel, options, alignAttr, bBox, alignTo, isNew);
             // Now check that the data label is within the plot area
-        }
-        else if (pick(options.crop, true)) {
+        } else if (pick(options.crop, true)) {
             visible =
                 chart.isInsidePlot(alignAttr.x, alignAttr.y) &&
-                    chart.isInsidePlot(alignAttr.x + bBox.width, alignAttr.y + bBox.height);
+                chart.isInsidePlot(alignAttr.x + bBox.width, alignAttr.y + bBox.height);
         }
         // When we're using a shape, make it possible with a connector or an
         // arrow pointing to thie point
@@ -976,15 +983,15 @@ Series.prototype.alignDataLabel = function (point, dataLabel, options, alignTo, 
  * @return {boolean|undefined}
  */
 Series.prototype.justifyDataLabel = function (dataLabel, options, alignAttr, bBox, alignTo, isNew) {
-    var chart = this.chart, align = options.align, verticalAlign = options.verticalAlign, off, justified, padding = dataLabel.box ? 0 : (dataLabel.padding || 0);
+    var chart = this.chart, align = options.align, verticalAlign = options.verticalAlign, off, justified,
+        padding = dataLabel.box ? 0 : (dataLabel.padding || 0);
     // Off left
     off = alignAttr.x + padding;
     if (off < 0) {
         if (align === 'right') {
             options.align = 'left';
             options.inside = true;
-        }
-        else {
+        } else {
             options.x = -off;
         }
         justified = true;
@@ -995,8 +1002,7 @@ Series.prototype.justifyDataLabel = function (dataLabel, options, alignAttr, bBo
         if (align === 'left') {
             options.align = 'right';
             options.inside = true;
-        }
-        else {
+        } else {
             options.x = chart.plotWidth - off;
         }
         justified = true;
@@ -1007,8 +1013,7 @@ Series.prototype.justifyDataLabel = function (dataLabel, options, alignAttr, bBo
         if (verticalAlign === 'bottom') {
             options.verticalAlign = 'top';
             options.inside = true;
-        }
-        else {
+        } else {
             options.y = -off;
         }
         justified = true;
@@ -1019,8 +1024,7 @@ Series.prototype.justifyDataLabel = function (dataLabel, options, alignAttr, bBo
         if (verticalAlign === 'top') {
             options.verticalAlign = 'bottom';
             options.inside = true;
-        }
-        else {
+        } else {
             options.y = chart.plotHeight - off;
         }
         justified = true;
@@ -1084,15 +1088,19 @@ if (seriesTypes.pie) {
      * @return {void}
      */
     seriesTypes.pie.prototype.drawDataLabels = function () {
-        var series = this, data = series.data, point, chart = series.chart, options = series.options.dataLabels, connectorPadding = options.connectorPadding, connectorWidth, plotWidth = chart.plotWidth, plotHeight = chart.plotHeight, plotLeft = chart.plotLeft, maxWidth = Math.round(chart.chartWidth / 3), connector, seriesCenter = series.center, radius = seriesCenter[2] / 2, centerY = seriesCenter[1], dataLabel, dataLabelWidth, 
-        // labelPos,
-        labelPosition, labelHeight, 
-        // divide the points into right and left halves for anti collision
-        halves = [
-            [],
-            [] // left
-        ], x, y, visibility, j, overflow = [0, 0, 0, 0], // top, right, bottom, left
-        dataLabelPositioners = series.dataLabelPositioners, pointDataLabelsOptions;
+        var series = this, data = series.data, point, chart = series.chart, options = series.options.dataLabels,
+            connectorPadding = options.connectorPadding, connectorWidth, plotWidth = chart.plotWidth,
+            plotHeight = chart.plotHeight, plotLeft = chart.plotLeft, maxWidth = Math.round(chart.chartWidth / 3),
+            connector, seriesCenter = series.center, radius = seriesCenter[2] / 2, centerY = seriesCenter[1], dataLabel,
+            dataLabelWidth,
+            // labelPos,
+            labelPosition, labelHeight,
+            // divide the points into right and left halves for anti collision
+            halves = [
+                [],
+                [] // left
+            ], x, y, visibility, j, overflow = [0, 0, 0, 0], // top, right, bottom, left
+            dataLabelPositioners = series.dataLabelPositioners, pointDataLabelsOptions;
         // get out if not enabled
         if (!series.visible ||
             (!options.enabled &&
@@ -1104,8 +1112,8 @@ if (seriesTypes.pie) {
             if (point.dataLabel && point.visible && point.dataLabel.shortened) {
                 point.dataLabel
                     .attr({
-                    width: 'auto'
-                }).css({
+                        width: 'auto'
+                    }).css({
                     width: 'auto',
                     textOverflow: 'clip'
                 });
@@ -1135,8 +1143,7 @@ if (seriesTypes.pie) {
                             point.dataLabel.shortened = true;
                         }
                     }
-                }
-                else {
+                } else {
                     point.dataLabel = point.dataLabel.destroy();
                     // Workaround to make pies destroy multiple datalabels
                     // correctly. This logic needs rewriting to support multiple
@@ -1197,8 +1204,7 @@ if (seriesTypes.pie) {
                 if (positions && defined(point.distributeBox)) {
                     if (point.distributeBox.pos === undefined) {
                         visibility = 'hidden';
-                    }
-                    else {
+                    } else {
                         labelHeight = point.distributeBox.size;
                         // Find label's y position
                         y = dataLabelPositioners
@@ -1212,8 +1218,7 @@ if (seriesTypes.pie) {
                 // justify is undocumented in the API - preserve support for it
                 if (options.justify) {
                     x = dataLabelPositioners.justify(point, radius, seriesCenter);
-                }
-                else {
+                } else {
                     switch (options.alignTo) {
                         case 'connectors':
                             x = dataLabelPositioners.alignToConnectors(points, i, plotWidth, plotLeft);
@@ -1255,8 +1260,7 @@ if (seriesTypes.pie) {
                         sideOverflow = Math.round(dataLabelWidth - x + connectorPadding);
                         overflow[3] = Math.max(sideOverflow, overflow[3]);
                         // Overflow right
-                    }
-                    else if (x + dataLabelWidth > plotWidth - connectorPadding &&
+                    } else if (x + dataLabelWidth > plotWidth - connectorPadding &&
                         i === 0 // right half
                     ) {
                         sideOverflow = Math.round(x + dataLabelWidth - plotWidth + connectorPadding);
@@ -1266,8 +1270,7 @@ if (seriesTypes.pie) {
                     if (y - labelHeight / 2 < 0) {
                         overflow[0] = Math.max(Math.round(-y + labelHeight / 2), overflow[0]);
                         // Overflow left
-                    }
-                    else if (y + labelHeight / 2 > plotHeight) {
+                    } else if (y + labelHeight / 2 > plotHeight) {
                         overflow[2] = Math.max(Math.round(y + labelHeight / 2 - plotHeight), overflow[2]);
                     }
                     dataLabel.sideOverflow = sideOverflow;
@@ -1301,10 +1304,10 @@ if (seriesTypes.pie) {
                             point.connector = connector = chart.renderer
                                 .path()
                                 .addClass('highcharts-data-label-connector ' +
-                                ' highcharts-color-' + point.colorIndex +
-                                (point.className ?
-                                    ' ' + point.className :
-                                    ''))
+                                    ' highcharts-color-' + point.colorIndex +
+                                    (point.className ?
+                                        ' ' + point.className :
+                                        ''))
                                 .add(series.dataLabelsGroup);
                             if (!chart.styledMode) {
                                 connector.attr({
@@ -1319,8 +1322,7 @@ if (seriesTypes.pie) {
                             d: point.getConnectorPath()
                         });
                         connector.attr('visibility', visibility);
-                    }
-                    else if (connector) {
+                    } else if (connector) {
                         point.connector = connector.destroy();
                     }
                 }
@@ -1387,7 +1389,7 @@ if (seriesTypes.pie) {
                         dataLabel.css({
                             width: dataLabel._attr.width + 'px',
                             textOverflow: ((this.options.dataLabels.style || {})
-                                .textOverflow ||
+                                    .textOverflow ||
                                 'ellipsis')
                         });
                         dataLabel.shortened = true;
@@ -1395,9 +1397,8 @@ if (seriesTypes.pie) {
                     dataLabel.attr(dataLabel._attr);
                     dataLabel[dataLabel.moved ? 'animate' : 'attr'](_pos);
                     dataLabel.moved = true;
-                }
-                else if (dataLabel) {
-                    dataLabel.attr({ y: -9999 });
+                } else if (dataLabel) {
+                    dataLabel.attr({y: -9999});
                 }
             }
             // Clear for update
@@ -1416,20 +1417,20 @@ if (seriesTypes.pie) {
      * @return {boolean}
      */
     seriesTypes.pie.prototype.verifyDataLabelOverflow = function (overflow) {
-        var center = this.center, options = this.options, centerOption = options.center, minSize = options.minSize || 80, newSize = minSize, 
-        // If a size is set, return true and don't try to shrink the pie
-        // to fit the labels.
-        ret = options.size !== null;
+        var center = this.center, options = this.options, centerOption = options.center,
+            minSize = options.minSize || 80, newSize = minSize,
+            // If a size is set, return true and don't try to shrink the pie
+            // to fit the labels.
+            ret = options.size !== null;
         if (!ret) {
             // Handle horizontal size and center
             if (centerOption[0] !== null) { // Fixed center
                 newSize = Math.max(center[2] -
                     Math.max(overflow[1], overflow[3]), minSize);
-            }
-            else { // Auto center
+            } else { // Auto center
                 newSize = Math.max(
-                // horizontal overflow
-                center[2] - overflow[1] - overflow[3], minSize);
+                    // horizontal overflow
+                    center[2] - overflow[1] - overflow[3], minSize);
                 // horizontal center
                 center[0] += (overflow[3] - overflow[1]) / 2;
             }
@@ -1437,11 +1438,10 @@ if (seriesTypes.pie) {
             if (centerOption[1] !== null) { // Fixed center
                 newSize = Math.max(Math.min(newSize, center[2] -
                     Math.max(overflow[0], overflow[2])), minSize);
-            }
-            else { // Auto center
-                newSize = Math.max(Math.min(newSize, 
-                // vertical overflow
-                center[2] - overflow[0] - overflow[2]), minSize);
+            } else { // Auto center
+                newSize = Math.max(Math.min(newSize,
+                    // vertical overflow
+                    center[2] - overflow[0] - overflow[2]), minSize);
                 // vertical center
                 center[1] += (overflow[0] - overflow[2]) / 2;
             }
@@ -1450,15 +1450,14 @@ if (seriesTypes.pie) {
             if (newSize < center[2]) {
                 center[2] = newSize;
                 center[3] = Math.min(// #3632
-                relativeLength(options.innerSize || 0, newSize), newSize);
+                    relativeLength(options.innerSize || 0, newSize), newSize);
                 this.translate(center);
                 if (this.drawDataLabels) {
                     this.drawDataLabels();
                 }
                 // Else, return true to indicate that the pie and its labels is
                 // within the plot area
-            }
-            else {
+            } else {
                 ret = true;
             }
         }
@@ -1480,13 +1479,13 @@ if (seriesTypes.column) {
      * @return {void}
      */
     seriesTypes.column.prototype.alignDataLabel = function (point, dataLabel, options, alignTo, isNew) {
-        var inverted = this.chart.inverted, series = point.series, 
-        // data label box for alignment
-        dlBox = point.dlBox || point.shapeArgs, below = pick(point.below, // range series
-        point.plotY >
-            pick(this.translatedThreshold, series.yAxis.len)), 
-        // draw it inside the box?
-        inside = pick(options.inside, !!this.options.stacking), overshoot;
+        var inverted = this.chart.inverted, series = point.series,
+            // data label box for alignment
+            dlBox = point.dlBox || point.shapeArgs, below = pick(point.below, // range series
+            point.plotY >
+            pick(this.translatedThreshold, series.yAxis.len)),
+            // draw it inside the box?
+            inside = pick(options.inside, !!this.options.stacking), overshoot;
         // Align to the column itself, or the top of it
         if (dlBox) { // Area range uses this method but not alignTo
             alignTo = merge(dlBox);
@@ -1511,8 +1510,7 @@ if (seriesTypes.column) {
                 if (inverted) {
                     alignTo.x += below ? 0 : alignTo.width;
                     alignTo.width = 0;
-                }
-                else {
+                } else {
                     alignTo.y += below ? alignTo.height : 0;
                     alignTo.height = 0;
                 }

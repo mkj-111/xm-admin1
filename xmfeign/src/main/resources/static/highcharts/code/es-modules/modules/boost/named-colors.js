@@ -12,6 +12,7 @@
 'use strict';
 import H from '../../parts/Globals.js';
 import '../../parts/Color.js';
+
 var Color = H.Color;
 // Register color names since GL can't render those directly.
 // TODO: When supporting modern syntax, make this a const and a named export

@@ -13,8 +13,10 @@
 'use strict';
 import H from '../parts/Globals.js';
 import U from '../parts/Utilities.js';
+
 var isArray = U.isArray, objectEach = U.objectEach, pick = U.pick;
 import '../parts/Chart.js';
+
 var Chart = H.Chart, addEvent = H.addEvent, fireEvent = H.fireEvent;
 /* eslint-disable no-invalid-this */
 // Collect potensial overlapping data labels. Stack labels probably don't need
@@ -70,48 +72,48 @@ addEvent(Chart, 'render', function collectAndHide() {
  * @requires modules/overlapping-datalabels
  */
 Chart.prototype.hideOverlappingLabels = function (labels) {
-    var chart = this, len = labels.length, ren = chart.renderer, label, i, j, label1, label2, box1, box2, isIntersectRect = function (box1, box2) {
-        return !(box2.x > box1.x + box1.width ||
-            box2.x + box2.width < box1.x ||
-            box2.y > box1.y + box1.height ||
-            box2.y + box2.height < box1.y);
-    }, 
-    // Get the box with its position inside the chart, as opposed to getBBox
-    // that only reports the position relative to the parent.
-    getAbsoluteBox = function (label) {
-        var pos, parent, bBox, 
-        // Substract the padding if no background or border (#4333)
-        padding = label.box ? 0 : (label.padding || 0), lineHeightCorrection = 0;
-        if (label &&
-            (!label.alignAttr || label.placed)) {
-            var x = label.attr('x');
-            var y = label.attr('y');
-            if (typeof x === 'number' && typeof y === 'number') {
-                pos = { x: x, y: y };
+    var chart = this, len = labels.length, ren = chart.renderer, label, i, j, label1, label2, box1, box2,
+        isIntersectRect = function (box1, box2) {
+            return !(box2.x > box1.x + box1.width ||
+                box2.x + box2.width < box1.x ||
+                box2.y > box1.y + box1.height ||
+                box2.y + box2.height < box1.y);
+        },
+        // Get the box with its position inside the chart, as opposed to getBBox
+        // that only reports the position relative to the parent.
+        getAbsoluteBox = function (label) {
+            var pos, parent, bBox,
+                // Substract the padding if no background or border (#4333)
+                padding = label.box ? 0 : (label.padding || 0), lineHeightCorrection = 0;
+            if (label &&
+                (!label.alignAttr || label.placed)) {
+                var x = label.attr('x');
+                var y = label.attr('y');
+                if (typeof x === 'number' && typeof y === 'number') {
+                    pos = {x: x, y: y};
+                } else {
+                    pos = label.alignAttr;
+                }
+                parent = label.parentGroup;
+                // Get width and height if pure text nodes (stack labels)
+                if (!label.width) {
+                    bBox = label.getBBox();
+                    label.width = bBox.width;
+                    label.height = bBox.height;
+                    // Labels positions are computed from top left corner, so
+                    // we need to substract the text height from text nodes too.
+                    lineHeightCorrection = ren
+                        .fontMetrics(null, label.element).h;
+                }
+                return {
+                    x: pos.x + (parent.translateX || 0) + padding,
+                    y: pos.y + (parent.translateY || 0) + padding -
+                        lineHeightCorrection,
+                    width: label.width - 2 * padding,
+                    height: label.height - 2 * padding
+                };
             }
-            else {
-                pos = label.alignAttr;
-            }
-            parent = label.parentGroup;
-            // Get width and height if pure text nodes (stack labels)
-            if (!label.width) {
-                bBox = label.getBBox();
-                label.width = bBox.width;
-                label.height = bBox.height;
-                // Labels positions are computed from top left corner, so
-                // we need to substract the text height from text nodes too.
-                lineHeightCorrection = ren
-                    .fontMetrics(null, label.element).h;
-            }
-            return {
-                x: pos.x + (parent.translateX || 0) + padding,
-                y: pos.y + (parent.translateY || 0) + padding -
-                    lineHeightCorrection,
-                width: label.width - 2 * padding,
-                height: label.height - 2 * padding
-            };
-        }
-    };
+        };
     for (i = 0; i < len; i++) {
         label = labels[i];
         if (label) {
@@ -156,8 +158,7 @@ Chart.prototype.hideOverlappingLabels = function (labels) {
                 if (label.alignAttr && label.placed) { // data labels
                     if (newOpacity) {
                         label.show(true);
-                    }
-                    else {
+                    } else {
                         complete = function () {
                             label.hide(true);
                             label.placed = false; // avoid animation from top
@@ -167,8 +168,7 @@ Chart.prototype.hideOverlappingLabels = function (labels) {
                     label.alignAttr.opacity = newOpacity;
                     label[label.isOld ? 'animate' : 'attr'](label.alignAttr, null, complete);
                     fireEvent(chart, 'afterHideOverlappingLabels');
-                }
-                else { // other labels, tick labels
+                } else { // other labels, tick labels
                     label.attr({
                         opacity: newOpacity
                     });

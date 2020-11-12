@@ -23,11 +23,13 @@
     }
 }(function (Highcharts) {
     var _modules = Highcharts ? Highcharts._modules : {};
+
     function _registerModule(obj, path, args, fn) {
         if (!obj.hasOwnProperty(path)) {
             obj[path] = fn.apply(null, args);
         }
     }
+
     _registerModule(_modules, 'modules/cylinder.src.js', [_modules['parts/Globals.js'], _modules['parts/Utilities.js']], function (H, U) {
         /* *
          *
@@ -43,46 +45,47 @@
          *
          * */
         var pick = U.pick;
-        var charts = H.charts, color = H.color, deg2rad = H.deg2rad, perspective = H.perspective, seriesType = H.seriesType, 
-        // Work on H.Renderer instead of H.SVGRenderer for VML support.
-        RendererProto = H.Renderer.prototype, cuboidPath = RendererProto.cuboidPath, cylinderMethods;
+        var charts = H.charts, color = H.color, deg2rad = H.deg2rad, perspective = H.perspective,
+            seriesType = H.seriesType,
+            // Work on H.Renderer instead of H.SVGRenderer for VML support.
+            RendererProto = H.Renderer.prototype, cuboidPath = RendererProto.cuboidPath, cylinderMethods;
         /**
-          * The cylinder series type.
-          *
-          * @requires module:highcharts-3d
-          * @requires module:modules/cylinder
-          *
-          * @private
-          * @class
-          * @name Highcharts.seriesTypes.cylinder
-          *
-          * @augments Highcharts.Series
-          */
-        seriesType('cylinder', 'column', 
-        /**
-         * A cylinder graph is a variation of a 3d column graph. The cylinder graph
-         * features cylindrical points.
+         * The cylinder series type.
          *
-         * @sample {highcharts} highcharts/demo/cylinder/
-         *         Cylinder graph
+         * @requires module:highcharts-3d
+         * @requires module:modules/cylinder
          *
-         * @extends      plotOptions.column
-         * @since        7.0.0
-         * @product      highcharts
-         * @excluding    allAreas, boostThreshold, colorAxis, compare, compareBase,
-         *               dragDrop
-         * @requires     modules/cylinder
-         * @optionparent plotOptions.cylinder
+         * @private
+         * @class
+         * @name Highcharts.seriesTypes.cylinder
+         *
+         * @augments Highcharts.Series
          */
-        {}, {}, 
-        /** @lends Highcharts.seriesTypes.cylinder#pointClass# */
-        {
-            shapeType: 'cylinder',
-            hasNewShapeType: H
-                .seriesTypes.column.prototype
-                .pointClass.prototype
-                .hasNewShapeType
-        });
+        seriesType('cylinder', 'column',
+            /**
+             * A cylinder graph is a variation of a 3d column graph. The cylinder graph
+             * features cylindrical points.
+             *
+             * @sample {highcharts} highcharts/demo/cylinder/
+             *         Cylinder graph
+             *
+             * @extends      plotOptions.column
+             * @since        7.0.0
+             * @product      highcharts
+             * @excluding    allAreas, boostThreshold, colorAxis, compare, compareBase,
+             *               dragDrop
+             * @requires     modules/cylinder
+             * @optionparent plotOptions.cylinder
+             */
+            {}, {},
+            /** @lends Highcharts.seriesTypes.cylinder#pointClass# */
+            {
+                shapeType: 'cylinder',
+                hasNewShapeType: H
+                    .seriesTypes.column.prototype
+                    .pointClass.prototype
+                    .hasNewShapeType
+            });
         /**
          * A `cylinder` series. If the [type](#series.cylinder.type) option is not
          * specified, it is inherited from [chart.type](#chart.type).
@@ -176,9 +179,11 @@
         };
         // Generates paths and zIndexes.
         RendererProto.cylinderPath = function (shapeArgs) {
-            var renderer = this, chart = charts[renderer.chartIndex], 
-            // decide zIndexes of parts based on cubiod logic, for consistency.
-            cuboidData = cuboidPath.call(renderer, shapeArgs), isTopFirst = !cuboidData.isTop, isFronFirst = !cuboidData.isFront, top = renderer.getCylinderEnd(chart, shapeArgs), bottom = renderer.getCylinderEnd(chart, shapeArgs, true);
+            var renderer = this, chart = charts[renderer.chartIndex],
+                // decide zIndexes of parts based on cubiod logic, for consistency.
+                cuboidData = cuboidPath.call(renderer, shapeArgs), isTopFirst = !cuboidData.isTop,
+                isFronFirst = !cuboidData.isFront, top = renderer.getCylinderEnd(chart, shapeArgs),
+                bottom = renderer.getCylinderEnd(chart, shapeArgs, true);
             return {
                 front: renderer.getCylinderFront(top, bottom),
                 back: renderer.getCylinderBack(top, bottom),
@@ -204,8 +209,7 @@
                     .concat(bottomPath.slice(0, 3));
                 // change 'M' into 'L'
                 path[path.length - 3] = 'L';
-            }
-            else {
+            } else {
                 path.push(bottomPath[15], bottomPath[16], 'C', bottomPath[13], bottomPath[14], bottomPath[11], bottomPath[12], bottomPath[8], bottomPath[9], 'C', bottomPath[6], bottomPath[7], bottomPath[4], bottomPath[5], bottomPath[1], bottomPath[2]);
             }
             path.push('Z');
@@ -218,8 +222,7 @@
                 path = path.concat(topPath.slice(7, 12));
                 // end at start
                 path.push('L', topPath[1], topPath[2]);
-            }
-            else {
+            } else {
                 path = path.concat(topPath.slice(15));
             }
             path.push('L');
@@ -228,8 +231,7 @@
                     .concat(bottomPath.slice(1, 3))
                     .concat(bottomPath.slice(9, 12))
                     .concat(bottomPath.slice(6, 9));
-            }
-            else {
+            } else {
                 path.push(bottomPath[29], bottomPath[30], 'C', bottomPath[27], bottomPath[28], bottomPath[25], bottomPath[26], bottomPath[22], bottomPath[23], 'C', bottomPath[20], bottomPath[21], bottomPath[18], bottomPath[19], bottomPath[15], bottomPath[16]);
             }
             path.push('Z');
@@ -239,17 +241,17 @@
         RendererProto.getCylinderEnd = function (chart, shapeArgs, isBottom) {
             // A half of the smaller one out of width or depth (optional, because
             // there's no depth for a funnel that reuses the code)
-            var depth = pick(shapeArgs.depth, shapeArgs.width), radius = Math.min(shapeArgs.width, depth) / 2, 
-            // Approximated longest diameter
-            angleOffset = deg2rad * (chart.options.chart.options3d.beta - 90 +
-                (shapeArgs.alphaCorrection || 0)), 
-            // Could be top or bottom of the cylinder
-            y = shapeArgs.y + (isBottom ? shapeArgs.height : 0), 
-            // Use cubic Bezier curve to draw a cricle in x,z (y is constant).
-            // More math. at spencermortensen.com/articles/bezier-circle/
-            c = 0.5519 * radius, centerX = shapeArgs.width / 2 + shapeArgs.x, centerZ = depth / 2 + shapeArgs.z, 
-            // points could be generated in a loop, but readability will plummet
-            points = [{
+            var depth = pick(shapeArgs.depth, shapeArgs.width), radius = Math.min(shapeArgs.width, depth) / 2,
+                // Approximated longest diameter
+                angleOffset = deg2rad * (chart.options.chart.options3d.beta - 90 +
+                    (shapeArgs.alphaCorrection || 0)),
+                // Could be top or bottom of the cylinder
+                y = shapeArgs.y + (isBottom ? shapeArgs.height : 0),
+                // Use cubic Bezier curve to draw a cricle in x,z (y is constant).
+                // More math. at spencermortensen.com/articles/bezier-circle/
+                c = 0.5519 * radius, centerX = shapeArgs.width / 2 + shapeArgs.x, centerZ = depth / 2 + shapeArgs.z,
+                // points could be generated in a loop, but readability will plummet
+                points = [{
                     x: 0,
                     y: y,
                     z: radius
@@ -323,8 +325,7 @@
                     perspectivePoints[9]
                 ], true);
                 path.simplified = true;
-            }
-            else {
+            } else {
                 // or default curved path to imitate ellipse (2D circle)
                 path = this.getCurvedPath(perspectivePoints);
             }

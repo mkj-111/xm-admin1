@@ -10,8 +10,10 @@
 'use strict';
 import H from '../parts/Globals.js';
 import U from '../parts/Utilities.js';
+
 var pick = U.pick;
 import '../parts/Options.js';
+
 var noop = H.noop, seriesType = H.seriesType, seriesTypes = H.seriesTypes;
 /**
  * The boxplot series type.
@@ -265,11 +267,14 @@ seriesType('boxplot', 'column', {
      * @private
      */
     drawPoints: function () {
-        var series = this, points = series.points, options = series.options, chart = series.chart, renderer = chart.renderer, q1Plot, q3Plot, highPlot, lowPlot, medianPlot, medianPath, crispCorr, crispX = 0, boxPath, width, left, right, halfWidth, 
-        // error bar inherits this series type but doesn't do quartiles
-        doQuartiles = series.doQuartiles !== false, pointWiskerLength, whiskerLength = series.options.whiskerLength;
+        var series = this, points = series.points, options = series.options, chart = series.chart,
+            renderer = chart.renderer, q1Plot, q3Plot, highPlot, lowPlot, medianPlot, medianPath, crispCorr, crispX = 0,
+            boxPath, width, left, right, halfWidth,
+            // error bar inherits this series type but doesn't do quartiles
+            doQuartiles = series.doQuartiles !== false, pointWiskerLength, whiskerLength = series.options.whiskerLength;
         points.forEach(function (point) {
-            var graphic = point.graphic, verb = graphic ? 'animate' : 'attr', shapeArgs = point.shapeArgs, boxAttr = {}, stemAttr = {}, whiskersAttr = {}, medianAttr = {}, color = point.color || series.color;
+            var graphic = point.graphic, verb = graphic ? 'animate' : 'attr', shapeArgs = point.shapeArgs, boxAttr = {},
+                stemAttr = {}, whiskersAttr = {}, medianAttr = {}, color = point.color || series.color;
             if (point.plotY !== undefined) {
                 // crisp vector coordinates
                 width = shapeArgs.width;

@@ -23,11 +23,13 @@
     }
 }(function (Highcharts) {
     var _modules = Highcharts ? Highcharts._modules : {};
+
     function _registerModule(obj, path, args, fn) {
         if (!obj.hasOwnProperty(path)) {
             obj[path] = fn.apply(null, args);
         }
     }
+
     _registerModule(_modules, 'modules/dotplot.src.js', [_modules['parts/Globals.js'], _modules['parts/Utilities.js']], function (H, U) {
         /* *
          *
@@ -67,11 +69,15 @@
             }
         }, {
             drawPoints: function () {
-                var series = this, renderer = series.chart.renderer, seriesMarkerOptions = this.options.marker, itemPaddingTranslated = this.yAxis.transA *
-                    series.options.itemPadding, borderWidth = this.borderWidth, crisp = borderWidth % 2 ? 0.5 : 1;
+                var series = this, renderer = series.chart.renderer, seriesMarkerOptions = this.options.marker,
+                    itemPaddingTranslated = this.yAxis.transA *
+                        series.options.itemPadding, borderWidth = this.borderWidth, crisp = borderWidth % 2 ? 0.5 : 1;
                 this.points.forEach(function (point) {
-                    var yPos, attr, graphics, itemY, pointAttr, pointMarkerOptions = point.marker || {}, symbol = (pointMarkerOptions.symbol ||
-                        seriesMarkerOptions.symbol), radius = pick(pointMarkerOptions.radius, seriesMarkerOptions.radius), size, yTop, isSquare = symbol !== 'rect', x, y;
+                    var yPos, attr, graphics, itemY, pointAttr, pointMarkerOptions = point.marker || {},
+                        symbol = (pointMarkerOptions.symbol ||
+                            seriesMarkerOptions.symbol),
+                        radius = pick(pointMarkerOptions.radius, seriesMarkerOptions.radius), size, yTop,
+                        isSquare = symbol !== 'rect', x, y;
                     point.graphics = graphics = point.graphics || {};
                     pointAttr = point.pointAttr ?
                         (point.pointAttr[point.selected ? 'selected' : ''] ||
@@ -108,8 +114,7 @@
                             };
                             if (graphics[itemY]) {
                                 graphics[itemY].animate(attr);
-                            }
-                            else {
+                            } else {
                                 graphics[itemY] = renderer.symbol(symbol)
                                     .attr(extend(attr, pointAttr))
                                     .add(point.graphic);
@@ -122,8 +127,7 @@
                         if (!graphic.isActive) {
                             graphic.destroy();
                             delete graphic[key];
-                        }
-                        else {
+                        } else {
                             graphic.isActive = false;
                         }
                     });

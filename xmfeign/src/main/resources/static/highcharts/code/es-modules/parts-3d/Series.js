@@ -12,6 +12,7 @@
 'use strict';
 import H from '../parts/Globals.js';
 import U from '../parts/Utilities.js';
+
 var pick = U.pick;
 var addEvent = H.addEvent, perspective = H.perspective;
 /* eslint-disable no-invalid-this */
@@ -23,7 +24,8 @@ addEvent(H.Series, 'afterTranslate', function () {
 });
 // Translate the plotX, plotY properties and add plotZ.
 H.Series.prototype.translate3dPoints = function () {
-    var series = this, chart = series.chart, zAxis = pick(series.zAxis, chart.options.zAxis[0]), rawPoints = [], rawPoint, projectedPoints, projectedPoint, zValue, i;
+    var series = this, chart = series.chart, zAxis = pick(series.zAxis, chart.options.zAxis[0]), rawPoints = [],
+        rawPoint, projectedPoints, projectedPoint, zValue, i;
     for (i = 0; i < series.data.length; i++) {
         rawPoint = series.data[i];
         if (zAxis && zAxis.translate) {
@@ -35,8 +37,7 @@ H.Series.prototype.translate3dPoints = function () {
                 (zValue >= zAxis.min &&
                     zValue <= zAxis.max) :
                 false;
-        }
-        else {
+        } else {
             rawPoint.plotZ = 0;
         }
         rawPoint.axisXpos = rawPoint.plotX;

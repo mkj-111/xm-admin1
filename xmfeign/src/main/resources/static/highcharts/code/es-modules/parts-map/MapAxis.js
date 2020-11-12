@@ -10,8 +10,10 @@
 'use strict';
 import H from '../parts/Globals.js';
 import U from '../parts/Utilities.js';
+
 var pick = U.pick;
 import '../parts/Axis.js';
+
 var addEvent = H.addEvent, Axis = H.Axis;
 /* eslint-disable no-invalid-this */
 // Override to use the extreme coordinates from the SVG shape, not the data
@@ -53,7 +55,8 @@ addEvent(Axis, 'afterGetSeriesExtremes', function () {
 });
 // Override axis translation to make sure the aspect ratio is always kept
 addEvent(Axis, 'afterSetAxisTranslation', function () {
-    var chart = this.chart, mapRatio, plotRatio = chart.plotWidth / chart.plotHeight, adjustedAxisLength, xAxis = chart.xAxis[0], padAxis, fixTo, fixDiff, preserveAspectRatio;
+    var chart = this.chart, mapRatio, plotRatio = chart.plotWidth / chart.plotHeight, adjustedAxisLength,
+        xAxis = chart.xAxis[0], padAxis, fixTo, fixDiff, preserveAspectRatio;
     // Check for map-like series
     if (this.coll === 'yAxis' && xAxis.transA !== undefined) {
         this.series.forEach(function (series) {

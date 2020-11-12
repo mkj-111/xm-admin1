@@ -13,6 +13,7 @@
 import H from '../../../parts/Globals.js';
 
 import U from '../../../parts/Utilities.js';
+
 var extend = U.extend,
     isNumber = U.isNumber,
     pick = U.pick;
@@ -198,7 +199,7 @@ function isSkipSeries(series) {
         // Skip all points in a series where pointNavigationThreshold is
         // reached
         (a11yOptions.pointNavigationThreshold &&
-        a11yOptions.pointNavigationThreshold <= series.points.length);
+            a11yOptions.pointNavigationThreshold <= series.points.length);
 }
 
 
@@ -251,9 +252,9 @@ function getClosestPoint(point, series, xWeight, yWeight) {
             continue;
         }
         distance = (point.plotX - dPoint.plotX) *
-                (point.plotX - dPoint.plotX) * (xWeight || 1) +
-                (point.plotY - dPoint.plotY) *
-                (point.plotY - dPoint.plotY) * (yWeight || 1);
+            (point.plotX - dPoint.plotX) * (xWeight || 1) +
+            (point.plotY - dPoint.plotY) *
+            (point.plotY - dPoint.plotY) * (yWeight || 1);
         if (distance < minDistance) {
             minDistance = distance;
             minIx = i;
@@ -316,7 +317,7 @@ H.Chart.prototype.highlightAdjacentPoint = function (next) {
         curPoints = curPoint && curPoint.series.points,
         lastSeries = chart.series && chart.series[chart.series.length - 1],
         lastPoint = lastSeries && lastSeries.points &&
-                    lastSeries.points[lastSeries.points.length - 1],
+            lastSeries.points[lastSeries.points.length - 1],
         newSeries,
         newPoint;
 
@@ -420,7 +421,7 @@ H.Chart.prototype.highlightAdjacentSeries = function (down) {
         curPoint = chart.highlightedPoint,
         lastSeries = chart.series && chart.series[chart.series.length - 1],
         lastPoint = lastSeries && lastSeries.points &&
-                    lastSeries.points[lastSeries.points.length - 1];
+            lastSeries.points[lastSeries.points.length - 1];
 
     // If no point is highlighted, highlight the first/last point
     if (!chart.highlightedPoint) {
@@ -561,7 +562,8 @@ H.Point.prototype.getA11yTimeDescription = function () {
  * @class
  * @name Highcharts.SeriesComponent
  */
-var SeriesComponent = function () {};
+var SeriesComponent = function () {
+};
 SeriesComponent.prototype = new AccessibilityComponent();
 extend(SeriesComponent.prototype, /** @lends Highcharts.SeriesComponent */ {
 
@@ -621,10 +623,10 @@ extend(SeriesComponent.prototype, /** @lends Highcharts.SeriesComponent */ {
         chart.series.forEach(function (series) {
             component[
                 (series.options.accessibility &&
-                series.options.accessibility.enabled) !== false &&
+                    series.options.accessibility.enabled) !== false &&
                 series.visible ?
                     'addSeriesDescription' : 'hideSeriesFromScreenReader'
-            ](series);
+                ](series);
         });
     },
 
@@ -679,7 +681,7 @@ extend(SeriesComponent.prototype, /** @lends Highcharts.SeriesComponent */ {
 
                     // Normal mode, move between series
                     var highlightMethod = chart.highlightedPoint &&
-                            chart.highlightedPoint.series.keyboardMoveVertical ?
+                    chart.highlightedPoint.series.keyboardMoveVertical ?
                         'highlightAdjacentPointVertical' :
                         'highlightAdjacentSeries';
 
@@ -717,8 +719,8 @@ extend(SeriesComponent.prototype, /** @lends Highcharts.SeriesComponent */ {
                     // Find last valid point to highlight
                     while (i--) {
                         chart.highlightedPoint = chart.series[i].points[
-                            chart.series[i].points.length - 1
-                        ];
+                        chart.series[i].points.length - 1
+                            ];
                         // Highlight first valid point in the series will also
                         // look backwards. It always starts from currently
                         // highlighted point.
@@ -828,7 +830,7 @@ extend(SeriesComponent.prototype, /** @lends Highcharts.SeriesComponent */ {
                 component.dirty.allSeries[series.name + series.index] = series;
                 // Add it to newSeries storage unless we already have one
                 component.dirty.newSeries = component.dirty.newSeries ===
-                    undefined ? series : null;
+                undefined ? series : null;
             }
         });
         // New point
@@ -837,7 +839,7 @@ extend(SeriesComponent.prototype, /** @lends Highcharts.SeriesComponent */ {
                 this.chart.options.accessibility.announceNewData.enabled) {
                 // Add it to newPoint storage unless we already have one
                 component.dirty.newPoint = component.dirty.newPoint ===
-                    undefined ? e.point : null;
+                undefined ? e.point : null;
             }
         });
         // On redraw: compile what we know about new data, and build
@@ -947,7 +949,7 @@ extend(SeriesComponent.prototype, /** @lends Highcharts.SeriesComponent */ {
                             function () {
                                 component.announceRegion.innerHTML = '';
                                 delete
-                                component.clearAnnouncementContainerTimer;
+                                    component.clearAnnouncementContainerTimer;
                             }, 1000
                         );
                         delete component.queuedAnnouncement;
@@ -993,7 +995,7 @@ extend(SeriesComponent.prototype, /** @lends Highcharts.SeriesComponent */ {
             'accessibility.announceNewData.' + langKey, {
                 chartTitle: stripHTMLTags(
                     chart.options.title.text || chart.langFormat(
-                        'accessibility.defaultChartTitle', { chart: chart }
+                    'accessibility.defaultChartTitle', {chart: chart}
                     )
                 ),
                 seriesDesc: newSeries ?
@@ -1080,13 +1082,13 @@ extend(SeriesComponent.prototype, /** @lends Highcharts.SeriesComponent */ {
             seriesEl = component.getSeriesElement(series),
             setScreenReaderProps = series.points && (
                 series.points.length <
-                    a11yOptions.pointDescriptionThreshold ||
-                    a11yOptions.pointDescriptionThreshold === false
+                a11yOptions.pointDescriptionThreshold ||
+                a11yOptions.pointDescriptionThreshold === false
             ) && !seriesA11yOptions.exposeAsGroupOnly,
             setKeyboardProps = series.points && (
                 series.points.length <
-                    a11yOptions.pointNavigationThreshold ||
-                    a11yOptions.pointNavigationThreshold === false
+                a11yOptions.pointNavigationThreshold ||
+                a11yOptions.pointNavigationThreshold === false
             );
 
         if (seriesEl) {
@@ -1235,10 +1237,10 @@ extend(SeriesComponent.prototype, /** @lends Highcharts.SeriesComponent */ {
                     return H.numberFormat(
                         value,
                         a11yOptions.pointValueDecimals ||
-                            tooltipOptions.valueDecimals || -1,
+                        tooltipOptions.valueDecimals || -1,
                         lang.decimalPoint,
                         lang.accessibility.thousandsSep ||
-                            lang.thousandsSep
+                        lang.thousandsSep
                     );
                 }
                 return value;
@@ -1250,7 +1252,7 @@ extend(SeriesComponent.prototype, /** @lends Highcharts.SeriesComponent */ {
                 !chart.angular
             ),
             pointCategory = series.xAxis && series.xAxis.categories &&
-                    point.category !== undefined && '' + point.category;
+                point.category !== undefined && '' + point.category;
 
         // Pick and choose properties for a succint label
         var xDesc = point.name || timeDesc ||
@@ -1261,9 +1263,9 @@ extend(SeriesComponent.prototype, /** @lends Highcharts.SeriesComponent */ {
             valueDesc = point.series.pointArrayMap ?
                 point.series.pointArrayMap.reduce(function (desc, key) {
                     return desc + (desc.length ? ', ' : '') + key + ': ' +
-                    valuePrefix + numberFormat(
-                        pick(point[key], point.options[key])
-                    ) + valueSuffix;
+                        valuePrefix + numberFormat(
+                            pick(point[key], point.options[key])
+                        ) + valueSuffix;
                 }, '') :
                 (
                     point.value !== undefined ?

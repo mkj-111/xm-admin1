@@ -22,11 +22,13 @@
     }
 }(function (Highcharts) {
     var _modules = Highcharts ? Highcharts._modules : {};
+
     function _registerModule(obj, path, args, fn) {
         if (!obj.hasOwnProperty(path)) {
             obj[path] = fn.apply(null, args);
         }
     }
+
     _registerModule(_modules, 'mixins/draw-point.js', [], function () {
         /* *
          *
@@ -51,7 +53,8 @@
          * @todo export this function to enable usage
          */
         var draw = function draw(params) {
-            var component = this, graphic = component.graphic, animatableAttribs = params.animatableAttribs, onComplete = params.onComplete, css = params.css, renderer = params.renderer;
+            var component = this, graphic = component.graphic, animatableAttribs = params.animatableAttribs,
+                onComplete = params.onComplete, css = params.css, renderer = params.renderer;
             if (component.shouldDraw()) {
                 if (!graphic) {
                     component.graphic = graphic =
@@ -62,8 +65,7 @@
                     .css(css)
                     .attr(params.attribs)
                     .animate(animatableAttribs, params.isNew ? false : undefined, onComplete);
-            }
-            else if (graphic) {
+            } else if (graphic) {
                 var destroy = function () {
                     component.graphic = graphic = graphic.destroy();
                     if (isFn(onComplete)) {
@@ -75,8 +77,7 @@
                     graphic.animate(animatableAttribs, undefined, function () {
                         destroy();
                     });
-                }
-                else {
+                } else {
                     destroy();
                 }
             }
@@ -108,20 +109,21 @@
          * @private
          * @interface Highcharts.PolygonPointObject
          */ /**
-        * @name Highcharts.PolygonPointObject#0
-        * @type {number}
-        */ /**
-        * @name Highcharts.PolygonPointObject#1
-        * @type {number}
-        */
+         * @name Highcharts.PolygonPointObject#0
+         * @type {number}
+         */ /**
+         * @name Highcharts.PolygonPointObject#1
+         * @type {number}
+         */
         /**
          * @private
          * @interface Highcharts.PolygonObject
          * @extends Array<Highcharts.PolygonPointObject>
-         */ /**
-        * @name Highcharts.PolygonObject#axes
-        * @type {Array<PolygonPointObject>}
-        */
+         */
+        /**
+         * @name Highcharts.PolygonObject#axes
+         * @type {Array<PolygonPointObject>}
+         */
         var isArray = U.isArray, isNumber = U.isNumber;
         var deg2rad = H.deg2rad, find = H.find;
         /* eslint-disable no-invalid-this, valid-jsdoc */
@@ -153,7 +155,7 @@
          */
         var getNormals = function getNormal(p1, p2) {
             var dx = p2[0] - p1[0], // x2 - x1
-            dy = p2[1] - p1[1]; // y2 - y1
+                dy = p2[1] - p1[1]; // y2 - y1
             return [
                 [-dy, dx],
                 [dy, -dx]
@@ -279,12 +281,13 @@
          * @private
          */
         var getPolygon = function (x, y, width, height, rotation) {
-            var origin = [x, y], left = x - (width / 2), right = x + (width / 2), top = y - (height / 2), bottom = y + (height / 2), polygon = [
-                [left, top],
-                [right, top],
-                [right, bottom],
-                [left, bottom]
-            ];
+            var origin = [x, y], left = x - (width / 2), right = x + (width / 2), top = y - (height / 2),
+                bottom = y + (height / 2), polygon = [
+                    [left, top],
+                    [right, top],
+                    [right, bottom],
+                    [left, bottom]
+                ];
             return polygon.map(function (point) {
                 return rotate2DToPoint(point, origin, -rotation);
             });
@@ -311,8 +314,9 @@
          * @private
          */
         var isPolygonsOverlappingOnAxis = function (axis, polygon1, polygon2) {
-            var projection1 = project(polygon1, axis), projection2 = project(polygon2, axis), isOverlapping = !(projection2.min > projection1.max ||
-                projection2.max < projection1.min);
+            var projection1 = project(polygon1, axis), projection2 = project(polygon2, axis),
+                isOverlapping = !(projection2.min > projection1.max ||
+                    projection2.max < projection1.min);
             return !isOverlapping;
         };
         /**
@@ -371,7 +375,10 @@
          *  !!!!!!! SOURCE GETS TRANSPILED BY TYPESCRIPT. EDIT TS FILE ONLY. !!!!!!!
          * */
         var extend = U.extend, isArray = U.isArray, isNumber = U.isNumber, isObject = U.isObject;
-        var merge = H.merge, noop = H.noop, find = H.find, getBoundingBoxFromPolygon = polygon.getBoundingBoxFromPolygon, getPolygon = polygon.getPolygon, isPolygonsColliding = polygon.isPolygonsColliding, movePolygon = polygon.movePolygon, Series = H.Series;
+        var merge = H.merge, noop = H.noop, find = H.find,
+            getBoundingBoxFromPolygon = polygon.getBoundingBoxFromPolygon, getPolygon = polygon.getPolygon,
+            isPolygonsColliding = polygon.isPolygonsColliding, movePolygon = polygon.movePolygon, Series = H.Series;
+
         /**
          * Detects if there is a collision between two rectangles.
          *
@@ -393,6 +400,7 @@
                 r2.top > r1.bottom ||
                 r2.bottom < r1.top);
         }
+
         /**
          * Detects if a word collides with any previously placed words.
          *
@@ -409,14 +417,15 @@
          * Returns true if there is collision.
          */
         function intersectsAnyWord(point, points) {
-            var intersects = false, rect = point.rect, polygon = point.polygon, lastCollidedWith = point.lastCollidedWith, isIntersecting = function (p) {
-                var result = isRectanglesIntersecting(rect, p.rect);
-                if (result &&
-                    (point.rotation % 90 || p.rotation % 90)) {
-                    result = isPolygonsColliding(polygon, p.polygon);
-                }
-                return result;
-            };
+            var intersects = false, rect = point.rect, polygon = point.polygon,
+                lastCollidedWith = point.lastCollidedWith, isIntersecting = function (p) {
+                    var result = isRectanglesIntersecting(rect, p.rect);
+                    if (result &&
+                        (point.rotation % 90 || p.rotation % 90)) {
+                        result = isPolygonsColliding(polygon, p.polygon);
+                    }
+                    return result;
+                };
             // If the point has already intersected a different point, chances are they
             // are still intersecting. So as an enhancement we check this first.
             if (lastCollidedWith) {
@@ -439,6 +448,7 @@
             }
             return intersects;
         }
+
         /**
          * Gives a set of cordinates for an Archimedian Spiral.
          *
@@ -456,7 +466,8 @@
          * visualization.
          */
         function archimedeanSpiral(attempt, params) {
-            var field = params.field, result = false, maxDelta = (field.width * field.width) + (field.height * field.height), t = attempt * 0.8; // 0.2 * 4 = 0.8. Enlarging the spiral.
+            var field = params.field, result = false,
+                maxDelta = (field.width * field.width) + (field.height * field.height), t = attempt * 0.8; // 0.2 * 4 = 0.8. Enlarging the spiral.
             // Emergency brake. TODO make spiralling logic more foolproof.
             if (attempt <= 10000) {
                 result = {
@@ -469,6 +480,7 @@
             }
             return result;
         }
+
         /**
          * Gives a set of cordinates for an rectangular spiral.
          *
@@ -486,9 +498,10 @@
          * visualization.
          */
         function squareSpiral(attempt, params) {
-            var a = attempt * 4, k = Math.ceil((Math.sqrt(a) - 1) / 2), t = 2 * k + 1, m = Math.pow(t, 2), isBoolean = function (x) {
-                return typeof x === 'boolean';
-            }, result = false;
+            var a = attempt * 4, k = Math.ceil((Math.sqrt(a) - 1) / 2), t = 2 * k + 1, m = Math.pow(t, 2),
+                isBoolean = function (x) {
+                    return typeof x === 'boolean';
+                }, result = false;
             t -= 1;
             if (attempt <= 10000) {
                 if (isBoolean(result) && a >= m - t) {
@@ -511,8 +524,7 @@
                             x: -k + (m - a),
                             y: k
                         };
-                    }
-                    else {
+                    } else {
                         result = {
                             x: k,
                             y: k - (m - a - t)
@@ -524,6 +536,7 @@
             }
             return result;
         }
+
         /**
          * Gives a set of cordinates for an rectangular spiral.
          *
@@ -548,6 +561,7 @@
             }
             return result;
         }
+
         /**
          * @private
          * @function getRandomPosition
@@ -561,6 +575,7 @@
         function getRandomPosition(size) {
             return Math.round((size * (Math.random() + 0.5)) / 2);
         }
+
         /**
          * Calculates the proper scale to fit the cloud inside the plotting area.
          *
@@ -584,9 +599,12 @@
          * area.
          */
         function getScale(targetWidth, targetHeight, field) {
-            var height = Math.max(Math.abs(field.top), Math.abs(field.bottom)) * 2, width = Math.max(Math.abs(field.left), Math.abs(field.right)) * 2, scaleX = width > 0 ? 1 / width * targetWidth : 1, scaleY = height > 0 ? 1 / height * targetHeight : 1;
+            var height = Math.max(Math.abs(field.top), Math.abs(field.bottom)) * 2,
+                width = Math.max(Math.abs(field.left), Math.abs(field.right)) * 2,
+                scaleX = width > 0 ? 1 / width * targetWidth : 1, scaleY = height > 0 ? 1 / height * targetHeight : 1;
             return Math.min(scaleX, scaleY);
         }
+
         /**
          * Calculates what is called the playing field. The field is the area which all
          * the words are allowed to be positioned within. The area is proportioned to
@@ -612,27 +630,28 @@
          */
         function getPlayingField(targetWidth, targetHeight, data) {
             var info = data.reduce(function (obj, point) {
-                var dimensions = point.dimensions, x = Math.max(dimensions.width, dimensions.height);
-                // Find largest height.
-                obj.maxHeight = Math.max(obj.maxHeight, dimensions.height);
-                // Find largest width.
-                obj.maxWidth = Math.max(obj.maxWidth, dimensions.width);
-                // Sum up the total maximum area of all the words.
-                obj.area += x * x;
-                return obj;
-            }, {
-                maxHeight: 0,
-                maxWidth: 0,
-                area: 0
-            }), 
-            /**
-             * Use largest width, largest height, or root of total area to give size
-             * to the playing field.
-             */
-            x = Math.max(info.maxHeight, // Have enough space for the tallest word
-            info.maxWidth, // Have enough space for the broadest word
-            // Adjust 15% to account for close packing of words
-            Math.sqrt(info.area) * 0.85), ratioX = targetWidth > targetHeight ? targetWidth / targetHeight : 1, ratioY = targetHeight > targetWidth ? targetHeight / targetWidth : 1;
+                    var dimensions = point.dimensions, x = Math.max(dimensions.width, dimensions.height);
+                    // Find largest height.
+                    obj.maxHeight = Math.max(obj.maxHeight, dimensions.height);
+                    // Find largest width.
+                    obj.maxWidth = Math.max(obj.maxWidth, dimensions.width);
+                    // Sum up the total maximum area of all the words.
+                    obj.area += x * x;
+                    return obj;
+                }, {
+                    maxHeight: 0,
+                    maxWidth: 0,
+                    area: 0
+                }),
+                /**
+                 * Use largest width, largest height, or root of total area to give size
+                 * to the playing field.
+                 */
+                x = Math.max(info.maxHeight, // Have enough space for the tallest word
+                    info.maxWidth, // Have enough space for the broadest word
+                    // Adjust 15% to account for close packing of words
+                    Math.sqrt(info.area) * 0.85), ratioX = targetWidth > targetHeight ? targetWidth / targetHeight : 1,
+                ratioY = targetHeight > targetWidth ? targetHeight / targetWidth : 1;
             return {
                 width: x * ratioX,
                 height: x * ratioY,
@@ -640,6 +659,7 @@
                 ratioY: ratioY
             };
         }
+
         /**
          * Calculates a number of degrees to rotate, based upon a number of orientations
          * within a range from-to.
@@ -665,7 +685,7 @@
          */
         function getRotation(orientations, index, from, to) {
             var result = false, // Default to false
-            range, intervals, orientation;
+                range, intervals, orientation;
             // Check if we have valid input parameters.
             if (isNumber(orientations) &&
                 isNumber(index) &&
@@ -681,6 +701,7 @@
             }
             return result;
         }
+
         /**
          * Calculates the spiral positions and store them in scope for quick access.
          *
@@ -705,6 +726,7 @@
                 return attempt <= length ? arr[attempt - 1] : false;
             };
         }
+
         /**
          * Detects if a word is placed outside the playing field.
          *
@@ -732,6 +754,7 @@
                 playingField.top < rect.top &&
                 playingField.bottom > rect.bottom);
         }
+
         /**
          * Check if a point intersects with previously placed words, or if it goes
          * outside the field boundaries. If a collision, then try to adjusts the
@@ -751,12 +774,13 @@
          * the word should not be placed at all.
          */
         function intersectionTesting(point, options) {
-            var placed = options.placed, field = options.field, rectangle = options.rectangle, polygon = options.polygon, spiral = options.spiral, attempt = 1, delta = {
-                x: 0,
-                y: 0
-            }, 
-            // Make a copy to update values during intersection testing.
-            rect = point.rect = extend({}, rectangle);
+            var placed = options.placed, field = options.field, rectangle = options.rectangle,
+                polygon = options.polygon, spiral = options.spiral, attempt = 1, delta = {
+                    x: 0,
+                    y: 0
+                },
+                // Make a copy to update values during intersection testing.
+                rect = point.rect = extend({}, rectangle);
             point.polygon = polygon;
             point.rotation = options.rotation;
             /* while w intersects any previously placed words:
@@ -765,8 +789,8 @@
                  } while any part of w is outside the playing field and
                          the spiral radius is still smallish */
             while (delta !== false &&
-                (intersectsAnyWord(point, placed) ||
-                    outsidePlayingField(rect, field))) {
+            (intersectsAnyWord(point, placed) ||
+                outsidePlayingField(rect, field))) {
                 delta = spiral(attempt);
                 if (isObject(delta)) {
                     // Update the DOMRect with new positions.
@@ -780,6 +804,7 @@
             }
             return delta;
         }
+
         /**
          * Extends the playing field to have enough space to fit a given word.
          *
@@ -814,13 +839,13 @@
                     // Add space on the top and bottom.
                     height: field.height + (extendHeight * 2)
                 });
-            }
-            else {
+            } else {
                 result = field;
             }
             // Return the new extended field.
             return result;
         }
+
         /**
          * If a rectangle is outside a give field, then the boundaries of the field is
          * adjusted accordingly. Modifies the field object which is passed as the first
@@ -854,6 +879,7 @@
             }
             return field;
         }
+
         /**
          * A word cloud is a visualization of a set of words, where the size and
          * placement of a word is determined by how it is weighted.
@@ -1014,21 +1040,29 @@
              * maxFontSize the result will equal minFontSize.
              */
             deriveFontSize: function deriveFontSize(relativeWeight, maxFontSize, minFontSize) {
-                var weight = isNumber(relativeWeight) ? relativeWeight : 0, max = isNumber(maxFontSize) ? maxFontSize : 1, min = isNumber(minFontSize) ? minFontSize : 1;
+                var weight = isNumber(relativeWeight) ? relativeWeight : 0,
+                    max = isNumber(maxFontSize) ? maxFontSize : 1, min = isNumber(minFontSize) ? minFontSize : 1;
                 return Math.floor(Math.max(min, weight * max));
             },
             drawPoints: function () {
-                var series = this, hasRendered = series.hasRendered, xAxis = series.xAxis, yAxis = series.yAxis, chart = series.chart, group = series.group, options = series.options, animation = options.animation, allowExtendPlayingField = options.allowExtendPlayingField, renderer = chart.renderer, testElement = renderer.text().add(group), placed = [], placementStrategy = series.placementStrategy[options.placementStrategy], spiral, rotation = options.rotation, scale, weights = series.points.map(function (p) {
-                    return p.weight;
-                }), maxWeight = Math.max.apply(null, weights), data = series.points.sort(function (a, b) {
-                    return b.weight - a.weight; // Sort descending
-                }), field;
+                var series = this, hasRendered = series.hasRendered, xAxis = series.xAxis, yAxis = series.yAxis,
+                    chart = series.chart, group = series.group, options = series.options, animation = options.animation,
+                    allowExtendPlayingField = options.allowExtendPlayingField, renderer = chart.renderer,
+                    testElement = renderer.text().add(group), placed = [],
+                    placementStrategy = series.placementStrategy[options.placementStrategy], spiral,
+                    rotation = options.rotation, scale, weights = series.points.map(function (p) {
+                        return p.weight;
+                    }), maxWeight = Math.max.apply(null, weights), data = series.points.sort(function (a, b) {
+                        return b.weight - a.weight; // Sort descending
+                    }), field;
                 // Get the dimensions for each word.
                 // Used in calculating the playing field.
                 data.forEach(function (point) {
-                    var relativeWeight = 1 / maxWeight * point.weight, fontSize = series.deriveFontSize(relativeWeight, options.maxFontSize, options.minFontSize), css = extend({
-                        fontSize: fontSize + 'px'
-                    }, options.style), bBox;
+                    var relativeWeight = 1 / maxWeight * point.weight,
+                        fontSize = series.deriveFontSize(relativeWeight, options.maxFontSize, options.minFontSize),
+                        css = extend({
+                            fontSize: fontSize + 'px'
+                        }, options.style), bBox;
                     testElement.css(css).attr({
                         x: 0,
                         y: 0,
@@ -1047,28 +1081,32 @@
                 });
                 // Draw all the points.
                 data.forEach(function (point) {
-                    var relativeWeight = 1 / maxWeight * point.weight, fontSize = series.deriveFontSize(relativeWeight, options.maxFontSize, options.minFontSize), css = extend({
-                        fontSize: fontSize + 'px'
-                    }, options.style), placement = placementStrategy(point, {
-                        data: data,
-                        field: field,
-                        placed: placed,
-                        rotation: rotation
-                    }), attr = extend(series.pointAttribs(point, (point.selected && 'select')), {
-                        align: 'center',
-                        'alignment-baseline': 'middle',
-                        x: placement.x,
-                        y: placement.y,
-                        text: point.name,
-                        rotation: placement.rotation
-                    }), polygon = getPolygon(placement.x, placement.y, point.dimensions.width, point.dimensions.height, placement.rotation), rectangle = getBoundingBoxFromPolygon(polygon), delta = intersectionTesting(point, {
-                        rectangle: rectangle,
-                        polygon: polygon,
-                        field: field,
-                        placed: placed,
-                        spiral: spiral,
-                        rotation: placement.rotation
-                    }), animate;
+                    var relativeWeight = 1 / maxWeight * point.weight,
+                        fontSize = series.deriveFontSize(relativeWeight, options.maxFontSize, options.minFontSize),
+                        css = extend({
+                            fontSize: fontSize + 'px'
+                        }, options.style), placement = placementStrategy(point, {
+                            data: data,
+                            field: field,
+                            placed: placed,
+                            rotation: rotation
+                        }), attr = extend(series.pointAttribs(point, (point.selected && 'select')), {
+                            align: 'center',
+                            'alignment-baseline': 'middle',
+                            x: placement.x,
+                            y: placement.y,
+                            text: point.name,
+                            rotation: placement.rotation
+                        }),
+                        polygon = getPolygon(placement.x, placement.y, point.dimensions.width, point.dimensions.height, placement.rotation),
+                        rectangle = getBoundingBoxFromPolygon(polygon), delta = intersectionTesting(point, {
+                            rectangle: rectangle,
+                            polygon: polygon,
+                            field: field,
+                            placed: placed,
+                            spiral: spiral,
+                            rotation: placement.rotation
+                        }), animate;
                     // If there is no space for the word, extend the playing field.
                     if (!delta && allowExtendPlayingField) {
                         // Extend the playing field to fit the word.
@@ -1095,8 +1133,7 @@
                         field = updateFieldBoundaries(field, rectangle);
                         placed.push(point);
                         point.isNull = false;
-                    }
-                    else {
+                    } else {
                         point.isNull = true;
                     }
                     if (animation) {
@@ -1110,8 +1147,7 @@
                             attr.x = 0;
                             attr.y = 0;
                             // or animate from previous position
-                        }
-                        else {
+                        } else {
                             delete attr.x;
                             delete attr.y;
                         }
@@ -1180,9 +1216,11 @@
                 rotate2DToPoint: polygon.rotate2DToPoint
             },
             getPlotBox: function () {
-                var series = this, chart = series.chart, inverted = chart.inverted, 
-                // Swap axes for inverted (#2339)
-                xAxis = series[(inverted ? 'yAxis' : 'xAxis')], yAxis = series[(inverted ? 'xAxis' : 'yAxis')], width = xAxis ? xAxis.len : chart.plotWidth, height = yAxis ? yAxis.len : chart.plotHeight, x = xAxis ? xAxis.left : chart.plotLeft, y = yAxis ? yAxis.top : chart.plotTop;
+                var series = this, chart = series.chart, inverted = chart.inverted,
+                    // Swap axes for inverted (#2339)
+                    xAxis = series[(inverted ? 'yAxis' : 'xAxis')], yAxis = series[(inverted ? 'xAxis' : 'yAxis')],
+                    width = xAxis ? xAxis.len : chart.plotWidth, height = yAxis ? yAxis.len : chart.plotHeight,
+                    x = xAxis ? xAxis.left : chart.plotLeft, y = yAxis ? yAxis.top : chart.plotTop;
                 return {
                     translateX: x + (width / 2),
                     translateY: y + (height / 2),
