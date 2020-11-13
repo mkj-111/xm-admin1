@@ -305,58 +305,65 @@
 </div>
 </div></div></body>
 <script>
-  $("#loginBtn").click(function(){
-    $.ajax({
-      url: "/user/login",
-      type: "post",
-      data: $("#loginFormId").serialize(),
-      dataType: "text",
-      success:function(data){
-        alert(data);
-        if(data=="成功"){
-          location.href="/jump/main";
+        $("#loginBtn").click(function(){
+          $.ajax({
+            url: "/user/login",
+            type: "post",
+            data: $("#loginFormId").serialize(),
+            dataType: "text",
+            success:function(data){
+              alert(data);
+              if(data=="成功"){
+                location.href="/jump/main";
+              }
+            }
+          })
+        })
+        //短信验证码登录
+        function loginDuanxin(){
+          console.log("进入")
+          var phone = $("#phone").val();
+          var code = $("#code").val();
+          $.ajax({
+            url:'/login/doLogin',
+            type:'post',
+            data:{phone:phone,code:code},
+            success:function(data){
+              console.log("成功")
+              console.log(data)
+              console.log(data.msg);
+              if(data.msg=="登录成功"){
+                yan(phone);
+                location.href = "/jump/main";
+              }
+
+            }
+          })
         }
 
-      }
-    })
-  })
-  function loginDuanxin(){
-    $("#loginForm").form("submit",{
-      url:'/login/doLogin',
-      success:function(data){
-        var data = eval('(' + data + ')');
-        $.messager.show({
-          title:'提示',
-          msg:data.message,
-          showType:'slide'
-        });
-        if(data.isLogin=="true"){
-          location.href = "/jump/main"
-        }
 
+
+        //发送短信验证码
+      function yzmLogin(){
+        var phone = $("#phone").val();
+        $.ajax({
+          type:"post",
+          url:"/login/sendCode",
+          data:{"phone":phone},
+          dataType:"json",
+          success:function(data){
+            alert(data.msg);
+          }
+        })
       }
-    })
-  }
-function yzmLogin(){
-  var phone = $("#phone").val();
-  $.ajax({
-    type:"post",
-    url:"/login/sendCode",
-    data:{"phone":phone},
-    dataType:"json",
-    success:function(data){
-      alert(data.msg);
-    }
-  })
-}
-function loginNone() {
-  //spanLogin
-  //duanxinLogin
-  document.getElementById("spanLogin").style.display = "none";
-  document.getElementById("duanxinLogin").style.display = "";
-}
-function loginYes() {
-  document.getElementById("duanxinLogin").style.display = "none";
-  document.getElementById("spanLogin").style.display = "";
-}
+      function loginNone() {
+        //spanLogin
+        //duanxinLogin
+        document.getElementById("spanLogin").style.display = "none";
+        document.getElementById("duanxinLogin").style.display = "";
+      }
+      function loginYes() {
+        document.getElementById("duanxinLogin").style.display = "none";
+        document.getElementById("spanLogin").style.display = "";
+      }
 </script></html>

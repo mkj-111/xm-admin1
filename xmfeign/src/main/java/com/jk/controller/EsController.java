@@ -23,10 +23,16 @@ public class EsController {
     private EsService esService;
 
     @RequestMapping("highlight")
-    public List<Goods> highlight(String name){
+    public List<String> highlight(String name){
+
+        return esService.selectbyname(name);
+    }
+    @RequestMapping("highlight2")
+    public List<Goods> highlight2(String name){
 
         return esService.highlight(name);
     }
+
 
     @RequestMapping("highlight1")
     public List<Goods> highlight1(HttpSession session){

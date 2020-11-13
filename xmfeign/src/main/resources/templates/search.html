@@ -17,6 +17,11 @@
         background-color: #189395;
         color: #000000;
     }
+    em{
+        width: 20px;
+        color: #00ff33;
+        height: 20px;
+    }
 </style>
 <head>
     <meta charset="UTF-8">
@@ -292,20 +297,12 @@
                 <div id="top2ul">
                     <ul>
                         <li>
-                            <input type="text" id="shuru" onclick="fun()"/>
+                            <input type="text" id="shuru" onkeyup="fun()"/>
                             <button id="btt1"></button>
                             <button id="btt2"></button>
                             <ul id="ulliul">
                                 <li><a href="#" >小米9</a></li>
-                                <li><a href="#">Redmi K20 Pro</a></li>
-                                <li><a href="#">Redmi K20</a></li>
-                                <li><a href="#">Redmi Note 7 Pro</a></li>
-                                <li><a href="#">Redmi Note 7</a></li>
-                                <li><a href="#">小米电视4C</a></li>
-                                <li><a href="#">电视32英寸</a></li>
-                                <li><a href="#">笔记本Pro</a></li>
-                                <li><a href="#">小爱音箱</a></li>
-                                <li><a href="#">净水器</a></li>
+
                             </ul>
                         </li>
                     </ul>
@@ -315,7 +312,7 @@
                 </div>
                 <!--end搜索-->
                 <!--js-->
-                <script type="text/javascript" src="/mi/js/search.js"></script>
+                <!--<script type="text/javascript" src="/mi/js/search.js"></script>-->
             </div>
         </div>
     </div>
@@ -593,9 +590,7 @@
                     str = str + "</div>";
                     str = str + "</a>";
                     str = str + "</li>";
-                    console.log(result[i]);
-                    console.log(result[i].goodsCaption);
-                    console.log(result[i].goodsPrice);
+
                 }
                 $("#shouji").html(str);
             }
@@ -699,5 +694,64 @@
             location.href="/jump/personal";
         }
     }
+
+    function sou(){
+        var name=$("#shuru").val();
+        $.ajax({
+            url:'/es/highlight2',
+            type:'post',
+            data:{name:name},
+            success:function(result){
+                var str = "";
+                for (var i = 0; i < 8 ; i++) {
+                    str = str + '<li class="little-box">';
+                    str = str + '<a href=javascript:phone('+result[i].id+')>';
+                    str = str + '<div>';
+                    str = str + '<img src="'+result[i].goodsImg+'" alt="" class="phone-image">';
+                    str = str + '<p class="share-h3">'+result[i].goodsName+'</p>';
+                    str = str + '<p class="p-3">'+result[i].goodsCaption+'</p>';
+                    str = str + '<p class="price">'+result[i].goodsPrice+'元</p>';
+                    str = str + "</div>";
+                    str = str + "</a>";
+                    str = str + "</li>";
+
+                }
+                $("#shouji").html(str);
+            }
+        })
+    }
+
+    function fun(){
+        if ($('#ulliul').css('display')=='none') {
+            $("#top2right ul li button").hide();
+            $('#ulliul').css('display','block');
+        } else{
+            $('#ulliul').css('display','none');
+            $("#top2right ul li button").show();
+        }
+        var name=$("#shuru").val();
+        $.ajax({
+            url:'/es/highlight',
+            type:'post',
+            data:{name:name},
+            success:function(result){
+                console.log(result)
+                var str = "";
+                for (var i = 0; i < 8 ; i++) {
+                    str = str + '<li ><a href=javascript:shuru('+i+') id="a'+i+'">'+result[i]+'</a></li>';
+                    $("#ulliul").html(str);
+                    //shuru(result[i])
+                }
+            }
+        })
+    }
+
+    function shuru(i){
+            var name=$('#a'+i+'').html();
+            console.log(name)
+            $("#shuru").val(name)
+
+    }
+
 </script>
 </html>
