@@ -1,11 +1,21 @@
 package com.jk.entity;
-
+import org.springframework.data.annotation.Id;
+import org.springframework.data.elasticsearch.annotations.Document;
+import org.springframework.data.elasticsearch.annotations.Field;
+import org.springframework.data.elasticsearch.annotations.FieldType;
 import java.io.Serializable;
 import java.util.Date;
 
-public class Goods implements Serializable {
+
+
+@Document(indexName = "2004_aa", type = "type")
+public class Goods {
+
+    // 数据id 和 索引id 一致
+    @Id
     private Integer id;
 
+    @Field(type = FieldType.Keyword, analyzer = "ik_synonym", store = true)
     private String goodsName;
 
     private String goodsStatus;
@@ -13,6 +23,8 @@ public class Goods implements Serializable {
     private String goodsCaption;
 
     private Integer goodsVersionId;
+
+    private Integer goodsTypeid;
 
     private String goodsImg;
 
@@ -25,6 +37,8 @@ public class Goods implements Serializable {
     private Integer goodsNum;
 
     private Date goodsDate;
+
+    private Integer goodsRemen;
 
     //价格
     private Long goodsPrice;
@@ -69,8 +83,13 @@ public class Goods implements Serializable {
         return goodsVersionId;
     }
 
-    public void setGoodsVersionId(Integer goodsVersionId) {
-        this.goodsVersionId = goodsVersionId;
+
+    public Integer getGoodsTypeid() {
+        return goodsTypeid;
+    }
+
+    public void setGoodsTypeid(Integer goodsTypeid) {
+        this.goodsTypeid = goodsTypeid;
     }
 
     public String getGoodsImg() {
@@ -146,23 +165,12 @@ public class Goods implements Serializable {
     }
 
 
-    @Override
-    public String toString() {
-        return "Goods{" +
-                "id=" + id +
-                ", goodsName='" + goodsName + '\'' +
-                ", goodsStatus='" + goodsStatus + '\'' +
-                ", goodsCaption='" + goodsCaption + '\'' +
-                ", goodsVersionId=" + goodsVersionId +
-                ", goodsImg='" + goodsImg + '\'' +
-                ", goodsColorId='" + goodsColorId + '\'' +
-                ", goodsImgAll='" + goodsImgAll + '\'' +
-                ", goodsInfo='" + goodsInfo + '\'' +
-                ", goodsNum=" + goodsNum +
-                ", goodsDate=" + goodsDate +
-                ", goodsPrice=" + goodsPrice +
-                ", colorByName='" + colorByName + '\'' +
-                ", verisonByName='" + verisonByName + '\'' +
-                '}';
+    public Integer getGoodsRemen() {
+        return goodsRemen;
     }
+
+    public void setGoodsRemen(Integer goodsRemen) {
+        this.goodsRemen = goodsRemen;
+    }
+
 }

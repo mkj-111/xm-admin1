@@ -29,7 +29,6 @@ public class AliPay {
     @Autowired
     private RedisUtil redisUtil;
 
-
     private final String APP_ID = "2016103100782028";
     private final String APP_PRIVATE_KEY = "MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCytYZI0u9kyweRaLJktnlzxRUWwIVBKx98OFvrZp0W/TiktO1Vl/jpOYKLSGy8+eZzeRN3Sy4XgemSZlN5PcYsOO4xnqSo3bPkiujbNG5fEhVCr2yr+LcJ1bn/8iwbgC+1gX3KZCecaBZO3EeosDpyE0gDmCmDXg2PVfuR+dJHDWn7LhnNTDioPf5+rtdmHTuVPP+znd3FXRvmATGYDdasRADhsKLWG8XKiGJL5QVZSqgOEa7JOpG6hYM8nqrrfJ0wYL5xFx8HnH+i93x+HZn2jwf6zUmKvSo+LxuXRgD3T0gpr/nHCCN9BysRNjcmqKvhaUoNVcy2hSHom6j5Cv1jAgMBAAECggEAMsKaxN6dPtzoZmX9nduyva5yIgdHEk6kX81GVqPL5PbB+w6lBxXmjqBWMye8MyUsTwpJ/C1vhx/Qb1P/S8W/H1qAVbnA/XITocvO/kxzOS/SuCFJ1cMMgo+hiFCKNLmBU6XXTACMu8FY7Mdm10RPJY3Se6rhx72UTm1WyozSLHnqVd+mvHkYufkBsBJvKb/9TlTubtTCs8M8pWS+jmk6wZOP6FyQuaioTJ97IDacLJK+uZDEZyudnbuGjwL0i0e2b/kgoK+ljTc+IN91OkBLSPk7DMZ7kLwm0df0ozKmMCvztHkrYhCBjv8hLxURDHwrgN0JXEye0fhltPOZm43FmQKBgQDdl4HJwvoMzo00ZLsqQ39I8IiFQIUQAfzpsH3XxcqnQFzmCPJdPzA6HwHbF4l2SzBHpXa2cpbk/WLPZ0H1Ja90J7KN6+i2O9R2mTe7+NEFUAbHXEK3eR34g/ATh1EnLSIxCNVtWPPHPMiDJdpjDHUhQUY7o0TZukaFfsyBeNwyjQKBgQDOdWLk6+q1qWVgUTUGNOfPmRS7+BRXNfKLA1bSSi+V+bZtu62TRgJ/s51qXrt2XfpQ1jDpkbuiYOWHLBPQoLUxnqRcsgKa17wpjAtjee66LU/ajJ1aAuIbBb/s99S0yN4jydSfjmmvZAhb8s8c2D33SEsSk6BGRnMDCtTMf9HrrwKBgDxugj3VB76QYiAEzKplCASLXKACjYdlE2Vj9Z3v2imsuukdTYOypONk62ulyp5RORSBApQVQiOnGth3T5ycr3HdFavwx2FThcjmVjXUUKTDQ2YBOkyxIkRRLxsUT0SA4Y8/2nzcwnb2k7R4kUtr7VGpbI79ItzCGVN01i8FGABNAoGBAJ4OB9OxOFIyiMWf5bQGtKCdVN5CIXBSgIgj2kfLO3rZXOvNDij9I9SXsR9JvsHzWDqif3eQddDt1UoSWGkTXyPJi5LbRFs+ZXJ5IA7bvgMRxVxO4feS1X5SfIfxgwmT7VwAm6I66HW5YxzhWeV/NpEk6zQhiEXEkS/3Dsov4IlJAoGAPP61x/eLO+zdZDsq4Y3YVYJOI5NSB0oEglGhz29sf2asG/camVpVDb5QvipsLPTm/ZhlO+zXpI9xbiKcz8DQrhDK0jkXVjDkp27xs2i9cEi4BetlmCyhq8N8IdMR6HcQkskOOQk4cr8phcCZH9HQKmDqT2AbBWGCe/4mGy7Ccwc=";
     private final String CHARSET = "UTF-8";
@@ -50,8 +49,6 @@ public class AliPay {
     @RequestMapping("alipay")
     public void alipay(HttpServletResponse httpResponse, String ordergoodsName, String orderSumPrice, String orderNum, HttpSession session) throws IOException {
         OrderGoods orderGoods = (OrderGoods) redisUtil.get(RedisConstant.Goods_Order__Key + "__" + orderNum);
-        xmuser userBean = (xmuser) session.getAttribute("user");
-        //alipayService.updateByNum(orderGoods.getId(),orderGoods.getGoodsNum());
         String logJson = JSONObject.toJSONString(orderGoods);
         rabbitTemplate.convertAndSend("order-queue", logJson);
 
@@ -90,11 +87,16 @@ public class AliPay {
 
 
     }
-
     @RequestMapping(value = "/returnUrl", method = RequestMethod.GET)
     public String returnUrl(HttpServletRequest request, HttpServletResponse response)
             throws IOException, AlipayApiException {
         System.out.println("=================================同步回调=====================================");
+
+
+
+        //alipayService.updateByNum(orderGoods.getId(),orderGoods.getGoodsNum());
+
+
 
         // 获取支付宝GET过来反馈信息
         Map<String, String> params = new HashMap<String, String>();

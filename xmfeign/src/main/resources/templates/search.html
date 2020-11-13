@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="en">
+<style type="text/css">
+    .blue {
+        background-color:#0000FF;
+        color:#FFF;
+    }
+    .red {
+        background-color: #fff8f6;
+        color: #ffffff;
+    }
+    .orange{
+        background-color: #e47833;
+        color: #ffffff;
+    }
+    .yellow {
+        background-color: #189395;
+        color: #000000;
+    }
+</style>
+<head>
+    <meta charset="UTF-8">
+    <title>小米商城首页</title>
+    <link rel="stylesheet" type="text/css" href="/mi/css/font-awesome-4.7.0/css/font-awesome.css" />
+    <!--样式-->
+    <link rel="stylesheet" href="/mi/css/reset.css">
+
+    <!--整个-->
+    <link rel="stylesheet" href="/mi/css/total.css" />
+    <!--第一行-->
+    <link rel="stylesheet" href="/mi/css/top-bar.css" />
+    <!--第二行-->
+    <link rel="stylesheet" href="/mi/css/nav.css"/>
+    <!--第三行-->
+    <link rel="stylesheet" href="/mi/css/style.css" />
+    <!--第四行-->
+    <link rel="stylesheet" href="/mi/css/advertising.css" />
+    <!--第五行-->
+    <link rel="stylesheet" href="/mi/css/seckill.css" />
+    <!--第七行-->
+    <link rel="stylesheet" href="/mi/css/commodity.css" />
+    <!--二十-->
+    <link rel="stylesheet" href="/mi/css/video.css" />
+    <!--地航-->
+    <link rel="stylesheet" href="/mi/css/afterbody.css" />
+
+    <script type="text/javascript" src="/mi/js/jquery-1.12.4.js" ></script>
+    <script type="text/javascript" src="/mi/js/jquery-1.4.2.min.js"></script>
+    <script type="text/javascript">
+        $(function(){
+
+            //导航栏
+            $(".top-navigation>ul>li>ul").hide();
+            $(".top-navigation>ul>li").hover(function(){
+                $(this).children("ul").show();//显示
+            },function(){
+                $(this).children("ul").hide();//隐藏
+            });
+
+
+            //手机导航栏
+            $("#contop2>ul>li>ul").hide();
+            $("#contop2>ul>li").hover(function(){
+                $(this).children("ul").show();//显示
+            },function(){
+                $(this).children("ul").hide();//隐藏
+            });
+        })
+
+        //家电切换
+        $(function(){
+            $(".main-box1>#content3_3_content_right2").hide();
+            //切换
+            $("#content3_3_content_top_right>div>span").each(function(index){
+                $(this).hover(function(){
+                    //alert(index);
+                    //清除所有li的字体颜色
+                    $("#content3_3_content_top_right>div>span").removeClass("ri1");
+                    //给当前点击的li设置颜色
+                    $(this).addClass("ri1");
+                    //隐藏所有内容
+                    $(".main-box1>div").hide();
+                    //设置对应板块显示
+                    $(".main-box1>div:eq("+index+")").show();
+                })
+            })
+        })
+
+        //智能切换
+        $(function(){
+            $(".main-box2>#content3_4_content_right2").hide();
+            $(".main-box2>#content3_4_content_right3").hide();
+            //切换
+            $("#content3_4_content_top_right>div>span").each(function(index){
+                $(this).hover(function(){
+                    //alert(index);
+                    //清除所有li的字体颜色
+                    $("#content3_4_content_top_right>div>span").removeClass("ri1");
+                    //给当前点击的li设置颜色
+                    $(this).addClass("ri1");
+                    //隐藏所有内容
+                    $(".main-box2>div").hide();
+                    //设置对应板块显示
+                    $(".main-box2>div:eq("+index+")").show();
+                })
+            })
+        })
+
+        //搭配切换
+        $(function(){
+            $(".main-box3>#content3_5_content_right2").hide();
+            //切换
+            $("#content3_5_content_top_right>div>span").each(function(index){
+                $(this).hover(function(){
+                    //alert(index);
+                    //清除所有li的字体颜色
+                    $("#content3_5_content_top_right>div>span").removeClass("ri1");
+                    //给当前点击的li设置颜色
+                    $(this).addClass("ri1");
+                    //隐藏所有内容
+                    $(".main-box3>div").hide();
+                    //设置对应板块显示
+                    $(".main-box3>div:eq("+index+")").show();
+                })
+            })
+        })
+
+        //配件切换
+        $(function(){
+            $(".main-box4>#content3_6_content_right2").hide();
+            $(".main-box4>#content3_6_content_right3").hide();
+            //切换
+            $("#content3_6_content_top_right>div>span").each(function(index){
+                $(this).hover(function(){
+                    //alert(index);
+                    //清除所有li的字体颜色
+                    $("#content3_6_content_top_right>div>span").removeClass("ri1");
+                    //给当前点击的li设置颜色
+                    $(this).addClass("ri1");
+                    //隐藏所有内容
+                    $(".main-box4>div").hide();
+                    //设置对应板块显示
+                    $(".main-box4>div:eq("+index+")").show();
+                })
+            })
+        })
+
+
+        //周边切换
+        $(function(){
+            $(".main-box5>#content3_7_content_right2").hide();
+            //切换
+            $("#content3_7_content_top_right>div>span").each(function(index){
+                $(this).hover(function(){
+                    //alert(index);
+                    //清除所有li的字体颜色
+                    $("#content3_7_content_top_right>div>span").removeClass("ri1");
+                    //给当前点击的li设置颜色
+                    $(this).addClass("ri1");
+                    //隐藏所有内容
+                    $(".main-box5>div").hide();
+                    //设置对应板块显示
+                    $(".main-box5>div:eq("+index+")").show();
+                })
+            })
+        })
+        function dv_1(){
+            document.getElementById("sp1_1").style.color="#F56600";
+            document.getElementById("imm").src="/mi/img/shoujiimg/向右圆箭头 右箭头 向右 面性 (1).png";
+        }
+        function dv_2(){
+            document.getElementById("sp1_1").style.color="black";
+            document.getElementById("imm").src="/mi/img/shoujiimg/向右圆箭头 右箭头 向右 面性 (2).png";
+        }
+
+        function dv_1(){
+            document.getElementById("sp1_1").style.color="#f56600";
+            document.getElementById("imm").src="/mi/img/shoujiimg/向右圆箭头 右箭头 向右 面性 (1).png";
+        }
+        function dv_2(){
+            document.getElementById("sp1_1").style.color="black";
+            document.getElementById("imm").src="/mi/img/shoujiimg/向右圆箭头 右箭头 向右 面性 (2).png";
+        }
+    </script>
+</head>
+<body>
+<div class="total">
+    <!--第一行-->
+    <div class="top">
+        <div class="centre1">
+            <div class="top-nav">
+                <div class="top-navigation">
+                    <ul>
+                        <li><a href="#">小米商城</a></li>
+                        <li><span class="spn">|</span></li>
+                        <li><a href="#">MIUI</a></li>
+                        <li><span class="spn">|</span></li>
+                        <li><a href="#">ioT</a></li>
+                        <li><span class="spn">|</span></li>
+                        <li><a href="#">云服务</a></li>
+                        <li><span class="spn">|</span></li>
+                        <li><a href="#">金融</a></li>
+                        <li><span class="spn">|</span></li>
+                        <li> <a href="#">有品</a></li>
+                        <li><span class="spn">|</span></li>
+                        <li><a href="#">小爱开放平台</a></li>
+                        <li><span class="spn">|</span></li>
+                        <li><a href="#">企业团购</a></li>
+                        <li> <span class="spn">|</span></li>
+                        <li><a href="#">资质证照</a></li>
+                        <li><span class="spn">|</span></li>
+                        <li><a href="#">协议规则</a></li>
+                        <li><span class="spn">|</span></li>
+                        <li><a href="#">下载app</a>
+                            <ul class="ewm">
+                                <li><img src="/mi/img/捕获2.PNG"/></li>
+                            </ul>
+                        </li>
+                        <li><span class="spn">|</span></li>
+                        <li><a href="#">Select Region</a></li>
+                    </ul>
+                </div>
+                <div class="top-shop">
+                    <a href="#">购物车(0)</a>
+                </div>
+                <div class="laned" id="loginStatus">
+                    <a href="#">登陆</a>
+                    <span class="spn">|</span>
+                    <a href="#">注册</a>
+                    <span class="spn">|</span>
+                    <a href="#">消息通知</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--第二行-->
+    <div id="content2">
+        <!--内容导航栏-->
+        <div id="contop">
+            <div class="contop1">
+                <div id="top2left_img">
+                    <a href="/jump/main"><img src="//s02.mifile.cn/assets/static/image/mi-home.png" id="imgers"/></a>
+                    <img src="https://account.xiaomi.com/static/res/28f08d0/account-static/respassport/acc-2014/img/milogo.png" id="imgers2"/>
+                </div>
+            </div>
+            <!--顶部导航栏-->
+            <div id="contop2">
+                <ul>
+                    <li onclick="topAll(1)" >小米手机
+                        <ul class="miphone1" style="margin-left: -223px;">
+                            <div id="top1">
+                            </div>
+                        </ul>
+                    </li>
+                    <li style="width: 100px;" onclick="topAll(2)">Redmin红米
+                        <ul class="miphone1" style="margin-left: -309px;">
+                            <div id="top2"></div>
+                        </ul>
+                    </li>
+                    <li onclick="topAll(3)">电视
+                        <ul class="miphone1" style="margin-left: -409px;">
+                            <div id="top3"></div>
+                        </ul>
+                    </li>
+                    <li onclick="topAll(4)">笔记本
+                        <ul class="miphone1" style="margin-left: -483px;">
+                            <div id="top4"></div>
+                        </ul>
+                    </li>
+                    <li onclick="topAll(5)">家电
+                        <ul class="miphone1" style="margin-left: -559px;">
+                            <div id="top5"></div>
+                        </ul>
+                    </li>
+                    <li onclick="topAll(6)">路由器
+                        <ul class="miphone1" style="margin-left: -633px;">
+                            <div id="top6"></div>
+                        </ul>
+                    </li>
+                    <li onclick="topAll(7)">智能硬件
+                        <ul class="miphone1" style="margin-left: -709px;">
+                            <div id="top7"></div>
+                        </ul>
+                    </li>
+                    <li>服务</li>
+                    <li>社区</li>
+                </ul>
+            </div>
+            <!--end导航栏-->
+            <!--搜索框的内容-->
+            <div id="top2right">
+                <div id="top2ul">
+                    <ul>
+                        <li>
+                            <input type="text" id="shuru" onclick="fun()"/>
+                            <button id="btt1"></button>
+                            <button id="btt2"></button>
+                            <ul id="ulliul">
+                                <li><a href="#" >小米9</a></li>
+                                <li><a href="#">Redmi K20 Pro</a></li>
+                                <li><a href="#">Redmi K20</a></li>
+                                <li><a href="#">Redmi Note 7 Pro</a></li>
+                                <li><a href="#">Redmi Note 7</a></li>
+                                <li><a href="#">小米电视4C</a></li>
+                                <li><a href="#">电视32英寸</a></li>
+                                <li><a href="#">笔记本Pro</a></li>
+                                <li><a href="#">小爱音箱</a></li>
+                                <li><a href="#">净水器</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <div id="top2rightimg">
+                    <img src="/mi/img/so.PNG" onclick="sou()"/>
+                </div>
+                <!--end搜索-->
+                <!--js-->
+                <script type="text/javascript" src="/mi/js/search.js"></script>
+            </div>
+        </div>
+    </div>
+
+        <!--第七行-->
+        <!--手机模块-->
+        <div class="page-main">
+
+            <div class="centre7">
+                <div class="left-advertising">
+                    <img src="/mi/img/tubiaoimg/竖条.jpg" alt="" class="left-advertising">
+                </div>
+                <div class="main-box">
+                    <ul id="shouji">
+                        <li class="little-box">
+                            <a href="/jump/goodsPhone">
+                                <a href="#">
+                                    <div>
+                                        <img src="/mi/img/mobile-phone/sj1.jpg" alt="" class="phone-image">
+                                        <p class="share-h3">Redmi Note 8 Pro</p>
+                                        <p class="p-3">6400万全场景四摄</p>
+                                        <p class="price">1399元起</p>
+                                    </div>
+                                </a>
+                        </li>
+
+                        <li class="little-box">
+                            <a href="#">
+                                <div>
+                                    <img src="/mi/img/mobile-phone/sj2.jpg" alt="" class="phone-image">
+                                    <p class="share-h3">Redmi Note 8</p>
+                                    <p class="p-3">千元4800万四摄</p>
+                                    <p class="price">999元</p>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="little-box">
+                            <a href="#">
+                                <div>
+                                    <img src="/mi/img/mobile-phone/sj3.jpg" alt="" class="phone-image">
+                                    <p class="share-h3">Redmi K20 Pro 尊享版</p>
+                                    <p class="p-3">骁龙855 Plus，弹出全面屏</p>
+                                    <p class="price">2699元起 <span class="original-price">1799元</span></p>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="little-box">
+                            <a href="#">
+                                <div>
+                                    <img src="/mi/img/mobile-phone/sj4.jpg" alt="" class="phone-image">
+                                    <p class="share-h3">Redmi Note 7</p>
+                                    <p class="p-3">4800万拍照千元起</p>
+                                    <p class="price">1099元 <span class="original-price">1399元</span></p>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="little-box">
+                            <a href="#">
+                                <div>
+                                    <img src="/mi/img/mobile-phone/sj5.jpg" alt="" class="phone-image">
+                                    <p class="share-h3">Redmi 7</p>
+                                    <p class="p-3">4000mAh超长续航</p>
+                                    <p class="price">699元起 <span class="original-price">799 元</span></p>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="little-box">
+                            <a href="#">
+                                <div>
+                                    <img src="/mi/img/mobile-phone/sj6.jpg" alt="" class="phone-image">
+                                    <p class="share-h3">Redmi 7A</p>
+                                    <p class="p-3">小巧大电量持久流畅</p>
+                                    <p class="price">579元起 <span class="original-price">599元</span></p>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="little-box">
+                            <a href="#">
+                                <div>
+                                    <img src="/mi/img/mobile-phone/sj7.jpg" alt="" class="phone-image">
+                                    <p class="share-h3">小米CC9</p>
+                                    <p class="p-3">3200万自拍，4800万三摄</p>
+                                    <p class="price">1699元起<span class="original-price">1799元</span></p>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="little-box">
+                            <a href="#">
+                                <div>
+                                    <img src="/mi/img/mobile-phone/sj8.jpg" alt="" class="phone-image">
+                                    <p class="share-h3">小米9 Pro 5G</p>
+                                    <p class="p-3">5G双卡全网通，骁龙855Plus</p>
+                                    <p class="price">3699元起</p>
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="centre">
+            <a href="#"><img  src="/mi/img/tubiaoimg/横条7.jpg" alt="" class="advertising-img" ></a>
+        </div>
+
+
+    <!--地航-->
+    <div class="afterbody">
+        <div class="centre_service">
+            <ul>
+                <li style="border-right: 1px solid #e0e0e0;"><img src="/mi/img/video/扳手.png" style="width: 15px; height: 15px;margin: left;"/><a href="#">预约维修服务</a></li>
+                <li style="border-right: 1px solid #e0e0e0;"><img src="/mi/img/video/7.png" style="width: 15px; height: 15px;margin: left;"/><a href="#">七天无理由退货</a></li>
+                <li style="border-right: 1px solid #e0e0e0;"><img src="/mi/img/video/15.png" style="width: 15px; height: 15px;margin: left;"/><a href="#">15天免费换货</a></li>
+                <li style="border-right: 1px solid #e0e0e0;"><img src="/mi/img/video/礼物.png" style="width: 15px; height: 15px;margin: left;"/><a href="#">满150元包邮</a></li>
+                <li><a href="#">520余家售后网点</a></li>
+            </ul>
+        </div>
+        <div class="centre-service-link">
+            <ul>
+                <li>
+                    <div>
+                        <h1 style="padding-bottom: 26px;color: #424242;font-size: 16px">帮助中心</h1>
+                        <a href="#" class="service-a">账户管理</a>
+                        <a href="#" class="service-a">购物指南</a>
+                        <a href="#" class="service-a">订单操作</a>
+                    </div>
+                </li>
+                <li>
+                    <div>
+                        <h1 style="padding-bottom: 26px;color: #424242;font-size: 16px">服务支持</h1>
+                        <a href="#" class="service-a">售后政策</a>
+                        <a href="#" class="service-a">自助服务</a>
+                        <a href="#" class="service-a">相关下载</a>
+                    </div>
+                </li>
+                <li>
+                    <div>
+                        <h1 style="padding-bottom: 26px;color: #424242;font-size: 16px">线下门店</h1>
+                        <a href="#" class="service-a">小米之家</a>
+                        <a href="#" class="service-a">服务网店</a>
+                        <a href="#" class="service-a">授权体验店</a>
+                    </div>
+                </li>
+                <li>
+                    <div>
+                        <h1 style="padding-bottom: 26px;color: #424242;font-size: 16px">关于小米</h1>
+                        <a href="#" class="service-a">了解小米</a>
+                        <a href="#" class="service-a">加入小米</a>
+                        <a href="#" class="service-a">投资者关系</a>
+                    </div>
+                </li>
+                <li>
+                    <div>
+                        <h1 style="padding-bottom: 26px;color: #424242;font-size: 16px">关注我们</h1>
+                        <a href="#" class="service-a">新浪微博</a>
+                        <a href="#" class="service-a">官方微信</a>
+                        <a href="#" class="service-a">联系我们</a>
+                    </div>
+                </li>
+                <li>
+                    <div style="border-right: 1px solid #e0e0e0">
+                        <h1 style="padding-bottom: 26px;color: #424242;font-size: 16px">特色服务</h1>
+                        <a href="#" class="service-a">F 码通道</a>
+                        <a href="#" class="service-a">礼物码</a>
+                        <a href="#" class="service-a">防伪查询</a>
+                    </div>
+                </li>
+            </ul>
+            <div class="callme">
+                <p style="font-size: 22px;color: red;margin: 0 0 10px;text-align: center">400-100-5678</p>
+                <p style="text-align: center;color: #424242;font-size: 12px;margin: 0 0 16px">
+                    周一至周日 8:00-18:00<br>（仅收市话费）
+                </p>
+                <div class="relation">
+                    <a href="#">人工客服</a>
+                </div>
+            </div>
+        </div>
+        <div class="firm">
+            <div class="centre">
+                <div class="tp1"><img src="/mi/img/contop/mi.PNG" alt="" style="margin-right: 12px;float: left"></div>
+                <p class="below-1" >
+                    <a href="#">小米商城</a>
+                    <span class="spn-new">|</span>
+                    <a href="#">MIUI</a>
+                    <span class="spn-new">|</span>
+                    <a href="#">米家</a>
+                    <span class="spn-new">|</span>
+                    <a href="#">米聊</a>
+                    <span class="spn-new">|</span>
+                    <a href="#">多看</a>
+                    <span class="spn-new">|</span>
+                    <a href="#">游戏</a>
+                    <span class="spn-new">|</span>
+                    <a href="#">路由器</a>
+                    <span class="spn-new">|</span>
+                    <a href="#">米粉卡</a>
+                    <span class="spn-new">|</span>
+                    <a href="#">政企服务</a>
+                    <span class="spn-new">|</span>
+                    <a href="#">小米天猫店</a>
+                    <span class="spn-new">|</span>
+                    <a href="#">小米集团隐私政策</a>
+                    <span class="spn-new">|</span>
+                    <a href="#">小米公司儿童信息保护规则</a>
+                    <span class="spn-new">|</span>
+                    <a href="#">小米商城隐私政策</a>
+                    <span class="spn-new">|</span>
+                    <a href="#">小米商城用户协议</a>
+                    <span class="spn-new">|</span>
+                    <a href="#">问题反馈</a>
+                    <span class="spn-new">|</span>
+                    <a href="#">廉正举报</a>
+                    <span class="spspn-new">|</span>
+                    <a href="#">诚信合规</a>
+                    <span class="spspn-new">|</span>
+                    <a href="#">select region</a>
+                </p>
+                <br>
+                <p class="below-2">
+                    <a href="#">@mi.com</a>
+                    <a href="#">京ICP证110507号</a>
+                    <a href="#">京ICP备10046444号</a>
+                    <a href="#">京公网安备11010802020134号</a>
+                    <a href="#">京网文[2017]1530-131号 </a>
+                    <br>
+                    <a href="#">（京）网械平台备字（2018）第00005号</a>
+                    <a href="#">互联网药品信息服务资格证 (京) -非经营性-2014-0090</a>
+                    <a href="#">营业执照</a>
+                    <a href="#">医疗器械公告</a>
+                    <br>
+                    <a href="#">增值电信业务许可证</a>
+                    <a href="#">网络食品经营备案（京）【2018】WLSPJYBAHF-12</a>
+                    <a href="#">食品经营许可证</a>
+                    <br>
+                    <a href="#"> 违法和不良信息举报电话：185-0130-1238，本网站所列数据，除特殊说明，所有数据均出自我司实验室测试</a>
+                </p>
+                <div class="make-img">
+                    <img src="/mi/img/truste.png" alt="">
+                    <img src="/mi/img/ba10428a4f9495ac310fd0b5e0cf8370.png" alt="">
+                    <img src="/mi/img/v-logo-1.png" alt="">
+                    <img src="/mi/img/v-logo-2.png" alt="">
+                    <img src="/mi/img/v-logo-3.png" alt="">
+                </div>
+            </div>
+            <div class="xiaomi">探索黑科技，小米为发烧而生</div>
+        </div>
+    </div>
+</div>
+</body>
+
+<!--侧栏面板结束-->
+<script type="text/javascript">
+    $(function() {
+        findLoginStatus();
+        shouji(); //手机
+    })
+
+
+    //手机
+    function shouji(){
+        $.ajax({
+            url:'/es/highlight1',
+            type:'post',
+            data:'',
+            success:function(result){
+                var str = "";
+                for (var i = 0; i < 8 ; i++) {
+                    str = str + '<li class="little-box">';
+                    str = str + '<a href=javascript:phone('+result[i].id+')>';
+                    str = str + '<div>';
+                    str = str + '<img src="'+result[i].goodsImg+'" alt="" class="phone-image">';
+                    str = str + '<p class="share-h3">'+result[i].goodsName+'</p>';
+                    str = str + '<p class="p-3">'+result[i].goodsCaption+'</p>';
+                    str = str + '<p class="price">'+result[i].goodsPrice+'元</p>';
+                    str = str + "</div>";
+                    str = str + "</a>";
+                    str = str + "</li>";
+                    console.log(result[i]);
+                    console.log(result[i].goodsCaption);
+                    console.log(result[i].goodsPrice);
+                }
+                $("#shouji").html(str);
+            }
+        })
+    }
+    //顶部导航
+    function topAll(number) {
+        if(number == 1){
+            var topName = "小米";
+            var typeId = 1;
+        }else if(number==2){
+            var topName = "Redmi";
+            var typeId = 1;
+        }else if(number == 3){
+            var topName = "电视";
+            var typeId = 2;
+        }else if(number == 4){
+            var topName = "";
+            var typeId = 3;
+        }else if(number == 5){
+            var topName = "";
+            var typeId = 4;
+        }else if(number == 6){
+            var topName = "路由器";
+            var typeId = 6;
+        }else if(number == 7){
+            var topName = "耳机";
+            var typeId = 9;
+        }
+        var str = "";
+        $.ajax({
+            url: '/top/queryTopList',
+            data: {topName:topName,type:typeId},
+            success: function (data) {
+                console.log(data)
+                for (var i = 0; i < 6; i++) {
+                    str+='<li><a href="javascript:aaaa('+data[i].id+')"><img src="'+data[i].goodsimg+'"  width="50%" height="50%"><br/>'+data[i].goodsname+'<h5>'+data[i].goodsprice+'元起</h5></a></li>';
+                    $('#top2').html(str);
+                    $('#top1').html(str);
+                    $('#top3').html(str);
+                    $('#top4').html(str);
+                    $('#top5').html(str);
+                    $('#top6').html(str);
+                    $('#top7').html(str);
+                }
+            }
+        })
+    }
+
+    function aaaa(id){
+        location.href="/top/queryTopGoodsInfoById?id="+id;
+    }
+
+    function phone(id){
+        location.href="/jump/tophone?id="+id;
+    }
+
+    function findLoginStatus() {
+        $.ajax({
+            url:'/user/findLoginStatus',
+            success: function (data) {
+                if(data==null || data==""){
+                    var sss = "";
+                    sss+='<a href="/jump/mi">登陆</a>';
+                    sss+='<span class="spn">|</span>';
+                    sss+='<a href="#">注册</a>';
+                    sss+='<span class="spn">|</span>';
+                    sss+='<a href="#">消息通知</a>';
+                    $("#loginStatus").html(sss);
+                }else{
+                    var sssr = "";
+                    var nam = data.userName;
+                    sssr+='<select class="yellow" id="sele" style="height: 25px" onchange="abc11()">';
+                    sssr+='<option value="0">'+nam+'</option>';
+                    sssr+='<option value="1">个人中心</option>';
+                    sssr+='<option value="2">评价晒单</option>';
+                    sssr+='<option value="6">消息通知</option>';
+                    sssr+='<option value="3">我的喜欢</option>';
+                    sssr+='<option value="4">小米账户</option>';
+                    sssr+='<option value="5">退出登录</option>';
+                    sssr+='</select>';
+                    $("#loginStatus").html(sssr);
+                }
+            }
+        })
+    }
+    function abc11() {
+        var sel = $("#sele").val();
+        if(sel==1){
+            location.href="/jump/center";
+        }else if(sel==2){
+            location.href="/jump/ping";
+        }else if(sel==3){
+            location.href="/jump/like";
+        }else if(sel==4){
+            location.href="/jump/mi";
+        }else if(sel==5){
+            location.href="/user/zhuxiao";
+            alert("退出成功")
+        }else if(sel==6){
+            location.href="/jump/personal";
+        }
+    }
+</script>
+</html>

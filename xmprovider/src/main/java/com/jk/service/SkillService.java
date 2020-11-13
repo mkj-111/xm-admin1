@@ -11,4 +11,6 @@ import java.util.List;
  */
 public interface SkillService {
     List<SkillBean> findskill();
+
+    SkillBean findskillbyid(Integer id);
 }

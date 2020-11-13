@@ -32,7 +32,6 @@ public class OrderGoodsController {
         orderGoods.setCreateTime(smp.format(new Date()));
         orderGoods.setUserId(user.getUserId());
         orderGoods.setOrderStatus(1);
-
         redisUtil.set(RedisConstant.Goods_Order__Key + "__" + orderGoods.getOrderNum(), orderGoods, 1000);
 
     }

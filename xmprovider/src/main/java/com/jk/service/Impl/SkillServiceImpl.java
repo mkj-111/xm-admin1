@@ -24,4 +24,9 @@ public class SkillServiceImpl implements SkillService {
     public List<SkillBean> findskill() {
         return skillBeanMapper.findskill();
     }
+
+    @Override
+    public SkillBean findskillbyid(Integer id) {
+        return skillBeanMapper.findskillbyid(id);
+    }
 }

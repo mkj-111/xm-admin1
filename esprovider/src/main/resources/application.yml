@@ -1,0 +1,14 @@
+server:
+  port: 8088
+
+spring:
+  data:
+    elasticsearch:
+      repositories:
+        enabled: true
+      cluster-name: my-application
+      cluster-nodes: localhost:9300
+  application:
+    name: esprovider
+  main:
+    allow-bean-definition-overriding: true

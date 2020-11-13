@@ -3,6 +3,7 @@ package com.jk.service;
 import com.jk.entity.SkillBean;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -16,5 +17,10 @@ public interface SkillService {
 
     @RequestMapping("findskill")
     public List<SkillBean> findskill();
+
+
+    //通过id查询
+    @RequestMapping("findskillbyid")
+    public SkillBean findskillbyid(@RequestParam Integer id);
 
 }

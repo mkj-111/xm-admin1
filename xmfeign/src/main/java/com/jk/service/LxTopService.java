@@ -15,10 +15,7 @@ import java.util.List;
 public interface LxTopService {
 
     @RequestMapping("queryTopList")
-<<<<<<< HEAD
     public List<GoodsBeab> queryTopList(@RequestParam String topName, @RequestParam Integer type);
-=======
-    public List<GoodsBeab> queryTopList(@RequestParam String topName,@RequestParam Integer type);
 
     @RequestMapping("queryPingLun")
     public List<PingLunBean> queryPingLun(@RequestParam String id);
@@ -37,5 +34,4 @@ public interface LxTopService {
 
     @RequestMapping("queryHuiFu")
     public List<HuiFuBean> queryHuiFu(@RequestParam String pid);
->>>>>>> 00b6fd6394c81560332f51f334c6a3cb9ea1c7ad
 }
