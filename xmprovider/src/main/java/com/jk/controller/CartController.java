@@ -16,9 +16,9 @@ public class CartController {
     private CartService carService;
 
     @RequestMapping("/search_success")
-    public List<Goods> findGoods(@RequestParam Integer versionId, @RequestParam String goodsName) {
+    public List<Goods> findGoods(@RequestParam Integer id) {
 
-        return carService.findGoods(versionId, goodsName);
+        return carService.findGoods(id);
     }
 
 }

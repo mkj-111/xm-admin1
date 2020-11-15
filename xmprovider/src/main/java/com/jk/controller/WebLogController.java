@@ -15,21 +15,12 @@ public class WebLogController {
      @Resource
      private WebLogService webLogService;
     @RequestMapping("/insertOrderGoods")
-    public void insertOrderGoods(@RequestBody OrderGoods orderGoods){
+     public void insertOrderGoods(@RequestBody OrderGoods orderGoods){
 
         webLogService.insertOrderGoods(orderGoods);
     }
 
-    @RequestMapping("/delNum")
-    public void delNum(@RequestParam String goodsId, @RequestParam String orderNum){
 
-        webLogService.delNum(goodsId,orderNum);
-    }
 
-    @RequestMapping("/delMoney")
-    public void delMoney(@RequestParam Integer userId,@RequestParam BigDecimal orderSumPrice){
-
-        webLogService.delMoney(userId,orderSumPrice);
-    }
 
 }

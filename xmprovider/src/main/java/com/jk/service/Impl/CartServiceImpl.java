@@ -14,10 +14,10 @@ public class CartServiceImpl implements CartService {
     private CartMapper cartMapper;
 
     @Override
-    public List<Goods> findGoods(Integer versionId, String goodsName) {
+    public List<Goods> findGoods(Integer id ) {
 
 
-        return cartMapper.findGoods(versionId, goodsName);
+        return cartMapper.findGoods(id);
     }
 
 

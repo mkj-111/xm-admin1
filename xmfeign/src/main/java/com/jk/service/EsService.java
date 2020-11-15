@@ -18,4 +18,6 @@ public interface EsService {
     @RequestMapping("highlight")
     public List<Goods> highlight(@RequestParam String name);
 
+    @RequestMapping("selectbyname")
+    public List<String> selectbyname(@RequestParam String name);
 }

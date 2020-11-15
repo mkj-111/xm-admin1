@@ -12,7 +12,7 @@ public class RabbitMQConfig {
 
     @Bean
     public Queue logQueue() {
-        return new Queue("order-queue");
+        return new Queue("xm-queue");
     }
 
     @Bean

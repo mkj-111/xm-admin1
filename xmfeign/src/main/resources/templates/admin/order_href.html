@@ -505,7 +505,7 @@
         // alert(goodsPhone);
         //  alert(goodsPrice)
         // alert(goodsaddress);   consignee
-        $.ajax({
+      $.ajax({
             url: '../orderByInfo',
             dataType: 'json',
             data: {
@@ -564,7 +564,7 @@
                     consignee = data[i].name;
                     goodsPhone = data[i].phone;
                     goodsaddress = data[i].sheng + "  " + data[i].shi + "  " + data[i].xian + "  " + data[i].info;
-                    goodsId = data[i].id;
+
                     str += '<div data-v-039a89f6="" class="address-item" style="float:left">';
                     str += ' <div data-v-039a89f6="" class="address-info">';
                     str += '  <div data-v-039a89f6="" class="name">' + data[i].name + '<span data-v-039a89f6=" style="color: rgb(176, 176, 176);"></span>';
@@ -622,7 +622,7 @@
                     console.log(data)
                     goodsPrice = data[i].goodsPrice;
                     ordergoodsName = data[i].goodsName;
-
+                    goodsId = data[i].id;
                     goodsNum += data[i].goodsNum;
                     price = data[i].goodsPrice;
                     str += ' <div data-v-73ddf45a="" data-v-0166ce07="" class="goods-list">';

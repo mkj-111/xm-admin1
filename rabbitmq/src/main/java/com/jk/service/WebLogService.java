@@ -12,10 +12,4 @@ import java.math.BigDecimal;
 public interface WebLogService {
     @RequestMapping("/insertOrderGoods")
     public void insertOrderGoods(@RequestBody OrderGoods orderGoods);
-
-    @RequestMapping("/delNum")
-    public void delNum(@RequestParam String goodsId,@RequestParam String orderNum);
-
-    @RequestMapping("/delMoney")
-    public void delMoney(@RequestParam Integer userId,@RequestParam BigDecimal orderSumPrice);
 }

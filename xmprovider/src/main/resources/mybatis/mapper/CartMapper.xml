@@ -26,8 +26,7 @@
         WHERE
         xm_goods.goods_color_id = xm_color.color_id AND
         xm_goods.goods_version_id = xm_versions.versions_id AND
-        xm_goods.goods_name = #{goodsName} AND
-        xm_versions.versions_id =#{versionId}
+        xm_goods.id=#{id}
 
     </select>
 

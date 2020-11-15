@@ -8,6 +8,6 @@ import java.util.List;
 
 @Mapper
 public interface CartMapper {
-    List<Goods> findGoods(@Param("versionId") Integer versionId, @Param("goodsName") String goodsName);
+    List<Goods> findGoods(@Param("id") Integer id);
 
 }

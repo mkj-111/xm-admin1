@@ -58,11 +58,11 @@ public class CartController {
 
     @RequestMapping("/search_success")
     @ResponseBody
-    public List<Goods> search_success(Integer versionId, Integer userId, String goodsName, Integer goodsprice) {
+    public List<Goods> search_success(Integer id, Integer userId, Integer goodsprice) {
         List<Goods> goodsList = (List<Goods>) redisUtil.get(RedisConstant.GOODS_LIST_KEY + "___" + userId.toString());
         //为空时  加入第一件商品
         if (goodsList == null || goodsList.isEmpty()) {
-            goodsList = cartService.findGoods(versionId, goodsName);
+            goodsList = cartService.findGoods(id);
             for (Goods goods1 : goodsList) {
                 goods1.setGoodsNum(1);
             }
@@ -72,29 +72,11 @@ public class CartController {
             //循环遍历集合
             int len = goodsList.size();
             for (int i = 0; i < len; i++) {
-                if (goodsName.equals(goodsList.get(i).getGoodsName()) && versionId == goodsList.get(i).getGoodsVersionId()) {
-                    System.out.println(goodsName);
+                if (id == goodsList.get(i).getId()) {
                     System.out.println(goodsList.get(i).getGoodsName());
                     System.out.println(goodsList.get(i).getGoodsVersionId());
-                    System.out.println(versionId);
                     goodsList.get(i).setGoodsNum(goodsList.get(i).getGoodsNum() + 1);
-
                     goodsList.get(i).setGoodsPrice(goodsList.get(i).getGoodsPrice() + goodsprice);
-                    //reids集合中原有的key删除
-                    redisUtil.del(RedisConstant.GOODS_LIST_KEY + "___" + userId.toString());
-                    //reids存入拼接的数据
-                    redisUtil.set(RedisConstant.GOODS_LIST_KEY + "___" + userId.toString(), goodsList);
-                    return goodsList;
-                } else if (goodsName.equals(goodsList.get(i).getGoodsName()) && versionId != goodsList.get(i).getGoodsVersionId()) {
-                    System.out.println(goodsName);
-                    System.out.println(goodsList.get(i).getGoodsName());
-                    System.out.println(goodsList.get(i).getGoodsVersionId());
-                    System.out.println(versionId);
-                    //从数据库中查询第数据 get(0) 第一条数据
-                    Goods goods = cartService.findGoods(versionId, goodsName).get(0);
-                    goods.setGoodsNum(1);
-                    //reids集合中拼接查询的数据
-                    goodsList.add(goods);
                     //reids集合中原有的key删除
                     redisUtil.del(RedisConstant.GOODS_LIST_KEY + "___" + userId.toString());
                     //reids存入拼接的数据
@@ -103,7 +85,7 @@ public class CartController {
                 }
             }
             //从数据库中查询第数据 get(0) 第一条数据
-            Goods goods = cartService.findGoods(versionId, goodsName).get(0);
+            Goods goods = cartService.findGoods(id).get(0);
             goods.setGoodsNum(1);
             //reids集合中拼接查询的数据
             goodsList.add(goods);
