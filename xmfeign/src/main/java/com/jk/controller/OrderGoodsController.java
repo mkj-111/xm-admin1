@@ -6,15 +6,12 @@ import com.jk.pojo.RedisConstant;
 import com.jk.utils.RedisUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
-import java.util.Random;
 
 @Controller
 public class OrderGoodsController {
@@ -53,7 +50,14 @@ public class OrderGoodsController {
     }
 
 
-
+    @RequestMapping("/findOrderGoodsList")
+    @ResponseBody
+    public  OrderGoods findOrderGoodsList(String suijishu){
+        OrderGoods goodsList = (OrderGoods) redisUtil.get(RedisConstant.Goods_Order__Key + "__" + suijishu);
+        Long time=redisUtil.getExpire(RedisConstant.Goods_Order__Key + "__" + suijishu);
+        goodsList.setEndTime(time.toString());
+        return goodsList;
+    }
 
 
 }

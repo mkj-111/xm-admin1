@@ -25,6 +25,9 @@
         select * from xm_seckill_goods
     </select>
 
+    <select id="findskillbyid" resultMap="BaseResultMap">
+    select * from  xm_seckill_goods  where   id=#{id}
+    </select>
 
     <sql id="Base_Column_List">
         id, goods_id, item_id, title, small_pic, price, cost_price, seller_id, create_time,

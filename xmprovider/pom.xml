@@ -25,6 +25,7 @@
             <artifactId>lombok</artifactId>
             <optional>true</optional>
         </dependency>
+
         <dependency>
             <groupId>com.jk</groupId>
             <artifactId>cummon</artifactId>

@@ -95,9 +95,9 @@ public class PayController {
     @RequestMapping(value = "/returnUrl", method = RequestMethod.GET)
     public String returnUrl(HttpServletRequest request, HttpServletResponse response)
             throws IOException, AlipayApiException {
-        System.out.println("=================================同步回调=====================================");
-
-        // 获取支付宝GET过来反馈信息
+        //        System.out.println("=================================同步回调=====================================");
+        //
+        //        // 获取支付宝GET过来反馈信息
         Map<String, String> params = new HashMap<String, String>();
         Map<String, String[]> requestParams = request.getParameterMap();
         for (Iterator<String> iter = requestParams.keySet().iterator(); iter.hasNext();) {

@@ -3,7 +3,6 @@ package com.jk.mapper;
 import com.jk.entity.Goods;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
@@ -24,4 +23,6 @@ public interface GoodsMapper {
     List<Goods> findGoods(Integer typeId);
 
     Goods findgoodbyid(@Param("id") int id);
+
+    Goods findbu(@Param("versionid") Integer versionid,@Param("goodsname") String goodsname);
 }

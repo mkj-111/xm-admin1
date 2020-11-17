@@ -25,4 +25,13 @@
         ) b on a.click_date = b.datetime group by a.click_date desc
     </select>
 
+    <select id="findorder" resultType="com.jk.entity.OrderGoods">
+        SELECT * FROM xm_order_goods where userId=#{userId} and  orderStatus=2
+    </select>
+    <select id="findorder3" resultType="com.jk.entity.OrderGoods">
+        SELECT * FROM xm_order_goods where userId=#{userId} and  orderStatus=3
+    </select>
+    <select id="findorder4" resultType="com.jk.entity.OrderGoods">
+        SELECT * FROM xm_order_goods where userId=#{userId} and  orderStatus=4
+    </select>
 </mapper>

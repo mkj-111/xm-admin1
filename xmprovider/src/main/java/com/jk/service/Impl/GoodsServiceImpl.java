@@ -3,7 +3,6 @@ package com.jk.service.Impl;
 import com.jk.entity.Goods;
 import com.jk.mapper.GoodsMapper;
 import com.jk.service.GoodsService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -30,5 +29,10 @@ public class GoodsServiceImpl implements GoodsService {
     @Override
     public Goods findgoodbyid(int id) {
         return goodsMapper.findgoodbyid(id);
+    }
+
+    @Override
+    public Goods findbu(Integer versionid, String goodsname) {
+        return goodsMapper.findbu(versionid,goodsname);
     }
 }

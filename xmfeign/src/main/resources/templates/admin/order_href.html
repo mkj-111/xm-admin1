@@ -511,7 +511,7 @@
             data: {
                 consignee: consignee,
                 receivingTelephone: goodsPhone,
-                orderSumPrice: goodsPrice,
+                orderSumPrice: price ,
                 receivingAddress: goodsaddress,
                 orderNum: suijishu,
                 ordergoodsName: ordergoodsName,
@@ -551,7 +551,7 @@
     var ordergoodsName = "";
     var goodsId = "";
     var goodsNum = 0;
-
+    var price =0;
     function findAddress() {
         $.ajax({
             type: "post",
@@ -616,7 +616,7 @@
                 console.log(data)
                 var str = "";
                 // var count = "";
-                var price = "";
+
                 var good = "";
                 for (var i = 0; i < data.length; i++) {
                     console.log(data)
@@ -624,7 +624,7 @@
                     ordergoodsName = data[i].goodsName;
                     goodsId = data[i].id;
                     goodsNum += data[i].goodsNum;
-                    price = data[i].goodsPrice;
+                    price += data[i].goodsPrice-0;
                     str += ' <div data-v-73ddf45a="" data-v-0166ce07="" class="goods-list">';
                     str += ' <div data-v-73ddf45a="" class="good-item">';
                     str += '  <div data-v-73ddf45a="" class="item-desc good-img"><img data-v-73ddf45a=""';

@@ -70,7 +70,7 @@
                             </div>
                         </span>
                         <span class="sep">|</span>
-                        <a rel="nofollow" class="link link-order" href="https://www.mi.com/user/orderList"
+                        <a rel="nofollow" class="link link-order" onclick="myadmin()"
                            target="_blank">我的订单</a>
                     </div>
                 </div>
@@ -87,7 +87,7 @@
                                 <h2 data-v-6d77ed2a="" class="title">订单提交成功！去付款咯～</h2><!---->
                                 <p data-v-6d77ed2a="" class="order-time"><!---->
                                     <span data-v-6d77ed2a="">请在
-                                        <span data-v-6d77ed2a="" class="pay-time-tip">0 小时 29 分</span>
+                                      <div id="countdown">15 分 00 秒</div>
                                         <span data-v-6d77ed2a="">内完成支付, 超时后将取消订单</span>
                                     </span>
                                 </p>
@@ -441,7 +441,24 @@
             }
         }
     })();
+    //倒计时
+    window.onload=function(){
+        var countdown=document.getElementById("countdown");
 
+        var time=900;//30分钟换算成1800秒
+
+
+
+        setInterval(function(){
+            time=time-1;
+            var minute=parseInt(time/60);
+            var second=parseInt(time%60);
+            countdown.innerHTML='还剩'+minute+'分'+second+'秒';
+
+
+
+        },1000);
+    }
     $(function () {
         findOrderSuccess();
 
@@ -490,6 +507,11 @@
              suucess:function (data) {
              }
          })*/
+    }
+
+    function myadmin() {
+        // alert(orderNum);
+        location.href="../myorder?suijishu="+orderNum;
     }
 
 

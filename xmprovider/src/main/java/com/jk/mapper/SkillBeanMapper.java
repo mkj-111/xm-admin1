@@ -2,6 +2,7 @@ package com.jk.mapper;
 
 import com.jk.entity.SkillBean;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -21,5 +22,5 @@ public interface SkillBeanMapper {
 
     List<SkillBean> findskill();
 
-    SkillBean findskillbyid(Integer id);
+    SkillBean findskillbyid(@Param("id") Integer id);
 }

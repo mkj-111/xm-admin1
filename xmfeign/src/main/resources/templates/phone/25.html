@@ -243,7 +243,7 @@
             </div>
             <div class="site-header  ">
                 <div class="container">
-                    <div class="header-logo"><a href="https://www.mi.com/index.html" title="小米官网" class="logo ir"
+                    <div class="header-logo"><a href="/jump/main" title="小米官网" class="logo ir"
                                                 stat_exposure="true">小米官网</a></div>
                     <div class="header-nav ">
                         <ul class="nav-list J_navMainList clearfix">
@@ -2959,7 +2959,7 @@
         <div class="site-info">
             <div class="container">
                 <div class="logo ir">小米官网</div>
-                <div class="info-text"><p class="sites"><a rel="nofollow" href="https://www.mi.com/index.html"
+                <div class="info-text"><p class="sites"><a rel="nofollow" href="/jump/main"
                                                            target="_blank">小米商城</a> <span class="sep">|</span> <a
                         rel="nofollow" href="https://www.miui.com/" target="_blank">MIUI</a> <span class="sep">|</span>
                     <a rel="nofollow" href="https://home.mi.com/index.html" target="_blank">米家</a> <span
@@ -3279,7 +3279,7 @@
     })();
 
     $(function(){
-        lu();
+        //lu();
         goods();
         findlog();
     })
@@ -3293,6 +3293,7 @@
     var id = "";
     //手机赋值
     var iddd = 0;
+    var goodsname="";
     function goods(){
        var str="";
         $.ajax({
@@ -3300,21 +3301,17 @@
             type:'post',
             data:'',
             success:function(data){
-               // console.log(data)
                 iddd = data.id;
-                id = data.id;
+                goodsname=data.goodsName;
                 goodsprice = data.goodsPrice;
                 $("#sp2").html('<font>'+data.goodsPrice+'</font>');
                 $("#sp1").html('<font>'+data.goodsName+'</font>');
                 $("#sp3").html('<font>'+data.goodsInfo+'</font>');
 
-
                 str+='<div data-v-7121d496=""class="swiper-slide swiper-slide-duplicate swiper-slide-prev"';
                 str+='  data-swiper-slide-index="4"style="width: 560px; opacity: 1; transform: translate3d(0px, 0px, 0px); transition-duration: 0ms;">';
                 str+='  <img data-v-7121d496=""src='+data.goodsImg+'></div>';
                 $("#img").html(str);
-               // console.log("类型"+data.goodsTypeid)
-
                 if(data.goodsTypeid==1){
                     color(data.goodsName);
                 }else{
@@ -3326,15 +3323,12 @@
     }
     //颜色赋值
     function color(goodsname){
-        //console.log(goodsname)
-
         var str="";
         $.ajax({
             url:"/color/findcolor",
             type:'post',
             data:{goodsname:goodsname},
             success:function(data){
-
                 for (var i=0;i<data.length;i++){
                     var pid=data[i].colorId;
                     if(i==0){
@@ -3368,20 +3362,20 @@
         })
     }
    //总计
-
     function ban(id){
-       var goodsname=$("#sp1").html();
+       var goodsname1=$("#sp1").html();
         goodsName = id;
-      // console.log(goodsname)
+       //补坑，根据版本id和名称查询出一个唯一的数据，数据库设计有问题，正常不应该有这一步，
+       bu(id,goodsname);
         $.ajax({
             url:"/version/findversionsId",
             type:'post',
             data: {versionsId:id},
             success:function(data){
                // console.log(data)
-        $("#zong").html('<li data-v-acfb37e4="" >'+goodsname+'+'+data.versionName+'<span data-v-acfb37e4="">'+data.goodsPrice+'</span></li>')
-        $("#zong1").html('<font>总计：'+data.goodsPrice+'</font>')
-
+        $("#zong").html('<li data-v-acfb37e4="" >'+goodsname1+'+'+data.versionName+'<span data-v-acfb37e4="">'+data.goodsPrice+'</span></li>')
+        $("#zong1").html('<font>总计：'+data.goodsPrice+'</font>');
+        $("#sp2").html('<font>'+data.goodsPrice+'</font>');
             }
         })
     }
@@ -3409,7 +3403,6 @@
         })
     }
 
-
     function findlog() {
         $.ajax({
             url: "../user/findLoginStatus",
@@ -3418,9 +3411,9 @@
             }
         })
     }
-
+   //加入购物车
     function cartsuccess() {
-
+        lu()
         $.ajax({
             url: "../search_success",
             type: 'post',
@@ -3431,7 +3424,19 @@
         })
     }
 
-
+    //补坑
+    function bu(versionid,goodsname){
+        alert("进入")
+        $.ajax({
+            url: "/goods/findbu",
+            type: 'post',
+            data: {versionid: versionid, goodsname: goodsname},
+            success: function (data) {
+                id = data.id;
+                alert(id)
+            }
+        })
+    }
 
 </script>
 <script type="text/javascript" async="" src="../小米10至尊纪念版立即购买-小米商城_files/gettimestamp"></script>

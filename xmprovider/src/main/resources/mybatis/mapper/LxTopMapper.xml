@@ -2,23 +2,36 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.jk.mapper.LxTopMapper">
     <select id="queryTopList" resultType="com.jk.entity.GoodsBeab">
-        SELECT * FROM
-        (select * from
-        (SELECT a.id as id,a.goods_name as goodsname,b.color_name as colorname,c.version_name as
-        versionname,c.goods_price as goodsprice,a.goods_img as goodsimg,a.goods_type_id as goodstypeid from xm_goods a
-        left join xm_color b on a.goods_color_id = b.color_id
-        LEFT JOIN xm_versions c on b.color_id = c.color_id ORDER BY c.goods_price) aa
-        GROUP BY aa.goodsname)bb
+        SELECT
+        xm_goods.goods_name AS goodsname,
+        xm_goods.goods_img AS goodsimg,
+        xm_versions.goods_price AS goodsprice,
+        xm_goods.goods_typeid AS goodstypeid,
+        xm_goods.id AS id,
+        xm_color.color_name AS colorname,
+        xm_versions.version_name AS versionname
+        FROM
+        xm_goods ,
+        xm_color ,
+        xm_versions
+        WHERE
+        xm_goods.goods_version_id = xm_versions.versions_id AND
+        xm_goods.goods_color_id = xm_color.color_id
+
+
         <include refid="aaa"></include>
+        GROUP BY
+        xm_goods.goods_name
+        ORDER BY
+        goodsprice ASC
+
     </select>
     <sql id="aaa">
-        <where>
-            <if test="goodsBeab.goodsname != null and goodsBeab.goodsname != '' ">
-                and bb.goodsname like '%${goodsBeab.goodsname}%'
-            </if>
-            <if test="goodsBeab.goodstypeid != 0 and goodsBeab.goodstypeid != null ">
-                and bb.goodstypeid = #{goodsBeab.goodstypeid}
-            </if>
-        </where>
+        <if test="goodsBeab.goodsname != null and goodsBeab.goodsname != '' ">
+            and xm_goods.goods_name like '%${goodsBeab.goodsname}%'
+        </if>
+        <if test="goodsBeab.goodstypeid != 0 and goodsBeab.goodstypeid != null ">
+            and xm_goods.goods_typeid = #{goodsBeab.goodstypeid}
+        </if>
     </sql>
 </mapper>

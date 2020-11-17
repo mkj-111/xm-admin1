@@ -16,4 +16,7 @@ public interface GoodsService {
 
     @RequestMapping("/findgoodbyid")
     public Goods findgoodbyid(@RequestParam int id);
+
+    @RequestMapping("findbu")
+    public Goods findbu(@RequestParam Integer versionid,@RequestParam String goodsname);
 }

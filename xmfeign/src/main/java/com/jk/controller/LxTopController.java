@@ -37,20 +37,14 @@ public class LxTopController {
     @RequestMapping("queryTopList")
     @ResponseBody
     public List<GoodsBeab> queryTopList(String topName, Integer type) {
-
-
-        List<GoodsBeab> goodsBeabs = (List) redisUtil.get(RedisConstant.Goods_Key + "_" + type);
-        if (goodsBeabs == null || goodsBeabs.isEmpty()) {
+        List<GoodsBeab> goodsBeabs = (List)redisUtil.get(RedisConstant.Tuijian_Key+"_"+type);
+        if(goodsBeabs == null || goodsBeabs.isEmpty()) {
             goodsBeabs = lxTopService.queryTopList(topName, type);
-            redisUtil.set(RedisConstant.Goods_Key + "_" + type, goodsBeabs);
-            goodsBeabs = (List) redisUtil.get(RedisConstant.Tuijian_Key + "_" + type);
-            if (goodsBeabs == null || goodsBeabs.isEmpty()) {
-                goodsBeabs = lxTopService.queryTopList(topName, type);
-                redisUtil.set(RedisConstant.Tuijian_Key + "_" + type, goodsBeabs);
-                // 设置key的过期时间
-                //redisUtil.expire(RedisConstant.USER_LIST_KEY + "_" + user, 60);
-            }
+            redisUtil.set(RedisConstant.Tuijian_Key+"_"+type,goodsBeabs);
+            // 设置key的过期时间
+            //redisUtil.expire(RedisConstant.USER_LIST_KEY + "_" + user, 60);
         }
+
         return goodsBeabs;
     }
     @RequestMapping("queryTopGoodsInfoById")

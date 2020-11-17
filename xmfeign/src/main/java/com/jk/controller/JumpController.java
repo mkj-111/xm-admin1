@@ -29,7 +29,7 @@ public class JumpController {
         return "phone/25";
     }
 
-
+    //秒杀商品
     @RequestMapping("toskill")
     public String toskill(Integer id,HttpSession session){
         SkillBean skill = skillService.findskillbyid(id);
@@ -79,27 +79,82 @@ public class JumpController {
 
         return "admin/search_success";
     }
-        //跳转抢购页面
-        @RequestMapping("qianggou")
-        public String qianggou() {
-            return "qqww";
-        }
+    //跳转抢购页面
+    @RequestMapping("qianggou")
+    public String qianggou() {
+        return "qqww";
+    }
 
-        //跳转订单页面
-        @RequestMapping("/goodsPhone")
-        public String goodsPhone(){
-            return "admin/goods_phones";
-        }
+    //跳转订单页面
+    @RequestMapping("/goodsPhone")
+    public String goodsPhone(){
+        return "admin/goods_phones";
+    }
 
+    @RequestMapping("main")
+    public String main(){
+        return "main_page";
+    }
+    @RequestMapping("test")
+    public String test(){
+        return "higCharts";
+    }
+    /*于英彬(个人中心)始*/
+    //跳转个人中心页面center
+    @RequestMapping("center")
+    public String center(){
+        return "yyb/center";
+    }
+    //跳转消息通知页面personal
+    @RequestMapping("personal")
+    public String personal(){
+        return "yyb/personal";
+    }
+    //跳转购买资格页面shuttle
+    @RequestMapping("shuttle")
+    public String shuttle(){
+        return "yyb/shuttle";
+    }
+    //跳转现金账户页面current
+    @RequestMapping("current")
+    public String current(){
+        return "yyb/current";
+    }
+    //跳转小米礼品卡页面present
+    @RequestMapping("present")
+    public String present(){
+        return "yyb/present";
+    }
+    //跳转现金券页面money
+    @RequestMapping("money")
+    public String money(){
+        return "yyb/money";
+    }
+    //跳转喜欢的商品页面like
+    @RequestMapping("like")
+    public String like(){
+        return "yyb/like";
+    }
+    //跳转优惠券页面discount
+    @RequestMapping("discount")
+    public String discount(){
+        return "yyb/discount";
+    }
+    //跳转收货地址页面area
+    @RequestMapping("area")
+    public String area(){
+        return "yyb/area";
+    }
+    //跳转红包页面red
+    @RequestMapping("red")
+    public String red(){
+        return "yyb/red";
+    }
     //跳转我的订单页面order
     @RequestMapping("order")
     public String orde(){
         return "yyb/order";
     }
-
-
-
-
 
 
     //跳转评论
@@ -125,39 +180,30 @@ public class JumpController {
         return "yyb/topUp";
     }
 
-    @RequestMapping("main")
-    public String main(){
-        return "main_page";
+    //修改用户信息页面
+    @RequestMapping("toUpdateUser")
+    public  String toUpdateUser(){
+        return "yyb/updateUser";
+    }
+    //跳转订单
+    @RequestMapping("order_admin")
+    public String orderadmin(){
+        return "admin/order_admin";
     }
 
-    @RequestMapping("test")
-    public String test(){
-        return "higCharts";
+    //跳转已支付订单
+    @RequestMapping("order_admin1")
+    public String orderadmin1(){
+        return "admin/order_admin1";
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    //跳转待发货订单
+    @RequestMapping("order_admin3")
+    public String orderadmin3(){
+        return "admin/order_admin3";
+    }
+    //跳转待收货订单
+    @RequestMapping("order_admin4")
+    public String orderadmin4(){
+        return "admin/order_admin4";
+    }
 }

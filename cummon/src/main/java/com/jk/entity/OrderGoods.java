@@ -20,6 +20,9 @@ public class OrderGoods {
     private String goodsId;
     private String goodsNum;
 
+    private String endTime;
+
+
     public String getGoodsNum() {
         return goodsNum;
     }
@@ -34,6 +37,14 @@ public class OrderGoods {
 
     public void setGoodsId(String goodsId) {
         this.goodsId = goodsId;
+    }
+
+    public String getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(String endTime) {
+        this.endTime = endTime;
     }
 
     public String getOrdergoodsName() {

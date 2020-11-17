@@ -8,4 +8,6 @@ public interface GoodsService {
     List<Goods> findGoods(Integer typeId);
 
     Goods findgoodbyid(int id);
+
+    Goods findbu(Integer versionid, String goodsname);
 }

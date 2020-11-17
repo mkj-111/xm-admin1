@@ -13,4 +13,11 @@ public interface UserService {
 
     @RequestMapping("updateUserBean")
     public void updateUserBean(@RequestParam Integer id,@RequestParam String name,@RequestParam Integer sex);
+
+
+    @RequestMapping("findbyphone")
+    public xmuser findbyphone(@RequestParam String phone);
+
+    @RequestMapping("add")
+    public void add(@RequestParam String phone);
 }

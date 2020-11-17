@@ -2,7 +2,6 @@ package com.jk.controller;
 
 import com.jk.entity.Goods;
 import com.jk.service.GoodsService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -32,4 +31,8 @@ public class GoodsController {
         return goodsService.findgoodbyid(id);
     }
 
+    @RequestMapping("findbu")
+    public Goods findbu(@RequestParam Integer versionid,@RequestParam String goodsname){
+        return goodsService.findbu(versionid,goodsname);
+    }
 }

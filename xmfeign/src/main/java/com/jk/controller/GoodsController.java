@@ -7,6 +7,7 @@ import com.jk.utils.RedisUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpSession;
@@ -50,4 +51,8 @@ public class GoodsController {
         return goods;
     }
 
+    @RequestMapping("findbu")
+    public Goods findbu(@RequestParam Integer versionid, @RequestParam String goodsname){
+        return goodsService.findbu(versionid,goodsname);
+    }
 }

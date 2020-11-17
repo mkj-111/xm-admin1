@@ -23,11 +23,15 @@
     <link rel="icon" href="https://s01.mifile.cn/favicon.ico" type="image/x-icon">
     <meta http-equiv="Cache-Control" content="no-transform ">
     <meta http-equiv="Cache-Control" content="no-siteapp">
-
     <link href="../我的订单-小米商城1_files/orderList.0c91c7f7.css" rel="preload" as="style">
     <link href="../我的订单-小米商城1_files/chunk-vendors.50ac3731.js" rel="preload" as="script">
     <link href="../我的订单-小米商城1_files/orderList.ecf6e2e6.js" rel="preload" as="script">
     <link href="../我的订单-小米商城1_files/orderList.0c91c7f7.css" rel="stylesheet">
+    <script src="../js/jquery-1.9.1.min.js"></script>
+    <script src="../js/bootstrap3/js/bootstrap.js"></script>
+    <script src="../js/bootstrap-treeview/bootstrap-treeview.min.js"></script>
+    <script src="../js/bootStrap-addTabs/bootstrap.addtabs.min.js"></script>
+    <script src="../js/vue/vue.min.js"></script>
 </head>
 
 <body id="stat_e3c9df7196008778">
@@ -2517,7 +2521,7 @@
                                 </div>
                             </div>
                             <div class="box-bd">
-                                <div>
+                                <div id="fukuan">
                                     <ul class="order-list">
                                         <li data-v-1df9de88="" class="uc-order-item uc-order-item-pay"><!---->
                                             <div data-v-9b301396="" data-v-1df9de88="" class="order-detail">
@@ -2787,6 +2791,102 @@
         var s = document.getElementsByTagName("script")[0];
         s.parentNode.insertBefore(hm, s);
     })();
+
+    $(function () {
+        findOrderGoodsList();
+    })
+
+
+    window.onload=function(){
+        var countdown=document.getElementById("countdown");
+
+        var time=900;//30分钟换算成1800秒
+
+        setInterval(function(){
+            time=time-1;
+            var minute=parseInt(time/60);
+            var second=parseInt(time%60);
+            countdown.innerHTML='<font size="5" color="#a52a2a">还剩'+minute+'分'+second+'秒'+'订单失效<font>';
+        },1000);
+    }
+
+    function findOrderGoodsList() {
+        var result;
+        var url = window.location.search; //获取url中"?"符后的字串
+        orderNum = url.substr(10)
+        var str= "";
+        $.ajax({
+            url:'../findOrderGoodsList',
+            type:'post',
+            data:{suijishu:orderNum},
+            dataType:'json',
+            success:function (data) {
+                console.log(data);
+                str+='<ul class="order-list">';
+                str+='<li data-v-1df9de88="" class="uc-order-item uc-order-item-pay">';
+                str+='  <div data-v-9b301396="" data-v-1df9de88="" class="order-detail">';
+                str+='  <div data-v-9b301396="" class="order-summary">';
+                str+='     <div data-v-9b301396="" class="order-status">';
+                str+='        </div></div>';
+                str+='      <table data-v-9b301396="" class="order-detail-table">';
+
+                str+='            <thead data-v-9b301396="">';
+                str+='               <tr data-v-9b301396="">';
+                str+='                    <th data-v-9b301396="" class="col-main"><p data-v-9b301396="" class="caption-info">';
+                str+='                          '+data.createTime+'';
+                str+='                         <span data-v-9b301396="" class="sep">|</span>';
+                str+='                         <span data-v-9b301396="" class="sep">|</span>';
+                str+='                        订单号：<a data-v-9b301396=""';
+                str+='                                href="https://www.mi.com/user/orderView?order_id=5201111449528904"';
+                str+='                                stat_exposure="true">'+data.orderNum+'</a><span';
+                str+='                         data-v-9b301396="" class="sep">|</span><!---->';
+                str+='                   </p></th>';
+                str+='             <th data-v-9b301396="" class="col-sub"><p data-v-9b301396=""';
+                str+='                                                              class="caption-price">';
+                str+='                      订单总额：';
+                str+='                        <span data-v-9b301396="" class="num">'+data.orderSumPrice+'</span>元';
+                str+='                  </p></th>';
+                str+='               </tr>';
+                str+='           </thead>';
+                str+='           <tbody data-v-9b301396="">';
+                str+='               <tr data-v-9b301396="">';
+                str+='                <td data-v-9b301396="" class="order-items">';
+                str+='                    <ul data-v-9b301396="" class="goods-list">';
+                str+='                       <li data-v-1e04aab1="" data-v-9b301396="">';
+                str+='                            <div data-v-1e04aab1="" class="figure figure-thumb">';
+                str+='                                <a data-v-1e04aab1=""';
+                str+='                                      href="https://www.mi.com/buy?product_id=1202300012"';
+                str+='                                      target="_blank" stat_exposure="true"><img';
+                str+='                                        data-v-1e04aab1=""';
+                str+='                                       src=""';
+                str+='                                      width="80" height="80" alt='+data.ordergoodsName+'></a>';
+                str+='                             </div>';
+                str+='                              <p data-v-1e04aab1="" class="name"><a';
+                str+='                                  data-v-1e04aab1=""';
+                str+='                                  href="https://www.mi.com/buy?product_id=1202300012"';
+                str+='                                    target="_blank" stat_exposure="true">'+data.ordergoodsName+'';
+                str+='                                  </a><!----><!----></p>';
+                str+='                               <p data-v-1e04aab1="" class="price">';
+                str+='                                件数：x'+data.goodsNum+'   ';
+                str+='                               </p><!----></li>';
+                str+='    <div id="countdown">15 分 00 秒</div>';
+                str+='                       </ul>';
+                str+='                  </td>';
+                str+='                  </tr>';
+                str+='              </tbody>';
+
+                str+='          </table>';
+                str+='     </div>';
+                str+='  </li>';
+                str+=' </ul>';
+                str+='   </div>';
+                $("#fukuan").html(str)
+            }
+        })
+    }
+
+
+
 </script>
 
 

@@ -14,153 +14,12 @@
         <result column="goods_num" property="goodsNum" jdbcType="INTEGER"/>
         <result column="goods_date" property="goodsDate" jdbcType="DATE"/>
     </resultMap>
-    <sql id="Base_Column_List">
-        id, goods_name, goods_status, goods_caption, goods_type_id, goods_img, goods_color_id,
-        goods_img_all, goods_info, goods_num, goods_date
-    </sql>
-    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
-        select
-        <include refid="Base_Column_List"/>
-        from xm_goods
-        where id = #{id,jdbcType=INTEGER}
-    </select>
-    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-        delete from xm_goods
-        where id = #{id,jdbcType=INTEGER}
-    </delete>
-    <insert id="insert" parameterType="com.jk.entity.Goods">
-        insert into xm_goods (id, goods_name, goods_status,
-        goods_caption, goods_type_id, goods_img,
-        goods_color_id, goods_img_all, goods_info,
-        goods_num, goods_date)
-        values (#{id,jdbcType=INTEGER}, #{goodsName,jdbcType=VARCHAR}, #{goodsStatus,jdbcType=VARCHAR},
-        #{goodsCaption,jdbcType=VARCHAR}, #{goodsTypeId,jdbcType=INTEGER}, #{goodsImg,jdbcType=VARCHAR},
-        #{goodsColorId,jdbcType=VARCHAR}, #{goodsImgAll,jdbcType=VARCHAR}, #{goodsInfo,jdbcType=VARCHAR},
-        #{goodsNum,jdbcType=INTEGER}, #{goodsDate,jdbcType=DATE})
-    </insert>
-    <insert id="insertSelective" parameterType="com.jk.entity.Goods">
-        insert into xm_goods
-        <trim prefix="(" suffix=")" suffixOverrides=",">
-            <if test="id != null">
-                id,
-            </if>
-            <if test="goodsName != null">
-                goods_name,
-            </if>
-            <if test="goodsStatus != null">
-                goods_status,
-            </if>
-            <if test="goodsCaption != null">
-                goods_caption,
-            </if>
-            <if test="goodsTypeId != null">
-                goods_type_id,
-            </if>
-            <if test="goodsImg != null">
-                goods_img,
-            </if>
-            <if test="goodsColorId != null">
-                goods_color_id,
-            </if>
-            <if test="goodsImgAll != null">
-                goods_img_all,
-            </if>
-            <if test="goodsInfo != null">
-                goods_info,
-            </if>
-            <if test="goodsNum != null">
-                goods_num,
-            </if>
-            <if test="goodsDate != null">
-                goods_date,
-            </if>
-        </trim>
-        <trim prefix="values (" suffix=")" suffixOverrides=",">
-            <if test="id != null">
-                #{id,jdbcType=INTEGER},
-            </if>
-            <if test="goodsName != null">
-                #{goodsName,jdbcType=VARCHAR},
-            </if>
-            <if test="goodsStatus != null">
-                #{goodsStatus,jdbcType=VARCHAR},
-            </if>
-            <if test="goodsCaption != null">
-                #{goodsCaption,jdbcType=VARCHAR},
-            </if>
-            <if test="goodsTypeId != null">
-                #{goodsTypeId,jdbcType=INTEGER},
-            </if>
-            <if test="goodsImg != null">
-                #{goodsImg,jdbcType=VARCHAR},
-            </if>
-            <if test="goodsColorId != null">
-                #{goodsColorId,jdbcType=VARCHAR},
-            </if>
-            <if test="goodsImgAll != null">
-                #{goodsImgAll,jdbcType=VARCHAR},
-            </if>
-            <if test="goodsInfo != null">
-                #{goodsInfo,jdbcType=VARCHAR},
-            </if>
-            <if test="goodsNum != null">
-                #{goodsNum,jdbcType=INTEGER},
-            </if>
-            <if test="goodsDate != null">
-                #{goodsDate,jdbcType=DATE},
-            </if>
-        </trim>
-    </insert>
-    <update id="updateByPrimaryKeySelective" parameterType="com.jk.entity.Goods">
-        update xm_goods
-        <set>
-            <if test="goodsName != null">
-                goods_name = #{goodsName,jdbcType=VARCHAR},
-            </if>
-            <if test="goodsStatus != null">
-                goods_status = #{goodsStatus,jdbcType=VARCHAR},
-            </if>
-            <if test="goodsCaption != null">
-                goods_caption = #{goodsCaption,jdbcType=VARCHAR},
-            </if>
-            <if test="goodsTypeId != null">
-                goods_type_id = #{goodsTypeId,jdbcType=INTEGER},
-            </if>
-            <if test="goodsImg != null">
-                goods_img = #{goodsImg,jdbcType=VARCHAR},
-            </if>
-            <if test="goodsColorId != null">
-                goods_color_id = #{goodsColorId,jdbcType=VARCHAR},
-            </if>
-            <if test="goodsImgAll != null">
-                goods_img_all = #{goodsImgAll,jdbcType=VARCHAR},
-            </if>
-            <if test="goodsInfo != null">
-                goods_info = #{goodsInfo,jdbcType=VARCHAR},
-            </if>
-            <if test="goodsNum != null">
-                goods_num = #{goodsNum,jdbcType=INTEGER},
-            </if>
-            <if test="goodsDate != null">
-                goods_date = #{goodsDate,jdbcType=DATE},
-            </if>
-        </set>
-        where id = #{id,jdbcType=INTEGER}
-    </update>
-    <update id="updateByPrimaryKey" parameterType="com.jk.entity.Goods">
-        update xm_goods
-        set goods_name = #{goodsName,jdbcType=VARCHAR},
-        goods_status = #{goodsStatus,jdbcType=VARCHAR},
-        goods_caption = #{goodsCaption,jdbcType=VARCHAR},
-        goods_type_id = #{goodsTypeId,jdbcType=INTEGER},
-        goods_img = #{goodsImg,jdbcType=VARCHAR},
-        goods_color_id = #{goodsColorId,jdbcType=VARCHAR},
-        goods_img_all = #{goodsImgAll,jdbcType=VARCHAR},
-        goods_info = #{goodsInfo,jdbcType=VARCHAR},
-        goods_num = #{goodsNum,jdbcType=INTEGER},
-        goods_date = #{goodsDate,jdbcType=DATE}
-        where id = #{id,jdbcType=INTEGER}
-    </update>
+
+   <select id="findbu" resultMap="BaseResultMap">
+    SELECT * from xm_goods  where   goods_name=#{goodsname} AND goods_version_id=#{versionid}
+   </select>
+
+
 
     <select id="findGoods" resultMap="BaseResultMap">
         select a.*,c.goods_price as goodsPrice from xm_goods a
@@ -171,15 +30,7 @@
         GROUP BY
         a.goods_name
     </select>
-  <!--<select id="findGoods" resultType="com.jk.entity.Goods">
-    select a.*,c.goods_price as goodsPrice from xm_goods a
-    LEFT JOIN xm_color b
-        on a.goods_color_id = b.color_id
-    LEFT JOIN xm_versions c
-        on b.color_id = c.color_id where a.goods_remen = #{typeId}
-	GROUP BY
-		a.goods_name
-  </select>-->
+
 
     <select id="findgoodbyid" resultMap="BaseResultMap">
         select a.*,c.goods_price as goodsPrice from xm_goods a
