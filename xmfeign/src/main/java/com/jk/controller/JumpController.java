@@ -206,4 +206,9 @@ public class JumpController {
     public String orderadmin4(){
         return "admin/order_admin4";
     }
+    //跳转待评价订单
+    @RequestMapping("order_admin5")
+    public String orderadmin5(){
+        return "admin/order_admin5";
+    }
 }

@@ -6,7 +6,6 @@ import com.jk.service.OldPeopleService;
 import com.jk.utils.RedisUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
-import org.springframework.data.mongodb.core.query.Collation;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Controller;
@@ -28,7 +27,7 @@ public class OrderController {
     @Autowired
     private OldPeopleService oldPeopleService;
 
-
+    //跳转确认订单页面
     @RequestMapping("/orderList")
     public String Order_hrefList() {
 

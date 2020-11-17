@@ -16,4 +16,10 @@ public interface TorderMapper {
     List<OrderGoods> findorder3(@Param("userId")Integer userId);
 
     List<OrderGoods> findorder4(@Param("userId")Integer userId);
+
+    List<OrderGoods> findorder5(@Param("userId")Integer userId);
+
+    void updateorder(@Param("id")Integer id);
+
+    void deleteorder(@Param("id")Integer id);
 }

@@ -3426,14 +3426,14 @@
 
     //补坑
     function bu(versionid,goodsname){
-        alert("进入")
+        //alert("进入")
         $.ajax({
             url: "/goods/findbu",
             type: 'post',
             data: {versionid: versionid, goodsname: goodsname},
             success: function (data) {
                 id = data.id;
-                alert(id)
+                //alert(id)
             }
         })
     }

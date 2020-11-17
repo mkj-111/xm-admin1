@@ -706,7 +706,7 @@ public class RedisUtil {
      * @return 391
      */
 
-    public List<Object> lGet(String key, long start, long end) {
+    public List lGet(String key, long start, long end) {
 
         try {
 

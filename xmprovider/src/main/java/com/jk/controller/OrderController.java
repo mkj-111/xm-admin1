@@ -33,6 +33,25 @@ public class OrderController {
         return torderSrevice.findorder4(userId);
     }
 
+    //根据用户id查询状态为5待评价的订单
+    @RequestMapping("findorder5")
+    public List<OrderGoods>findorder5(@RequestParam Integer userId){
+        return torderSrevice.findorder5(userId);
+    }
+
+    //确认收货
+    @RequestMapping("updateorder")
+    public void updateorder(@RequestParam Integer id){
+         torderSrevice.updateorder(id);
+    }
+    @RequestMapping("deleteorder")
+    public void deleteorder(@RequestParam Integer id){
+        torderSrevice.deleteorder(id);
+    }
+
+
+
+
     //highcharts报表
     @RequestMapping("/highcharts")
     public List<TorderVo> highcharts() {

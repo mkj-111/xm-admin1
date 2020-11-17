@@ -34,4 +34,15 @@
     <select id="findorder4" resultType="com.jk.entity.OrderGoods">
         SELECT * FROM xm_order_goods where userId=#{userId} and  orderStatus=4
     </select>
+    <select id="findorder5" resultType="com.jk.entity.OrderGoods">
+        SELECT * FROM xm_order_goods where userId=#{userId} and  orderStatus=5
+    </select>
+
+    <update id="updateorder">
+        update xm_order_goods  set orderStatus=5  where id=#{id}
+    </update>
+
+    <delete id="deleteorder">
+        delete from xm_order_goods  where id=#{id}
+    </delete>
 </mapper>

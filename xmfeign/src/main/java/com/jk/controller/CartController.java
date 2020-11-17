@@ -53,6 +53,9 @@ public class CartController {
         redisUtil.del(RedisConstant.GOODS_LIST_KEY + "___" + userId.toString());
         //reids存入拼接的数据
         redisUtil.set(RedisConstant.GOODS_LIST_KEY + "___" + userId.toString(), goodsList);
+         //  List<Goods> goodsList1= (List<Goods>)redisUtil.lGet(RedisConstant.GOODS_LIST_KEY+userId.toString(),0,-1);
+
+
     }
 
 
@@ -67,6 +70,7 @@ public class CartController {
                 goods1.setGoodsNum(1);
             }
             redisUtil.set(RedisConstant.GOODS_LIST_KEY + "___" + userId.toString(), goodsList);
+           // redisUtil.lSet(RedisConstant.GOODS_LIST_KEY + "1___" + userId.toString(),goodsList);
             return goodsList;
         } else {//第二次存入相同的商品时
             //循环遍历集合

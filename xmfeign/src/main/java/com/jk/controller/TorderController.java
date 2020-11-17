@@ -1,19 +1,18 @@
 package com.jk.controller;
 
 import com.jk.entity.OrderGoods;
+import com.jk.entity.PingLunBean;
 import com.jk.entity.TorderVo;
 import com.jk.entity.xmuser;
 import com.jk.service.TorderService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Controller
 @RequestMapping("/order")
@@ -22,7 +21,29 @@ public class TorderController {
     @Autowired
     private TorderService torderService;
 
+    @Autowired
+    private MongoTemplate mongoTemplate;
 
+    //评论
+    @RequestMapping("ping")
+    @ResponseBody
+    public void ping(Integer id,String pinglun,HttpSession session){
+        xmuser user = (xmuser) session.getAttribute("user");
+        String userName = user.getUserName();
+        PingLunBean pp = new PingLunBean();
+        long time = new Date().getTime();
+        Date now=new Date();
+        pp.setCreateDate(now.toString());
+        pp.setDianzan(0);
+        pp.setGoodsId(id);
+        pp.setInfo(pinglun);
+        pp.setStatus(0);
+        pp.setUserImg("");
+        pp.setUserName(userName);
+        mongoTemplate.save(pp);
+
+        torderService.deleteorder(id);
+    }
     //根据用户id查询状态为2已支付的订单
     @RequestMapping("findorder")
     @ResponseBody
@@ -46,6 +67,21 @@ public class TorderController {
         xmuser user = (xmuser) session.getAttribute("user");
         Integer userId = user.getUserId();
         return torderService.findorder4(userId);
+    }
+    //根据用户id查询状态为5待评价的订单
+    @RequestMapping("findorder5")
+    @ResponseBody
+    public List<OrderGoods>findorder5(HttpSession session){
+        xmuser user = (xmuser) session.getAttribute("user");
+        Integer userId = user.getUserId();
+        return torderService.findorder5(userId);
+    }
+
+    //确认收货
+    @RequestMapping("updateorder")
+    @ResponseBody
+    public void updateorder(Integer id){
+         torderService.updateorder(id);
     }
 
 

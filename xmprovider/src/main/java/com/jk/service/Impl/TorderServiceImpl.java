@@ -34,4 +34,19 @@ public class TorderServiceImpl implements TorderSrevice {
     public List<OrderGoods> findorder4(Integer userId) {
         return torderMapper.findorder4(userId);
     }
+
+    @Override
+    public List<OrderGoods> findorder5(Integer userId) {
+        return torderMapper.findorder5(userId);
+    }
+
+    @Override
+    public void updateorder(Integer id) {
+         torderMapper.updateorder(id);
+    }
+
+    @Override
+    public void deleteorder(Integer id) {
+        torderMapper.deleteorder(id);
+    }
 }

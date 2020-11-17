@@ -23,4 +23,16 @@ public interface TorderService {
     //根据用户id查询状态为4待收的订单
     @RequestMapping("findorder4")
     public List<OrderGoods>findorder4(@RequestParam Integer userId);
+
+    //根据用户id查询状态为5待评价的订单
+    @RequestMapping("findorder5")
+    public List<OrderGoods>findorder5(@RequestParam Integer userId);
+
+
+    //确认收货
+    @RequestMapping("updateorder")
+    public void updateorder(@RequestParam Integer id);
+
+    @RequestMapping("deleteorder")
+    public void deleteorder(@RequestParam Integer id);
 }
